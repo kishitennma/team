@@ -370,8 +370,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.4, z: -19.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -395,17 +395,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol_01
       objectReference: {fileID: 0}
+    - target: {fileID: 859241350714048179, guid: 3d17072c08c92c045baf32c95f350bc0, type: 3}
+      propertyPath: shoot_force
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 871331583263626219, guid: 3d17072c08c92c045baf32c95f350bc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 871331583263626219, guid: 3d17072c08c92c045baf32c95f350bc0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.52035284
+      value: -0.56
       objectReference: {fileID: 0}
     - target: {fileID: 871331583263626219, guid: 3d17072c08c92c045baf32c95f350bc0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.08
+      value: 5.43
       objectReference: {fileID: 0}
     - target: {fileID: 871331583263626219, guid: 3d17072c08c92c045baf32c95f350bc0, type: 3}
       propertyPath: m_LocalRotation.w

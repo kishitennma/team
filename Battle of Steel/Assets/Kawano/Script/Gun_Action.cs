@@ -9,8 +9,8 @@ public class Gun_Action : MonoBehaviour
     [SerializeField] GameObject bullet;//弾丸
     
     [Header("GunProrerty")]
-    [SerializeField] float shoot_force; //発射の威力
-    [SerializeField] float time_bet_shooting;//発射レート(連射用)
+    [SerializeField] float shoot_force;       //発射速度
+    [SerializeField] float time_bet_shooting; //発射レート(連射用)
     [SerializeField] float time_bet_shots;//発射レート(ショットガン用)
     [SerializeField] float spread; //散弾具合(ショットガン用)
     [SerializeField] float reload_time;//リロード用時間
@@ -117,6 +117,7 @@ public class Gun_Action : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+        
         Invoke(nameof(ReloadFinished), reload_time);
     }
     /// <summary>

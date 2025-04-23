@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1888953269821231482}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.811, y: -1.88, z: 0}
+  m_LocalPosition: {x: 0.723, y: -2.134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -113,12 +113,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shoot_point: {fileID: 7322256788861049661}
   bullet: {fileID: 3941514989736261503, guid: 7bf0c9bad1104a54cb1ab961995aeb2e, type: 3}
-  shoot_force: 200
+  shoot_force: 50
   time_bet_shooting: 0
-  time_bet_shots: 0.4
+  time_bet_shots: 0.6
   spread: 0
-  reload_time: 1.7
-  magazine_size: 18
+  reload_time: 1.9
+  magazine_size: 3
   bullet_par_tap: 0
   allow_bullet_hold: 0
   ignore_layer:
