@@ -5,10 +5,10 @@ using System.Collections;
 public class Gun_Action : MonoBehaviour
 {
     [Header("Reference")]
-    [SerializeField] Transform shoot_point;//発射する
     [SerializeField] GameObject bullet;//弾丸
     
     [Header("GunProrerty")]
+    [SerializeField] Transform nozzle_transform;//ノズルのｚ軸取得
     [SerializeField] float shoot_force;       //発射速度
     [SerializeField] float time_bet_shooting; //発射レート(連射用)
     [SerializeField] float time_bet_shots;//発射レート(ショットガン用)
@@ -16,11 +16,8 @@ public class Gun_Action : MonoBehaviour
     [SerializeField] float reload_time;//リロード用時間
     [SerializeField] int magazine_size;//マガジンのサイズ
     [SerializeField] int bullet_par_tap;//一発あたりの玉の数
-    [SerializeField] bool allow_bullet_hold;//連射か単発のフラグ
+    [SerializeField] bool allow_bullet_hold;//連発か単発のフラグ
     [SerializeField] LayerMask ignore_layer;//無視可能レイヤー
-
-    GameObject player_cam;
-
     int bullets_shot, bullets_left;
     bool shooting, ready_to_shot;
     public bool reloading;
@@ -28,7 +25,6 @@ public class Gun_Action : MonoBehaviour
 
     void Start()
     {
-        player_cam = GameObject.Find("Main Camera");
         bullets_left = magazine_size;
         ready_to_shot = true;
     }
@@ -65,24 +61,16 @@ public class Gun_Action : MonoBehaviour
     {
         ready_to_shot = false;
 
-        Ray ray = player_cam.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
-        RaycastHit hit;
-        Vector3 target_point;
-        if (Physics.Raycast(ray, out hit, 1000f, ~ignore_layer))//レイに何が当たったかチェック
-            target_point = hit.point;
-        else
-            target_point = ray.GetPoint(10);//何にも当たらなかったら長さを強制変更
         //銃口から見たターゲットの方向を取得
-        Vector3 direction_without_spread = target_point - shoot_point.position;
+        Vector3 direction_without_spread = nozzle_transform.forward;
 
         //散弾の幅
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
-
-        Vector3 direction_with_spread = direction_without_spread + new Vector3(x, y, 0);
+        Vector3 direction_with_spread = direction_without_spread + nozzle_transform.TransformDirection(new Vector3(x, y, 0));
 
         //弾の生成
-        GameObject current_bullet = Instantiate(bullet, shoot_point.position, Quaternion.identity);
+        GameObject current_bullet = Instantiate(bullet, nozzle_transform.position, nozzle_transform.rotation);
         //弾を前方に向かせる
         current_bullet.transform.forward = direction_with_spread.normalized;
         //弾に力を加える
