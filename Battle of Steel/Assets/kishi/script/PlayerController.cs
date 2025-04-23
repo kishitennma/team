@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public RuntimeAnimatorController running;
     public RuntimeAnimatorController standing;
 
-    public float moveSpeed = 5.0f; // キャラクターの移動速度
+    public float moveSpeed = 30.0f; // キャラクターの移動速度
 
     public bool damaged;
 
@@ -54,5 +54,19 @@ public class PlayerController : MonoBehaviour
         {
             animator.runtimeAnimatorController = standing;
         }
+
+        if(Input.GetKey(KeyCode.S))
+        {
+            transform.position += transform.forward * -moveSpeed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position += transform.right * -moveSpeed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += transform.right * moveSpeed * Time.deltaTime;
+        }
     }
 }
+
