@@ -5,33 +5,31 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    float moveSpeedIn;//�v���C���[�̈ړ����x�����
+    float moveSpeedIn;
 
 
-    Rigidbody playerRb;//�v���C���[��Rigidbody
+    Rigidbody playerRb;
 
-    Vector3 moveSpeed;//�v���C���[�̈ړ����x
+    Vector3 moveSpeed;
 
-    Vector3 currentPos;//�v���C���[�̌��݂̈ʒu
-    Vector3 pastPos;//�v���C���[�̉ߋ��̈ʒu
+    Vector3 currentPos;
+    Vector3 pastPos;
 
-    Vector3 delta;//�v���C���[�̈ړ���
+    Vector3 delta;
 
-    Quaternion playerRot;//�v���C���[�̐i�s�����������N�H�[�^�j�I��
-
-    float currentAngularVelocity;//���݂̉�]�e���x
-
-    [SerializeField]
-    float maxAngularVelocity = Mathf.Infinity;//�ő�̉�]�p���x[deg/s]
+    Quaternion playerRot;
+    float currentAngularVelocity;
 
     [SerializeField]
-    float smoothTime = 0.1f;//�i�s�����ɂ����邨���悻�̎���[s]
+    float maxAngularVelocity = Mathf.Infinity;
 
-    float diffAngle;//���݂̌����Ɛi�s�����̊p�x
+    [SerializeField]
+    float smoothTime = 0.1f;
 
-    float rotAngle;//���݂̉�]����p�x
+    float diffAngle;
+    float rotAngle;
 
-    Quaternion nextRot;//�ǂ񂭂炢��]���邩
+    Quaternion nextRot;
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -41,14 +39,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //------�v���C���[�̈ړ�------
+      
 
-        //�J�����ɑ΂��đO���擾
+       
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        //�J�����ɑ΂��ĉE���擾
+      
         Vector3 cameraRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
 
-        //moveVelocity��0�ŏ���������
+      
         moveSpeed = Vector3.zero;
 
         //�ړ�����
@@ -72,7 +70,7 @@ public class PlayerController : MonoBehaviour
             moveSpeed = moveSpeedIn * cameraRight;
         }
 
-        //Move���\�b�h�ŁA�͉����Ă��炤
+       
         Move();
 
         //����������
@@ -84,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
         //------�v���C���[�̉�]------
 
-        //���݂̈ʒu
+        ////���݂̈ʒu
         currentPos = transform.position;
 
         //�ړ��ʌv�Z
@@ -111,9 +109,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// �ړ������ɗ͂�������
-    /// </summary>
+   
     private void Move()
     {
         //playerRb.AddForce(moveSpeed, ForceMode.Force);
