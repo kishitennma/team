@@ -1,119 +1,72 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    float moveSpeedIn;
+    [SerializeField] GameObject player;
 
+    public GameObject Cam;
+    private Animator animator; // キャラクターオブジェクトのAnimator
+    public RuntimeAnimatorController walking;
+    public RuntimeAnimatorController running;
+    public RuntimeAnimatorController standing;
 
-    Rigidbody playerRb;
+    public float moveSpeed = 30.0f; // キャラクターの移動速度
 
-    Vector3 moveSpeed;
+    public bool damaged;
 
-    Vector3 currentPos;
-    Vector3 pastPos;
-
-    Vector3 delta;
-
-    Quaternion playerRot;
-    float currentAngularVelocity;
-
-    [SerializeField]
-    float maxAngularVelocity = Mathf.Infinity;
-
-    [SerializeField]
-    float smoothTime = 0.1f;
-
-    float diffAngle;
-    float rotAngle;
-
-    Quaternion nextRot;
-    void Start()
+    private void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        damaged = false;
+    }
 
-        pastPos = transform.position;
+    void Screen_movement(float mx)
+    {
+        // X方向に一定量移動していれば横回転
+        //0.0000001fは滑らかさ
+        if (Mathf.Abs(mx) > 0.0000001f)
+        {
+            mx = mx * 5;
+
+            // 回転軸はワールド座標のY軸
+            player.transform.RotateAround(player.transform.position, Vector3.up, mx);
+        }
     }
 
     void Update()
     {
-      
+        float mx = Input.GetAxis("Mouse X");
+        Screen_movement(mx);
 
-       
-        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-      
-        Vector3 cameraRight = Vector3.Scale(Camera.main.transform.right, new Vector3(1, 0, 1)).normalized;
-
-      
-        moveSpeed = Vector3.zero;
-
-        //�ړ�����
         if (Input.GetKey(KeyCode.W))
         {
-            moveSpeed = moveSpeedIn * cameraForward;
+            // "W"キーが押されたときの処理をここに記述
+            print("歩くぞお");
+            animator.runtimeAnimatorController = walking;
+
+            //プレイヤーの正面に向かって移動する
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            animator.runtimeAnimatorController = standing;
         }
 
+        if(Input.GetKey(KeyCode.S))
+        {
+            transform.position += transform.forward * -moveSpeed * Time.deltaTime;
+        }
         if (Input.GetKey(KeyCode.A))
         {
-            moveSpeed = -moveSpeedIn * cameraRight;
+            transform.position += transform.right * -moveSpeed * Time.deltaTime;
         }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveSpeed = -moveSpeedIn * cameraForward;
-        }
-
         if (Input.GetKey(KeyCode.D))
         {
-            moveSpeed = moveSpeedIn * cameraRight;
+            transform.position += transform.right * moveSpeed * Time.deltaTime;
         }
-
-       
-        Move();
-
-        //����������
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
-        {
-            //playerRb.velocity = Vector3.zero;
-            // playerRb.angularVelocity = Vector3.zero;
-        }
-
-        //------�v���C���[�̉�]------
-
-        ////���݂̈ʒu
-        currentPos = transform.position;
-
-        //�ړ��ʌv�Z
-        delta = currentPos - pastPos;
-        delta.y = 0;
-
-        //�ߋ��̈ʒu�̍X�V
-        pastPos = currentPos;
-
-        if (delta == Vector3.zero)
-            return;
-
-        playerRot = Quaternion.LookRotation(delta, Vector3.up);
-
-        diffAngle = Vector3.Angle(transform.forward, delta);
-
-        //Vector3.SmoothDamp��Vector3�^�̒l�����X�ɕω�������
-        //Vector3.SmoothDamp (���ݒn, �ړI�n, ref ���݂̑��x, �J�ڎ���, �ō����x);
-        rotAngle = Mathf.SmoothDampAngle(0, diffAngle, ref currentAngularVelocity, smoothTime, maxAngularVelocity);
-
-        nextRot = Quaternion.RotateTowards(transform.rotation, playerRot, rotAngle);
-
-        transform.rotation = nextRot;
-
-    }
-
-   
-    private void Move()
-    {
-        //playerRb.AddForce(moveSpeed, ForceMode.Force);
-
-        playerRb.linearVelocity = moveSpeed;
     }
 }
+
