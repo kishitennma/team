@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3735803449624710716
+--- !u!1001 &9207370012348470146
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.59
+      value: -1.8316457
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.68
+      value: 1.9179993
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.02
+      value: -13.93
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,60 +48,52 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8200134128361465789, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
     - target: {fileID: 919132149155446097, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_Name
       value: Pistol_01
       objectReference: {fileID: 0}
-    - target: {fileID: 6758217635896494121, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 6994729016509147994, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8112460815331986230}
+      addedObject: {fileID: 1820627155355444822}
   m_SourcePrefab: {fileID: 100100000, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
---- !u!1 &4546758346480448365 stripped
+--- !u!4 &1971971168531128765 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7249387381911024191, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
+  m_PrefabInstance: {fileID: 9207370012348470146}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8288400055116787411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
-  m_PrefabInstance: {fileID: 3735803449624710716}
+  m_PrefabInstance: {fileID: 9207370012348470146}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8112460815331986230
+--- !u!114 &1820627155355444822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4546758346480448365}
+  m_GameObject: {fileID: 8288400055116787411}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6b51979e43b1fe4cb28327d2113c457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
-  nozzle_transform: {fileID: 6287801453256784899}
-  shoot_force: 90
-  time_bet_shooting: 0.6
+  nozzle_transform: {fileID: 1971971168531128765}
+  shoot_force: 70
+  time_bet_shooting: 0.8
   time_bet_shots: 0
-  spread: 0
-  reload_time: 1.3
-  magazine_size: 12
-  bullet_par_tap: 5
+  spread: 0.03
+  reload_time: 0.6
+  magazine_size: 6
+  bullet_par_tap: 0
   allow_bullet_hold: 0
   ignore_layer:
     serializedVersion: 2
     m_Bits: 0
   reloading: 0
   allow_invoke: 1
---- !u!4 &6287801453256784899 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7249387381911024191, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
-  m_PrefabInstance: {fileID: 3735803449624710716}
-  m_PrefabAsset: {fileID: 0}

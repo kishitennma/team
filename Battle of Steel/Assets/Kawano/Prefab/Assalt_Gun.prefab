@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &220599595239524759
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.4789367
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.365487
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.251682
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.49999997
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      propertyPath: m_Name
+      value: Assalt_Gun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6885784240538221004}
+  m_SourcePrefab: {fileID: 100100000, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+--- !u!1 &1139080819417412806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+  m_PrefabInstance: {fileID: 220599595239524759}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6885784240538221004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139080819417412806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b51979e43b1fe4cb28327d2113c457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
+  nozzle_transform: {fileID: 1170075839411761357}
+  shoot_force: 70
+  time_bet_shooting: 0.3
+  time_bet_shots: 0.1
+  spread: 0.05
+  reload_time: 0.2
+  magazine_size: 32
+  bullet_par_tap: 1
+  allow_bullet_hold: 1
+  ignore_layer:
+    serializedVersion: 2
+    m_Bits: 0
+  reloading: 0
+  allow_invoke: 1
+--- !u!4 &1170075839411761357 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1383533002276960602, guid: c26ae2082b588c043bc22cfbfe6c68f9, type: 3}
+  m_PrefabInstance: {fileID: 220599595239524759}
+  m_PrefabAsset: {fileID: 0}
