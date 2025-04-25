@@ -85,7 +85,7 @@ MonoBehaviour:
   spread: 0.05
   reload_time: 0.2
   magazine_size: 32
-  bullet_par_tap: 1
+  bullet_par_tap: 0
   allow_bullet_hold: 1
   ignore_layer:
     serializedVersion: 2
