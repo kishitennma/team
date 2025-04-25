@@ -240,63 +240,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &832795710
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.3654866
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -13.545039
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.49999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 325670210611031676, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1139080819417412806, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
-      propertyPath: m_Name
-      value: Assalt_Gun
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2b52492e2bad09445bea9c62a0461f95, type: 3}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,4 +493,3 @@ SceneRoots:
   - {fileID: 961739753}
   - {fileID: 203844589}
   - {fileID: 1817044924}
-  - {fileID: 832795710}
