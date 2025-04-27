@@ -1,12 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 
 public class Gun_Action : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] GameObject bullet;//íeä€
-    
+
     [Header("GunProrerty")]
     [SerializeField] Transform nozzle_transform;//ÉmÉYÉãÇÃÇöé≤éÊìæ
     [SerializeField] float shoot_force;       //î≠éÀë¨ìx
@@ -45,14 +44,14 @@ public class Gun_Action : MonoBehaviour
             shooting = Input.GetMouseButtonDown(0);
 
         //åÇÇƒÇÈèÛë‘ÇÉ`ÉFÉbÉN
-        if(ready_to_shot && shooting && !reloading && bullets_left > 0)
+        if (ready_to_shot && shooting && !reloading && bullets_left > 0)
         {
             bullets_shot = 0;
             Shoot();
         }
 
         //ÉäÉçÅ[Éh
-        if(Input.GetKeyDown(KeyCode.R) && bullets_left < magazine_size && !reloading)
+        if (Input.GetKeyDown(KeyCode.R) && bullets_left < magazine_size && !reloading)
         {
             Reload();
         }
@@ -74,18 +73,18 @@ public class Gun_Action : MonoBehaviour
         //íeÇëOï˚Ç…å¸Ç©ÇπÇÈ
         current_bullet.transform.forward = direction_with_spread.normalized;
         //íeÇ…óÕÇâ¡Ç¶ÇÈ
-        current_bullet.GetComponent<Rigidbody>().AddForce(direction_with_spread.normalized * shoot_force,ForceMode.Impulse);
+        current_bullet.GetComponent<Rigidbody>().AddForce(direction_with_spread.normalized * shoot_force, ForceMode.Impulse);
         bullets_left--;
         bullets_shot++;
 
         //íeÇ∆íeÇ…ä‘äuÇâ¡Ç¶ÇÈ
-        if(allow_invoke)
+        if (allow_invoke)
         {
             Invoke("ResetShot", time_bet_shooting);
             allow_invoke = false;
         }
         //àÍìxÇ…èoÇ∑íe
-        if(bullets_shot < bullet_par_tap && bullets_left > 0)
+        if (bullets_shot < bullet_par_tap && bullets_left > 0)
         {
             Invoke("Shoot", time_bet_shots);
         }
@@ -105,7 +104,7 @@ public class Gun_Action : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        
+
         Invoke(nameof(ReloadFinished), reload_time);
     }
     /// <summary>

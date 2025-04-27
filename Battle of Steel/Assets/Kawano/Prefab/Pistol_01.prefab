@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9207370012348470146
+--- !u!1001 &3838675884805823919
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8316457
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9179993
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.93
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -58,42 +58,42 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1820627155355444822}
+      addedObject: {fileID: 8153309933812779678}
   m_SourcePrefab: {fileID: 100100000, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
---- !u!4 &1971971168531128765 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7249387381911024191, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
-  m_PrefabInstance: {fileID: 9207370012348470146}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8288400055116787411 stripped
+--- !u!1 &4144682408571609342 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
-  m_PrefabInstance: {fileID: 9207370012348470146}
+  m_PrefabInstance: {fileID: 3838675884805823919}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1820627155355444822
+--- !u!114 &8153309933812779678
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8288400055116787411}
+  m_GameObject: {fileID: 4144682408571609342}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6b51979e43b1fe4cb28327d2113c457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
-  nozzle_transform: {fileID: 1971971168531128765}
-  shoot_force: 70
-  time_bet_shooting: 0.8
+  nozzle_transform: {fileID: 5899513249827975056}
+  shoot_force: 90
+  time_bet_shooting: 0.3
   time_bet_shots: 0
-  spread: 0.03
-  reload_time: 0.6
-  magazine_size: 6
-  bullet_par_tap: 0
+  spread: 0.2
+  reload_time: 0.3
+  magazine_size: 16
+  bullet_par_tap: 2
   allow_bullet_hold: 0
   ignore_layer:
     serializedVersion: 2
     m_Bits: 0
   reloading: 0
   allow_invoke: 1
+--- !u!4 &5899513249827975056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7249387381911024191, guid: 1e4c1d88c9cca414fa43836a0f78f17e, type: 3}
+  m_PrefabInstance: {fileID: 3838675884805823919}
+  m_PrefabAsset: {fileID: 0}
