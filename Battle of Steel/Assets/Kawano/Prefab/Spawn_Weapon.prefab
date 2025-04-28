@@ -46,15 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponParent: {fileID: 1770939567962849701}
-  minShootForce: 10
-  maxShootForce: 30
-  minReloadTime: 1
-  maxReloadTime: 3
-  minTimeBetweenShooting: 0.05
-  maxTimeBetweenShooting: 0.3
-  minMagazineSize: 5
-  maxMagazineSize: 30
-  spreadAmount: 0.05
+  minShootForce: 50
+  maxShootForce: 90
+  minReloadTime: 0.5
+  maxReloadTime: 1.5
+  minTimeBetweenShooting: 0.3
+  maxTimeBetweenShooting: 0.7
+  minMagazineSize: 6
+  maxMagazineSize: 64
+  spreadAmount: 0.3
   bulletPrefab: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
   reloadKey: 114
 --- !u!1 &8774857522528928086
