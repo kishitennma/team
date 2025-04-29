@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Gun_Action : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Gun_Action : MonoBehaviour
     [SerializeField] int bullet_par_tap;//一発あたりの玉の数
     [SerializeField] bool allow_bullet_hold;//連発か単発のフラグ
     [SerializeField] LayerMask ignore_layer;//無視可能レイヤー
+    [Header("弾丸情報テキスト")]
+    [SerializeField] private Text ammoText;
     int bullets_shot, bullets_left;
     bool shooting, ready_to_shot;
     public bool reloading;
@@ -30,6 +33,15 @@ public class Gun_Action : MonoBehaviour
     void Update()
     {
         InputHandler();
+        UpdateAmmoDisplay();
+    }
+    //弾丸情報表示
+    private void UpdateAmmoDisplay()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = $"弾数: {bullets_left} / {magazine_size}";
+        }
     }
 
     /// <summary>

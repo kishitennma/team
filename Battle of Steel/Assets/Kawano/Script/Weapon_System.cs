@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 public enum WeaponType
 {
     Pistol,
@@ -11,7 +11,7 @@ public class WeaponSystem : MonoBehaviour
 {
     [Header("武器生成")]
     [SerializeField] Transform weaponParent;
-
+    public WeaponType type;
     [Header("武器パラメータ範囲")]
     [SerializeField] float minShootForce = 0f;
     [SerializeField] float maxShootForce = 100f;
@@ -22,10 +22,11 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] int minMagazineSize = 1;
     [SerializeField] int maxMagazineSize = 90;
     [SerializeField] float spreadAmount = 0.01f;
-
+    [SerializeField] bool allowBulletHold = false;
     [Header("弾丸プレハブ")]
     [SerializeField] GameObject bulletPrefab;
-
+    [Header("弾丸情報テキスト")]
+    [SerializeField] private Text ammoText;
     [Header("入力キー設定")]
     [SerializeField] KeyCode reloadKey = KeyCode.R;
 
@@ -34,7 +35,7 @@ public class WeaponSystem : MonoBehaviour
     private List<GameObject> nozzles = new List<GameObject>();
 
     private Transform nozzleTransform;
-
+    
     private float shootForce;
     private float reloadTime;
     private float timeBetweenShooting;
@@ -46,7 +47,6 @@ public class WeaponSystem : MonoBehaviour
     private bool allowInvoke = true;
 
     private bool shooting = false;
-    private bool allowBulletHold = true;
 
     private int bulletsShot;
     private float spread;
@@ -59,9 +59,17 @@ public class WeaponSystem : MonoBehaviour
     void Update()
     {
         HandleInput();
+        UpdateAmmoDisplay();
     }
-
-    // --- 入力処理 ---
+    //弾丸情報表示
+    private void UpdateAmmoDisplay()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = $"弾数: {bulletsLeft} / {magazineSize}";
+        }
+    }
+    //入力処理
     private void HandleInput()
     {
         shooting = allowBulletHold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
@@ -78,7 +86,7 @@ public class WeaponSystem : MonoBehaviour
         }
     }
 
-    // --- 撃つ ---
+    //発射処理
     private void Shoot()
     {
         readyToShoot = false;
@@ -106,27 +114,28 @@ public class WeaponSystem : MonoBehaviour
             Invoke(nameof(Shoot), timeBetweenShooting);
         }
     }
-
+    //発射リセット
     private void ResetShot()
     {
         readyToShoot = true;
         allowInvoke = true;
     }
 
-    // --- リロード ---
+    //リロード
     private void Reload()
     {
         reloading = true;
+        Debug.Log("リロード中");
         Invoke(nameof(ReloadFinished), reloadTime);
     }
-
+    //リロード完了
     private void ReloadFinished()
     {
         bulletsLeft = magazineSize;
         reloading = false;
     }
 
-    // --- 武器を組み立てる ---
+    //武器を組み立てる
     public void BuildWeapon(WeaponType weaponType)
     {
         ClearWeapon();
@@ -137,30 +146,24 @@ public class WeaponSystem : MonoBehaviour
             Debug.LogError("パーツロード失敗！");
             return;
         }
-
         GameObject handle = Instantiate(GetRandomPart(handles), weaponParent);
         GameObject body = Instantiate(GetRandomPart(bodies), weaponParent);
         GameObject nozzle = Instantiate(GetRandomPart(nozzles), weaponParent);
-
         Transform handleConnectPoint = handle.transform.Find("ConnectPoint_Body");
         AlignParts(handleConnectPoint, body.transform);
-
         Transform bodyConnectPoint = body.transform.Find("ConnectPoint_Nozzle");
         AlignParts(bodyConnectPoint, nozzle.transform);
-
         nozzleTransform = nozzle.transform;
-
         // パラメータをランダム設定
         shootForce = Random.Range(minShootForce, maxShootForce);
         reloadTime = Random.Range(minReloadTime, maxReloadTime);
         timeBetweenShooting = Random.Range(minTimeBetweenShooting, maxTimeBetweenShooting);
         magazineSize = Random.Range(minMagazineSize, maxMagazineSize);
         spread = spreadAmount;
-
         bulletsLeft = magazineSize;
         readyToShoot = true;
     }
-
+    //部品取付関数
     private void AlignParts(Transform basePoint, Transform attachPart)
     {
         if (basePoint == null)
@@ -168,11 +171,10 @@ public class WeaponSystem : MonoBehaviour
             Debug.LogError("取り付けポイントなし！");
             return;
         }
-
         attachPart.position = basePoint.position;
         attachPart.rotation = basePoint.rotation;
     }
-
+    //部品をResourcesからロード
     private void LoadParts(WeaponType type)
     {
         handles.Clear();
@@ -184,7 +186,7 @@ public class WeaponSystem : MonoBehaviour
         bodies.AddRange(Resources.LoadAll<GameObject>(basePath + "/Bodies"));
         nozzles.AddRange(Resources.LoadAll<GameObject>(basePath + "/Nozzles"));
     }
-
+    //武器を削除する関数
     private void ClearWeapon()
     {
         foreach (Transform child in weaponParent)
@@ -192,10 +194,11 @@ public class WeaponSystem : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-
+    //部品をランダム取得
     private GameObject GetRandomPart(List<GameObject> parts)
     {
         if (parts == null || parts.Count == 0) return null;
         return parts[Random.Range(0, parts.Count)];
     }
+
 }
