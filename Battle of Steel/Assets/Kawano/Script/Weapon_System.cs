@@ -53,7 +53,7 @@ public class WeaponSystem : MonoBehaviour
 
     void Start()
     {
-        BuildWeapon(WeaponType.Pistol); // èâä˙âª
+        BuildWeapon(type); // èâä˙âª
     }
 
     void Update()
@@ -150,6 +150,7 @@ public class WeaponSystem : MonoBehaviour
         GameObject body = Instantiate(GetRandomPart(bodies), weaponParent);
         GameObject nozzle = Instantiate(GetRandomPart(nozzles), weaponParent);
         Transform handleConnectPoint = handle.transform.Find("ConnectPoint_Body");
+        Transform body_connection_point = body.transform.Find("Connection_Body");
         AlignParts(handleConnectPoint, body.transform);
         Transform bodyConnectPoint = body.transform.Find("ConnectPoint_Nozzle");
         AlignParts(bodyConnectPoint, nozzle.transform);
