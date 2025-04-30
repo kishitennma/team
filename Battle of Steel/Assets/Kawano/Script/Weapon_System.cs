@@ -1,205 +1,154 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-public enum WeaponType
-{
-    Pistol,
-    AssaultRifle
-}
+
+public enum WeaponType { Pistol, AssaultRifle }
 
 public class WeaponSystem : MonoBehaviour
 {
     [Header("武器生成")]
     [SerializeField] Transform weaponParent;
     public WeaponType type;
+
     [Header("武器パラメータ範囲")]
-    [SerializeField] float minShootForce = 0f;
-    [SerializeField] float maxShootForce = 100f;
-    [SerializeField] float minReloadTime = 0.1f;
-    [SerializeField] float maxReloadTime = 1.5f;
-    [SerializeField] float minTimeBetweenShooting = 0.01f;
-    [SerializeField] float maxTimeBetweenShooting = 0.30f;
-    [SerializeField] int minMagazineSize = 1;
-    [SerializeField] int maxMagazineSize = 90;
-    [SerializeField] float spreadAmount = 0.01f;
-    [SerializeField] bool allowBulletHold = false;
+    [SerializeField] float min_shoot_force = 0f, max_shoot_force = 100f;
+    [SerializeField] float min_reload_time = 0.1f, max_reload_time = 1.5f;
+    [SerializeField] float min_time_between_shooting = 0.01f, max_time_between_shooting = 0.30f;
+    [SerializeField] int min_magazinesize = 1, max_magazinesize = 90;
+    [SerializeField] float spread_amount = 0.01f;
+    [SerializeField] bool allow_bullet_hold = false;
+
     [Header("弾丸プレハブ")]
-    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject bullet_prefab;
     [Header("弾丸情報テキスト")]
-    [SerializeField] private Text ammoText;
+    [SerializeField] Text ammo_text;
     [Header("入力キー設定")]
-    [SerializeField] KeyCode reloadKey = KeyCode.R;
+    [SerializeField] KeyCode reload_key = KeyCode.R;
 
-    private List<GameObject> handles = new List<GameObject>();
-    private List<GameObject> bodies = new List<GameObject>();
-    private List<GameObject> nozzles = new List<GameObject>();
+    private List<GameObject> handles = new();
+    private List<GameObject> bodies = new();
+    private List<GameObject> nozzles = new();
 
-    private Transform nozzleTransform;
-    
-    private float shootForce;
-    private float reloadTime;
-    private float timeBetweenShooting;
-    private int magazineSize;
+    private Transform nozzle_transform;
 
-    private int bulletsLeft;
-    private bool readyToShoot = true;
-    private bool reloading = false;
-    private bool allowInvoke = true;
+    private float shoot_force, reload_time, time_between_shooting, spread;
+    private int magazine_size, bullets_left, bullets_shot;
+    private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
 
-    private bool shooting = false;
-
-    private int bulletsShot;
-    private float spread;
-
-    void Start()
-    {
-        BuildWeapon(type); // 初期化
-    }
+    void Start() => BuildWeapon(type);
 
     void Update()
     {
         HandleInput();
-        UpdateAmmoDisplay();
+        if (ammo_text) ammo_text.text = $"弾数: {bullets_left} / {magazine_size}";
     }
-    //弾丸情報表示
-    private void UpdateAmmoDisplay()
+
+    void HandleInput()
     {
-        if (ammoText != null)
-        {
-            ammoText.text = $"弾数: {bulletsLeft} / {magazineSize}";
-        }
+        shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
+        if (ready_to_shoot && shooting && !reloading && bullets_left > 0) { bullets_shot = 0; Shoot(); }
+        if (Input.GetKeyDown(reload_key) && bullets_left < magazine_size && !reloading) Reload();
     }
-    //入力処理
-    private void HandleInput()
+    void Shoot()
     {
-        shooting = allowBulletHold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
+        ready_to_shoot = false;
+        Vector3 spread_vec = nozzle_transform.TransformDirection(new Vector3(
+            Random.Range(-spread, spread),
+            Random.Range(-spread, spread),
+            0));
+        Vector3 direction = nozzle_transform.forward + spread_vec;
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        GameObject bullet = Instantiate(bullet_prefab, nozzle_transform.position, Quaternion.identity);
+        bullet.transform.forward = direction.normalized;
+        bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shoot_force, ForceMode.Impulse);
+
+        bullets_left--;
+        bullets_shot++;
+
+        if (allow_invoke)
         {
-            bulletsShot = 0;
-            Shoot();
+            Invoke(nameof(ResetShot), time_between_shooting);
+            allow_invoke = false;
         }
 
-        if (Input.GetKeyDown(reloadKey) && bulletsLeft < magazineSize && !reloading)
-        {
-            Reload();
-        }
+        if (bullets_shot < 1 && bullets_left > 0) Invoke(nameof(Shoot), time_between_shooting);
     }
 
-    //発射処理
-    private void Shoot()
-    {
-        readyToShoot = false;
+    void ResetShot() { ready_to_shoot = true; allow_invoke = true; }
 
-        Vector3 directionWithoutSpread = nozzleTransform.forward;
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-        Vector3 directionWithSpread = directionWithoutSpread + nozzleTransform.TransformDirection(new Vector3(x, y, 0));
-
-        GameObject bullet = Instantiate(bulletPrefab, nozzleTransform.position, Quaternion.identity);
-        bullet.transform.forward = directionWithSpread.normalized;
-        bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-
-        bulletsLeft--;
-        bulletsShot++;
-
-        if (allowInvoke)
-        {
-            Invoke(nameof(ResetShot), timeBetweenShooting);
-            allowInvoke = false;
-        }
-
-        if (bulletsShot < 1 && bulletsLeft > 0)
-        {
-            Invoke(nameof(Shoot), timeBetweenShooting);
-        }
-    }
-    //発射リセット
-    private void ResetShot()
-    {
-        readyToShoot = true;
-        allowInvoke = true;
-    }
-
-    //リロード
-    private void Reload()
+    void Reload()
     {
         reloading = true;
         Debug.Log("リロード中");
-        Invoke(nameof(ReloadFinished), reloadTime);
+        Invoke(nameof(ReloadFinished), reload_time);
     }
-    //リロード完了
-    private void ReloadFinished()
+
+    void ReloadFinished()
     {
-        bulletsLeft = magazineSize;
+        bullets_left = magazine_size;
         reloading = false;
     }
 
-    //武器を組み立てる
-    public void BuildWeapon(WeaponType weaponType)
+    public void BuildWeapon(WeaponType weapon_type)
     {
         ClearWeapon();
-        LoadParts(weaponType);
+        LoadParts(weapon_type);
 
         if (handles.Count == 0 || bodies.Count == 0 || nozzles.Count == 0)
         {
             Debug.LogError("パーツロード失敗！");
             return;
         }
+
         GameObject handle = Instantiate(GetRandomPart(handles), weaponParent);
         GameObject body = Instantiate(GetRandomPart(bodies), weaponParent);
         GameObject nozzle = Instantiate(GetRandomPart(nozzles), weaponParent);
-        Transform handleConnectPoint = handle.transform.Find("ConnectPoint_Body");
-        Transform body_connection_point = body.transform.Find("Connection_Body");
-        AlignParts(handleConnectPoint, body.transform);
-        Transform bodyConnectPoint = body.transform.Find("ConnectPoint_Nozzle");
-        AlignParts(bodyConnectPoint, nozzle.transform);
-        nozzleTransform = nozzle.transform;
-        // パラメータをランダム設定
-        shootForce = Random.Range(minShootForce, maxShootForce);
-        reloadTime = Random.Range(minReloadTime, maxReloadTime);
-        timeBetweenShooting = Random.Range(minTimeBetweenShooting, maxTimeBetweenShooting);
-        magazineSize = Random.Range(minMagazineSize, maxMagazineSize);
-        spread = spreadAmount;
-        bulletsLeft = magazineSize;
-        readyToShoot = true;
+
+        ConnectParts(
+            handle.transform.Find("ConnectPoint_Body"),
+            body.transform.Find("ConnectPoint_Handle"));
+
+        ConnectParts(
+            body.transform.Find("ConnectPoint_Nozzle"),
+            nozzle.transform.Find("ConnectPoint_Body"));
+
+        nozzle_transform = nozzle.transform;
+
+        shoot_force = Random.Range(min_shoot_force, max_shoot_force);
+        reload_time = Random.Range(min_reload_time, max_reload_time);
+        time_between_shooting = Random.Range(min_time_between_shooting, max_time_between_shooting);
+        magazine_size = Random.Range(min_magazinesize, max_magazinesize);
+        bullets_left = magazine_size;
+        spread = spread_amount;
+        ready_to_shoot = true;
     }
-    //部品取付関数
-    private void AlignParts(Transform basePoint, Transform attachPart)
+
+    void ConnectParts(Transform base_point, Transform attach_point)
     {
-        if (basePoint == null)
+        if (base_point == null || attach_point == null)
         {
-            Debug.LogError("取り付けポイントなし！");
+            Debug.LogError("接続ポイントが見つかりません");
             return;
         }
-        attachPart.position = basePoint.position;
-        attachPart.rotation = basePoint.rotation;
-    }
-    //部品をResourcesからロード
-    private void LoadParts(WeaponType type)
-    {
-        handles.Clear();
-        bodies.Clear();
-        nozzles.Clear();
 
-        string basePath = "Parts/" + type.ToString();
-        handles.AddRange(Resources.LoadAll<GameObject>(basePath + "/Handles"));
-        bodies.AddRange(Resources.LoadAll<GameObject>(basePath + "/Bodies"));
-        nozzles.AddRange(Resources.LoadAll<GameObject>(basePath + "/Nozzles"));
-    }
-    //武器を削除する関数
-    private void ClearWeapon()
-    {
-        foreach (Transform child in weaponParent)
-        {
-            Destroy(child.gameObject);
-        }
-    }
-    //部品をランダム取得
-    private GameObject GetRandomPart(List<GameObject> parts)
-    {
-        if (parts == null || parts.Count == 0) return null;
-        return parts[Random.Range(0, parts.Count)];
+        Transform part = attach_point.parent;
+        part.position = base_point.position;
+        part.rotation = base_point.rotation;
     }
 
+    void LoadParts(WeaponType type)
+    {
+        handles.Clear(); bodies.Clear(); nozzles.Clear();
+        string basePath = $"Parts/{type}";
+        handles.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Handles"));
+        bodies.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Bodies"));
+        nozzles.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Nozzles"));
+    }
+
+    void ClearWeapon()
+    {
+        foreach (Transform child in weaponParent) Destroy(child.gameObject);
+    }
+
+    GameObject GetRandomPart(List<GameObject> parts) => parts.Count > 0 ? parts[Random.Range(0, parts.Count)] : null;
 }
