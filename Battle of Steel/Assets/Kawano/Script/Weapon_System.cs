@@ -25,6 +25,18 @@ public class WeaponSystem : MonoBehaviour
     [Header("入力キー設定")]
     [SerializeField] KeyCode reload_key = KeyCode.R;
 
+    [Header("マテリアル設定")]
+    [SerializeField] private string materialFolder = "Materials";
+    [SerializeField] private bool useRandomMaterial = true;  // ランダムでマテリアルを適用するか
+    [SerializeField] private Material defaultMaterial;       // 既定のマテリアル（エディタ上で設定）
+    [SerializeField] private bool useRandomColor = true;      // ランダムカラーを使用するか
+    [SerializeField] private bool useEmissionBlink = false;
+    [SerializeField] private float blinkSpeed = 2f;
+    [SerializeField] private float emissionIntensity = 1f;
+
+    private List<Material> loadedMaterials = new();
+    private List<Material> instanceMaterials = new(); // 明滅制御用
+    private List<(Material mat, Color baseEmission)> blinkingMaterials = new();
     private List<GameObject> handles = new();
     private List<GameObject> bodies = new();
     private List<GameObject> nozzles = new();
@@ -41,8 +53,16 @@ public class WeaponSystem : MonoBehaviour
     {
         HandleInput();
         if (ammo_text) ammo_text.text = $"弾数: {bullets_left} / {magazine_size}";
-    }
 
+        if (useEmissionBlink)
+        {
+            float intensity = Mathf.PingPong(Time.time * blinkSpeed, emissionIntensity);
+            foreach (var (mat, baseColor) in blinkingMaterials)
+            {
+                mat.SetColor("_EmissionColor", baseColor.linear * intensity);
+            }
+        }
+    }
     void HandleInput()
     {
         shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
@@ -103,7 +123,10 @@ public class WeaponSystem : MonoBehaviour
         GameObject handle = Instantiate(GetRandomPart(handles), weaponParent);
         GameObject body = Instantiate(GetRandomPart(bodies), weaponParent);
         GameObject nozzle = Instantiate(GetRandomPart(nozzles), weaponParent);
-
+        // マテリアル適用
+        ApplyRandomMaterial(handle);
+        ApplyRandomMaterial(body);
+        ApplyRandomMaterial(nozzle);
         ConnectParts(
             handle.transform.Find("ConnectPoint_Body"),
             body.transform.Find("ConnectPoint_Handle"));
@@ -139,7 +162,7 @@ public class WeaponSystem : MonoBehaviour
     void LoadParts(WeaponType type)
     {
         handles.Clear(); bodies.Clear(); nozzles.Clear();
-        string basePath = $"Parts/{type}";
+        string basePath = $"{type}";
         handles.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Handles"));
         bodies.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Bodies"));
         nozzles.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Nozzles"));
@@ -151,4 +174,45 @@ public class WeaponSystem : MonoBehaviour
     }
 
     GameObject GetRandomPart(List<GameObject> parts) => parts.Count > 0 ? parts[Random.Range(0, parts.Count)] : null;
+    void ApplyRandomMaterial(GameObject obj)
+    {
+        Renderer renderer = obj.GetComponentInChildren<Renderer>();
+        if (renderer == null) return;
+
+        // 既定のマテリアル＆色もそのまま使う → 処理しない
+        if (!useRandomMaterial && !useRandomColor) return;
+
+        Material matInstance;
+
+        if (useRandomMaterial)
+        {
+            if (loadedMaterials.Count == 0)
+                loadedMaterials.AddRange(Resources.LoadAll<Material>(materialFolder));
+            if (loadedMaterials.Count == 0)
+            {
+                Debug.LogWarning("マテリアルが見つかりません");
+                return;
+            }
+            Material baseMat = loadedMaterials[Random.Range(0, loadedMaterials.Count)];
+            matInstance = new Material(baseMat);
+            renderer.material = matInstance;
+        }
+        else
+        {
+            // インスペクター上のマテリアルをそのまま使いつつインスタンス化して色だけ変更
+            matInstance = renderer.material; // 自動的にインスタンス化される
+        }
+        // 色の設定
+        if (useRandomColor)
+        {
+            Color emissionColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
+            matInstance.EnableKeyword("_EMISSION");
+            matInstance.SetColor("_EmissionColor", emissionColor * emissionIntensity);
+
+            if (useEmissionBlink)
+            {
+                blinkingMaterials.Add((matInstance, emissionColor));
+            }
+        }
+    }
 }

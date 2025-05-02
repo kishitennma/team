@@ -81,6 +81,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: edf1b983d070b0c47aa4104196fc72ad, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: edf1b983d070b0c47aa4104196fc72ad, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1518529553432291422, guid: 74ee95a897932a946bca4a79b74f6750, type: 3}
     - target: {fileID: 919132149155446097, guid: edf1b983d070b0c47aa4104196fc72ad, type: 3}
       propertyPath: m_Name
       value: Pistol_Handle_01
