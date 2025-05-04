@@ -742,6 +742,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2878123706437761105, guid: 3cc7403ad583b3943960d40e5a6d4db5, type: 3}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: overrideBody
+      value: 
+      objectReference: {fileID: 5569786639883267722, guid: fd663da60712bc941aacf122abbbfdc0, type: 3}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: spreadAmount
       value: 0.1
       objectReference: {fileID: 0}
@@ -750,12 +754,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: customColor.b
+      value: 0.061522484
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: customColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: customColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: custom_handle
+      value: 
+      objectReference: {fileID: 3806897366904297932, guid: 8c25336e7e6c4b24bbd94ad9b74185c9, type: 3}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: overrideHandle
       value: 
       objectReference: {fileID: 3806897366904297932, guid: 8c25336e7e6c4b24bbd94ad9b74185c9, type: 3}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useAlbedoColor
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: useCustomColor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useRandomColor

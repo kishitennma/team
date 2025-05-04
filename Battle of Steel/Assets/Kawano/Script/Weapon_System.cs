@@ -29,7 +29,9 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] private string materialFolder = "Materials";
     [SerializeField] private bool useRandomMaterial = true;
     [SerializeField] private bool useRandomColor = true;
-    [SerializeField] private bool useAlbedoColor = true;
+    [Header("カスタムカラー設定")]
+    [SerializeField] private bool useCustomColor = false;
+    [SerializeField] private Color customColor = Color.white; [SerializeField] private bool useAlbedoColor = true;
     [SerializeField] private bool useEmissionColor = true;
     [SerializeField] private bool useEmissionBlink = false;
     [SerializeField] private float blinkSpeed = 2f;
@@ -198,7 +200,7 @@ public class WeaponSystem : MonoBehaviour
         // カラー適用
         if (useRandomColor)
         {
-            Color color = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
+            Color color = useCustomColor ? customColor : Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
 
             if (useAlbedoColor)
                 mat.color = color;
