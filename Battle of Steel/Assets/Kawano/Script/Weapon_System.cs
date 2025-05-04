@@ -27,19 +27,22 @@ public class WeaponSystem : MonoBehaviour
 
     [Header("マテリアル設定")]
     [SerializeField] private string materialFolder = "Materials";
-    [SerializeField] private bool useRandomMaterial = true;  // ランダムでマテリアルを適用するか
-    [SerializeField] private Material defaultMaterial;       // 既定のマテリアル（エディタ上で設定）
-    [SerializeField] private bool useRandomColor = true;      // ランダムカラーを使用するか
+    [SerializeField] private bool useRandomMaterial = true;
+    [SerializeField] private bool useRandomColor = true;
+    [SerializeField] private bool useAlbedoColor = true;
+    [SerializeField] private bool useEmissionColor = true;
     [SerializeField] private bool useEmissionBlink = false;
     [SerializeField] private float blinkSpeed = 2f;
     [SerializeField] private float emissionIntensity = 1f;
 
+    [Header("パーツ設定（nullならランダム）")]
+    [SerializeField] private GameObject overrideHandle;
+    [SerializeField] private GameObject overrideBody;
+    [SerializeField] private GameObject overrideNozzle;
+
     private List<Material> loadedMaterials = new();
-    private List<Material> instanceMaterials = new(); // 明滅制御用
     private List<(Material mat, Color baseEmission)> blinkingMaterials = new();
-    private List<GameObject> handles = new();
-    private List<GameObject> bodies = new();
-    private List<GameObject> nozzles = new();
+    private List<GameObject> handles = new(), bodies = new(), nozzles = new();
 
     private Transform nozzle_transform;
 
@@ -58,17 +61,17 @@ public class WeaponSystem : MonoBehaviour
         {
             float intensity = Mathf.PingPong(Time.time * blinkSpeed, emissionIntensity);
             foreach (var (mat, baseColor) in blinkingMaterials)
-            {
                 mat.SetColor("_EmissionColor", baseColor.linear * intensity);
-            }
         }
     }
+
     void HandleInput()
     {
         shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
         if (ready_to_shoot && shooting && !reloading && bullets_left > 0) { bullets_shot = 0; Shoot(); }
         if (Input.GetKeyDown(reload_key) && bullets_left < magazine_size && !reloading) Reload();
     }
+
     void Shoot()
     {
         ready_to_shoot = false;
@@ -114,26 +117,16 @@ public class WeaponSystem : MonoBehaviour
         ClearWeapon();
         LoadParts(weapon_type);
 
-        if (handles.Count == 0 || bodies.Count == 0 || nozzles.Count == 0)
-        {
-            Debug.LogError("パーツロード失敗！");
-            return;
-        }
+        GameObject handle = overrideHandle ? Instantiate(overrideHandle, weaponParent) : Instantiate(GetRandomPart(handles), weaponParent);
+        GameObject body = overrideBody ? Instantiate(overrideBody, weaponParent) : Instantiate(GetRandomPart(bodies), weaponParent);
+        GameObject nozzle = overrideNozzle ? Instantiate(overrideNozzle, weaponParent) : Instantiate(GetRandomPart(nozzles), weaponParent);
 
-        GameObject handle = Instantiate(GetRandomPart(handles), weaponParent);
-        GameObject body = Instantiate(GetRandomPart(bodies), weaponParent);
-        GameObject nozzle = Instantiate(GetRandomPart(nozzles), weaponParent);
-        // マテリアル適用
-        ApplyRandomMaterial(handle);
-        ApplyRandomMaterial(body);
-        ApplyRandomMaterial(nozzle);
-        ConnectParts(
-            handle.transform.Find("ConnectPoint_Body"),
-            body.transform.Find("ConnectPoint_Handle"));
+        ApplyMaterial(handle.GetComponentInChildren<Renderer>());
+        ApplyMaterial(body.GetComponentInChildren<Renderer>());
+        ApplyMaterial(nozzle.GetComponentInChildren<Renderer>());
 
-        ConnectParts(
-            body.transform.Find("ConnectPoint_Nozzle"),
-            nozzle.transform.Find("ConnectPoint_Body"));
+        ConnectParts(handle.transform.Find("ConnectPoint_Body"), body.transform.Find("ConnectPoint_Handle"));
+        ConnectParts(body.transform.Find("ConnectPoint_Nozzle"), nozzle.transform.Find("ConnectPoint_Body"));
 
         nozzle_transform = nozzle.transform;
 
@@ -174,44 +167,49 @@ public class WeaponSystem : MonoBehaviour
     }
 
     GameObject GetRandomPart(List<GameObject> parts) => parts.Count > 0 ? parts[Random.Range(0, parts.Count)] : null;
-    void ApplyRandomMaterial(GameObject obj)
+
+    void ApplyMaterial(Renderer renderer)
     {
-        Renderer renderer = obj.GetComponentInChildren<Renderer>();
         if (renderer == null) return;
 
-        // 既定のマテリアル＆色もそのまま使う → 処理しない
-        if (!useRandomMaterial && !useRandomColor) return;
+        Material mat;
 
-        Material matInstance;
-
+        // マテリアル選択
         if (useRandomMaterial)
         {
             if (loadedMaterials.Count == 0)
                 loadedMaterials.AddRange(Resources.LoadAll<Material>(materialFolder));
+
             if (loadedMaterials.Count == 0)
             {
                 Debug.LogWarning("マテリアルが見つかりません");
                 return;
             }
+
             Material baseMat = loadedMaterials[Random.Range(0, loadedMaterials.Count)];
-            matInstance = new Material(baseMat);
-            renderer.material = matInstance;
+            mat = new Material(baseMat);
+            renderer.material = mat;
         }
         else
         {
-            // インスペクター上のマテリアルをそのまま使いつつインスタンス化して色だけ変更
-            matInstance = renderer.material; // 自動的にインスタンス化される
+            mat = renderer.material;
         }
-        // 色の設定
+
+        // カラー適用
         if (useRandomColor)
         {
-            Color emissionColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
-            matInstance.EnableKeyword("_EMISSION");
-            matInstance.SetColor("_EmissionColor", emissionColor * emissionIntensity);
+            Color color = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
 
-            if (useEmissionBlink)
+            if (useAlbedoColor)
+                mat.color = color;
+
+            if (useEmissionColor)
             {
-                blinkingMaterials.Add((matInstance, emissionColor));
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", color * emissionIntensity);
+
+                if (useEmissionBlink)
+                    blinkingMaterials.Add((mat, color));
             }
         }
     }
