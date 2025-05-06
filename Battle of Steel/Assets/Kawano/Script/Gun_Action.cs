@@ -15,7 +15,7 @@ public class Gun_Action : MonoBehaviour
     [SerializeField] float spread; //散弾具合(ショットガン用)
     [SerializeField] float reload_time;//リロード用時間
     [SerializeField] int magazine_size;//マガジンのサイズ
-    [SerializeField] int bullet_par_tap;//一発あたりの玉の数
+    [SerializeField] int bullet_par_tap;//一発あたりの弾の数
     [SerializeField] bool allow_bullet_hold;//連発か単発のフラグ
     [SerializeField] LayerMask ignore_layer;//無視可能レイヤー
     [Header("弾丸情報テキスト")]

@@ -11,6 +11,7 @@ public class WeaponSystem : MonoBehaviour
     public WeaponType type;
 
     [Header("•Šíƒpƒ‰ƒ[ƒ^”ÍˆÍ")]
+    [SerializeField] bool isEquipped = false;
     [SerializeField] float min_shoot_force = 0f, max_shoot_force = 100f;
     [SerializeField] float min_reload_time = 0.1f, max_reload_time = 1.5f;
     [SerializeField] float min_time_between_shooting = 0.01f, max_time_between_shooting = 0.30f;
@@ -56,6 +57,8 @@ public class WeaponSystem : MonoBehaviour
 
     void Update()
     {
+
+        if (!isEquipped) return;
         HandleInput();
         if (ammo_text) ammo_text.text = $"’e”: {bullets_left} / {magazine_size}";
 
