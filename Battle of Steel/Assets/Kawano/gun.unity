@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 312.38, y: -199.28699}
+  m_AnchoredPosition: {x: 312.38, y: -199.287}
   m_SizeDelta: {x: 1129.631, y: -64.311}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24956245
@@ -526,7 +526,7 @@ Transform:
   m_GameObject: {fileID: 900246115}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.84, y: 4.85, z: -32.96}
+  m_LocalPosition: {x: -3.84, y: 4.85, z: -25.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -551,7 +551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1107768148
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -862,6 +862,10 @@ PrefabInstance:
       propertyPath: weaponHolder
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3480298800001019195, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: type
       value: 0
@@ -889,7 +893,7 @@ PrefabInstance:
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: overrideBody
       value: 
-      objectReference: {fileID: 5569786639883267722, guid: fd663da60712bc941aacf122abbbfdc0, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: spreadAmount
       value: 0.1
@@ -900,11 +904,11 @@ PrefabInstance:
       objectReference: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: customColor.b
-      value: 0.061522484
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: customColor.g
-      value: 0
+      value: 0.033939056
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: customColor.r
@@ -917,7 +921,7 @@ PrefabInstance:
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: overrideHandle
       value: 
-      objectReference: {fileID: 3806897366904297932, guid: 8c25336e7e6c4b24bbd94ad9b74185c9, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useAlbedoColor
       value: 0
@@ -943,6 +947,10 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: min_reload_time
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: min_shoot_force
       value: 90
       objectReference: {fileID: 0}
@@ -955,12 +963,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: max_magazinesize
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: min_magazinesize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useEmissionBlink
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useEmissionColor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: use_custom_color
@@ -1028,7 +1044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7166837662819483164, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.85
+      value: -4.95
       objectReference: {fileID: 0}
     - target: {fileID: 7166837662819483164, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1036,7 +1052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7166837662819483164, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.86
+      value: -21.96
       objectReference: {fileID: 0}
     - target: {fileID: 7166837662819483164, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1101,7 +1117,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
