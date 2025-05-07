@@ -928,7 +928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useCustomColor
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useRandomColor
@@ -972,11 +972,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useEmissionBlink
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useEmissionColor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: use_custom_color

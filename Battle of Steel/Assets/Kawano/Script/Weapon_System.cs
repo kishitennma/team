@@ -23,8 +23,6 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] GameObject bullet_prefab;
     [Header("弾丸情報テキスト")]
     [SerializeField] Text ammo_text;
-    [Header("入力キー設定")]
-    [SerializeField] KeyCode reload_key = KeyCode.R;
 
     [Header("マテリアル設定")]
     [SerializeField] private string materialFolder = "Materials";
@@ -74,7 +72,6 @@ public class WeaponSystem : MonoBehaviour
     {
         shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
         if (ready_to_shoot && shooting && !reloading && bullets_left > 0) { bullets_shot = 0; Shoot(); }
-        if (Input.GetKeyDown(reload_key) && bullets_left < magazine_size && !reloading) Reload();
     }
 
     void Shoot()
@@ -92,6 +89,11 @@ public class WeaponSystem : MonoBehaviour
 
         bullets_left--;
         bullets_shot++;
+
+        if(bullets_left == 0)
+        {
+            Reload();
+        }
 
         if (allow_invoke)
         {
