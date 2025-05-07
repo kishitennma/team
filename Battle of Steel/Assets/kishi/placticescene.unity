@@ -540,7 +540,7 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.016999284, z: -0, w: 0.9998555}
-  m_LocalPosition: {x: 0.11, y: 6.54, z: -12.98}
+  m_LocalPosition: {x: 0.6999998, y: 5.3, z: -29.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -614,15 +614,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 341ff391ac63a354c88923b1647ff0a1, type: 2}
+    - target: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'toes_01.r'\n\tTransform 'index2.l'\n\tTransform
+        'thigh_stretch.r'\n\tTransform 'arm_stretch.r'\n\tTransform 'root.x'\n\tTransform
+        'c_skull_03.x'\n\tTransform 'arm_stretch.l'\n\tTransform 'index1.l'\n\tTransform
+        'forearm_stretch.l'\n\tTransform 'thumb3.l'\n\tand more ...\n\tFrom animation
+        clip 'root|Boost'\n\tFrom animation clip 'root|Jump'\n\tFrom animation clip
+        'root|Run'\n\tFrom animation clip 'root|Stop'\n\tFrom animation clip 'root|Boost.Back'\n\tFrom
+        animation clip 'root|Boost.Left'\n\tFrom animation clip 'root|Boost.Right'"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8155533566875756210, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 961739753}
-    - targetCorrespondingSourceObject: {fileID: 8155533566875756210, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       insertIndex: -1
       addedObject: {fileID: 425209909}
+    - targetCorrespondingSourceObject: {fileID: 8155533566875756210, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 961739753}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8155533566875335504, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       insertIndex: -1
@@ -707,11 +723,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1412561548}
   Cam: {fileID: 961739749}
-  walking: {fileID: 0}
-  running: {fileID: 0}
-  standing: {fileID: 0}
+  animator: {fileID: 1412561555}
   moveSpeed: 20
   damaged: 0
+--- !u!95 &1412561555 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+  m_PrefabInstance: {fileID: 1412561547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1736504361
 GameObject:
   m_ObjectHideFlags: 0
