@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 312.38, y: -199.287}
+  m_AnchoredPosition: {x: 224, y: -152.00002}
   m_SizeDelta: {x: 1129.631, y: -64.311}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24956245
@@ -703,7 +703,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.5026, y: -0.0000097124}
+  m_AnchoredPosition: {x: 10, y: -19}
   m_SizeDelta: {x: 382.08, y: 194.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1220346340
@@ -879,6 +879,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1220346340}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
+      propertyPath: blinkSpeed
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: isEquipped
       value: 1
       objectReference: {fileID: 0}
@@ -893,7 +897,7 @@ PrefabInstance:
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: overrideBody
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5569786639883267722, guid: fd663da60712bc941aacf122abbbfdc0, type: 3}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: spreadAmount
       value: 0.1
@@ -908,7 +912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: customColor.g
-      value: 0.033939056
+      value: 0.11818848
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: customColor.r
@@ -928,7 +932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useCustomColor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useRandomColor
@@ -972,11 +976,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useEmissionBlink
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useEmissionColor
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: use_custom_color
@@ -984,7 +988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: emissionIntensity
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5292857458006072026, guid: f46eef0a5b0217745b7e25fe7d85f94f, type: 3}
       propertyPath: useRandomMaterial
