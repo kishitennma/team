@@ -7,10 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject player;
 
     public GameObject Cam;
-    private Animator animator; // キャラクターオブジェクトのAnimator
-    public RuntimeAnimatorController walking;
-    public RuntimeAnimatorController running;
-    public RuntimeAnimatorController standing;
+    public Animator animator; // キャラクターオブジェクトのAnimator
+   
 
     public float moveSpeed = 30.0f; // キャラクターの移動速度
 
@@ -37,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        animator.SetBool("Run", true);
+
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
 
@@ -44,29 +44,33 @@ public class PlayerController : MonoBehaviour
         {
             // "W"キーが押されたときの処理をここに記述
             print("歩くぞお");
-            animator.runtimeAnimatorController = walking;
+           
 
             //プレイヤーの正面に向かって移動する
             transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            animator.SetBool("Run", true);
+
+            
+
 
         }
-        else if (Input.GetKeyUp(KeyCode.W))
-        {
-            animator.runtimeAnimatorController = standing;
-        }
-
         if(Input.GetKey(KeyCode.S))
         {
             transform.position += transform.forward * -moveSpeed * Time.deltaTime;
+            animator.SetBool("Run", true);
         }
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += transform.right * -moveSpeed * Time.deltaTime;
+            animator.SetBool("Run", true);
         }
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += transform.right * moveSpeed * Time.deltaTime;
+            animator.SetBool("Run", true);
         }
+       else
+            animator.SetBool("Run", false);
     }
 }
 
