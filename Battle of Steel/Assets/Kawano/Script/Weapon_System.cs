@@ -23,6 +23,8 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] GameObject bullet_prefab;
     [Header("弾丸情報テキスト")]
     [SerializeField] Text ammo_text;
+    [Header("マズルフラッシュを読み込む")]
+    public ParticleSystem flash;
 
     [Header("マテリアル設定")]
     [SerializeField] private string materialFolder = "Materials";
@@ -45,13 +47,18 @@ public class WeaponSystem : MonoBehaviour
     private List<(Material mat, Color baseEmission)> blinkingMaterials = new();
     private List<GameObject> handles = new(), bodies = new(), nozzles = new();
 
-    private Transform nozzle_transform;
-
+    private Transform muzzle_transform;
+ 
     private float shoot_force, reload_time, time_between_shooting, spread;
     private int magazine_size, bullets_left, bullets_shot;
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
+    void Start()
+    {
+        BuildWeapon(type);
+        
 
-    void Start() => BuildWeapon(type);
+    }
+    
 
     void Update()
     {
@@ -71,22 +78,25 @@ public class WeaponSystem : MonoBehaviour
     void HandleInput()
     {
         shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
-        if (ready_to_shoot && shooting && !reloading && bullets_left > 0) { bullets_shot = 0; Shoot(); }
+        if (ready_to_shoot && shooting && !reloading && bullets_left > 0) 
+        {
+            bullets_shot = 0; Shoot();
+            flash.Play();
+        }        
     }
 
     void Shoot()
     {
         ready_to_shoot = false;
-        Vector3 spread_vec = nozzle_transform.TransformDirection(new Vector3(
+        Vector3 spread_vec = muzzle_transform.TransformDirection(new Vector3(
             Random.Range(-spread, spread),
             Random.Range(-spread, spread),
             0));
-        Vector3 direction = nozzle_transform.forward + spread_vec;
-
-        GameObject bullet = Instantiate(bullet_prefab, nozzle_transform.position, Quaternion.identity);
+        Vector3 direction = muzzle_transform.forward + spread_vec;
+        flash.transform.position = muzzle_transform.position;
+        GameObject bullet = Instantiate(bullet_prefab, muzzle_transform.position, Quaternion.identity);
         bullet.transform.forward = direction.normalized;
         bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shoot_force, ForceMode.Impulse);
-
         bullets_left--;
         bullets_shot++;
 
@@ -135,7 +145,7 @@ public class WeaponSystem : MonoBehaviour
         ConnectParts(handle.transform.Find("ConnectPoint_Body"), body.transform.Find("ConnectPoint_Handle"));
         ConnectParts(body.transform.Find("ConnectPoint_Nozzle"), nozzle.transform.Find("ConnectPoint_Body"));
 
-        nozzle_transform = nozzle.transform;
+        muzzle_transform = nozzle.transform;
 
         shoot_force = Random.Range(min_shoot_force, max_shoot_force);
         reload_time = Random.Range(min_reload_time, max_reload_time);
@@ -174,6 +184,7 @@ public class WeaponSystem : MonoBehaviour
     }
 
     GameObject GetRandomPart(List<GameObject> parts) => parts.Count > 0 ? parts[Random.Range(0, parts.Count)] : null;
+
 
     void ApplyMaterial(Renderer renderer)
     {
