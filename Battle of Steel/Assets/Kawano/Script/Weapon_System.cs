@@ -24,7 +24,10 @@ public class WeaponSystem : MonoBehaviour
     [Header("弾丸情報テキスト")]
     [SerializeField] Text ammo_text;
     [Header("マズルフラッシュを読み込む")]
-    public ParticleSystem flash;
+    public ParticleSystem flash;//フラッシュパーティクル
+    public GameObject flash_light;//フラッシュライト
+    [Header("銃SEを読み込む")]
+    public AudioSource flash_sound;
 
     [Header("マテリアル設定")]
     [SerializeField] private string materialFolder = "Materials";
@@ -51,17 +54,27 @@ public class WeaponSystem : MonoBehaviour
  
     private float shoot_force, reload_time, time_between_shooting, spread;
     private int magazine_size, bullets_left, bullets_shot;
+    private int flash_light_time = 0;
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
     void Start()
     {
         BuildWeapon(type);
-        
+        flash_light.SetActive(false);
 
     }
-    
+
 
     void Update()
     {
+        //フラッシュライトが有効にされたら時間経過で消去
+        if (flash_light.activeInHierarchy == true)
+            flash_light_time++;
+        if (flash_light_time > 200)
+        {
+            flash_light.SetActive(false);
+            flash_light_time = 0;
+        }
+            
 
         if (!isEquipped) return;
         HandleInput();
@@ -78,11 +91,13 @@ public class WeaponSystem : MonoBehaviour
     void HandleInput()
     {
         shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
-        if (ready_to_shoot && shooting && !reloading && bullets_left > 0) 
+        if (ready_to_shoot && shooting && !reloading && bullets_left > 0)
         {
             bullets_shot = 0; Shoot();
             flash.Play();
-        }        
+            flash_sound.Play();
+            flash_light.SetActive(true);
+        }
     }
 
     void Shoot()
@@ -93,6 +108,7 @@ public class WeaponSystem : MonoBehaviour
             Random.Range(-spread, spread),
             0));
         Vector3 direction = muzzle_transform.forward + spread_vec;
+        flash_light.transform.position = muzzle_transform.position;
         flash.transform.position = muzzle_transform.position;
         GameObject bullet = Instantiate(bullet_prefab, muzzle_transform.position, Quaternion.identity);
         bullet.transform.forward = direction.normalized;
@@ -111,7 +127,11 @@ public class WeaponSystem : MonoBehaviour
             allow_invoke = false;
         }
 
-        if (bullets_shot < 1 && bullets_left > 0) Invoke(nameof(Shoot), time_between_shooting);
+        if (bullets_shot < 1 && bullets_left > 0)
+        {
+            Invoke(nameof(Shoot), time_between_shooting);
+        }
+        
     }
 
     void ResetShot() { ready_to_shoot = true; allow_invoke = true; }
