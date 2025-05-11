@@ -69,7 +69,7 @@ public class WeaponSystem : MonoBehaviour
         //フラッシュライトが有効にされたら時間経過で消去
         if (flash_light.activeInHierarchy == true)
             flash_light_time++;
-        if (flash_light_time > 200)
+        if (flash_light_time > 60)
         {
             flash_light.SetActive(false);
             flash_light_time = 0;
