@@ -8,4 +8,8 @@ public class Bullet_Action : MonoBehaviour
     {
         Destroy(gameObject,life_time);
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("“–‚½‚Á‚½");
+    }
 }
