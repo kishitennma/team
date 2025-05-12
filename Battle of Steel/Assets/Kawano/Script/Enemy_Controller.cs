@@ -1,16 +1,29 @@
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Enemy_Controller : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("ステータス")]
+    [SerializeField]public int HP = 0;
+    [SerializeField] public int Attack = 0;
+    [SerializeField] public int Deffence = 0;
+    Animation Animation;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        //体力が0なら消滅
+        if(HP < 0)
+        {
+            Destroy(this);
+        }
+
+
+
     }
 }
