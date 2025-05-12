@@ -67,4 +67,10 @@ public class Enemy_Controller : Damage_Calclate
         else { }
         
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Bullet"))
+        Debug.Log("“–‚½‚Á‚½");
+    }
+
 }
