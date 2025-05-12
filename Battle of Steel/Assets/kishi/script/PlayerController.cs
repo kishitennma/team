@@ -39,20 +39,18 @@ public class PlayerController : MonoBehaviour
 
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W)&& Input.GetKey(KeyCode.LeftShift))
         {
-            // "W"キーが押されたときの処理をここに記述
-            print("歩くぞお");
-           
-
+            Debug.Log("ダッシュ");
             //プレイヤーの正面に向かって移動する
             transform.position += transform.forward * moveSpeed * Time.deltaTime;
             animator.SetBool("Run", true);
-
-            
-
-
+        }
+   else if (Input.GetKey(KeyCode.W))
+        {
+            //プレイヤーの正面に向かって移動する
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            animator.SetBool("Run", true);
         }
         if(Input.GetKey(KeyCode.S))
         {
@@ -67,7 +65,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += transform.right * moveSpeed * Time.deltaTime;
-            animator.SetBool("Run", true);
+            //animator.SetBool("Run", true);
         }
        else
             animator.SetBool("Run", false);
