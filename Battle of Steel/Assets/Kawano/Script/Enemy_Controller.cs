@@ -32,7 +32,8 @@ public class Enemy_Controller : Damage_Calclate
 {
     [Header("敵のID")]
     [SerializeField] Enemy_ID id;
-
+    [Header("確認用")]
+    [SerializeField] int set_hp;
     //ここに敵のステータスを入力(体力、攻撃力、AI)
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
@@ -50,11 +51,12 @@ public class Enemy_Controller : Damage_Calclate
     void Update()
     {
         Enmey_State(ai_style);//エネミーの行動管理
-
-        //体力が0なら消滅
-        if(hp < 0)
+        set_hp = hp;
+        //体力が1以下なら消滅
+        if(hp < 1)
         {
-            Destroy(this);
+            Debug.Log("敵を倒した");
+            Destroy(gameObject);
         }
     }
     //エネミーの行動処理
@@ -70,7 +72,11 @@ public class Enemy_Controller : Damage_Calclate
     void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Bullet"))
-        Debug.Log("当たった");
+        {
+            hp -= 5;
+            Debug.Log("当たった");
+
+        }
     }
 
 }
