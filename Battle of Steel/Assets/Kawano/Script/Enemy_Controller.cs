@@ -42,10 +42,12 @@ public class Enemy_Controller : Damage_Calclate
 
     //変数
     Damage_Calclate calc;
+    Animator animator;
     private int hp;//現在の体力
     private Enemy_Ai_Style ai_style;//AIスタイル
     void Start()
     {
+        animator = GetComponent<Animator>();
         hp = Enemy_Status.max_hp;//体力を設定
     }
     void Update()
@@ -56,7 +58,8 @@ public class Enemy_Controller : Damage_Calclate
         if(hp < 1)
         {
             Debug.Log("敵を倒した");
-            Destroy(gameObject);
+            animator.SetBool("Death", true);
+            DestroyObject();
         }
     }
     //エネミーの行動処理
@@ -64,7 +67,7 @@ public class Enemy_Controller : Damage_Calclate
     {
         if (style == Enemy_Ai_Style.Idle)
         {
-
+            //停止状態
         }
         else { }
         
@@ -78,5 +81,8 @@ public class Enemy_Controller : Damage_Calclate
 
         }
     }
-
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
 }
