@@ -59,7 +59,6 @@ public class Enemy_Controller : Damage_Calclate
         {
             Debug.Log("敵を倒した");
             animator.SetBool("Death", true);
-            DestroyObject();
         }
     }
     //エネミーの行動処理

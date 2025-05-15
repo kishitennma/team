@@ -343,7 +343,7 @@ ModelImporter:
       name: root|Boost_Loop
       takeName: root|Boost
       internalID: -6201674097688446571
-      firstFrame: 32
+      firstFrame: 31
       lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
@@ -430,7 +430,7 @@ ModelImporter:
       name: root|Boost.Back_Loop
       takeName: root|Boost.Back
       internalID: 4656832921842826529
-      firstFrame: 32
+      firstFrame: 31
       lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
@@ -488,7 +488,7 @@ ModelImporter:
       name: root|Boost.Left_Loop
       takeName: root|Boost.Left
       internalID: 663695125618420600
-      firstFrame: 32
+      firstFrame: 31
       lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
@@ -604,7 +604,7 @@ ModelImporter:
       name: root|Boost.Right_Loop
       takeName: root|Boost.Right
       internalID: 5857625819888003588
-      firstFrame: 32
+      firstFrame: 31
       lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
