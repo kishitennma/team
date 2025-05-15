@@ -616,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       propertyPath: m_Controller
@@ -725,7 +725,9 @@ MonoBehaviour:
   rb: {fileID: 1412561549}
   Cam: {fileID: 961739749}
   animator: {fileID: 1412561555}
-  jumppower: 1000
+  jumppower: 15
+  Anim_start: 0
+  Anim_end: 0
   moveSpeed: 20
   damaged: 0
 --- !u!95 &1412561555 stripped

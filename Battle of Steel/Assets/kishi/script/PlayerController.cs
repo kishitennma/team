@@ -10,6 +10,11 @@ public class PlayerController : MonoBehaviour
     public Animator animator; // キャラクターオブジェクトのAnimator
     private bool jump_flag = false;
     public float jumppower;
+    public bool Anim_start = false;
+    public bool Anim_end = false;
+
+
+    private float NormalizeTime;
 
 
     public float moveSpeed = 30.0f; // キャラクターの移動速度
@@ -62,39 +67,59 @@ public class PlayerController : MonoBehaviour
     //}
         void Update()
         {
-            animator.SetBool("Run", true);
 
+            AnimatorStateInfo aninfo = animator.GetCurrentAnimatorStateInfo(0);
+            NormalizeTime = aninfo.normalizedTime % 1;
             float mx = Input.GetAxis("Mouse X");
             Screen_movement(mx);
             if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
             {
-             
-                transform.position += transform.forward *( moveSpeed * 2.0f )* Time.deltaTime;
-                animator.SetBool("Run", true);
-
+            transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
+            
+            if (Anim_start == false)
+                {
+                Anim_start = true;
+                animator.SetInteger("Boost_F", 1);
             }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_F", 2);
+            }
+        }
         else if (Input.GetKey(KeyCode.W))
             {
-                
-                transform.position += transform.forward * moveSpeed * Time.deltaTime;
-                animator.SetBool("Run", true);
-
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_F", 1);
             }
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            animator.SetInteger("Boost_F", 2);
+
+        }
+        else if(Input.GetKeyUp(KeyCode.W))
+        {
+            animator.SetInteger("Boost_F", 3);
+            if(NormalizeTime >= 0.9f)
+            {
+                animator.SetInteger("Boost_F", 0);
+            }
+        }
 
 
             if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
-            {
+        {
 
-                transform.position += transform.forward * -(moveSpeed*2.0f) * Time.deltaTime;
+            transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
 
-            }
+        }
         else if (Input.GetKey(KeyCode.S))
-            {
+        {
 
-                transform.position += transform.forward * -moveSpeed * Time.deltaTime;
-                animator.SetBool("Run", true);
+            transform.position += transform.forward * -moveSpeed * Time.deltaTime;
+            animator.SetBool("Run", true);
 
-            }
+        }
 
 
             if(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
@@ -136,6 +161,12 @@ public class PlayerController : MonoBehaviour
         
        
     }
+  
     
-}
+    public void Anim_func()
+    {
 
+    }
+
+
+}
