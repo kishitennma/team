@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
 
     public float moveSpeed = 30.0f; // キャラクターの移動速度
+    
 
     public bool damaged;
 
@@ -67,39 +68,69 @@ public class PlayerController : MonoBehaviour
             Screen_movement(mx);
             if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
             {
-                Debug.Log("ダッシュ");
-                //プレイヤーの正面に向かって移動する
+             
+                transform.position += transform.forward *( moveSpeed * 2.0f )* Time.deltaTime;
+                animator.SetBool("Run", true);
+
+            }
+        else if (Input.GetKey(KeyCode.W))
+            {
+                
                 transform.position += transform.forward * moveSpeed * Time.deltaTime;
                 animator.SetBool("Run", true);
+
             }
-            else if (Input.GetKey(KeyCode.W))
+
+
+            if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
             {
-                //プレイヤーの正面に向かって移動する
-                transform.position += transform.forward * moveSpeed * Time.deltaTime;
-                animator.SetBool("Run", true);
+
+                transform.position += transform.forward * -(moveSpeed*2.0f) * Time.deltaTime;
+
             }
-            if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
             {
+
                 transform.position += transform.forward * -moveSpeed * Time.deltaTime;
                 animator.SetBool("Run", true);
+
             }
-            if (Input.GetKey(KeyCode.A))
+
+
+            if(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
             {
+
+                transform.position += transform.right * -(moveSpeed*2.0f) * Time.deltaTime;
+
+            }
+        else if (Input.GetKey(KeyCode.A))
+            {
+
                 transform.position += transform.right * -moveSpeed * Time.deltaTime;
                 animator.SetBool("Run", true);
+
             }
-            if (Input.GetKey(KeyCode.D))
+
+
+            if(Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
             {
+
+                transform.position += transform.right * (moveSpeed+2.0f) * Time.deltaTime;
+
+            }
+        else if (Input.GetKey(KeyCode.D))
+            {
+
                 transform.position += transform.right * moveSpeed * Time.deltaTime;
                 //animator.SetBool("Run", true);
+
             }
-            else
-                animator.SetBool("Run", false);
+            
      
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("ダッシュ");
-                rb.AddForce(transform.up * jumppower, ForceMode.Acceleration);
+                rb.AddForce(transform.up * jumppower, ForceMode.Impulse);
                 //jump_flag = true;
             }
         
