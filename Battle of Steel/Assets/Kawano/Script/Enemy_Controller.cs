@@ -71,6 +71,14 @@ public class Enemy_Controller : Damage_Calclate
         else { }
         
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Bullet"))
