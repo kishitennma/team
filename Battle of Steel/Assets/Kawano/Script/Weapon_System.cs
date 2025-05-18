@@ -12,7 +12,7 @@ public class WeaponSystem : MonoBehaviour
 
     [Header("•Šíƒpƒ‰ƒ[ƒ^”ÍˆÍ")]
     [SerializeField] bool isEquipped = false;
-    [SerializeField] float min_shoot_force = 0f, max_shoot_force = 100f;
+    [SerializeField] float min_shoot_force = 90f, max_shoot_force = 100f;
     [SerializeField] float min_reload_time = 0.1f, max_reload_time = 1.5f;
     [SerializeField] float min_time_between_shooting = 0.01f, max_time_between_shooting = 0.30f;
     [SerializeField] int min_magazinesize = 1, max_magazinesize = 90;

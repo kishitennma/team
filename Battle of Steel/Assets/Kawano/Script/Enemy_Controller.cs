@@ -1,27 +1,28 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Enemy_Ai_Style
 {
-    //“G‚ÌAIƒŠƒXƒg
-    Idle,//’â~
+    //æ•µã®AIãƒªã‚¹ãƒˆ
+    Idle,//åœæ­¢
 
 }
 public enum Enemy_ID
 {
-    //“G‚ÌIDƒŠƒXƒg
-    Idle_Robot,//ƒƒ{ƒbƒg(’â~)
+    //æ•µã®IDãƒªã‚¹ãƒˆ
+    Idle_Robot,//ãƒ­ãƒœãƒƒãƒˆ(åœæ­¢)
 
 }
 public class Enemy_Status
 {
-    public static int max_hp;//Å‘å‘Ì—Í
-    public static int attack_damage;//UŒ‚—Í
-    public Enemy_Ai_Style style;//AIƒXƒ^ƒCƒ‹
+    public static int max_hp;//æœ€å¤§ä½“åŠ›
+    public static int attack_damage;//æ”»æ’ƒåŠ›
+    public Enemy_Ai_Style style;//AIã‚¹ã‚¿ã‚¤ãƒ«
 
     public Enemy_Status(int set_hp,int set_damage,Enemy_Ai_Style set_style)
     {
-        //ŠeƒXƒe[ƒ^ƒX‚ğ“ü—Í
+        //å„ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å…¥åŠ›
         max_hp = set_hp;
         attack_damage = set_damage;
         style = set_style;
@@ -30,64 +31,74 @@ public class Enemy_Status
 
 public class Enemy_Controller : Damage_Calclate
 {
-    [Header("“G‚ÌID")]
+    [Header("æ•µã®ID")]
     [SerializeField] Enemy_ID id;
-    [Header("Šm”F—p")]
-    [SerializeField] int set_hp;
-    //‚±‚±‚É“G‚ÌƒXƒe[ƒ^ƒX‚ğ“ü—Í(‘Ì—ÍAUŒ‚—ÍAAI)
+    //ã“ã“ã«æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å…¥åŠ›(ä½“åŠ›ã€æ”»æ’ƒåŠ›ã€AI)
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         {Enemy_ID.Idle_Robot,new Enemy_Status(30,5,Enemy_Ai_Style.Idle)},
     };
 
-    //•Ï”
-    Damage_Calclate calc;
+    //å¤‰æ•°
     Animator animator;
-    private int hp;//Œ»İ‚Ì‘Ì—Í
-    private Enemy_Ai_Style ai_style;//AIƒXƒ^ƒCƒ‹
+    private int hp;//ç¾åœ¨ã®ä½“åŠ›
+    private int damage;
+    private bool act_shot;
+    private Enemy_Ai_Style ai_style;//AIã‚¹ã‚¿ã‚¤ãƒ«
     void Start()
     {
         animator = GetComponent<Animator>();
-        hp = Enemy_Status.max_hp;//‘Ì—Í‚ğİ’è
+        hp = Enemy_Status.max_hp;//ä½“åŠ›ã‚’è¨­å®š
+        damage = Enemy_Status.attack_damage;//æ”»æ’ƒåŠ›è¨­å®š
     }
     void Update()
     {
-        Enmey_State(ai_style);//ƒGƒlƒ~[‚Ìs“®ŠÇ—
-        set_hp = hp;
-        //‘Ì—Í‚ª1ˆÈ‰º‚È‚çÁ–Å
+        Enmey_State(ai_style);//ã‚¨ãƒãƒŸãƒ¼ã®è¡Œå‹•ç®¡ç†
+
+        //ä½“åŠ›ãŒ1ä»¥ä¸‹ãªã‚‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
         if(hp < 1)
         {
-            Debug.Log("“G‚ğ“|‚µ‚½");
+            hp = 0;
             animator.SetBool("Death", true);
         }
     }
-    //ƒGƒlƒ~[‚Ìs“®ˆ—
+    //ã‚¨ãƒãƒŸãƒ¼ã®è¡Œå‹•å‡¦ç†
     private void Enmey_State(Enemy_Ai_Style style)
     {
         if (style == Enemy_Ai_Style.Idle)
         {
-            //’â~ó‘Ô
+            //åœæ­¢çŠ¶æ…‹
+            if(act_shot == true)
+            {
+                //å¼¾ã‚’ç™ºå°„
+            }
         }
-        else { }
         
+    }
+    //Bulletã‚¿ã‚°ã«å½“ãŸã£ãŸã‚‰ä½“åŠ›ã‚’æ¸›ã‚‰ã™
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("è¦‹ã¤ã‘ãŸ");
+            //æ•µã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¾ã§ã®ãƒ™ã‚¯ãƒˆãƒ«ä½œæˆ
+            Vector3 direction = gameObject.transform.position - collider.gameObject.transform.position; direction.y = 0;//yã‚’0ã«è¨­å®š
+            transform.rotation = Quaternion.LookRotation(direction);//è§’åº¦ã‚’directionã¾ã§å¤‰æ›´
+            act_shot = true;
+        }
+
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-
+            hp = Damage_Cal(damage, hp);
+            collision.gameObject.IsDestroyed();
+            Debug.Log("å½“ãŸã£ãŸ  ä½“åŠ›" + hp);
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Bullet"))
-        {
-            hp -= 5;
-            Debug.Log("“–‚½‚Á‚½");
-
-        }
-    }
+    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ä¸­ã§ã“ã®é–¢æ•°ã‚’å‘¼ã‚“ã§ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™
     public void DestroyObject()
     {
         Destroy(gameObject);
