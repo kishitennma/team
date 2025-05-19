@@ -54,7 +54,11 @@ public class PlayerController : MonoBehaviour
             player.transform.RotateAround(player.transform.position, Vector3.up, mx);
         }
     }
-
+    //ƒAƒjƒ[ƒVƒ‡ƒ“I—¹ŠÖ”(Int‚ð0‚É‚·‚é)
+    public void Anim_Set_End(string anim_name)
+    {
+        animator.SetInteger(anim_name,0);
+    }
     //void Jump()
     //{
     //    if (jump_flag == true) return;
@@ -67,196 +71,163 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Input.GetKey(key);
-        switch (key)
-        {
-            case KeyCode.W:
-
-                if (Anim_start == false)
-                {
-                    Anim_start = true;
-                    animator.SetInteger("Boost_F", 1);
-                }
-                if (NormalizeTime >= 0.9f && Anim_start)
-                {
-                    animator.SetInteger("Boost_F", 2);
-                }
-                else if (Input.GetKey(KeyCode.W))
-                {
-                    if (Anim_start == false)
-                    {
-                        Anim_start = true;
-                        animator.SetInteger("Boost_F", 1);
-                    }
-
-                    animator.SetInteger("Boost_F", 2);
-
-                }
-                else if (Input.GetKeyUp(KeyCode.W))
-                {
-                    animator.SetInteger("Boost_F", 3);
-                    if (NormalizeTime >= 0.9f)
-                    {
-                        animator.SetInteger("Boost_F", 0);
-                    }
-                }
-
-                break;
-            case KeyCode.A:
-                if (Anim_start == false)
-                {
-                    Anim_start = true;
-                    animator.SetInteger("Boost_L", 1);
-                }
-                if (NormalizeTime >= 0.9f && Anim_start)
-                {
-                    animator.SetInteger("Boost_L", 2);
-                }
-                else if (Input.GetKey(KeyCode.W))
-                {
-                    if (Anim_start == false)
-                    {
-                        Anim_start = true;
-                        animator.SetInteger("Boost_L", 1);
-                    }
-
-                    animator.SetInteger("Boost_L", 2);
-
-                }
-                else if (Input.GetKeyUp(KeyCode.W))
-                {
-                    animator.SetInteger("Boost_L", 3);
-                    if (NormalizeTime >= 0.9f)
-                    {
-                        animator.SetInteger("BoLst_F", 0);
-                    }
-                }
-
-                break;
-            case KeyCode.S:
-                if (Anim_start == false)
-                {
-                    Anim_start = true;
-                    animator.SetInteger("Boost_B", 1);
-                }
-                if (NormalizeTime >= 0.9f && Anim_start)
-                {
-                    animator.SetInteger("Boost_B", 2);
-                }
-                else if (Input.GetKey(KeyCode.W))
-                {
-                    if (Anim_start == false)
-                    {
-                        Anim_start = true;
-                        animator.SetInteger("Boost_B", 1);
-                    }
-
-                    animator.SetInteger("Boost_B", 2);
-
-                }
-                else if (Input.GetKeyUp(KeyCode.W))
-                {
-                    animator.SetInteger("Boost_B", 3);
-                    if (NormalizeTime >= 0.9f)
-                    {
-                        animator.SetInteger("BoLst_B", 0);
-                    }
-                }
-
-
-                break;
-            case KeyCode.D:
-                if (Anim_start == false)
-                {
-                    Anim_start = true;
-                    animator.SetInteger("Boost_R", 1);
-                }
-                if (NormalizeTime >= 0.9f && Anim_start)
-                {
-                    animator.SetInteger("Boost_R", 2);
-                }
-                else if (Input.GetKey(KeyCode.W))
-                {
-                    if (Anim_start == false)
-                    {
-                        Anim_start = true;
-                        animator.SetInteger("Boost_R", 1);
-                    }
-
-                    animator.SetInteger("Boost_R", 2);
-
-                }
-                else if (Input.GetKeyUp(KeyCode.W))
-                {
-                    animator.SetInteger("Boost_R", 3);
-                    if (NormalizeTime >= 0.9f)
-                    {
-                        animator.SetInteger("BoLst_R", 0);
-                    }
-                }
-
-
-                break;
-        }
-
-
         AnimatorStateInfo aninfo = animator.GetCurrentAnimatorStateInfo(0);
         NormalizeTime = aninfo.normalizedTime % 1;
+
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
             transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_F", 1);
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                Debug.Log("Ä¶I—¹");
+                animator.SetInteger("Boost_F", 2);
+            }
 
         }
         else if (Input.GetKey(KeyCode.W))
         {
-
             transform.position += transform.forward * moveSpeed * Time.deltaTime;
-
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_F", 1);
+                Debug.Log("‰Ÿ‚³‚ê‚½QW");
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_F", 2);
+            }
 
         }
-
-
-
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            animator.SetInteger("Boost_F", 3);
+            if (NormalizeTime >= 0.9f)
+            {
+                
+            }
+        }
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
         {
 
             transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_B", 1);
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_B", 2);
+            }
 
         }
         else if (Input.GetKey(KeyCode.S))
         {
 
             transform.position += transform.forward * -moveSpeed * Time.deltaTime;
-
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_B", 1);
+                Debug.Log("‰Ÿ‚³‚ê‚½QS");
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_B", 2);
+            }
         }
-
-
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            animator.SetInteger("Boost_B", 3);
+            if (NormalizeTime >= 0.9f)
+            {
+                animator.SetInteger("Boost_B", 0);
+            }
+        }
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
         {
 
             transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_L", 1);
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_L", 2);
+            }
 
         }
         else if (Input.GetKey(KeyCode.A))
         {
 
             transform.position += transform.right * -moveSpeed * Time.deltaTime;
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_L", 1);
+                Debug.Log("‰Ÿ‚³‚ê‚½QA");
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_L", 2);
+            }
 
         }
-
-
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            animator.SetInteger("Boost_L", 3);
+            if (NormalizeTime >= 0.9f)
+            {
+                animator.SetInteger("Boost_L", 0);
+            }
+        }
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
         {
 
             transform.position += transform.right * (moveSpeed + 2.0f) * Time.deltaTime;
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_R", 1);
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_R", 2);
+            }
 
         }
         else if (Input.GetKey(KeyCode.D))
         {
 
             transform.position += transform.right * moveSpeed * Time.deltaTime;
-
+            if (Anim_start == false)
+            {
+                Anim_start = true;
+                animator.SetInteger("Boost_R", 1);
+                Debug.Log("‰Ÿ‚³‚ê‚½QD");
+            }
+            if (NormalizeTime >= 0.9f && Anim_start)
+            {
+                animator.SetInteger("Boost_R", 2);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            animator.SetInteger("Boost_R", 3);
+            if (NormalizeTime >= 0.9f)
+            {
+                animator.SetInteger("Boost_R", 0);
+            }
         }
 
 
@@ -269,10 +240,6 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
-
-
-
 
 
 }
