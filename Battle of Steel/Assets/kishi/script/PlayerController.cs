@@ -22,6 +22,13 @@ public class PlayerController : MonoBehaviour
 
     public bool damaged;
 
+<<<<<<< HEAD
+    private int squat_cntb=0;
+    private int squat_total=10;
+
+    private float squatStartTime;
+    private float squatEndTime;
+=======
 
     private void OnCollisionEnter(Collision other)
     {
@@ -33,6 +40,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+>>>>>>> 19e289161425bf9aebe921ebbfd455f89d1d0393
 
 
     private void Start()
@@ -56,6 +64,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+    void Update()
+    {
+
+        float mx = Input.GetAxis("Mouse X");
+        Screen_movement(mx);
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("ダッシュ");
+            //プレイヤーの正面に向かって移動する
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            animator.SetBool("BoostF", true);
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            //プレイヤーの正面に向かって移動する
+            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+            animator.SetBool("BoostF", true);
+        }
+        else
+            animator.SetBool("BoostF", false);
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("ダッシュ");
+            //プレイヤーの正面に向かって移動する
+            transform.position += transform.forward * -moveSpeed * Time.deltaTime;
+            animator.SetBool("BoostB", true);
+        }
+        else if (Input.GetKey(KeyCode.S))
+=======
     //void Jump()
     //{
     //    if (jump_flag == true) return;
@@ -98,6 +136,7 @@ public class PlayerController : MonoBehaviour
 
         }
         else if(Input.GetKeyUp(KeyCode.W))
+>>>>>>> 19e289161425bf9aebe921ebbfd455f89d1d0393
         {
             animator.SetInteger("Boost_F", 3);
             if(NormalizeTime >= 0.9f)
@@ -117,7 +156,47 @@ public class PlayerController : MonoBehaviour
         {
 
             transform.position += transform.forward * -moveSpeed * Time.deltaTime;
+<<<<<<< HEAD
+            animator.SetBool("BoostB", true);
+        }
+        else
+            animator.SetBool("BoostB", false);
+
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("ダッシュ");
+            //プレイヤーの正面に向かって移動する
+            transform.position += transform.right * -moveSpeed * Time.deltaTime;
+            animator.SetBool("BoostR", true);
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            transform.position += transform.right * -moveSpeed * Time.deltaTime;
+            animator.SetBool("BoostR", true);
+        }
+        else
+            animator.SetBool("BoostR", false);
+
+        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("ダッシュ");
+            //プレイヤーの正面に向かって移動する
+            transform.position += transform.right * moveSpeed * Time.deltaTime;
+            animator.SetBool("BoostL", true);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += transform.right * moveSpeed * Time.deltaTime;
+            animator.SetBool("BoostL", true);
+        }
+        else
+            animator.SetBool("BoostL", false);
+
+    }
+    }
+=======
             animator.SetBool("Run", true);
+>>>>>>> 19e289161425bf9aebe921ebbfd455f89d1d0393
 
         }
 
