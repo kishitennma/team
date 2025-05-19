@@ -8,4 +8,5 @@ public class Bullet_Action : MonoBehaviour
     {
         Destroy(gameObject,life_time);
     }
+
 }
