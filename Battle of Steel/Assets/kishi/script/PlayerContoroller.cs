@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
 
     private float NormalizeTime;
+    private float move_x, move_y;//移動方向
+    private float target_x, target_y;//線形保管用
     private KeyCode key;
 
 
@@ -70,173 +72,191 @@ public class PlayerController : MonoBehaviour
     //}
     void Update()
     {
-        Input.GetKey(key);
-        AnimatorStateInfo aninfo = animator.GetCurrentAnimatorStateInfo(0);
-        NormalizeTime = aninfo.normalizedTime % 1;
-
+        //移動方向を初期化
+        move_x = 0; move_y = 0;animator.SetBool("Action", false);
+        //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
-        {
-            transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_F", 1);
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                Debug.Log("再生終了");
-                animator.SetInteger("Boost_F", 2);
-            }
+        if (Input.GetKey(KeyCode.W)) { target_y = 1; transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime; animator.SetBool("Action", true); }
+        else if (Input.GetKey(KeyCode.S)) { target_y = -1; transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime; animator.SetBool("Action", true); }
+        if (Input.GetKey(KeyCode.D)) { target_x = 1; transform.position += transform.right * moveSpeed * Time.deltaTime; animator.SetBool("Action", true); }
+        else if (Input.GetKey(KeyCode.A)) { target_x = -1; transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime; animator.SetBool("Action", true); }
 
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_F", 1);
-                Debug.Log("押された＿W");
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                animator.SetInteger("Boost_F", 2);
-            }
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+            target_y = 0;
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+            target_x = 0;
+        //ここで数値を線形補間して、なめらかにする
+        move_x = Mathf.Lerp(animator.GetFloat("Horizontal"), target_x, Time.deltaTime * 10f);
+        move_y = Mathf.Lerp(animator.GetFloat("Vertical"), target_y, Time.deltaTime * 10f);
+        //アニメーターのパラメータに値を代入
+        animator.SetFloat("Horizontal", move_x);
+        animator.SetFloat("Vertical", move_y);
 
-        }
-        else if (Input.GetKeyUp(KeyCode.W))
-        {
-            animator.SetInteger("Boost_F", 3);
-            if (NormalizeTime >= 0.9f)
-            {
-                
-            }
-        }
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
-        {
+        //AnimatorStateInfo aninfo = animator.GetCurrentAnimatorStateInfo(0);
+        //NormalizeTime = aninfo.normalizedTime % 1;
 
-            transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_B", 1);
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                animator.SetInteger("Boost_B", 2);
-            }
+        //if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_F", 1);
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        Debug.Log("再生終了");
+        //        animator.SetInteger("Boost_F", 2);
+        //    }
 
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
+        //}
+        //else if (Input.GetKey(KeyCode.W))
+        //{
+        //    transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_F", 1);
+        //        Debug.Log("押された＿W");
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        animator.SetInteger("Boost_F", 2);
+        //    }
 
-            transform.position += transform.forward * -moveSpeed * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_B", 1);
-                Debug.Log("押された＿S");
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                animator.SetInteger("Boost_B", 2);
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            animator.SetInteger("Boost_B", 3);
-            if (NormalizeTime >= 0.9f)
-            {
-                animator.SetInteger("Boost_B", 0);
-            }
-        }
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
-        {
+        //}
+        //else if (Input.GetKeyUp(KeyCode.W))
+        //{
+        //    animator.SetInteger("Boost_F", 3);
+        //    if (NormalizeTime >= 0.9f)
+        //    {
 
-            transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_L", 1);
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                animator.SetInteger("Boost_L", 2);
-            }
+        //    }
+        //}
+        //if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
+        //{
 
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
+        //    transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_B", 1);
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        animator.SetInteger("Boost_B", 2);
+        //    }
 
-            transform.position += transform.right * -moveSpeed * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_L", 1);
-                Debug.Log("押された＿A");
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                animator.SetInteger("Boost_L", 2);
-            }
+        //}
+        //else if (Input.GetKey(KeyCode.S))
+        //{
 
-        }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            animator.SetInteger("Boost_L", 3);
-            if (NormalizeTime >= 0.9f)
-            {
-                animator.SetInteger("Boost_L", 0);
-            }
-        }
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
-        {
+        //    transform.position += transform.forward * -moveSpeed * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_B", 1);
+        //        Debug.Log("押された＿S");
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        animator.SetInteger("Boost_B", 2);
+        //    }
+        //}
+        //else if (Input.GetKeyUp(KeyCode.S))
+        //{
+        //    animator.SetInteger("Boost_B", 3);
+        //    if (NormalizeTime >= 0.9f)
+        //    {
+        //        animator.SetInteger("Boost_B", 0);
+        //    }
+        //}
+        //if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
+        //{
 
-            transform.position += transform.right * (moveSpeed + 2.0f) * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_R", 1);
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                animator.SetInteger("Boost_R", 2);
-            }
+        //    transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_L", 1);
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        animator.SetInteger("Boost_L", 2);
+        //    }
 
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
+        //}
+        //else if (Input.GetKey(KeyCode.A))
+        //{
 
-            transform.position += transform.right * moveSpeed * Time.deltaTime;
-            if (Anim_start == false)
-            {
-                Anim_start = true;
-                animator.SetInteger("Boost_R", 1);
-                Debug.Log("押された＿D");
-            }
-            if (NormalizeTime >= 0.9f && Anim_start)
-            {
-                animator.SetInteger("Boost_R", 2);
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.S))
-        {
-            animator.SetInteger("Boost_R", 3);
-            if (NormalizeTime >= 0.9f)
-            {
-                animator.SetInteger("Boost_R", 0);
-            }
-        }
+        //    transform.position += transform.right * -moveSpeed * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_L", 1);
+        //        Debug.Log("押された＿A");
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        animator.SetInteger("Boost_L", 2);
+        //    }
+
+        //}
+        //else if (Input.GetKeyUp(KeyCode.S))
+        //{
+        //    animator.SetInteger("Boost_L", 3);
+        //    if (NormalizeTime >= 0.9f)
+        //    {
+        //        animator.SetInteger("Boost_L", 0);
+        //    }
+        //}
+        //if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
+        //{
+
+        //    transform.position += transform.right * (moveSpeed + 2.0f) * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_R", 1);
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        animator.SetInteger("Boost_R", 2);
+        //    }
+
+        //}
+        //else if (Input.GetKey(KeyCode.D))
+        //{
+
+        //    transform.position += transform.right * moveSpeed * Time.deltaTime;
+        //    if (Anim_start == false)
+        //    {
+        //        Anim_start = true;
+        //        animator.SetInteger("Boost_R", 1);
+        //        Debug.Log("押された＿D");
+        //    }
+        //    if (NormalizeTime >= 0.9f && Anim_start)
+        //    {
+        //        animator.SetInteger("Boost_R", 2);
+        //    }
+        //}
+        //else if (Input.GetKeyUp(KeyCode.S))
+        //{
+        //    animator.SetInteger("Boost_R", 3);
+        //    if (NormalizeTime >= 0.9f)
+        //    {
+        //        animator.SetInteger("Boost_R", 0);
+        //    }
+        //}
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("ダッシュ");
-            rb.AddForce(transform.up * jumppower, ForceMode.Impulse);
-            //jump_flag = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Debug.Log("ダッシュ");
+        //    rb.AddForce(transform.up * jumppower, ForceMode.Impulse);
+        //    //jump_flag = true;
+        //}
 
 
     }
