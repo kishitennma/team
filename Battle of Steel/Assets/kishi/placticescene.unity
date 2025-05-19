@@ -649,6 +649,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8155533566875335504, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1412561554}
+    - targetCorrespondingSourceObject: {fileID: 8155533566875335504, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1412561556}
   m_SourcePrefab: {fileID: 100100000, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
 --- !u!1 &1412561548 stripped
 GameObject:
@@ -725,9 +728,12 @@ MonoBehaviour:
   rb: {fileID: 1412561549}
   Cam: {fileID: 961739749}
   animator: {fileID: 1412561555}
+  jump_flag: 0
   jumppower: 15
   Anim_start: 0
   Anim_end: 0
+  NormalizeTime: 0
+  key: 0
   moveSpeed: 20
   damaged: 0
 --- !u!95 &1412561555 stripped
@@ -735,6 +741,27 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
   m_PrefabInstance: {fileID: 1412561547}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1412561556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412561548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6725ab6ac848d94caa9a5f4e33542e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  rb: {fileID: 0}
+  Cam: {fileID: 0}
+  animator: {fileID: 0}
+  jumppower: 0
+  Anim_start: 0
+  Anim_end: 0
+  moveSpeed: 30
+  damaged: 0
 --- !u!1 &1736504361
 GameObject:
   m_ObjectHideFlags: 0
