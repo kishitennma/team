@@ -18,7 +18,7 @@ public class Enemy_Status
     public static int max_hp;//最大体力
     public static int attack_damage;//攻撃力
     public Enemy_Ai_Style style;//AIスタイル
-
+    
     public Enemy_Status(int set_hp,int set_damage,Enemy_Ai_Style set_style)
     {
         //各ステータスを入力
@@ -31,9 +31,12 @@ public class Enemy_Status
 public class Enemy_Controller : Damage_Calclate
 {
     [Header("敵のID")]
-    [SerializeField] Enemy_ID id;
-    [Header("確認用")]
-    [SerializeField] int set_hp;
+    [SerializeField] Enemy_ID id;//敵のID
+    [SerializeField] Collision find_player_collision;//プレイヤーを探すためのあたり判定
+    [Header("インスペクタ確認用")]
+    [SerializeField] int set_hp;//インスペクタ確認用
+    [Header("弾丸プレハブ")]
+    [SerializeField] GameObject bullet_prefab;//弾丸のプレハブ
     //ここに敵のステータスを入力(体力、攻撃力、AI)
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
@@ -41,29 +44,30 @@ public class Enemy_Controller : Damage_Calclate
     };
 
     //変数
-    Damage_Calclate calc;
-    Animator animator;
+    Animator animator;//アニメーター
     private int hp;//現在の体力
     private Enemy_Ai_Style ai_style;//AIスタイル
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();//アニメーターを取得
+        
         hp = Enemy_Status.max_hp;//体力を設定
     }
     void Update()
     {
         Enmey_State(ai_style);//エネミーの行動管理
         set_hp = hp;
-        //体力が1以下なら消滅
+        //体力が1以下ならアニメーションを変更
         if(hp < 1)
         {
             Debug.Log("敵を倒した");
-            animator.SetBool("Death", true);
+            animator.SetBool("Death", true);//アニメーターの条件を更新
         }
     }
     //エネミーの行動処理
     private void Enmey_State(Enemy_Ai_Style style)
     {
+        //styleが各AIスタイルの場合その挙動を設定
         if (style == Enemy_Ai_Style.Idle)
         {
             //停止状態
@@ -73,14 +77,16 @@ public class Enemy_Controller : Damage_Calclate
     }
     private void OnCollisionEnter(Collision collision)
     {
+        //Tag.Playerを持っていた場合そのオブジェクトの方向を向く
         if(collision.gameObject.CompareTag("Player"))
         {
-
+            transform.LookAt(collision.gameObject.transform);//方向を設定
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
+        //Object.BulletがCollisionに衝突した場合、体力を現象させる
         if(other.CompareTag("Bullet"))
         {
             hp -= 5;
@@ -90,6 +96,6 @@ public class Enemy_Controller : Damage_Calclate
     }
     public void DestroyObject()
     {
-        Destroy(gameObject);
+        Destroy(gameObject);//このスクリプトがアタッチされているオブジェクト破棄
     }
 }
