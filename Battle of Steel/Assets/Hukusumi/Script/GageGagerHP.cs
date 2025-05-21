@@ -38,9 +38,13 @@ public class GageGagerHP : MonoBehaviour
             _myHp = Max;
         }
 
-        if (_image.fillAmount <= 0.25)
+        if (_image.fillAmount <= 0.2)
         {
             _image.color = new Color32(235, 33, 13, 255);
+        }
+        else if (_image.fillAmount <= 0.4)
+        {
+            _image.color = new Color32(184, 235, 13, 255);
         }
         else
         {
