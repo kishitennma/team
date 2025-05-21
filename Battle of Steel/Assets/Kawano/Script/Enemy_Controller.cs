@@ -94,7 +94,7 @@ public class Enemy_Controller : Damage_Calclate
         if (collider.gameObject.CompareTag("Player")==true)
         {
             //敵からプレイヤーまでのベクトル作成
-            vec = gameObject.transform.position - collider.gameObject.transform.position; vec.y = 0;//yを0に設定
+            vec = gameObject.transform.position - collider.gameObject.transform.position;//yを0に設定
             transform.rotation = Quaternion.LookRotation(vec);//角度をdirectionまで変更
             act_shot = true;
         }
