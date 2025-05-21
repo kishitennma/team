@@ -9,9 +9,10 @@ public class PlayerController : MonoBehaviour
     public Animator animator; // キャラクターオブジェクトのAnimator
     private bool jump_flag = false;
     public float jumppower;
-    public bool Anim_start = false;
-    public bool Anim_end = false;
+    public float step_power;
 
+    public int attack_power = 0;
+    public int hp = 100;
 
     private float NormalizeTime;
     private float move_x, move_y;//移動方向
@@ -77,36 +78,68 @@ public class PlayerController : MonoBehaviour
         //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
+            animator.SetFloat("IsDashing", 1.0f);
             target_y = 1.0f;
             transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
-            
-            animator.SetBool("Action", true);
+            AddForce_reset();
+            rb.AddForce(transform.forward * step_power, ForceMode.Impulse);
         }
-       
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.W))
         {
+            animator.SetFloat("IsDashing", 0.0f);
+            target_y = 1.0f;
+            transform.position += transform.forward * (moveSpeed) * Time.deltaTime;
+            AddForce_reset();
+        }
+
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetFloat("IsDashing", 1.0f);
             target_y = -1.0f;
             transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
-           
-            animator.SetBool("Action", true);
+            AddForce_reset();
+            rb.AddForce(transform.forward * -step_power, ForceMode.Impulse);
         }
-       
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.S))
         {
+            animator.SetFloat("IsDashing", 0.0f);
+            target_y = -1.0f;
+            transform.position += transform.forward * -(moveSpeed ) * Time.deltaTime;
+            AddForce_reset();
+        }
+
+        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetFloat("IsDashing", 1.0f);
             target_x = 1.0f;
-            transform.position += transform.right * moveSpeed * Time.deltaTime;
-           
-            animator.SetBool("Action", true);
+            transform.position += transform.right * (moveSpeed*2.0f) * Time.deltaTime;
+            AddForce_reset();
+            rb.AddForce(transform.right * step_power, ForceMode.Impulse);
         }
-      
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.D))
         {
+            animator.SetFloat("IsDashing", 0.0f);
+            target_x = 1.0f;
+            transform.position += transform.right * (moveSpeed) * Time.deltaTime;
+            AddForce_reset();
+        }
+
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetFloat("IsDashing", 1.0f);
             target_x = -1.0f;
             transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
-          
-            animator.SetBool("Action", true);
+            AddForce_reset();
+            rb.AddForce(transform.right * -step_power, ForceMode.Impulse);
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            animator.SetFloat("IsDashing", 0.0f);
+            target_x = -1.0f;
+            transform.position += transform.right * -(moveSpeed) * Time.deltaTime;
+            AddForce_reset();
         }
        
 
@@ -127,178 +160,30 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Horizontal", move_x);
         animator.SetFloat("Vertical", move_y);
 
-        //AnimatorStateInfo aninfo = animator.GetCurrentAnimatorStateInfo(0);
-        //NormalizeTime = aninfo.normalizedTime % 1;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Jump");
+            rb.AddForce(transform.up * jumppower, ForceMode.Impulse);
+            jump_flag = true;
+        }
 
-        //if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_F", 1);
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        Debug.Log("再生終了");
-        //        animator.SetInteger("Boost_F", 2);
-        //    }
+      
 
-        //}
-        //else if (Input.GetKey(KeyCode.W))
-        //{
-        //    transform.position += transform.forward * moveSpeed * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_F", 1);
-        //        Debug.Log("押された＿W");
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        animator.SetInteger("Boost_F", 2);
-        //    }
-
-        //}
-        //else if (Input.GetKeyUp(KeyCode.W))
-        //{
-        //    animator.SetInteger("Boost_F", 3);
-        //    if (NormalizeTime >= 0.9f)
-        //    {
-
-        //    }
-        //}
-        //if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
-        //{
-
-        //    transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_B", 1);
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        animator.SetInteger("Boost_B", 2);
-        //    }
-
-        //}
-        //else if (Input.GetKey(KeyCode.S))
-        //{
-
-        //    transform.position += transform.forward * -moveSpeed * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_B", 1);
-        //        Debug.Log("押された＿S");
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        animator.SetInteger("Boost_B", 2);
-        //    }
-        //}
-        //else if (Input.GetKeyUp(KeyCode.S))
-        //{
-        //    animator.SetInteger("Boost_B", 3);
-        //    if (NormalizeTime >= 0.9f)
-        //    {
-        //        animator.SetInteger("Boost_B", 0);
-        //    }
-        //}
-        //if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
-        //{
-
-        //    transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_L", 1);
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        animator.SetInteger("Boost_L", 2);
-        //    }
-
-        //}
-        //else if (Input.GetKey(KeyCode.A))
-        //{
-
-        //    transform.position += transform.right * -moveSpeed * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_L", 1);
-        //        Debug.Log("押された＿A");
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        animator.SetInteger("Boost_L", 2);
-        //    }
-
-        //}
-        //else if (Input.GetKeyUp(KeyCode.S))
-        //{
-        //    animator.SetInteger("Boost_L", 3);
-        //    if (NormalizeTime >= 0.9f)
-        //    {
-        //        animator.SetInteger("Boost_L", 0);
-        //    }
-        //}
-        //if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
-        //{
-
-        //    transform.position += transform.right * (moveSpeed + 2.0f) * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_R", 1);
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        animator.SetInteger("Boost_R", 2);
-        //    }
-
-        //}
-        //else if (Input.GetKey(KeyCode.D))
-        //{
-
-        //    transform.position += transform.right * moveSpeed * Time.deltaTime;
-        //    if (Anim_start == false)
-        //    {
-        //        Anim_start = true;
-        //        animator.SetInteger("Boost_R", 1);
-        //        Debug.Log("押された＿D");
-        //    }
-        //    if (NormalizeTime >= 0.9f && Anim_start)
-        //    {
-        //        animator.SetInteger("Boost_R", 2);
-        //    }
-        //}
-        //else if (Input.GetKeyUp(KeyCode.S))
-        //{
-        //    animator.SetInteger("Boost_R", 3);
-        //    if (NormalizeTime >= 0.9f)
-        //    {
-        //        animator.SetInteger("Boost_R", 0);
-        //    }
-        //}
-
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    Debug.Log("ダッシュ");
-        //    rb.AddForce(transform.up * jumppower, ForceMode.Impulse);
-        //    //jump_flag = true;
-        //}
 
 
     }
 
-public void anim_reset()
-       {
-            target_y = 0;
-            target_x = 0;
-       }
+   public void anim_reset()
+   {
+        animator.SetBool("Action", false);
+   }
+
+    void AddForce_reset()
+    {
+        if (jump_flag == true)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
+    }
 
 }
