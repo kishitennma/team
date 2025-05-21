@@ -12,7 +12,7 @@ public enum Enemy_ID
 {
     //敵のIDリスト
     Idle_Robot,//ロボット(停止)
-    Boss_Normal,//通常のボス
+    Boss_Normal,//通常のボス(停止)
 }
 public class Enemy_Status
 {
@@ -41,8 +41,8 @@ public class Enemy_Controller : Damage_Calclate
     //ここに敵のステータスを入力(体力、攻撃力、AI)
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
-        {Enemy_ID.Idle_Robot,new Enemy_Status(30,5,Enemy_Ai_Style.Idle)},
-        {Enemy_ID.Boss_Normal,new Enemy_Status(100,10,Enemy_Ai_Style.Idle) }
+        {Enemy_ID.Idle_Robot ,new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle) },
+        {Enemy_ID.Boss_Normal,new Enemy_Status(100,15,Enemy_Ai_Style.Idle) },
     };
 
     //変数
