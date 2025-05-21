@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour
     private float NormalizeTime;
     private float move_x, move_y;//移動方向
     private float target_x, target_y;//線形保管用
-    private KeyCode key;
 
 
     public float moveSpeed = 30.0f; // キャラクターの移動速度
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     //アニメーション終了関数(Intを0にする)
     public void Anim_Set_End(string anim_name)
     {
-        animator.SetInteger(anim_name,0);
+        animator.SetInteger(anim_name, 0);
     }
     //void Jump()
     //{
@@ -73,19 +73,53 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //移動方向を初期化
-        move_x = 0; move_y = 0;animator.SetBool("Action", false);
+        move_x = 0; move_y = 0; animator.SetBool("Action", false);
         //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-        if (Input.GetKey(KeyCode.W)) { target_y = 1; transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime; animator.SetBool("Action", true); }
-        else if (Input.GetKey(KeyCode.S)) { target_y = -1; transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime; animator.SetBool("Action", true); }
-        if (Input.GetKey(KeyCode.D)) { target_x = 1; transform.position += transform.right * moveSpeed * Time.deltaTime; animator.SetBool("Action", true); }
-        else if (Input.GetKey(KeyCode.A)) { target_x = -1; transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime; animator.SetBool("Action", true); }
+        if (Input.GetKey(KeyCode.W))
+        {
+            target_y = 1.0f;
+            transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
+            
+            animator.SetBool("Action", true);
+        }
+       
+        else if (Input.GetKey(KeyCode.S))
+        {
+            target_y = -1.0f;
+            transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
+           
+            animator.SetBool("Action", true);
+        }
+       
+        if (Input.GetKey(KeyCode.D))
+        {
+            target_x = 1.0f;
+            transform.position += transform.right * moveSpeed * Time.deltaTime;
+           
+            animator.SetBool("Action", true);
+        }
+      
+        else if (Input.GetKey(KeyCode.A))
+        {
+            target_x = -1.0f;
+            transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
+          
+            animator.SetBool("Action", true);
+        }
+       
 
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
-            target_y = 0;
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-            target_x = 0;
+        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+        {
+            target_y = 0.0f;
+        }
+        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            target_x = 0.0f;
+        }
+
+
         //ここで数値を線形補間して、なめらかにする
         move_x = Mathf.Lerp(animator.GetFloat("Horizontal"), target_x, Time.deltaTime * 10f);
         move_y = Mathf.Lerp(animator.GetFloat("Vertical"), target_y, Time.deltaTime * 10f);
@@ -261,5 +295,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
+public void anim_reset()
+       {
+            target_y = 0;
+            target_x = 0;
+       }
 
 }
