@@ -32,7 +32,12 @@ public class Enemy_Status
 public class Enemy_Controller : Damage_Calclate
 {
     [Header("敵のID")]
-    [SerializeField] Enemy_ID id;
+    [SerializeField] Enemy_ID id;//敵のID
+    [Header("弾のプレハブ")]
+    [SerializeField] GameObject bullet_prefab;//弾のプレハブ
+    [SerializeField] GameObject bullet_point;//弾の発射位置
+    [SerializeField] int bullet_force;//弾丸の発射速度
+    [SerializeField] int bullet_per_shot;//発射間隔
     //ここに敵のステータスを入力(体力、攻撃力、AI)
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
@@ -42,19 +47,21 @@ public class Enemy_Controller : Damage_Calclate
     //変数
     Animator animator;
     private int hp;//現在の体力
+    private int b_time;//弾丸発射時間
     private int damage;
     private bool act_shot;
+    private Vector3 vec;
     private Enemy_Ai_Style ai_style;//AIスタイル
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();//Animator取得
         hp = Enemy_Status.max_hp;//体力を設定
         damage = Enemy_Status.attack_damage;//攻撃力設定
     }
     void Update()
     {
         Enmey_State(ai_style);//エネミーの行動管理
-
+        b_time++;
         //体力が1以下ならアニメーション更新
         if(hp < 1)
         {
@@ -67,27 +74,29 @@ public class Enemy_Controller : Damage_Calclate
     {
         if (style == Enemy_Ai_Style.Idle)
         {
-            //停止状態
-            if(act_shot == true)
+            //停止状態(何もしない
+
+            if(act_shot == true && bullet_per_shot < b_time)
             {
                 //弾を発射
+                Shot();
+                b_time = 0;//時間初期化
             }
         }
         
     }
-    //Bulletタグに当たったら体力を減らす
-    void OnTriggerEnter(Collider collider)
+    //Playerが範囲内に入ったらその方向を向く
+    void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            Debug.Log("見つけた");
             //敵からプレイヤーまでのベクトル作成
-            Vector3 direction = gameObject.transform.position - collider.gameObject.transform.position; direction.y = 0;//yを0に設定
-            transform.rotation = Quaternion.LookRotation(direction);//角度をdirectionまで変更
+            vec = gameObject.transform.position - collider.gameObject.transform.position; vec.y = 0;//yを0に設定
+            transform.rotation = Quaternion.LookRotation(vec);//角度をdirectionまで変更
             act_shot = true;
         }
-
     }
+    //Bulletタグに当たったら体力を減らす
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -102,5 +111,15 @@ public class Enemy_Controller : Damage_Calclate
     public void DestroyObject()
     {
         Destroy(gameObject);
+    }
+
+    private void Shot()
+    {
+        //弾のプレハブを生成
+        GameObject bullet = Instantiate(bullet_prefab, gameObject.transform.position, Quaternion.identity);
+        bullet.transform.position = bullet_point.transform.position;
+        bullet.transform.rotation = Quaternion.LookRotation(vec);//角度をdirectionまで変更
+        //RigidBodyにbullet_force分の力を加える
+        bullet.GetComponent<Rigidbody>().AddForce(-vec.normalized * bullet_force, ForceMode.Impulse);
     }
 }
