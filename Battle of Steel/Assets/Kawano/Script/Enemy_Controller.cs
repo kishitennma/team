@@ -1,27 +1,28 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Enemy_Ai_Style
 {
-    //“G‚ÌAIƒŠƒXƒg
-    Idle,//’â~
+    //æ•µã®AIãƒªã‚¹ãƒˆ
+    Idle,//åœæ­¢
 
 }
 public enum Enemy_ID
 {
-    //“G‚ÌIDƒŠƒXƒg
-    Idle_Robot,//ƒƒ{ƒbƒg(’â~)
+    //æ•µã®IDãƒªã‚¹ãƒˆ
+    Idle_Robot,//ãƒ­ãƒœãƒƒãƒˆ(åœæ­¢)
 
 }
 public class Enemy_Status
 {
-    public static int max_hp;//Å‘å‘Ì—Í
-    public static int attack_damage;//UŒ‚—Í
-    public Enemy_Ai_Style style;//AIƒXƒ^ƒCƒ‹
-    
+    public static int max_hp;//æœ€å¤§ä½“åŠ›
+    public static int attack_damage;//æ”»æ’ƒåŠ›
+    public Enemy_Ai_Style style;//AIã‚¹ã‚¿ã‚¤ãƒ«
+
     public Enemy_Status(int set_hp,int set_damage,Enemy_Ai_Style set_style)
     {
-        //ŠeƒXƒe[ƒ^ƒX‚ğ“ü—Í
+        //å„ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å…¥åŠ›
         max_hp = set_hp;
         attack_damage = set_damage;
         style = set_style;
@@ -30,72 +31,95 @@ public class Enemy_Status
 
 public class Enemy_Controller : Damage_Calclate
 {
-    [Header("“G‚ÌID")]
-    [SerializeField] Enemy_ID id;//“G‚ÌID
-    [SerializeField] Collision find_player_collision;//ƒvƒŒƒCƒ„[‚ğ’T‚·‚½‚ß‚Ì‚ ‚½‚è”»’è
-    [Header("ƒCƒ“ƒXƒyƒNƒ^Šm”F—p")]
-    [SerializeField] int set_hp;//ƒCƒ“ƒXƒyƒNƒ^Šm”F—p
-    [Header("’eŠÛƒvƒŒƒnƒu")]
-    [SerializeField] GameObject bullet_prefab;//’eŠÛ‚ÌƒvƒŒƒnƒu
-    //‚±‚±‚É“G‚ÌƒXƒe[ƒ^ƒX‚ğ“ü—Í(‘Ì—ÍAUŒ‚—ÍAAI)
+    [Header("æ•µã®ID")]
+    [SerializeField] Enemy_ID id;//æ•µã®ID
+    [Header("å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–")]
+    [SerializeField] GameObject bullet_prefab;//å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–
+    [SerializeField] GameObject bullet_point;//å¼¾ã®ç™ºå°„ä½ç½®
+    [SerializeField] int bullet_force;//å¼¾ä¸¸ã®ç™ºå°„é€Ÿåº¦
+    [SerializeField] int bullet_per_shot;//ç™ºå°„é–“éš”
+    //ã“ã“ã«æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å…¥åŠ›(ä½“åŠ›ã€æ”»æ’ƒåŠ›ã€AI)
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         {Enemy_ID.Idle_Robot,new Enemy_Status(30,5,Enemy_Ai_Style.Idle)},
     };
 
-    //•Ï”
-    Animator animator;//ƒAƒjƒ[ƒ^[
-    private int hp;//Œ»İ‚Ì‘Ì—Í
-    private Enemy_Ai_Style ai_style;//AIƒXƒ^ƒCƒ‹
+    //å¤‰æ•°
+    Animator animator;
+    private int hp;//ç¾åœ¨ã®ä½“åŠ›
+    private int b_time;//å¼¾ä¸¸ç™ºå°„æ™‚é–“
+    private int damage;
+    private bool act_shot;
+    private Vector3 vec;
+    private Enemy_Ai_Style ai_style;//AIã‚¹ã‚¿ã‚¤ãƒ«
     void Start()
     {
-        animator = GetComponent<Animator>();//ƒAƒjƒ[ƒ^[‚ğæ“¾
-        
-        hp = Enemy_Status.max_hp;//‘Ì—Í‚ğİ’è
+        animator = GetComponent<Animator>();//Animatorå–å¾—
+        hp = Enemy_Status.max_hp;//ä½“åŠ›ã‚’è¨­å®š
+        damage = Enemy_Status.attack_damage;//æ”»æ’ƒåŠ›è¨­å®š
     }
     void Update()
     {
-        Enmey_State(ai_style);//ƒGƒlƒ~[‚Ìs“®ŠÇ—
-        set_hp = hp;
-        //‘Ì—Í‚ª1ˆÈ‰º‚È‚çƒAƒjƒ[ƒVƒ‡ƒ“‚ğ•ÏX
+        Enmey_State(ai_style);//ã‚¨ãƒãƒŸãƒ¼ã®è¡Œå‹•ç®¡ç†
+        b_time++;
+        //ä½“åŠ›ãŒ1ä»¥ä¸‹ãªã‚‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ›´æ–°
         if(hp < 1)
         {
-            Debug.Log("“G‚ğ“|‚µ‚½");
-            animator.SetBool("Death", true);//ƒAƒjƒ[ƒ^[‚ÌğŒ‚ğXV
+            hp = 0;
+            animator.SetBool("Death", true);
         }
     }
-    //ƒGƒlƒ~[‚Ìs“®ˆ—
+    //ã‚¨ãƒãƒŸãƒ¼ã®è¡Œå‹•å‡¦ç†
     private void Enmey_State(Enemy_Ai_Style style)
     {
-        //style‚ªŠeAIƒXƒ^ƒCƒ‹‚Ìê‡‚»‚Ì‹““®‚ğİ’è
         if (style == Enemy_Ai_Style.Idle)
         {
-            //’â~ó‘Ô
+            //åœæ­¢çŠ¶æ…‹(ä½•ã‚‚ã—ãªã„
+
+            if(act_shot == true && bullet_per_shot < b_time)
+            {
+                //å¼¾ã‚’ç™ºå°„
+                Shot();
+                b_time = 0;//æ™‚é–“åˆæœŸåŒ–
+            }
         }
-        else { }
         
     }
+    //PlayerãŒç¯„å›²å†…ã«å…¥ã£ãŸã‚‰ãã®æ–¹å‘ã‚’å‘ã
+    void OnTriggerStay(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            //æ•µã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¾ã§ã®ãƒ™ã‚¯ãƒˆãƒ«ä½œæˆ
+            vec = gameObject.transform.position - collider.gameObject.transform.position; vec.y = 0;//yã‚’0ã«è¨­å®š
+            transform.rotation = Quaternion.LookRotation(vec);//è§’åº¦ã‚’directionã¾ã§å¤‰æ›´
+            act_shot = true;
+        }
+    }
+    //Bulletã‚¿ã‚°ã«å½“ãŸã£ãŸã‚‰ä½“åŠ›ã‚’æ¸›ã‚‰ã™
     private void OnCollisionEnter(Collision collision)
     {
-        //Tag.Player‚ğ‚Á‚Ä‚¢‚½ê‡‚»‚ÌƒIƒuƒWƒFƒNƒg‚Ì•ûŒü‚ğŒü‚­
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            transform.LookAt(collision.gameObject.transform);//•ûŒü‚ğİ’è
+            hp = Damage_Cal(damage, hp);
+            collision.gameObject.IsDestroyed();
+            Debug.Log("å½“ãŸã£ãŸ  ä½“åŠ›" + hp);
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        //Object.Bullet‚ªCollision‚ÉÕ“Ë‚µ‚½ê‡A‘Ì—Í‚ğŒ»Û‚³‚¹‚é
-        if(other.CompareTag("Bullet"))
-        {
-            hp -= 5;
-            Debug.Log("“–‚½‚Á‚½");
-
-        }
-    }
+    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ä¸­ã§ã“ã®é–¢æ•°ã‚’å‘¼ã‚“ã§ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™
     public void DestroyObject()
     {
-        Destroy(gameObject);//‚±‚ÌƒXƒNƒŠƒvƒg‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg”jŠü
+        Destroy(gameObject);
+    }
+
+    private void Shot()
+    {
+        //å¼¾ã®ãƒ—ãƒ¬ãƒãƒ–ã‚’ç”Ÿæˆ
+        GameObject bullet = Instantiate(bullet_prefab, gameObject.transform.position, Quaternion.identity);
+        bullet.transform.position = bullet_point.transform.position;
+        bullet.transform.rotation = Quaternion.LookRotation(vec);//è§’åº¦ã‚’directionã¾ã§å¤‰æ›´
+        //RigidBodyã«bullet_forceåˆ†ã®åŠ›ã‚’åŠ ãˆã‚‹
+        bullet.GetComponent<Rigidbody>().AddForce(-vec.normalized * bullet_force, ForceMode.Impulse);
     }
 }

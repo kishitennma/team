@@ -621,7 +621,7 @@ PrefabInstance:
     - target: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 341ff391ac63a354c88923b1647ff0a1, type: 2}
+      objectReference: {fileID: 9100000, guid: 62294f2d191cdf842b54297be1e60aa6, type: 2}
     - target: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       propertyPath: m_WarningMessage
       value: 
@@ -648,7 +648,7 @@ PrefabInstance:
       addedObject: {fileID: 1412561549}
     - targetCorrespondingSourceObject: {fileID: 8155533566875335504, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1412561554}
+      addedObject: {fileID: 1412561556}
   m_SourcePrefab: {fileID: 100100000, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
 --- !u!1 &1412561548 stripped
 GameObject:
@@ -709,7 +709,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8155533566875756210, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
   m_PrefabInstance: {fileID: 1412561547}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1412561554
+--- !u!95 &1412561555 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+  m_PrefabInstance: {fileID: 1412561547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1412561556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -718,23 +723,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1412561548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 847aed08796c54a4cb9b7ed02be42607, type: 3}
+  m_Script: {fileID: 11500000, guid: e6725ab6ac848d94caa9a5f4e33542e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1412561548}
   rb: {fileID: 1412561549}
   Cam: {fileID: 961739749}
   animator: {fileID: 1412561555}
-  jumppower: 15
+  jumppower: 0
   Anim_start: 0
   Anim_end: 0
-  moveSpeed: 20
+  moveSpeed: 30
   damaged: 0
---- !u!95 &1412561555 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8155533566884809010, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
-  m_PrefabInstance: {fileID: 1412561547}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1736504361
 GameObject:
   m_ObjectHideFlags: 0
