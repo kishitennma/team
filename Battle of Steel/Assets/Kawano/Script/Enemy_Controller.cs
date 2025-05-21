@@ -12,7 +12,7 @@ public enum Enemy_ID
 {
     //敵のIDリスト
     Idle_Robot,//ロボット(停止)
-
+    Boss_Normal,//通常のボス
 }
 public class Enemy_Status
 {
@@ -42,6 +42,7 @@ public class Enemy_Controller : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         {Enemy_ID.Idle_Robot,new Enemy_Status(30,5,Enemy_Ai_Style.Idle)},
+        {Enemy_ID.Boss_Normal,new Enemy_Status(100,10,Enemy_Ai_Style.Idle) }
     };
 
     //変数
@@ -79,14 +80,13 @@ public class Enemy_Controller : Damage_Calclate
         {
             //停止状態(何もしない
 
-            if(act_shot == true && bullet_per_shot < b_time)
+            if(act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
                 //弾を発射
                 Shot();
                 b_time = 0;//時間初期化
             }
         }
-        
     }
     //Playerが範囲内に入ったらその方向を向く
     void OnTriggerStay(Collider collider)
