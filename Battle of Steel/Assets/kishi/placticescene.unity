@@ -730,7 +730,7 @@ MonoBehaviour:
   rb: {fileID: 1412561549}
   Cam: {fileID: 961739749}
   animator: {fileID: 1412561555}
-  jumppower: 0
+  jumppower: 15
   Anim_start: 0
   Anim_end: 0
   moveSpeed: 30
