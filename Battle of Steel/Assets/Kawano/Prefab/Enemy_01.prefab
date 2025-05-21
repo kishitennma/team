@@ -177,7 +177,7 @@ MonoBehaviour:
   bullet_prefab: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
   bullet_point: {fileID: 2666782400666423708}
   bullet_force: 80
-  bullet_per_shot: 60
+  bullet_per_shot: 300
 --- !u!95 &1818116273999821417
 Animator:
   serializedVersion: 7

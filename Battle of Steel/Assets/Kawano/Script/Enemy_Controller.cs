@@ -49,11 +49,12 @@ public class Enemy_Controller : Damage_Calclate
     private int hp;//現在の体力
     private int b_time;//弾丸発射時間
     private int damage;
-    private bool act_shot;
+    private bool act_shot = false;
     private Vector3 vec;
     private Enemy_Ai_Style ai_style;//AIスタイル
     void Start()
     {
+        act_shot = false;
         animator = GetComponent<Animator>();//Animator取得
         hp = Enemy_Status.max_hp;//体力を設定
         damage = Enemy_Status.attack_damage;//攻撃力設定
@@ -66,6 +67,8 @@ public class Enemy_Controller : Damage_Calclate
         if(hp < 1)
         {
             hp = 0;
+            act_shot = false;
+            Destroy(bullet_point);
             animator.SetBool("Death", true);
         }
     }
@@ -88,7 +91,7 @@ public class Enemy_Controller : Damage_Calclate
     //Playerが範囲内に入ったらその方向を向く
     void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player")==true)
         {
             //敵からプレイヤーまでのベクトル作成
             vec = gameObject.transform.position - collider.gameObject.transform.position; vec.y = 0;//yを0に設定
