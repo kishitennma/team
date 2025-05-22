@@ -29,7 +29,7 @@ public class RockOn : MonoBehaviour
 
         if(lockon_flag == true)
         {
-            if (!is_lock_on)
+            if (!is_lock_on )
             {
                 Set_LockOn();
                 RotateTarget();
@@ -85,6 +85,7 @@ public class RockOn : MonoBehaviour
     {
         lockon_target = null;
         is_lock_on = false;
+        lockon_flag = false;
     }
 
     void RotateTarget()
