@@ -731,7 +731,7 @@ MonoBehaviour:
   Cam: {fileID: 961739749}
   animator: {fileID: 1412561555}
   jumppower: 15
-  step_power: 0.5
+  step_power: 10
   attack_power: 0
   hp: 100
   moveSpeed: 30

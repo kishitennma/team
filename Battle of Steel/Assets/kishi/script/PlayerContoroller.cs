@@ -80,11 +80,13 @@ public class PlayerController : MonoBehaviour
         Screen_movement(mx);
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
+           
+                transform.Translate(0, 0, step_power);
             animator.SetFloat("IsDashing", 1.0f);
             target_y = 1.0f;
             transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;
             AddForce_reset();
-            rb.AddForce(transform.forward * step_power, ForceMode.Impulse);
+           
         }
         else if (Input.GetKey(KeyCode.W))
         {
@@ -100,7 +102,7 @@ public class PlayerController : MonoBehaviour
             target_y = -1.0f;
             transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
             AddForce_reset();
-            rb.AddForce(transform.forward * -step_power, ForceMode.Impulse);
+           
         }
         else if (Input.GetKey(KeyCode.S))
         {
@@ -116,7 +118,7 @@ public class PlayerController : MonoBehaviour
             target_x = 1.0f;
             transform.position += transform.right * (moveSpeed*2.0f) * Time.deltaTime;
             AddForce_reset();
-            rb.AddForce(transform.right * step_power, ForceMode.Impulse);
+          
         }
         else if (Input.GetKey(KeyCode.D))
         {
@@ -132,7 +134,8 @@ public class PlayerController : MonoBehaviour
             target_x = -1.0f;
             transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
             AddForce_reset();
-            rb.AddForce(transform.right * -step_power, ForceMode.Impulse);
+           
+            
         }
         else if (Input.GetKey(KeyCode.A))
         {
