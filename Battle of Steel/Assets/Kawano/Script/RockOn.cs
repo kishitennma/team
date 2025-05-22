@@ -1,58 +1,90 @@
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 //ロックオンシステム
 
 public class RockOn : MonoBehaviour
 {
-    [Header("プレイヤーオブジェクト")]
-    [SerializeField] GameObject player_object;//プレイヤー
+    [Header("オブジェクト")]
+    [SerializeField] GameObject player;//プレイヤーオブジェクト
+    [Header("ロックオン設定")]
+    [SerializeField] float lockon_range = 20.0f;//ロックオンの距離
+    public LayerMask enemy_layer;//敵の階層
 
-    private GameObject target;//敵
+    private Transform lockon_target;
+    private bool is_lock_on;
+    private float rotate_speed;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //範囲内に入ってエネミーだったらtargetに入れる
-        if(other.gameObject.CompareTag("Enemy"))
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            target = other.gameObject;
+            if(!is_lock_on)
+            {
+                Set_LockOn();
+            }
+            else
+            {
+                Stop_LockOn();
+            }
+        }
+
+        if(is_lock_on  && lockon_target == null)
+        {
+            RotateTarget();
+            float distance = Vector3.Distance(transform.position, lockon_target.position);
+            if(distance > lockon_range || !lockon_target.gameObject.activeInHierarchy)
+            {
+                Stop_LockOn();
+            }
+
+        }
+
+    }
+
+    //ロックオン設定
+    private void Set_LockOn()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position,lockon_range);
+        Transform clossest = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach(Collider hit in hits)
+        {
+            //エネミータグなら
+            if(hit.CompareTag("Enemy"))
+            {
+                float distance = Vector3.Distance(transform.position, hit.transform.position);
+                if(distance < minDistance)
+                {
+                    minDistance = distance;
+                    clossest = hit.transform;
+                }
+            }
+        }
+        if(clossest != null)
+        {
+            lockon_target = clossest;
+            is_lock_on = false;
+            Debug.Log("ロックオン！！");
         }
     }
-    private void OnTriggerExit(Collider other)
+    //ロックオン中止
+    private void Stop_LockOn()
     {
-        //範囲外に出たらtargetを初期化
-        if(other.gameObject.CompareTag("Enemy"))
+        lockon_target = null;
+        is_lock_on = false;
+        Debug.Log("ロックオン中止");
+    }
+
+    void RotateTarget()
+    {
+        Vector3 direction = (lockon_target.position - transform.position);
+        direction.y = 0;//水平方向のみ
+        if(direction != Vector3.zero)
         {
-            target = null;
+            Quaternion lockrotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lockrotation, Time.deltaTime * rotate_speed);
         }
-    }
-    //ターゲット情報を返す
-    public GameObject GetTarget()
-    {
-        return this.target;
-    }
-
-    private GameObject RockOnPlayerToEnemy()
-    {
-        float search_radius = 10f;
-        //var hits = Physics.SphereCastAll(
-        //    player_object.transform.position,
-        //    search_radius,
-        //    player_object.transform.forward,
-        //    0.01f
-        //    )
-
-
-        return null;
     }
 }
