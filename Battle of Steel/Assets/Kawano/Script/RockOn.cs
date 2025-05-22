@@ -1,6 +1,7 @@
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 //ロックオンシステム
 
 public class RockOn : MonoBehaviour
@@ -13,23 +14,34 @@ public class RockOn : MonoBehaviour
 
     private Transform lockon_target;
     private bool is_lock_on;
-    private float rotate_speed;
+    private float rotate_speed = 90;
+    private bool lockon_flag = false;
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if(!is_lock_on)
+            if (!lockon_flag)
+                lockon_flag = true;
+            else
+                lockon_flag = false;
+        }
+
+        if(lockon_flag == true)
+        {
+            if (!is_lock_on)
             {
                 Set_LockOn();
+                RotateTarget();
             }
             else
             {
                 Stop_LockOn();
             }
+
         }
 
-        if(is_lock_on  && lockon_target == null)
+        if (is_lock_on  && lockon_target != null)
         {
             RotateTarget();
             float distance = Vector3.Distance(transform.position, lockon_target.position);
@@ -66,7 +78,6 @@ public class RockOn : MonoBehaviour
         {
             lockon_target = clossest;
             is_lock_on = false;
-            Debug.Log("ロックオン！！");
         }
     }
     //ロックオン中止
@@ -74,7 +85,6 @@ public class RockOn : MonoBehaviour
     {
         lockon_target = null;
         is_lock_on = false;
-        Debug.Log("ロックオン中止");
     }
 
     void RotateTarget()
@@ -85,6 +95,7 @@ public class RockOn : MonoBehaviour
         {
             Quaternion lockrotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lockrotation, Time.deltaTime * rotate_speed);
+            transform.rotation = lockrotation;
         }
     }
 }
