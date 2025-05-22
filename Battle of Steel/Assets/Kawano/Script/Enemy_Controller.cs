@@ -51,7 +51,7 @@ public class Enemy_Controller : Damage_Calclate
     private int b_time;//弾丸発射時間
     private int damage;//攻撃力
     private bool act_shot = false;//弾丸発射許可値
-    private Vector3 vec;//ベクトル
+    private Vector3 e_vec;//ベクトル
     private Enemy_Ai_Style ai_style;//AIスタイル
     void Start()
     {
@@ -96,9 +96,9 @@ public class Enemy_Controller : Damage_Calclate
         if (collider.gameObject.CompareTag("Player")==true)
         {
             //敵からプレイヤーまでのベクトル作成
-            vec = gameObject.transform.position - collider.gameObject.transform.position;
+            e_vec = gameObject.transform.position - collider.gameObject.transform.position;
             //vec.y = 0;//y軸固定
-            transform.rotation = Quaternion.LookRotation(vec);//角度をdirectionまで変更
+            transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
             act_shot = true;//弾丸発射を許可
         }
     }
@@ -125,8 +125,8 @@ public class Enemy_Controller : Damage_Calclate
         //弾のプレハブを生成
         GameObject bullet = Instantiate(bullet_prefab, gameObject.transform.position, Quaternion.identity);
         bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
-        bullet.transform.rotation = Quaternion.LookRotation(vec);//角度をdirectionまで変更
+        bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
         //RigidBodyにbullet_force分の力を加える
-        bullet.GetComponent<Rigidbody>().AddForce(-vec.normalized * bullet_force, ForceMode.Impulse);
+        bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
     }
 }
