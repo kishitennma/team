@@ -2,6 +2,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 //ロックオンシステム
 
 public class RockOn : MonoBehaviour
@@ -9,7 +10,7 @@ public class RockOn : MonoBehaviour
     [Header("オブジェクト")]
     [SerializeField] GameObject player;//プレイヤーオブジェクト
     [Header("ロックオン設定")]
-    [SerializeField] float lockon_range = 20.0f;//ロックオンの距離
+    [SerializeField] float lockon_range = 100.0f;//ロックオンの距離
     public LayerMask enemy_layer;//敵の階層
 
     private Transform lockon_target;
@@ -32,26 +33,18 @@ public class RockOn : MonoBehaviour
             if (!is_lock_on )
             {
                 Set_LockOn();
-                RotateTarget();
             }
             else
             {
-                float distance = Vector3.Distance(transform.position, lockon_target.position);
-                if (distance > lockon_range || !lockon_target.gameObject.activeInHierarchy)
+                RotateTarget();
+                if (lockon_target == null)
                 {
                     Stop_LockOn();
                     Debug.Log("ロックオン対象を見失いました");
+                    is_lock_on = false;
                 }
             }
-            if (is_lock_on && lockon_target != null)
-            {
-
-            }
-
-
         }
-
-
     }
 
     //ロックオン設定
@@ -77,7 +70,7 @@ public class RockOn : MonoBehaviour
         if(clossest != null)
         {
             lockon_target = clossest;
-            is_lock_on = false;
+            is_lock_on = true;
         }
     }
     //ロックオン中止
@@ -90,13 +83,17 @@ public class RockOn : MonoBehaviour
 
     void RotateTarget()
     {
-        Vector3 direction = (lockon_target.position - transform.position);
-        direction.y = 0;//水平方向のみ
-        if(direction != Vector3.zero)
+        if (lockon_target != null)
         {
-            Quaternion lockrotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lockrotation, Time.deltaTime * rotate_speed);
-            transform.rotation = lockrotation;
+            Vector3 direction = (lockon_target.position - transform.position);
+            direction.y = 0;//水平方向のみ
+            if (direction != Vector3.zero)
+            {
+                Quaternion lockrotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lockrotation, Time.deltaTime * rotate_speed);
+                transform.rotation = lockrotation;
+            }
         }
+
     }
 }
