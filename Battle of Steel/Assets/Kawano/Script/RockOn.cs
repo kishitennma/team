@@ -36,21 +36,21 @@ public class RockOn : MonoBehaviour
             }
             else
             {
-                Stop_LockOn();
+                float distance = Vector3.Distance(transform.position, lockon_target.position);
+                if (distance > lockon_range || !lockon_target.gameObject.activeInHierarchy)
+                {
+                    Stop_LockOn();
+                    Debug.Log("ƒƒbƒNƒIƒ“‘ÎÛ‚ðŒ©Ž¸‚¢‚Ü‚µ‚½");
+                }
             }
-
-        }
-
-        if (is_lock_on  && lockon_target != null)
-        {
-            RotateTarget();
-            float distance = Vector3.Distance(transform.position, lockon_target.position);
-            if(distance > lockon_range || !lockon_target.gameObject.activeInHierarchy)
+            if (is_lock_on && lockon_target != null)
             {
-                Stop_LockOn();
+
             }
 
+
         }
+
 
     }
 
