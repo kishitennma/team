@@ -1,17 +1,13 @@
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 //ロックオンシステム
 
 public class RockOn : MonoBehaviour
 {
+    [Header("ロックオンコンポーネント")]
     [Header("オブジェクト")]
     [SerializeField] GameObject player;//プレイヤーオブジェクト
     [Header("ロックオン設定")]
     [SerializeField] float lockon_range = 100.0f;//ロックオンの距離
-    public LayerMask enemy_layer;//敵の階層
 
     private Transform lockon_target;
     private bool is_lock_on;

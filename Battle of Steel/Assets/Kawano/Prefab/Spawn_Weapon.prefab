@@ -70,9 +70,9 @@ MonoBehaviour:
   useRandomColor: 1
   useCustomColor: 0
   customColor: {r: 1, g: 1, b: 1, a: 1}
-  useAlbedoColor: 1
+  useAlbedoColor: 0
   useEmissionColor: 1
-  useEmissionBlink: 0
+  useEmissionBlink: 1
   blinkSpeed: 0.6
   emissionIntensity: 1.5
   overrideHandle: {fileID: 0}
