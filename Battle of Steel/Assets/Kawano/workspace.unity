@@ -214,7 +214,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 652557247}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 228073090}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1106,12 +1106,19 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8900864816431088079, guid: ce72b4112c844484090751b9d3cf0056, type: 3}
+      propertyPath: ammo_texts
+      value: 
+      objectReference: {fileID: 652557248}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7515711221723751271, guid: ce72b4112c844484090751b9d3cf0056, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1183632610}
+    - targetCorrespondingSourceObject: {fileID: 7515711221723751271, guid: ce72b4112c844484090751b9d3cf0056, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 180228429}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce72b4112c844484090751b9d3cf0056, type: 3}
 --- !u!1660057539 &9223372036854775807
@@ -1121,5 +1128,4 @@ SceneRoots:
   - {fileID: 203844589}
   - {fileID: 5509432485588630533}
   - {fileID: 1924280347}
-  - {fileID: 180228429}
   - {fileID: 245114759}
