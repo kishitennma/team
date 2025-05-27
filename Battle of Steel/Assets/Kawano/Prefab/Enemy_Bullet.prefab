@@ -130,6 +130,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -169,6 +181,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -176,6 +192,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
       propertyPath: m_Name
       value: Enemy_Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}
       propertyPath: m_TagString
@@ -218,7 +238,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -248,7 +268,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

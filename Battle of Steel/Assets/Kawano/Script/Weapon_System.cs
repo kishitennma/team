@@ -22,7 +22,7 @@ public class WeaponSystem : MonoBehaviour
     [Header("弾丸プレハブ")]
     [SerializeField] GameObject bullet_prefab;
     [Header("弾丸情報テキスト")]
-    [SerializeField] Text ammo_text;
+    public Text ammo_text;
     [Header("マズルフラッシュを読み込む")]
     public ParticleSystem flash;//フラッシュパーティクル
     public GameObject flash_light;//フラッシュライト
