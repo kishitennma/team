@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1909753355}
-  sceneName: CustomizeMenu
+  sceneName: Customize
 --- !u!1001 &2141697564
 PrefabInstance:
   m_ObjectHideFlags: 0
