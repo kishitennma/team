@@ -4,6 +4,18 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/REN/GameTitle.unity
+    guid: 847e1b8a73ad1d445a6002bb8e601a90
+  - enabled: 1
+    path: Assets/REN/Menu.unity
+    guid: 2aef7203a0f0a2745bed4f3c8762deb0
+  - enabled: 0
+    path: Assets/REN/Customize.unity
+    guid: a778702b584fc2347973de34783a3cfe
+  - enabled: 1
+    path: Assets/REN/City.unity
+    guid: 56d9f1413f62db34187ef434a8bffb1e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
