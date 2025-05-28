@@ -9,21 +9,13 @@ public enum WeaponType
     ShotGun,
 }
 
+
 public class WeaponSystem : MonoBehaviour
 {
     [Header("武器生成")]
     [SerializeField] Transform weaponParent;
+    [SerializeField] bool isMainWeapon;
     public WeaponType type;
-
-    [Header("武器パラメータ範囲")]
-    [SerializeField] string Name;
-    [SerializeField] float min_shoot_force,max_shoot_force;
-    [SerializeField] float min_reload_time, max_reload_time;
-    [SerializeField] float min_time_between_shooting, max_time_between_shooting;
-    [SerializeField] int min_magazinesize, max_magazinesize;
-    [SerializeField] float spread_amount;
-    [SerializeField] bool allow_bullet_hold = false;
-    [SerializeField] bool isEquipped = false;
     [Header("弾丸プレハブ")]
     [SerializeField] GameObject bullet_prefab;
     [Header("弾丸情報テキスト")]
@@ -35,7 +27,6 @@ public class WeaponSystem : MonoBehaviour
     public AudioSource flash_sound;
 
     [Header("マテリアル設定")]
-    [SerializeField] private string materialFolder = "Materials";
     [SerializeField] private bool useRandomMaterial = true;
     [SerializeField] private bool useRandomColor = true;
     [Header("カスタムカラー設定")]
@@ -43,29 +34,62 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] private Color customColor = Color.white; [SerializeField] private bool useAlbedoColor = true;
     [SerializeField] private bool useEmissionColor = true;
     [SerializeField] private bool useEmissionBlink = false;
-    [SerializeField] private float blinkSpeed = 2f;
-    [SerializeField] private float emissionIntensity = 1f;
 
     [Header("パーツ設定（nullならランダム）")]
     [SerializeField] private GameObject overrideHandle;
     [SerializeField] private GameObject overrideBody;
     [SerializeField] private GameObject overrideNozzle;
 
+    public PlayerController player;
+    public Dictionary<int, Weapon_Date> weapon_index = new()
+    {
+        //辞書番号　             武器タイプ、弾速、リロード時間、発射間隔、マガジン容量、発散、連射(true)か単発、攻撃力
+        {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
+
+        //武器データ(ステータスのみ)
+        {0,new Weapon_Date(WeaponType.Pistol,40,0.6f,0.6f,12,0.02f, false,25)},
+        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.05f,true,10)},
+    };
+
     private List<Material> loadedMaterials = new();
     private List<(Material mat, Color baseEmission)> blinkingMaterials = new();
     private List<GameObject> handles = new(), bodies = new(), nozzles = new();
 
+    private string materialFolder = "Materials";
+    private float blinkSpeed = 2f;
+    private float emissionIntensity = 1f;
+
     private Transform muzzle_transform;
- 
-    protected float shoot_force, reload_time, time_between_shooting, spread;
-    protected int magazine_size, bullets_left, bullets_shot;
+    private bool allow_bullet_hold;
+    public float shoot_force, reload_time, time_between_shooting, spread;
+    public int magazine_size, bullets_left, bullets_shot;
     private int flash_light_time = 0;
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
     void Start()
     {
-        BuildWeapon(type);
-        flash_light.SetActive(false);
+        
 
+        int index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s",-1);
+        if (!weapon_index.ContainsKey(index))
+        {
+            Debug.LogError($"武器インデックス {index} が見つかりません");
+            return;
+        }
+
+        Weapon_Date weapon = weapon_index[index];
+        Debug.Log(index);
+        BuildWeapon(weapon.type); // 見た目生成
+
+        // ステータス適用
+        shoot_force = weapon.shot_force * 10;
+        reload_time = weapon.relode_time;
+        time_between_shooting = weapon.time_between_shooting;
+        magazine_size = weapon.magazine_size;
+        bullets_left = magazine_size;
+        spread = weapon.spread_amount;
+        allow_bullet_hold = weapon.allow_bullet_hold;
+        player.attack_power = weapon.attack_damage;
+        flash_light.SetActive(false);
     }
 
 
@@ -79,16 +103,9 @@ public class WeaponSystem : MonoBehaviour
             flash_light.SetActive(false);
             flash_light_time = 0;
         }
+        HandleInput();
 
 
-        if (isEquipped == true)
-        {
-            HandleInput();
-        }
-        else
-        {
-            return;
-        }
         if (ammo_text) ammo_text.text = $"弾数: {bullets_left} / {magazine_size}";
 
         if (useEmissionBlink)
@@ -178,12 +195,6 @@ public class WeaponSystem : MonoBehaviour
 
         muzzle_transform = nozzle.transform;
 
-        shoot_force = Random.Range(min_shoot_force, max_shoot_force);
-        reload_time = Random.Range(min_reload_time, max_reload_time);
-        time_between_shooting = Random.Range(min_time_between_shooting, max_time_between_shooting);
-        magazine_size = Random.Range(min_magazinesize, max_magazinesize);
-        bullets_left = magazine_size;
-        spread = spread_amount;
         ready_to_shoot = true;
     }
 
@@ -215,7 +226,6 @@ public class WeaponSystem : MonoBehaviour
     }
 
     GameObject GetRandomPart(List<GameObject> parts) => parts.Count > 0 ? parts[Random.Range(0, parts.Count)] : null;
-
 
     void ApplyMaterial(Renderer renderer)
     {
@@ -261,5 +271,32 @@ public class WeaponSystem : MonoBehaviour
                     blinkingMaterials.Add((mat, color));
             }
         }
+    }
+
+
+}
+
+//武器情報ベースクラス
+// Weapon_Date.cs
+public class Weapon_Date
+{
+    public WeaponType type;
+    public int shot_force;
+    public float relode_time;
+    public float time_between_shooting;
+    public int magazine_size;
+    public float spread_amount;
+    public bool allow_bullet_hold;
+    public int attack_damage;
+    public Weapon_Date(WeaponType w_type, int force, float r_time, float bet_shot, int mag_size, float spr_amount, bool bullet_hold, int attack)
+    {
+        type = w_type;
+        shot_force = force;
+        relode_time = r_time;
+        time_between_shooting = bet_shot;
+        magazine_size = mag_size;
+        spread_amount = spr_amount;
+        allow_bullet_hold = bullet_hold;
+        attack_damage = attack;
     }
 }

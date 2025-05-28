@@ -109,7 +109,7 @@ public class Enemy_Controller : Damage_Calclate
         //Bulletとの当たり判定
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            hp = Damage_Cal(damage, hp);
+            hp = Damage_Cal(WeaponSystem., hp);
             collision.gameObject.IsDestroyed();
             Debug.Log("当たった  体力" + hp);//デバッグ用
         }
