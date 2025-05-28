@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class Gun_Action : MonoBehaviour
@@ -63,7 +62,7 @@ public class Gun_Action : MonoBehaviour
         }
 
         //ÉäÉçÅ[Éh
-        if (Input.GetKeyDown(KeyCode.R) && bullets_left < magazine_size && !reloading)
+        if (bullets_left < 0 && !reloading)
         {
             Reload();
         }

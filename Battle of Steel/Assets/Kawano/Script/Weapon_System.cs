@@ -2,7 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public enum WeaponType { Pistol, AssaultRifle }
+public enum WeaponType 
+{ 
+    Pistol,
+    AssaultRifle,
+    ShotGun,
+}
 
 public class WeaponSystem : MonoBehaviour
 {
@@ -11,14 +16,14 @@ public class WeaponSystem : MonoBehaviour
     public WeaponType type;
 
     [Header("武器パラメータ範囲")]
-    [SerializeField] bool isEquipped = false;
-    [SerializeField] float min_shoot_force = 90f, max_shoot_force = 100f;
-    [SerializeField] float min_reload_time = 0.1f, max_reload_time = 1.5f;
-    [SerializeField] float min_time_between_shooting = 0.01f, max_time_between_shooting = 0.30f;
-    [SerializeField] int min_magazinesize = 1, max_magazinesize = 90;
-    [SerializeField] float spread_amount = 0.01f;
+    [SerializeField] string Name;
+    [SerializeField] float min_shoot_force,max_shoot_force;
+    [SerializeField] float min_reload_time, max_reload_time;
+    [SerializeField] float min_time_between_shooting, max_time_between_shooting;
+    [SerializeField] int min_magazinesize, max_magazinesize;
+    [SerializeField] float spread_amount;
     [SerializeField] bool allow_bullet_hold = false;
-
+    [SerializeField] bool isEquipped = false;
     [Header("弾丸プレハブ")]
     [SerializeField] GameObject bullet_prefab;
     [Header("弾丸情報テキスト")]
@@ -52,8 +57,8 @@ public class WeaponSystem : MonoBehaviour
 
     private Transform muzzle_transform;
  
-    private float shoot_force, reload_time, time_between_shooting, spread;
-    private int magazine_size, bullets_left, bullets_shot;
+    protected float shoot_force, reload_time, time_between_shooting, spread;
+    protected int magazine_size, bullets_left, bullets_shot;
     private int flash_light_time = 0;
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
     void Start()
@@ -74,10 +79,16 @@ public class WeaponSystem : MonoBehaviour
             flash_light.SetActive(false);
             flash_light_time = 0;
         }
-            
 
-        if (!isEquipped) return;
-        HandleInput();
+
+        if (isEquipped == true)
+        {
+            HandleInput();
+        }
+        else
+        {
+            return;
+        }
         if (ammo_text) ammo_text.text = $"弾数: {bullets_left} / {magazine_size}";
 
         if (useEmissionBlink)

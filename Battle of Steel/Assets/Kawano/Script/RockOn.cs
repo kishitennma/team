@@ -41,6 +41,10 @@ public class RockOn : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            Stop_LockOn();
+        }
     }
 
     //ƒƒbƒNƒIƒ“İ’è

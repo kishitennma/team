@@ -19,7 +19,6 @@ public class Enemy_Status
     public static int max_hp;//最大体力
     public static int attack_damage;//攻撃力
     public Enemy_Ai_Style style;//AIスタイル
-
     public Enemy_Status(int set_hp,int set_damage,Enemy_Ai_Style set_style)
     {
         //各ステータスを入力
@@ -46,10 +45,13 @@ public class Enemy_Controller : Damage_Calclate
     };
 
     //変数
+    public int count_game_state = 0;
+
     Animator animator;
     private int hp;//現在の体力
     private int b_time;//弾丸発射時間
     private int damage;//攻撃力
+    private int add_count = 5;//加算値
     private bool act_shot = false;//弾丸発射許可値
     private Vector3 e_vec;//ベクトル
     private Enemy_Ai_Style ai_style;//AIスタイル
@@ -57,8 +59,8 @@ public class Enemy_Controller : Damage_Calclate
     {
         act_shot = false;
         animator = GetComponent<Animator>();//Animator取得
-        hp = Enemy_Status.max_hp;//体力を設定
-        damage = Enemy_Status.attack_damage;//攻撃力設定
+        hp = Enemy_Status.max_hp + (add_count * count_game_state);//体力を設定
+        damage = Enemy_Status.attack_damage + (add_count * count_game_state);//攻撃力設定
     }
     void Update()
     {
@@ -97,7 +99,6 @@ public class Enemy_Controller : Damage_Calclate
         {
             //敵からプレイヤーまでのベクトル作成
             e_vec = gameObject.transform.position - collider.gameObject.transform.position;
-            //vec.y = 0;//y軸固定
             transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
             act_shot = true;//弾丸発射を許可
         }
@@ -113,13 +114,11 @@ public class Enemy_Controller : Damage_Calclate
             Debug.Log("当たった  体力" + hp);//デバッグ用
         }
     }
-
     //アニメーション中でこの関数を呼んでオブジェクトを消す
     public void DestroyObject()
     {
         Destroy(gameObject);
     }
-
     private void Shot()
     {
         //弾のプレハブを生成

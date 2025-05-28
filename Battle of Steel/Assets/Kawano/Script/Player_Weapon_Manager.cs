@@ -11,10 +11,13 @@ public class Player_Weapon_Manager : MonoBehaviour
     [SerializeField] Text ammo_texts;//弾丸のUI情報
     public Animator player_animator;//プレイヤーのアニメーションコントローラ
     public WeaponSystem weapon_system;//weapon_system ammo_text変更用
-    [Header("切り替えボタン")]
+    [Header("ボタン入力")]
     [SerializeField] KeyCode set_key = KeyCode.Q;//切り替えボタン
+    [SerializeField] KeyCode send_key = KeyCode.E;//武器取得ボタン
 
     private bool hold_secondry_weapon;//サブ武器の所持状態
+    private bool anim_end_flag=false;//アニメション終了フラグ
+
     private void Start()
     {
         if (main_weapon != null)
@@ -31,12 +34,12 @@ public class Player_Weapon_Manager : MonoBehaviour
         if (sub_weapon!= null)
         {
             //サブ武器を所持している、手に持っているのがメイン武器の場合set_keyで変更
-            if(!hold_secondry_weapon && Input.GetKeyDown(set_key))
+            if(!hold_secondry_weapon && Input.GetKeyDown(set_key)&& anim_end_flag == false)
             {
                 Set_Weapon_hand(sub_weapon, main_weapon);
                 hold_secondry_weapon = true;
             }
-            else if(hold_secondry_weapon && Input.GetKeyDown(set_key))
+            else if(hold_secondry_weapon && Input.GetKeyDown(set_key) && anim_end_flag == false)
             {
                 Set_Weapon_hand(main_weapon, sub_weapon);
                 hold_secondry_weapon = false;
@@ -46,12 +49,12 @@ public class Player_Weapon_Manager : MonoBehaviour
         {
             Debug.LogError("サブ武器がよみこまれませんでした");
         }
-
-
     }
+
     private void Set_Weapon_hand(GameObject change_weapon,GameObject set_weapon)
     {
         player_animator.SetBool("Change_Weapon",true);
+        anim_end_flag = true;
         weapon_system = change_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
         weapon_system.ammo_text = ammo_texts;
         change_weapon.SetActive(true);//変更後の武器を出現
@@ -63,5 +66,6 @@ public class Player_Weapon_Manager : MonoBehaviour
     public void Set_End_Change_Anim()
     {
         player_animator.SetBool("Change_Weapon", false);
+        anim_end_flag = false;
     }
 }
