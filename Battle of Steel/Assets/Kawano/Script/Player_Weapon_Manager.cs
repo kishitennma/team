@@ -1,59 +1,67 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_Weapon_Manager : MonoBehaviour
 {
-    public Transform weaponHolder;
-    public KeyCode switchKey = KeyCode.Q;
+    [Header("武器切り替えコンポーネント")]
+    [Header("武器情報")]
+    [SerializeField] Transform set_weapon_point;//武器所持用ポイント
+    [SerializeField] GameObject main_weapon;//所持しているメイン武器
+    [SerializeField] GameObject sub_weapon;//所持しているサブ武器
+    [SerializeField] Text ammo_texts;//弾丸のUI情報
+    public Animator player_animator;//プレイヤーのアニメーションコントローラ
+    public WeaponSystem weapon_system;//weapon_system ammo_text変更用
+    [Header("切り替えボタン")]
+    [SerializeField] KeyCode set_key = KeyCode.Q;//切り替えボタン
 
-    private WeaponSystem currentWeapon;
-
-    void Update()
+    private bool hold_secondry_weapon;//サブ武器の所持状態
+    private void Start()
     {
-        if (Input.GetKeyDown(switchKey))
+        if (main_weapon != null)
         {
-            TrySwitchWeapon();
+            Set_Weapon_hand(main_weapon, sub_weapon);//メイン武器を手に持たせる
+        }
+        else
+        {
+            Debug.LogError("メイン武器がよみこまれませんでした");
         }
     }
-
-    void TrySwitchWeapon()
+    private void Update()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, 2f);
-        foreach (var hit in hits)
+        if (sub_weapon!= null)
         {
-            DroppedWeapon drop = hit.GetComponent<DroppedWeapon>();
-            if (drop != null)
+            //サブ武器を所持している、手に持っているのがメイン武器の場合set_keyで変更
+            if(!hold_secondry_weapon && Input.GetKeyDown(set_key))
             {
-                // 今の武器を地面に落とす
-                if (currentWeapon == null)
-                {
-                    GameObject dropped = Instantiate(currentWeapon.gameObject);
-                    dropped.transform.position = transform.position + Vector3.right; // 少しずらす
-                    var dropScript = dropped.AddComponent<DroppedWeapon>();
-                    dropScript.InitFromWeapon(currentWeapon);
-                    Destroy(currentWeapon.gameObject);
-                }
-
-                // 新しい武器を拾う
-                currentWeapon = Instantiate(drop.weaponPrefab, weaponHolder).GetComponent<WeaponSystem>();
-                Destroy(drop.gameObject);
-                break;
+                Set_Weapon_hand(sub_weapon, main_weapon);
+                hold_secondry_weapon = true;
+            }
+            else if(hold_secondry_weapon && Input.GetKeyDown(set_key))
+            {
+                Set_Weapon_hand(main_weapon, sub_weapon);
+                hold_secondry_weapon = false;
             }
         }
+        else
+        {
+            Debug.LogError("サブ武器がよみこまれませんでした");
+        }
+
+
     }
-}
-
-public class DroppedWeapon : MonoBehaviour
-{
-    public GameObject weaponPrefab;
-
-    public void InitFromWeapon(WeaponSystem weapon)
+    private void Set_Weapon_hand(GameObject change_weapon,GameObject set_weapon)
     {
-        weaponPrefab = weapon.gameObject;
+        player_animator.SetBool("Change_Weapon",true);
+        weapon_system = change_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
+        weapon_system.ammo_text = ammo_texts;
+        change_weapon.SetActive(true);//変更後の武器を出現
+        change_weapon.transform.position = set_weapon_point.transform.position;//位置を武器を持たせる位置に合わせる
+        set_weapon.SetActive(false);//変更前の武器を消す
+        Debug.Log("武器を交換しました");
     }
-
-    void Start()
+    //武器変更用アニメーションストップ
+    public void Set_End_Change_Anim()
     {
-        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        player_animator.SetBool("Change_Weapon", false);
     }
 }
