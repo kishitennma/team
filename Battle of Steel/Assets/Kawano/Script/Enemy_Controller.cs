@@ -46,8 +46,8 @@ public class Enemy_Controller : Damage_Calclate
 
     //変数
     public int count_game_state = 0;
-
     Animator animator;
+    PlayerController p_cnt;
     private int hp;//現在の体力
     private int b_time;//弾丸発射時間
     private int damage;//攻撃力
@@ -109,7 +109,9 @@ public class Enemy_Controller : Damage_Calclate
         //Bulletとの当たり判定
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            hp = Damage_Cal(WeaponSystem., hp);
+            GameObject player = GameObject.Find("Animate_Player");
+            p_cnt = player.GetComponent<PlayerController>();
+            hp = Damage_Cal(p_cnt.attack_power, hp);
             collision.gameObject.IsDestroyed();
             Debug.Log("当たった  体力" + hp);//デバッグ用
         }

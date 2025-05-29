@@ -58,6 +58,7 @@ public class WeaponSystem : MonoBehaviour
     private string materialFolder = "Materials";
     private float blinkSpeed = 2f;
     private float emissionIntensity = 1f;
+    int index; Weapon_Date weapon;
 
     private Transform muzzle_transform;
     private bool allow_bullet_hold;
@@ -69,14 +70,14 @@ public class WeaponSystem : MonoBehaviour
     {
         
 
-        int index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s",-1);
+        index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s",-1);
         if (!weapon_index.ContainsKey(index))
         {
             Debug.LogError($"武器インデックス {index} が見つかりません");
             return;
         }
 
-        Weapon_Date weapon = weapon_index[index];
+        weapon = weapon_index[index];
         Debug.Log(index);
         BuildWeapon(weapon.type); // 見た目生成
 
@@ -89,12 +90,15 @@ public class WeaponSystem : MonoBehaviour
         spread = weapon.spread_amount;
         allow_bullet_hold = weapon.allow_bullet_hold;
         player.attack_power = weapon.attack_damage;
+        Debug.Log("プレイヤー攻撃力" + player.attack_power);
         flash_light.SetActive(false);
     }
 
 
     void Update()
     {
+        //常にこの武器のSetActiveがtrueの時、攻撃力を更新させる
+        player.attack_power = weapon.attack_damage;
         //フラッシュライトが有効にされたら時間経過で消去
         if (flash_light.activeInHierarchy == true)
             flash_light_time++;
