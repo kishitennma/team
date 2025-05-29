@@ -12,18 +12,22 @@ public enum Enemy_ID
 {
     //敵のIDリスト
     Idle_Robot,//ロボット(停止)
+    Idle_Fast_Robot,//ロボット(高速発射)
     Boss_Normal,//通常のボス(停止)
 }
 public class Enemy_Status
 {
     public static int max_hp;//最大体力
     public static int attack_damage;//攻撃力
+    public static float bullet_per_shot;//発射間隔
+
     public Enemy_Ai_Style style;//AIスタイル
-    public Enemy_Status(int set_hp,int set_damage,Enemy_Ai_Style set_style)
+    public Enemy_Status(int set_hp,int set_damage,Enemy_Ai_Style set_style,float per_shot)
     {
         //各ステータスを入力
         max_hp = set_hp;
         attack_damage = set_damage;
+        bullet_per_shot = per_shot;
         style = set_style;
     }
 }
@@ -36,12 +40,12 @@ public class Enemy_Controller : Damage_Calclate
     [SerializeField] GameObject bullet_prefab;//弾のプレハブ
     [SerializeField] GameObject bullet_point;//弾の発射位置
     [SerializeField] int bullet_force;//弾丸の発射速度
-    [SerializeField] int bullet_per_shot;//発射間隔
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI)
-        {Enemy_ID.Idle_Robot ,new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle) },
-        {Enemy_ID.Boss_Normal,new Enemy_Status(100,15,Enemy_Ai_Style.Idle) },
+        {Enemy_ID.Idle_Robot ,     new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle,350f) },
+        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 45, 3,Enemy_Ai_Style.Idle,150f) },
+        {Enemy_ID.Boss_Normal,     new Enemy_Status(100,15,Enemy_Ai_Style.Idle,300f) },
     };
 
     //変数
@@ -52,6 +56,7 @@ public class Enemy_Controller : Damage_Calclate
     private int b_time;//弾丸発射時間
     private int damage;//攻撃力
     private int add_count = 5;//加算値
+    private float bullet_per_shot;
     private bool act_shot = false;//弾丸発射許可値
     private Vector3 e_vec;//ベクトル
     private Enemy_Ai_Style ai_style;//AIスタイル
@@ -59,8 +64,10 @@ public class Enemy_Controller : Damage_Calclate
     {
         act_shot = false;
         animator = GetComponent<Animator>();//Animator取得
+        bullet_per_shot = Enemy_Status.bullet_per_shot;
         hp = Enemy_Status.max_hp + (add_count * count_game_state);//体力を設定
         damage = Enemy_Status.attack_damage + (add_count * count_game_state);//攻撃力設定
+        Debug.Log("エネミー体力" + hp);
     }
     void Update()
     {

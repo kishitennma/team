@@ -15,6 +15,7 @@ public class Set_Weapon_Data : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void Set_Weapons_Index(int set_number)
@@ -23,6 +24,7 @@ public class Set_Weapon_Data : MonoBehaviour
         if (selectWeapons.Contains(set_number)) return;
 
         selectWeapons.Add(set_number);
+
         if(selectWeapons.Count == 2)
         {
             PlayerPrefs.SetInt("Select_f", selectWeapons[0]);
