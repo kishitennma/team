@@ -68,9 +68,10 @@ public class WeaponSystem : MonoBehaviour
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
     void Start()
     {
-        
 
-        index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s",-1);
+
+        index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
+        //nullなら-1
         if (!weapon_index.ContainsKey(index))
         {
             Debug.LogError($"武器インデックス {index} が見つかりません");
