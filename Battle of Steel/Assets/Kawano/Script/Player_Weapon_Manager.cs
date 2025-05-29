@@ -12,13 +12,13 @@ public class Player_Weapon_Manager : MonoBehaviour
     public GameObject sub_weapon;//所持しているサブ武器
     [SerializeField] Text ammo_texts;//弾丸のUI情報
     public Animator player_animator;//プレイヤーのアニメーションコントローラ
-    public WeaponSystem weapon_system;//weapon_system ammo_text変更用
+    
     [Header("ボタン入力")]
     [SerializeField] KeyCode set_key = KeyCode.Q;//切り替えボタン
 
     private bool hold_secondry_weapon;//サブ武器の所持状態
     private bool anim_end_flag=false;//アニメション終了フラグ
-
+    private WeaponSystem weapon_system;//weapon_system ammo_text変更用
     private void Start()
     {
         if (main_weapon != null)

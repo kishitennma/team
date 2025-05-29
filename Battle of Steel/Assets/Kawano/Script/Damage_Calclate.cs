@@ -12,3 +12,4 @@ public class Damage_Calclate : MonoBehaviour
         return hp;
     }
 }
+
