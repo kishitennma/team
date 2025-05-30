@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     private float move_x, move_y;//移動方向
     private float target_x, target_y;//線形保管用
 
-
     public float moveSpeed = 30.0f; // キャラクターの移動速度
 
 
@@ -81,7 +80,7 @@ public class PlayerController : MonoBehaviour
         //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-        
+
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))//シフトと方向キーが同時押しされたとき
         {
             if (step_flag == true)//step_flagがtrueの時ステップ移動を可能にする
@@ -93,7 +92,7 @@ public class PlayerController : MonoBehaviour
             target_y = 1.0f;//blend tree制御
             transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;//プレイヤー移動
             AddForce_reset();//ジャンプしていた場合Addforceの力を0にする
-           
+
         }
         else if (Input.GetKey(KeyCode.W))//方向キーだけが押されていた場合
         {
@@ -180,7 +179,7 @@ public class PlayerController : MonoBehaviour
         }
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            step_flag = true;//シフトを離した場合sstep_flagをtrueにする
+            step_flag = true;//シフトを離した場合step_flagをtrueにする
         }
 
 

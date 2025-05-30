@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet_Action : MonoBehaviour
 {
-    [SerializeField] float life_time;
+    [SerializeField] float life_time;//’eŠÛ‚Ì¶‘¶ŠÔ
 
     private void Start()
     {

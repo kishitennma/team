@@ -12,7 +12,7 @@ public enum Enemy_ID
 {
     //敵のIDリスト
     Idle_Robot,//ロボット(停止)
-    Idle_Fast_Robot,//ロボット(高速発射)
+    Idle_Fast_Robot,//ロボット(弾丸高速発射)
     Boss_Normal,//通常のボス(停止)
 }
 public class Enemy_Status
@@ -55,7 +55,7 @@ public class Enemy_Controller : Damage_Calclate
     private int hp;//現在の体力
     private int b_time;//弾丸発射時間
     private int damage;//攻撃力
-    private int add_count = 5;//加算値
+    private int add_count = 10;//加算値
     private float bullet_per_shot;
     private bool act_shot = false;//弾丸発射許可値
     private Vector3 e_vec;//ベクトル
@@ -116,7 +116,7 @@ public class Enemy_Controller : Damage_Calclate
         //Bulletとの当たり判定
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            GameObject player = GameObject.Find("Animate_Player");
+            GameObject player = GameObject.Find("Player");
             p_cnt = player.GetComponent<PlayerController>();
             hp = Damage_Cal(p_cnt.attack_power, hp);
             collision.gameObject.IsDestroyed();

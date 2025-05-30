@@ -343,8 +343,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.68802226
-        value: 0.11249999
+        time: 0.7827183
+        value: 0.04999999
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -367,18 +367,18 @@ TrailRenderer:
       serializedVersion: 2
       key0: {r: 1, g: 0.9862831, b: 0.18396229, a: 1}
       key1: {r: 1, g: 0.437199, b: 0, a: 1}
-      key2: {r: 0.8235294, g: 0.06568597, b: 0, a: 0}
+      key2: {r: 0.9574452, g: 0.35467428, b: 0, a: 0}
       key3: {r: 0.80686253, g: 0.06265556, b: 0, a: 0}
       key4: {r: 0.46226418, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0.46226418, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 6168
-      ctime1: 28142
-      ctime2: 40478
-      ctime3: 53585
-      ctime4: 65535
-      ctime5: 0
+      ctime1: 30840
+      ctime2: 45296
+      ctime3: 55319
+      ctime4: 61487
+      ctime5: 65535
       ctime6: 0
       ctime7: 0
       atime0: 0
