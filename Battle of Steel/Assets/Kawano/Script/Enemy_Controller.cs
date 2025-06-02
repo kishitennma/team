@@ -102,12 +102,12 @@ public class Enemy_Controller : Damage_Calclate
     //Playerが範囲内に入ったらその方向を向く
     void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Player")==true)
+        if (collider.gameObject.CompareTag("Player"))
         {
             //敵からプレイヤーまでのベクトル作成
             e_vec = gameObject.transform.position - collider.gameObject.transform.position;
             transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
-            act_shot = true;//弾丸発射を許可
+            act_shot = true;//弾丸発射
         }
     }
     //Bulletタグに当たったら体力を減らす
