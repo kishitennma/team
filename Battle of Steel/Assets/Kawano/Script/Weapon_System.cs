@@ -52,8 +52,9 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      40,0.6f,0.6f,12,0.02f,false,25)},
+        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.02f,false,25)},
         {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.05f,true, 10)},
+        {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.2f,  false, 6)},          //6*5で合計30
     };
 
     private List<Material> loadedMaterials = new();
@@ -72,7 +73,7 @@ public class WeaponSystem : MonoBehaviour
     void Start()
     {
 
-
+        //PlayerPrefsにセーブされた二つの数字を読み込む
         index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
         //nullなら-1
         if (!weapon_index.ContainsKey(index))
@@ -81,8 +82,8 @@ public class WeaponSystem : MonoBehaviour
             return;
         }
 
-        weapon = weapon_index[index];
-        Debug.Log(index);
+        weapon = weapon_index[index];//武器情報を持たせる
+        Debug.Log(index);//インデックス番号を取得
         BuildWeapon(weapon.type); // 見た目生成
 
         // ステータス適用
@@ -112,6 +113,11 @@ public class WeaponSystem : MonoBehaviour
             flash_light_time = 0;
         }
         HandleInput();
+        //弾丸未所持かつ、Qキーが押されたら弾丸補充
+        if (bullets_left == 0 && Input.GetKeyDown(KeyCode.Q))
+        {
+            Invoke(nameof(Reload), 5f);
+        }
 
 
         if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
@@ -129,7 +135,23 @@ public class WeaponSystem : MonoBehaviour
         shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
         if (ready_to_shoot && shooting && !reloading && bullets_left > 0)
         {
-            bullets_shot = 0; Shoot();
+            bullets_shot = 0;
+
+            if(weapon.type != WeaponType.ShotGun)
+            {
+                int bullet_per_tap = 5;
+                for (int i = 0; i < bullet_per_tap;i++)
+                {
+                    Shoot();
+                }
+                
+            }
+            else
+            {
+                Shoot();
+            }
+                bullets_left--;
+
             flash.Play();
             flash_sound.Play();
             flash_light.SetActive(true);
@@ -149,13 +171,8 @@ public class WeaponSystem : MonoBehaviour
         GameObject bullet = Instantiate(bullet_prefab, muzzle_transform.position, Quaternion.identity);
         bullet.transform.forward = direction.normalized;
         bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shoot_force, ForceMode.Impulse);
-        bullets_left--;
         bullets_shot++;
 
-        if(bullets_left == 0)
-        {
-            Invoke(nameof(Reload), 300);
-        }
 
         if (allow_invoke)
         {
@@ -172,11 +189,10 @@ public class WeaponSystem : MonoBehaviour
 
     void ResetShot() { ready_to_shoot = true; allow_invoke = true; }
 
-    void Reload()
+    public void Reload()
     {
         reloading = true;
-        Debug.Log("リロード中");
-        Invoke(nameof(ReloadFinished), reload_time);
+       Invoke(nameof(ReloadFinished),reload_time);
     }
 
     void ReloadFinished()

@@ -91,13 +91,13 @@ public class Gun_Action : MonoBehaviour
         //íeÇ∆íeÇ…ä‘äuÇâ¡Ç¶ÇÈ
         if (allow_invoke)
         {
-            Invoke("ResetShot", time_bet_shooting);
+            Invoke(nameof(ResetShot), time_bet_shooting);
             allow_invoke = false;
         }
         //àÍìxÇ…èoÇ∑íe
         if (bullets_shot < bullet_par_tap && bullets_left > 0)
         {
-            Invoke("Shoot", time_bet_shots);
+            Invoke(nameof(Shoot), time_bet_shots);
         }
 
     }

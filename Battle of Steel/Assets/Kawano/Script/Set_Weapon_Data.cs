@@ -18,7 +18,7 @@ public class Set_Weapon_Data : MonoBehaviour
         if (selectWeapons.Contains(set_number)) return;
 
         selectWeapons.Add(set_number);
-
+        //二回読み込まれたら、セーブ
         if(selectWeapons.Count == 2)
         {
             PlayerPrefs.SetInt("Select_f", selectWeapons[0]);

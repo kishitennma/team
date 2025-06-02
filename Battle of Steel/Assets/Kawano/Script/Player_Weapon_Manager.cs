@@ -58,7 +58,6 @@ public class Player_Weapon_Manager : MonoBehaviour
     {
         player_animator.SetBool("Change_Weapon",true);
         anim_end_flag = true;
-        set_weapon.SetActive(false);//変更前の武器を消す
         weapon_system = change_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
         weapon_system.ammo_text = ammo_texts;
         change_weapon.transform.position = set_weapon_point.transform.position;//位置を武器を持たせる位置に合わせる
@@ -70,11 +69,16 @@ public class Player_Weapon_Manager : MonoBehaviour
     {
         //変更後の武器出現
         if (hold_secondry_weapon)
+        {
+            main_weapon.SetActive(false);//変更前の武器を消す
             sub_weapon.SetActive(true);
+        }
         else
+        {
+            sub_weapon.SetActive(false);
             main_weapon.SetActive(true);
-
-            player_animator.SetBool("Change_Weapon", false);
+        }
+        player_animator.SetBool("Change_Weapon", false);
         anim_end_flag = false;
     }
 }
