@@ -114,7 +114,7 @@ public class WeaponSystem : MonoBehaviour
         HandleInput();
 
 
-        if (ammo_text) ammo_text.text = $"íeêî: {bullets_left} / {magazine_size}";
+        if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
 
         if (useEmissionBlink)
         {
@@ -154,7 +154,7 @@ public class WeaponSystem : MonoBehaviour
 
         if(bullets_left == 0)
         {
-            Reload();
+            Invoke(nameof(Reload), 300);
         }
 
         if (allow_invoke)

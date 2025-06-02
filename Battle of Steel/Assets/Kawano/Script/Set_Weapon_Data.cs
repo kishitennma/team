@@ -8,8 +8,8 @@ public class Set_Weapon_Data : MonoBehaviour
     void Start()
     {
         //お試し(ほんとはボタンにこれをアタッチ)
-        Set_Weapons_Index(0);//0番目の武器
-        Set_Weapons_Index(1);
+        Set_Weapons_Index(1);//0番目の武器
+        Set_Weapons_Index(0);
     }
 
     public void Set_Weapons_Index(int set_number)

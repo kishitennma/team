@@ -8,18 +8,19 @@ public class PlayerController : MonoBehaviour
     public GameObject Cam;
     public Animator animator; // キャラクターオブジェクトのAnimator
     private bool jump_flag = false;
-    private bool step_flag = true;
     public float jumppower;
-    public float step_power;
 
-    public int attack_power = 0;
-    public int hp = 100;
+    [SerializeField] float move_speed;//キャラクターの移動速度
+    [SerializeField] float dash_speed;//ダッシュ補正速度
 
     private float NormalizeTime;
     private float move_x, move_y;//移動方向
     private float target_x, target_y;//線形保管用
+    private Vector3 input_direction;//入力方向
 
-    public float moveSpeed = 30.0f; // キャラクターの移動速度
+    public int attack_power;
+    public float boost = 100.0f;
+    public float boost_max = 100.0f;
 
 
     public bool damaged;
@@ -81,89 +82,21 @@ public class PlayerController : MonoBehaviour
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
 
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))//シフトと方向キーが同時押しされたとき
+        if (Input.GetKey(KeyCode.W))//方向キーだけが押されていた場合
         {
-            if (step_flag == true)//step_flagがtrueの時ステップ移動を可能にする
-            {
-                transform.Translate(0, 0, step_power);
-                step_flag = false;//step_flagをflaseにして動かないようにする
-            }
-            animator.SetFloat("IsDashing", 1.0f);//blend treeをDashに切り替える
-            target_y = 1.0f;//blend tree制御
-            transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;//プレイヤー移動
-            AddForce_reset();//ジャンプしていた場合Addforceの力を0にする
-
-        }
-        else if (Input.GetKey(KeyCode.W))//方向キーだけが押されていた場合
-        {
-            animator.SetFloat("IsDashing", 0.0f);//blend treeをNormalにする
-            target_y = 1.0f;//blend tree制御
-            transform.position += transform.forward * (moveSpeed) * Time.deltaTime;//プレイヤー移動
-            AddForce_reset();//ジャンプしていた場合Addforceの力を0にする
-        }
-
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift))
-        {
-            if (step_flag == true)
-            {
-                transform.Translate(0, 0, -step_power);
-                step_flag = false;
-            }
-            animator.SetFloat("IsDashing", 1.0f);
-            target_y = -1.0f;
-            transform.position += transform.forward * -(moveSpeed * 2.0f) * Time.deltaTime;
-            AddForce_reset();
-           
+            target_y = 1.0f;//blend tree制御 
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            animator.SetFloat("IsDashing", 0.0f);
             target_y = -1.0f;
-            transform.position += transform.forward * -(moveSpeed ) * Time.deltaTime;
-            AddForce_reset();
         }
-
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.D))
         {
-            if (step_flag == true)
-            {
-                transform.Translate(step_power, 0, 0);
-                step_flag = false;
-            }
-            animator.SetFloat("IsDashing", 1.0f);
             target_x = 1.0f;
-            transform.position += transform.right * (moveSpeed*2.0f) * Time.deltaTime;
-            AddForce_reset();
-          
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            animator.SetFloat("IsDashing", 0.0f);
-            target_x = 1.0f;
-            transform.position += transform.right * (moveSpeed) * Time.deltaTime;
-            AddForce_reset();
-        }
-
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
-        {
-            if (step_flag == true)
-            {
-                transform.Translate(-step_power, 0, 0);
-                step_flag = false;
-            }
-            animator.SetFloat("IsDashing", 1.0f);
-            target_x = -1.0f;
-            transform.position += transform.right * -(moveSpeed * 2.0f) * Time.deltaTime;
-            AddForce_reset();
-           
-            
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            animator.SetFloat("IsDashing", 0.0f);
             target_x = -1.0f;
-            transform.position += transform.right * -(moveSpeed) * Time.deltaTime;
-            AddForce_reset();
         }
        
 
@@ -177,10 +110,7 @@ public class PlayerController : MonoBehaviour
             target_x = 0.0f;//blend treeの数値をデフォルトの状態に戻す
 
         }
-        if(Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            step_flag = true;//シフトを離した場合step_flagをtrueにする
-        }
+      
 
 
         //ここで数値を線形補間して、なめらかにする
@@ -190,29 +120,86 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Horizontal", move_x);
         animator.SetFloat("Vertical", move_y);
 
-        if (Input.GetKeyDown(KeyCode.Space))//スペースを押されたらジャンプする
+
+
+        if(Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("Jump");
-            rb.AddForce(transform.up * jumppower, ForceMode.Impulse);//上方向に力を加える
-            jump_flag = true;//
+            rb.linearVelocity = new Vector3(0, jumppower, 0);
+            jump_flag = false;
+        }
+       
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+          Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
+        {
+            if (jump_flag == false)
+            {
+                AddForce_reset();
+                rb.useGravity = false;
+            }
         }
 
-      
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) ||
+           Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.S))
+        {
+            rb.useGravity = true;
+            jump_flag = true;
+        }
 
 
 
     }
 
- 
+    private void FixedUpdate()
+    {
+        //入力を受け取る
+        float h = Input.GetAxis("Horizontal");//横
+        float v = Input.GetAxis("Vertical");//縦
+
+        Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
+        Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
+        float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
+        float radius = 0.8f;                                                           //SpeheCast用に半径設定
+
+        //移動方向にRigidBody持ちのオブジェクトがあったら
+        if (Physics.SphereCast(origin, radius, move_dir, out RaycastHit hit, move_distance + 0.1f))
+        {
+            move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 6;//距離減衰かつ、滑りを計算
+        }
+        //移動速度を設定
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            //通常時
+            animator.SetFloat("IsDashing", 0.0f);
+            input_direction = move_dir;
+           
+        }
+        else
+        {
+            //ダッシュ時
+            animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
+            input_direction = move_dir * dash_speed;//移動ベクトルを設定
+           
+        }
+
+
+        //移動方向を設定
+        Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
+        rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
+       
+        
+
+    }
+
+
     /// <summary>
     /// Addforceの力を0にする
     /// </summary>
     void AddForce_reset()
     {
-        if (jump_flag == true)
-        {
+       
             rb.linearVelocity = Vector3.zero;
-        }
+        
     }
 
 }

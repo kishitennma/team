@@ -17,6 +17,7 @@ public class Player_Move_Rigid : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 120;//60FPS（仮）
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
@@ -72,7 +73,7 @@ public class Player_Move_Rigid : MonoBehaviour
         float radius = 0.8f;                                                           //SpeheCast用に半径設定
 
         //移動方向にRigidBody持ちのオブジェクトがあったら
-        if (Physics.SphereCast(origin,radius, move_dir,out RaycastHit hit,  move_distance + 0.1f))
+        if (Physics.SphereCast(origin, radius, move_dir, out RaycastHit hit, move_distance + 0.05f))
         {
             move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 12;//距離減衰かつ、滑りを計算
         }
@@ -94,6 +95,9 @@ public class Player_Move_Rigid : MonoBehaviour
         rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
 
     }
+   
+
+   
 
     //PlayerControllerの関数コピー
     void Screen_movement(float mx)
