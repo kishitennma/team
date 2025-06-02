@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &151327563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8155533566875335518, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+  m_PrefabInstance: {fileID: 1412561547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,7 +693,7 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.016999284, z: -0, w: 0.9998555}
-  m_LocalPosition: {x: 0.6999998, y: 5.3, z: -29.3}
+  m_LocalPosition: {x: 0.6999998, y: 10, z: -29.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -706,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735d3ee427b1b6e4a9338ce6db6a2b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 425209908}
+  player: {fileID: 151327563}
   distance: 0
   height: 0
   smoothSpeed: 0

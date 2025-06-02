@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject player;
     public Rigidbody rb;
     public GameObject Cam;
+    Camera Camera;
+    float angle_of_view = 60;
     public Animator animator; // キャラクターオブジェクトのAnimator
     private bool jump_flag = false;
     private bool step_flag = true;
@@ -88,18 +90,20 @@ public class PlayerController : MonoBehaviour
             {
                 transform.Translate(0, 0, step_power);
                 step_flag = false;//step_flagをflaseにして動かないようにする
+                angle_of_view = 30;
             }
             animator.SetFloat("IsDashing", 1.0f);//blend treeをDashに切り替える
             target_y = 1.0f;//blend tree制御
-            transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;//プレイヤー移動
+            rb.MovePosition( transform.position +transform.forward * (moveSpeed * 2.0f) * Time.deltaTime);//プレイヤー移動
             AddForce_reset();//ジャンプしていた場合Addforceの力を0にする
+            
            
         }
         else if (Input.GetKey(KeyCode.W))//方向キーだけが押されていた場合
         {
             animator.SetFloat("IsDashing", 0.0f);//blend treeをNormalにする
             target_y = 1.0f;//blend tree制御
-            transform.position += transform.forward * (moveSpeed) * Time.deltaTime;//プレイヤー移動
+            rb.MovePosition(transform.position + transform.forward * (moveSpeed) * Time.deltaTime);//プレイヤー移動
             AddForce_reset();//ジャンプしていた場合Addforceの力を0にする
         }
 
@@ -108,6 +112,7 @@ public class PlayerController : MonoBehaviour
             if (step_flag == true)
             {
                 transform.Translate(0, 0, -step_power);
+               
                 step_flag = false;
             }
             animator.SetFloat("IsDashing", 1.0f);
@@ -182,7 +187,7 @@ public class PlayerController : MonoBehaviour
         {
             step_flag = true;//シフトを離した場合sstep_flagをtrueにする
         }
-
+    
 
         //ここで数値を線形補間して、なめらかにする
         move_x = Mathf.Lerp(animator.GetFloat("Horizontal"), target_x, Time.deltaTime * 10f);
