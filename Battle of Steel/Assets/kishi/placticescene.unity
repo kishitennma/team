@@ -924,11 +924,12 @@ MonoBehaviour:
   rb: {fileID: 1412561549}
   Cam: {fileID: 961739749}
   animator: {fileID: 1412561555}
-  jumppower: 15
-  step_power: 5
+  jumppower: 10
+  move_speed: 30
+  dash_speed: 1.5
   attack_power: 0
-  hp: 100
-  moveSpeed: 15
+  boost: 100
+  boost_max: 100
   damaged: 0
 --- !u!96 &1412561557
 TrailRenderer:

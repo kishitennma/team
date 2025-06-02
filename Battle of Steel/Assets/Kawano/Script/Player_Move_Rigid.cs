@@ -97,6 +97,8 @@ public class Player_Move_Rigid : MonoBehaviour
     }
    
 
+   
+
     //PlayerController‚ÌŠÖ”ƒRƒs[
     void Screen_movement(float mx)
     {
