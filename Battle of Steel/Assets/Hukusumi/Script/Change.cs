@@ -9,6 +9,7 @@ public class Change : MonoBehaviour
     public float CKS = 1;
     public bool C=false;
     RectTransform RectTransform_get;
+    int x, y;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,11 +25,13 @@ public class Change : MonoBehaviour
         {
             RectTransform_get.Rotate(new Vector3(0, 0, CKS));
             RectTransform rectTransform = GetComponent<RectTransform>();
+            float rotationX = rectTransform.eulerAngles.x;
+            float rotationY = rectTransform.eulerAngles.y;
             float rotationZ = rectTransform.eulerAngles.z;
 
             if (rotationZ > 180f) // ó·Ç¶ÇŒ45ìxà»è„Ç»ÇÁèåèê¨óß
             {
-                RectTransform_get.rotation = Quaternion.Euler(0, 0, 0);
+                RectTransform_get.rotation = Quaternion.Euler(rotationX, rotationY, 0);
                 C = true;
 
             }
