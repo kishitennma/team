@@ -9,7 +9,7 @@ public class Player_Move_Rigid : MonoBehaviour
     public Animator player_animator;//プレイヤーのアニメーションコントローラー
 
     private Rigidbody rb;//RigidBody
-    private float move_x, move_y;
+    private float move_x, move_y;//Animation
     private float target_x, target_y;
     private Vector3 input_direction;//入力方向
 
@@ -28,7 +28,8 @@ public class Player_Move_Rigid : MonoBehaviour
         //カメラ回転
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-
+        mx = 0;//初期化
+   
         //押されているボタンによって、アニメーションを制御
         if (Input.GetKey(KeyCode.W))
             target_y = 1.0f;
@@ -73,7 +74,7 @@ public class Player_Move_Rigid : MonoBehaviour
         //移動方向にRigidBody持ちのオブジェクトがあったら
         if (Physics.SphereCast(origin,radius, move_dir,out RaycastHit hit,  move_distance + 0.1f))
         {
-            move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 6;//距離減衰かつ、滑りを計算
+            move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 12;//距離減衰かつ、滑りを計算
         }
         //移動速度を設定
         if (!Input.GetKey(KeyCode.LeftShift))
@@ -103,10 +104,12 @@ public class Player_Move_Rigid : MonoBehaviour
         //0.0000001fは滑らかさ
         if (Mathf.Abs(mx) > 0.0000001f)
         {
-            mx *= 5;
+            mx = mx *10;
 
             // 回転軸はワールド座標のY軸
             rb.transform.RotateAround(rb.transform.position, Vector3.up, mx);
         }
+        
+
     }
 }
