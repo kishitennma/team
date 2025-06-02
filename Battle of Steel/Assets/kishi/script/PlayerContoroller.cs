@@ -6,8 +6,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject player;
     public Rigidbody rb;
     public GameObject Cam;
-    Camera Camera;
-    float angle_of_view = 60;
     public Animator animator; // キャラクターオブジェクトのAnimator
     private bool jump_flag = false;
     private bool step_flag = true;
@@ -20,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private float NormalizeTime;
     private float move_x, move_y;//移動方向
     private float target_x, target_y;//線形保管用
-
 
     public float moveSpeed = 30.0f; // キャラクターの移動速度
 
@@ -83,27 +80,25 @@ public class PlayerController : MonoBehaviour
         //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-        
+
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))//シフトと方向キーが同時押しされたとき
         {
             if (step_flag == true)//step_flagがtrueの時ステップ移動を可能にする
             {
                 transform.Translate(0, 0, step_power);
                 step_flag = false;//step_flagをflaseにして動かないようにする
-                angle_of_view = 30;
             }
             animator.SetFloat("IsDashing", 1.0f);//blend treeをDashに切り替える
             target_y = 1.0f;//blend tree制御
-            rb.MovePosition( transform.position +transform.forward * (moveSpeed * 2.0f) * Time.deltaTime);//プレイヤー移動
+            transform.position += transform.forward * (moveSpeed * 2.0f) * Time.deltaTime;//プレイヤー移動
             AddForce_reset();//ジャンプしていた場合Addforceの力を0にする
-            
-           
+
         }
         else if (Input.GetKey(KeyCode.W))//方向キーだけが押されていた場合
         {
             animator.SetFloat("IsDashing", 0.0f);//blend treeをNormalにする
             target_y = 1.0f;//blend tree制御
-            rb.MovePosition(transform.position + transform.forward * (moveSpeed) * Time.deltaTime);//プレイヤー移動
+            transform.position += transform.forward * (moveSpeed) * Time.deltaTime;//プレイヤー移動
             AddForce_reset();//ジャンプしていた場合Addforceの力を0にする
         }
 
@@ -112,7 +107,6 @@ public class PlayerController : MonoBehaviour
             if (step_flag == true)
             {
                 transform.Translate(0, 0, -step_power);
-               
                 step_flag = false;
             }
             animator.SetFloat("IsDashing", 1.0f);
@@ -185,9 +179,9 @@ public class PlayerController : MonoBehaviour
         }
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            step_flag = true;//シフトを離した場合sstep_flagをtrueにする
+            step_flag = true;//シフトを離した場合step_flagをtrueにする
         }
-    
+
 
         //ここで数値を線形補間して、なめらかにする
         move_x = Mathf.Lerp(animator.GetFloat("Horizontal"), target_x, Time.deltaTime * 10f);

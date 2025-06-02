@@ -40,6 +40,11 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] private GameObject overrideBody;
     [SerializeField] private GameObject overrideNozzle;
 
+    [Header("武器の性能（確認用）")]
+    public float shoot_force, reload_time, time_between_shooting, spread;
+    public int magazine_size, bullets_left, bullets_shot;
+
+
     public PlayerController player;
     public Dictionary<int, Weapon_Date> weapon_index = new()
     {
@@ -47,8 +52,8 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,40,0.6f,0.6f,12,0.02f, false,25)},
-        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.05f,true,10)},
+        {0,new Weapon_Date(WeaponType.Pistol,      40,0.6f,0.6f,12,0.02f,false,25)},
+        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.05f,true, 10)},
     };
 
     private List<Material> loadedMaterials = new();
@@ -62,15 +67,14 @@ public class WeaponSystem : MonoBehaviour
 
     private Transform muzzle_transform;
     private bool allow_bullet_hold;
-    public float shoot_force, reload_time, time_between_shooting, spread;
-    public int magazine_size, bullets_left, bullets_shot;
     private int flash_light_time = 0;
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
     void Start()
     {
-        
 
-        index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s",-1);
+
+        index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
+        //nullなら-1
         if (!weapon_index.ContainsKey(index))
         {
             Debug.LogError($"武器インデックス {index} が見つかりません");
