@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public GameObject Cam;
     public Animator animator; // キャラクターオブジェクトのAnimator
-    private bool jump_flag = false;
+    public bool jump_flag = true;
+    public bool jump_second = false;
     public float jumppower;
 
     [SerializeField] float move_speed;//キャラクターの移動速度
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public float boost_max = 100.0f;
 
 
-    public bool damaged;
+  
 
     /// <summary>
     /// ジャンプのフラグ制御
@@ -31,11 +32,12 @@ public class PlayerController : MonoBehaviour
     /// <param name="other"></param>
     private void OnCollisionEnter(Collision other)
     {
-        if (jump_flag == true)
+        if (jump_flag == false)
         {
             if (other.gameObject.CompareTag("Ground"))
             {
-                jump_flag = false;
+                jump_flag = true;
+                jump_second = false;
             }
         }
     }
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        damaged = false;
+      
         rb = GetComponent<Rigidbody>();
     }
 
@@ -76,6 +78,7 @@ public class PlayerController : MonoBehaviour
     //}
     void Update()
     {
+       
         //移動方向を初期化
         move_x = 0; move_y = 0; animator.SetBool("Action", false);
         //各移動方向へアニメーション変化
@@ -120,22 +123,46 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Horizontal", move_x);
         animator.SetFloat("Vertical", move_y);
 
+        if(jump_flag && boost < boost_max && animator.GetFloat("IsDashing") != 1.0f)//地面に立っているときブースト回復
+        {
+            
+            boost+=0.4f;
+        }
 
-
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f)//地上からのジャンプ
+        {
+            rb.linearVelocity = new Vector3(0, (jumppower*3.0f), 0);
+            boost -= 20.0f;
+            jump_flag = false;
+        }
+        if(Input.GetKeyUp(KeyCode.Space)&& !jump_flag)//空中でスペースキーを離した判定
+        {
+            jump_second = true;
+        }
+        else if (Input.GetKey(KeyCode.Space) && boost > 0 
+        && jump_second && animator.GetFloat("IsDashing") != 1.0f)//空中ジャンプ(ホバー？）
         {
             rb.linearVelocity = new Vector3(0, jumppower, 0);
             jump_flag = false;
+            boost -= 0.3f;
         }
-       
+        if(animator.GetFloat("IsDashing") == 1.0f)
+        {
+            boost -= 0.1f;
+        }
+
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
           Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
         {
-            if (jump_flag == false)
+            if (jump_flag == false )
             {
-                AddForce_reset();
-                rb.useGravity = false;
+                if( boost > 0.0f)
+                {
+                    AddForce_reset();
+                    rb.useGravity = false;
+                }
+               
             }
         }
 
@@ -143,7 +170,6 @@ public class PlayerController : MonoBehaviour
            Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.S))
         {
             rb.useGravity = true;
-            jump_flag = true;
         }
 
 
@@ -176,10 +202,21 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //ダッシュ時
-            animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
-            input_direction = move_dir * dash_speed;//移動ベクトルを設定
-           
+            if (boost > 0.0f)
+            {
+                //ダッシュ時
+                animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
+                input_direction = move_dir * dash_speed;//移動ベクトルを設定
+
+            }
+            else
+            {
+
+                //通常時
+                animator.SetFloat("IsDashing", 0.0f);
+                input_direction = move_dir;
+            }
+
         }
 
 
