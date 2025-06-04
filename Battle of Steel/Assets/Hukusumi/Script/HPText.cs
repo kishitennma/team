@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GageGagerHP : MonoBehaviour
+public class HPText : MonoBehaviour
 {
     private float _myHp = 500.0f;
-    private Image _image;
     private Text _text;
+    private float P;
 
     float Max;
+    float BHP = 0.0f;
     private void Start()
     {
-        _image = this.GetComponent<Image>();
+        //StartCoroutine(IncrementCoroutine());
+
         _text = this.GetComponent<Text>();
-        Max=_myHp;
+        Max = _myHp;
     }
 
     private void Update()
@@ -28,39 +30,43 @@ public class GageGagerHP : MonoBehaviour
             _myHp++;
         }
 
-        _image.fillAmount = _myHp / Max;
-        if(_myHp / Max <0)
+        P = _myHp / Max;
+        if (_myHp / Max < 0)
         {
-            _image.fillAmount = 0.0f;
+            P = 0.0f;
             _myHp = 0.0f;
         }
-        else if(_myHp / Max >1.0f)
+        else if (_myHp / Max > 1.0f)
         {
-            _image.fillAmount = 1.0f;
+            P = 1.0f;
             _myHp = Max;
         }
-
-        if (_image.fillAmount <= 0)
+        if ( P <= 0)
         {
-            _image.color = new Color32(0, 0, 0, 255);
-            _text.color= new Color32(0, 0, 0, 255);
+            _text.color = new Color32(0, 0, 0, 255);
+            Debug.LogWarning("Textがアサインされていません！");
         }
-        else if (_image.fillAmount <= 0.2)
+        else if (P <= 0.2)
         {
-            _image.color = new Color32(235, 33, 13, 255);
             _text.color = new Color32(235, 33, 13, 255);
         }
-        else if (_image.fillAmount <= 0.4)
+        else if (P <= 0.4)
         {
-            _image.color = new Color32(184, 235, 13, 255);
             _text.color = new Color32(184, 235, 13, 255);
         }
         else
         {
-            _image.color = new Color32(13, 235, 69, 255);
             _text.color = new Color32(13, 235, 69, 255);
         }
     }
 
-
+    //private IEnumerator IncrementCoroutine()
+    //{
+    //    while (BHP < _myHp)
+    //    {
+    //        BHP++;
+    //        Debug.Log("Current Value: " + BHP);
+    //        yield return new WaitForSeconds(0.5f);
+    //    }
+    //}
 }
