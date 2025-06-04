@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
-
+  //      Debug.Log(transform.forward);
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
         Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
         float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
         //移動方向にRigidBody持ちのオブジェクトがあったら
         if (Physics.SphereCast(origin, radius, move_dir, out RaycastHit hit, move_distance + 0.1f))
         {
-            move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 6;//距離減衰かつ、滑りを計算
+           // move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 6;//距離減衰かつ、滑りを計算
         }
         //移動速度を設定
         if (!Input.GetKey(KeyCode.LeftShift))

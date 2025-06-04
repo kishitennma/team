@@ -71,12 +71,12 @@ public class Player_Weapon_Manager : MonoBehaviour
         if (hold_secondry_weapon)
         {
             main_weapon.SetActive(false);//変更前の武器を消す
-            sub_weapon.SetActive(true);
+            sub_weapon.SetActive(true);//変更後の武器を出現
         }
         else
         {
-            sub_weapon.SetActive(false);
-            main_weapon.SetActive(true);
+            sub_weapon.SetActive(false);//変更前の武器を消す
+            main_weapon.SetActive(true);//変更後の武器を出現
         }
         player_animator.SetBool("Change_Weapon", false);
         anim_end_flag = false;

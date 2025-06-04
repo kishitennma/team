@@ -53,7 +53,7 @@ public class WeaponSystem : MonoBehaviour
 
         //武器データ(ステータスのみ)
         {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.02f,false,25)},
-        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.05f,true, 10)},
+        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.1f,true, 10)},
         {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.2f,  false, 6)},          //6*5で合計30
     };
 

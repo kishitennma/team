@@ -12,6 +12,7 @@ public class Player_Move_Rigid : MonoBehaviour
     private float move_x, move_y;//Animation
     private float target_x, target_y;
     private Vector3 input_direction;//入力方向
+    private bool Collision_Hit = false;
 
     //RigidBodyベースのプレイヤーの移動方法
 
@@ -66,38 +67,56 @@ public class Player_Move_Rigid : MonoBehaviour
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
-
+                                            
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
         Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
         float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
         float radius = 0.8f;                                                           //SpeheCast用に半径設定
+  
+
 
         //移動方向にRigidBody持ちのオブジェクトがあったら
-        if (Physics.SphereCast(origin, radius, move_dir, out RaycastHit hit, move_distance + 0.05f))
+        //if (Physics.SphereCast(origin, radius, move_dir, out RaycastHit hit, move_distance + 0.05f))
+        //{
+        //    //move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 12;//距離減衰かつ、滑りを計算
+        //}
+
+        if (!Collision_Hit)
         {
-            move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 12;//距離減衰かつ、滑りを計算
-        }
-        //移動速度を設定
-        if (!Input.GetKey(KeyCode.LeftShift))
-        {
-            //通常時
-            player_animator.SetFloat("IsDashing", 0.0f);
-            input_direction = move_dir;
+            //移動速度を設定
+            if (!Input.GetKey(KeyCode.LeftShift))
+            {
+                //通常時
+                player_animator.SetFloat("IsDashing", 0.0f);
+                input_direction = move_dir;
+            }
+            else
+            {
+                //ダッシュ時
+                player_animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
+                input_direction = move_dir * dash_speed;//移動ベクトルを設定
+            }
+            //移動方向を設定
+            Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
+            rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
+
         }
         else
         {
-            //ダッシュ時
-            player_animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
-            input_direction = move_dir * dash_speed;//移動ベクトルを設定
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 1.0f, rb.transform.position.z));
         }
-        //移動方向を設定
-        Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
-        rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
 
     }
-   
 
-   
+    private void OnCollisionStay(Collision collision)
+    {
+        Collision_Hit = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        Collision_Hit = false;
+    }
+
 
     //PlayerControllerの関数コピー
     void Screen_movement(float mx)
