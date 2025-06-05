@@ -46,29 +46,32 @@ public class WeaponSystem : MonoBehaviour
 
 
     public PlayerController player;
+
+    //武器情報リスト
     public Dictionary<int, Weapon_Date> weapon_index = new()
     {
         //辞書番号　             武器タイプ、弾速、リロード時間、発射間隔、マガジン容量、発散、連射(true)か単発、攻撃力
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.02f,false,25)},
-        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.1f,true, 10)},
-        {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.2f,  false, 6)},          //6*5で合計30
+        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.02f,false,25)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.1f,true, 10)},//アサルト
+        {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.2f,  false, 6)},//6*5で30ダメージ
     };
 
-    private List<Material> loadedMaterials = new();
-    private List<(Material mat, Color baseEmission)> blinkingMaterials = new();
-    private List<GameObject> handles = new(), bodies = new(), nozzles = new();
+    private List<Material> loadedMaterials = new();//マテリアルリスト
+    private List<(Material mat, Color baseEmission)> blinkingMaterials = new();//マテリアル色情報リスト
+    private List<GameObject> handles = new(), bodies = new(), nozzles = new();//武器構成要素リスト
 
-    private string materialFolder = "Materials";
-    private float blinkSpeed = 2f;
-    private float emissionIntensity = 1f;
-    int index; Weapon_Date weapon;
+    private string materialFolder = "Materials";//マテリアルフォルダ
+    private float blinkSpeed = 2f;//明滅速度
+    private float emissionIntensity = 1f;//発光強度
+    private int allow_per_shots = 5;//同時発射数
+    int index; Weapon_Date weapon;//武器保存用
 
-    private Transform muzzle_transform;
-    private bool allow_bullet_hold;
-    private int flash_light_time = 0;
+    private Transform muzzle_transform;//Muzzleの位置
+    private bool allow_bullet_hold;//連射
+    private int flash_light_time = 0;//フラッシュライトの発射時間
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
     void Start()
     {
@@ -86,7 +89,7 @@ public class WeaponSystem : MonoBehaviour
         Debug.Log(index);//インデックス番号を取得
         BuildWeapon(weapon.type); // 見た目生成
 
-        // ステータス適用
+        // 武器ステータス適用
         shoot_force = weapon.shot_force * 10;
         reload_time = weapon.relode_time;
         time_between_shooting = weapon.time_between_shooting;
@@ -119,7 +122,7 @@ public class WeaponSystem : MonoBehaviour
             Invoke(nameof(Reload), 5f);
         }
 
-
+        //弾丸の残段数/最大数を表示
         if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
 
         if (useEmissionBlink)
@@ -136,10 +139,10 @@ public class WeaponSystem : MonoBehaviour
         if (ready_to_shoot && shooting && !reloading && bullets_left > 0)
         {
             bullets_shot = 0;
-
-            if(weapon.type != WeaponType.ShotGun)
+            //ショットガンの場合、複数の弾を同時に出す
+            if(weapon.type == WeaponType.ShotGun)
             {
-                int bullet_per_tap = 5;
+                int bullet_per_tap = allow_per_shots;//５発
                 for (int i = 0; i < bullet_per_tap;i++)
                 {
                     Shoot();
