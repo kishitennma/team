@@ -23,8 +23,10 @@ public class PlayerController : MonoBehaviour
     public float boost = 100.0f;
     public float boost_max = 100.0f;
 
+    private bool Collision_Hit = false;
 
-  
+
+
 
     /// <summary>
     /// ジャンプのフラグ制御
@@ -227,7 +229,14 @@ public class PlayerController : MonoBehaviour
         
 
     }
-
+    private void OnCollisionStay(Collision collision)
+    {
+        Collision_Hit = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        Collision_Hit = false;
+    }
 
     /// <summary>
     /// Addforceの力を0にする

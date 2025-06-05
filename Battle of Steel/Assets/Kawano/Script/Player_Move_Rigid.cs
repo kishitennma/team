@@ -12,7 +12,7 @@ public class Player_Move_Rigid : MonoBehaviour
     private float move_x, move_y;//Animation
     private float target_x, target_y;
     private Vector3 input_direction;//入力方向
-    private bool Collision_Hit = false;
+   
 
     //RigidBodyベースのプレイヤーの移動方法
 
@@ -108,14 +108,7 @@ public class Player_Move_Rigid : MonoBehaviour
 
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        Collision_Hit = true;
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        Collision_Hit = false;
-    }
+   
 
 
     //PlayerControllerの関数コピー
