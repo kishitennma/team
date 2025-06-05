@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Linq;
-public class GimmickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class GimmickTooltip : MonoBehaviour
 {
     private Text uiText;
     [SerializeField] private string tooltipText; //各武器の説明テキスト
@@ -18,12 +18,12 @@ public class GimmickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (customFont != null)
             uiText.font = customFont; //フォントを設定
     }
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter()
     {
         Debug.Log("カーソルがボタンに入りました！"); //確認用ログ
         revealCoroutine = StartCoroutine(GlitchEffect());
     }
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit()
     {
         Debug.Log("カーソルがボタンから離れました！"); //確認用ログ
         if (revealCoroutine != null) StopCoroutine(revealCoroutine);
