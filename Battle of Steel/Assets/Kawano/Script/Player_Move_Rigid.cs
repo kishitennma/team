@@ -12,7 +12,7 @@ public class Player_Move_Rigid : MonoBehaviour
     private float move_x, move_y;//Animation
     private float target_x, target_y;
     private Vector3 input_direction;//入力方向
-   
+    private bool Collision_Hit = false;
 
     //RigidBodyベースのプレイヤーの移動方法
 
@@ -101,15 +101,23 @@ public class Player_Move_Rigid : MonoBehaviour
             rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
 
         }
-        else
-        {
-            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 1.0f, rb.transform.position.z));
-        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.03f, rb.transform.position.z));
 
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        Collision_Hit = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        Collision_Hit = false;
+    }
 
-   
-
+    
 
     //PlayerControllerの関数コピー
     void Screen_movement(float mx)
