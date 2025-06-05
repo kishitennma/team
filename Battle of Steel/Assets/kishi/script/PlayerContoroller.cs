@@ -229,6 +229,7 @@ public class PlayerController : MonoBehaviour
         
 
     }
+   
     private void OnCollisionStay(Collision collision)
     {
         Collision_Hit = true;
