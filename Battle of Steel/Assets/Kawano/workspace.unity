@@ -497,29 +497,6 @@ MonoBehaviour:
   move_speed: 30
   dash_speed: 1
   player_animator: {fileID: 1728348927807936783}
---- !u!136 &1728348927807936790
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079742959}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5979736
-  m_Height: 6.404994
-  m_Direction: 1
-  m_Center: {x: 0, y: 3.1879354, z: 0.20994401}
 --- !u!54 &1728348927807936792 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 1168513294254329534, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
@@ -694,9 +671,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1860795035899846815, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1728348927807936789}
-    - targetCorrespondingSourceObject: {fileID: 1860795035899846815, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1728348927807936790}
   m_SourcePrefab: {fileID: 100100000, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
