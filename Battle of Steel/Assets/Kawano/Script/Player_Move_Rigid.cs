@@ -106,7 +106,6 @@ public class Player_Move_Rigid : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.03f, rb.transform.position.z));
-
     }
     private void OnCollisionStay(Collision collision)
     {
