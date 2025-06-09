@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    public Rigidbody rb;
-    public GameObject Cam;
+    [SerializeField] GameObject player;//キャラクターオブジェクト
+    public Rigidbody rb;//キャラクターオブジェクトのRigidBody
+    public GameObject cam;
+    public Camera maincam;
     public Animator animator; // キャラクターオブジェクトのAnimator
-    public bool jump_flag = true;
-    public bool jump_second = false;
+
+    public bool jump_flag = true;//地上でのジャンプフラグ
+    public bool jump_second = false;//空中でのジャンンプフラグ
     public float jumppower;
 
     [SerializeField] float move_speed;//キャラクターの移動速度
@@ -20,8 +22,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 input_direction;//入力方向
 
     public int attack_power;
-    public float boost = 100.0f;
-    public float boost_max = 100.0f;
+    public float boost = 100.0f;//ブースト残量
+    public float boost_max = 100.0f;//ブーストの上限
+
+    public float target_fov;
+    public float fov_changeamount = 10.0f;
+    public float min_fov = 60.0f;
+    public float max_fov = 90.0f;
 
     private bool Collision_Hit = false;
 
@@ -61,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-      
+
         rb = GetComponent<Rigidbody>();
     }
 
@@ -81,7 +88,7 @@ public class PlayerController : MonoBehaviour
             player.transform.RotateAround(player.transform.position, Vector3.up, mx);
         }
     }
- 
+
     //void Jump()
     //{
     //    if (jump_flag == true) return;
@@ -93,7 +100,7 @@ public class PlayerController : MonoBehaviour
     //}
     void Update()
     {
-       
+
         //移動方向を初期化
         move_x = 0; move_y = 0; animator.SetBool("Action", false);
         //各移動方向へアニメーション変化
@@ -116,19 +123,19 @@ public class PlayerController : MonoBehaviour
         {
             target_x = -1.0f;
         }
-       
 
-        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
         {
             target_y = 0.0f;//blend treeの数値をデフォルトの状態に戻す
-           
+
         }
-        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             target_x = 0.0f;//blend treeの数値をデフォルトの状態に戻す
 
         }
-      
+
 
 
         //ここで数値を線形補間して、なめらかにする
@@ -138,46 +145,51 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Horizontal", move_x);
         animator.SetFloat("Vertical", move_y);
 
-        if(jump_flag && boost < boost_max && animator.GetFloat("IsDashing") != 1.0f)//地面に立っているときブースト回復
+        if (jump_flag && boost < boost_max && animator.GetFloat("IsDashing") != 1.0f)//地面に立っているときブースト回復
         {
-            
-            boost+=0.4f;
+
+            boost += 0.4f;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f)//地上からのジャンプ
+        if (Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f)//地上からのジャンプ
         {
-            rb.linearVelocity = new Vector3(0, (jumppower*3.0f), 0);
+            rb.linearVelocity = new Vector3(0, (jumppower * 3.0f), 0);
             boost -= 20.0f;
             jump_flag = false;
         }
-        if(Input.GetKeyUp(KeyCode.Space)&& !jump_flag)//空中でスペースキーを離した判定
+        if (Input.GetKeyUp(KeyCode.Space) && !jump_flag)//空中でスペースキーを離した判定
         {
             jump_second = true;
         }
-        else if (Input.GetKey(KeyCode.Space) && boost > 0 
+        else if (Input.GetKey(KeyCode.Space) && boost > 0
         && jump_second && animator.GetFloat("IsDashing") != 1.0f)//空中ジャンプ(ホバー？）
         {
             rb.linearVelocity = new Vector3(0, jumppower, 0);
             jump_flag = false;
             boost -= 0.3f;
         }
-        if(animator.GetFloat("IsDashing") == 1.0f)
+        if (animator.GetFloat("IsDashing") == 1.0f)
         {
             boost -= 0.1f;
+            camera_Fovaway();
+        }
+        else
+        {
+            camera_Fovreturn();
         }
 
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
           Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
         {
-            if (jump_flag == false )
+            if (jump_flag == false)
             {
-                if( boost > 0.0f)
+                if (boost > 0.0f)
                 {
                     AddForce_reset();
                     rb.useGravity = false;
                 }
-               
+
             }
         }
 
@@ -196,14 +208,13 @@ public class PlayerController : MonoBehaviour
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
-  //      Debug.Log(transform.forward);
+                                            //      Debug.Log(transform.forward);
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
         Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
         float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
-        float radius = 0.8f;                                                           //SpeheCast用に半径設定
 
         //衝突していないとき飲み移動速度を設定
-        if(!Collision_Hit)
+        if (!Collision_Hit)
         {
             if (!Input.GetKey(KeyCode.LeftShift))
             {
@@ -230,21 +241,36 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
-
             //移動方向を設定
             Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
             rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
-
         }
-    }   
+      
+    }
     /// <summary>
     /// Addforceの力を0にする
     /// </summary>
     void AddForce_reset()
     {
-       
-            rb.linearVelocity = Vector3.zero;
-        
+
+        rb.linearVelocity = Vector3.zero;
+
     }
 
+    void camera_Fovaway()
+    {
+        if (maincam != null)
+        {
+            //maincam.fieldOfView = Mathf.Clamp(maincam.fieldOfView + fov_changeamount * Time.deltaTime, min_fov, max_fov);
+            maincam.fieldOfView = max_fov;
+        }
+    }
+    void camera_Fovreturn()
+    {
+        if (maincam != null)
+        {
+            maincam.fieldOfView = Mathf.Clamp(maincam.fieldOfView - fov_changeamount * Time.deltaTime, min_fov, max_fov);
+           
+        }
+    }
 }
