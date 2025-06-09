@@ -44,11 +44,11 @@ public class HPText : MonoBehaviour
         {
             text.color = new Color32(0, 0, 0, 255);
         }
-        else if (myhp / max <= 0.2)
+        else if (myhp / max < 0.2)
         {
             text.color = new Color32(235, 33, 13, 255);
         }
-        else if (myhp / max <= 0.4)
+        else if (myhp / max < 0.4)
         {
             text.color = new Color32(184, 235, 13, 255);
         }

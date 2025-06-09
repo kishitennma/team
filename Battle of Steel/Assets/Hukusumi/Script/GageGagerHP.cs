@@ -8,7 +8,7 @@ public class GageGagerHP : MonoBehaviour
     GameObject HP_Text;
     HPText script;
 
-    private float myhp = 500.0f;
+    private float myhp ;
     private Image image;
 
     float max;
@@ -49,11 +49,11 @@ public class GageGagerHP : MonoBehaviour
         {
             image.color = new Color32(0, 0, 0, 255);
         }
-        else if (image.fillAmount <= 0.2)
+        else if (image.fillAmount < 0.2)
         {
             image.color = new Color32(235, 33, 13, 255);
         }
-        else if (image.fillAmount <= 0.4)
+        else if (image.fillAmount < 0.4)
         {
             image.color = new Color32(184, 235, 13, 255);
         }
