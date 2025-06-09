@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 //ロックオンシステム
 
@@ -16,7 +17,7 @@ public class RockOn : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetMouseButtonDown(1))
         {
             if (!lockon_flag)
                 lockon_flag = true;
