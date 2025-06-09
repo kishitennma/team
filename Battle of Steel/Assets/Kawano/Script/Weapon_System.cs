@@ -75,6 +75,7 @@ public class WeaponSystem : MonoBehaviour
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
     void Start()
     {
+        Application.targetFrameRate = 120;//60FPS（仮）
 
         //PlayerPrefsにセーブされた二つの数字を読み込む
         index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);

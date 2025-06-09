@@ -231,10 +231,11 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            //ˆÚ“®•ûŒü‚ğİ’è
+            Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
+            rb.MovePosition(rb.position + move_offset);//RigidBody©‘Ì‚ÌˆÊ’u‚ğˆÚ“®
+
         }
-        //ˆÚ“®•ûŒü‚ğİ’è
-        Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
-        rb.MovePosition(rb.position + move_offset);//RigidBody©‘Ì‚ÌˆÊ’u‚ğˆÚ“®
     }   
     /// <summary>
     /// Addforce‚Ì—Í‚ğ0‚É‚·‚é
