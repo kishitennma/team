@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HPText : MonoBehaviour
 {
+    //TextMeshProÇì«Ç›çûÇﬁ
+    [SerializeField] TextMeshProUGUI HP_Text;
     private float _myHp = 500.0f;
     private Text _text;
     private float P;
+    private int hp=0;
 
     float Max;
     float BHP = 0.0f;
@@ -21,6 +25,10 @@ public class HPText : MonoBehaviour
 
     private void Update()
     {
+        hp= (int)_myHp;
+        //string hp_n = hp.ToString();
+        //HP_Text.text = hp_n;
+        gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             _myHp--;
