@@ -5,26 +5,33 @@ using UnityEngine.UI;
 
 public class GageGagerHP : MonoBehaviour
 {
+    GameObject HP_Text;
+    HPText script;
+
     private float myhp = 500.0f;
     private Image image;
 
     float max;
     private void Start()
     {
+        HP_Text = GameObject.Find("HP_Text"); //Unityちゃんをオブジェクトの名前から取得して変数に格納する
+        script = HP_Text.GetComponent<HPText>(); //unitychanの中にあるUnityChanScriptを取得して変数に格納する
         image = this.GetComponent<Image>();
+        myhp = script.myhp;
         max = myhp;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            myhp--;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            myhp++;
-        }
+        myhp = script.myhp;
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    myhp--;
+        //}
+        //else if (Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    myhp++;
+        //}
 
         image.fillAmount = myhp / max;
         if(myhp / max <0)

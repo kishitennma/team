@@ -15,11 +15,11 @@ public class GageGagerG : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.Q))
         {
             gun_bullet--;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.E))
         {
             gun_bullet++;
         }

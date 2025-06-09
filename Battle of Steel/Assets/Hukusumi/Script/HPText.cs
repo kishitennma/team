@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HPText : MonoBehaviour
 {
-    private float myhp = 500.0f;
+    public float myhp = 500.0f;
     private Text text;
     private int hp=0;
 
@@ -23,11 +23,11 @@ public class HPText : MonoBehaviour
     {
         hp= (int)myhp;
         gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             myhp--;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.W))
         {
             myhp++;
         }
