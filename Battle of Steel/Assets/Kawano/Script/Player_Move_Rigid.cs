@@ -18,7 +18,6 @@ public class Player_Move_Rigid : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = 120;//60FPSÅiâºÅj
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
