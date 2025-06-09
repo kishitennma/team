@@ -23,8 +23,10 @@ public class PlayerController : MonoBehaviour
     public float boost = 100.0f;
     public float boost_max = 100.0f;
 
+    private bool Collision_Hit = false;
 
-  
+
+
 
     /// <summary>
     /// ジャンプのフラグ制御
@@ -32,6 +34,9 @@ public class PlayerController : MonoBehaviour
     /// <param name="other"></param>
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.CompareTag("Ground"))
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
+
         if (jump_flag == false)
         {
             if (other.gameObject.CompareTag("Ground"))
@@ -40,6 +45,16 @@ public class PlayerController : MonoBehaviour
                 jump_second = false;
             }
         }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        //物体が埋まっている間は移動フラグをfalse
+        Collision_Hit = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        //物体の衝突が解消されたら移動を再開
+        Collision_Hit = false;
     }
 
 
@@ -181,54 +196,46 @@ public class PlayerController : MonoBehaviour
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
-
+  //      Debug.Log(transform.forward);
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
         Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
         float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
         float radius = 0.8f;                                                           //SpeheCast用に半径設定
 
-        //移動方向にRigidBody持ちのオブジェクトがあったら
-        if (Physics.SphereCast(origin, radius, move_dir, out RaycastHit hit, move_distance + 0.1f))
+        //衝突していないとき飲み移動速度を設定
+        if(!Collision_Hit)
         {
-            move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 6;//距離減衰かつ、滑りを計算
-        }
-        //移動速度を設定
-        if (!Input.GetKey(KeyCode.LeftShift))
-        {
-            //通常時
-            animator.SetFloat("IsDashing", 0.0f);
-            input_direction = move_dir;
-           
-        }
-        else
-        {
-            if (boost > 0.0f)
+            if (!Input.GetKey(KeyCode.LeftShift))
             {
-                //ダッシュ時
-                animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
-                input_direction = move_dir * dash_speed;//移動ベクトルを設定
+                //通常時
+                animator.SetFloat("IsDashing", 0.0f);
+                input_direction = move_dir;
 
             }
             else
             {
+                if (boost > 0.0f)
+                {
+                    //ダッシュ時
+                    animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
+                    input_direction = move_dir * dash_speed;//移動ベクトルを設定
 
-                //通常時
-                animator.SetFloat("IsDashing", 0.0f);
-                input_direction = move_dir;
+                }
+                else
+                {
+
+                    //通常時
+                    animator.SetFloat("IsDashing", 0.0f);
+                    input_direction = move_dir;
+                }
+
             }
 
         }
-
-
         //移動方向を設定
         Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
         rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
-       
-        
-
-    }
-
-
+    }   
     /// <summary>
     /// Addforceの力を0にする
     /// </summary>
