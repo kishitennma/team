@@ -5,60 +5,54 @@ using UnityEngine.UI;
 
 public class GageGagerHP : MonoBehaviour
 {
-    private float _myHp = 500.0f;
-    private Image _image;
-    private Text _text;
+    private float myhp = 500.0f;
+    private Image image;
 
-    float Max;
+    float max;
     private void Start()
     {
-        _image = this.GetComponent<Image>();
-        _text = this.GetComponent<Text>();
-        Max=_myHp;
+        image = this.GetComponent<Image>();
+        max = myhp;
     }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            _myHp--;
+            myhp--;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            _myHp++;
+            myhp++;
         }
 
-        _image.fillAmount = _myHp / Max;
-        if(_myHp / Max <0)
+        image.fillAmount = myhp / max;
+        if(myhp / max <0)
         {
-            _image.fillAmount = 0.0f;
-            _myHp = 0.0f;
+            image.fillAmount = 0.0f;
+            myhp = 0.0f;
         }
-        else if(_myHp / Max >1.0f)
+        else if(myhp / max >1.0f)
         {
-            _image.fillAmount = 1.0f;
-            _myHp = Max;
+            image.fillAmount = 1.0f;
+            myhp = max;
         }
 
-        if (_image.fillAmount <= 0)
+        if (image.fillAmount <= 0)
         {
-            _image.color = new Color32(0, 0, 0, 255);
-            _text.color= new Color32(0, 0, 0, 255);
+            image.color = new Color32(0, 0, 0, 255);
         }
-        else if (_image.fillAmount <= 0.2)
+        else if (image.fillAmount <= 0.2)
         {
-            _image.color = new Color32(235, 33, 13, 255);
-            _text.color = new Color32(235, 33, 13, 255);
+            image.color = new Color32(235, 33, 13, 255);
         }
-        else if (_image.fillAmount <= 0.4)
+        else if (image.fillAmount <= 0.4)
         {
-            _image.color = new Color32(184, 235, 13, 255);
-            _text.color = new Color32(184, 235, 13, 255);
+            image.color = new Color32(184, 235, 13, 255);
         }
         else
         {
-            _image.color = new Color32(13, 235, 69, 255);
-            _text.color = new Color32(13, 235, 69, 255);
+            image.color = new Color32(13, 235, 69, 255);
         }
     }
 
