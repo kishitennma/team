@@ -21,6 +21,14 @@ public class Change : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.V))
+        {
+            if (C_Check ==true)
+            {
+                C_Check = false;
+            }
+        }
+        
         if (C_Check == false)
         {
             rg.Rotate(new Vector3(0, 0, C_S));
