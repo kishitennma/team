@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public int attack_power;
     public float boost = 100.0f;//ブースト残量
     public float boost_max = 100.0f;//ブーストの上限
+    public bool boost_empty = false;
 
     public float target_fov;
     public float fov_changeamount = 10.0f;
@@ -151,7 +152,12 @@ public class PlayerController : MonoBehaviour
             boost += 0.4f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f)//地上からのジャンプ
+        if (boost <= 0.0f)
+            boost_empty = true;
+        if (boost >= boost_max)
+            boost_empty = false;
+
+        if (Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f && !boost_empty)//地上からのジャンプ
         {
             rb.linearVelocity = new Vector3(0, (jumppower * 3.0f), 0);
             boost -= 20.0f;
@@ -168,7 +174,7 @@ public class PlayerController : MonoBehaviour
             jump_flag = false;
             boost -= 0.3f;
         }
-        if (animator.GetFloat("IsDashing") == 1.0f)
+        if (animator.GetFloat("IsDashing") == 1.0f )
         {
             boost -= 0.1f;
             camera_Fovaway();
@@ -199,7 +205,7 @@ public class PlayerController : MonoBehaviour
             rb.useGravity = true;
         }
 
-
+        
 
     }
 
@@ -225,7 +231,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (boost > 0.0f)
+                if (!boost_empty)
                 {
                     //ダッシュ時
                     animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
@@ -261,7 +267,7 @@ public class PlayerController : MonoBehaviour
     {
         if (maincam != null)
         {
-            maincam.fieldOfView = Mathf.Clamp(maincam.fieldOfView + fov_changeamount*Time.deltaTime*10 , min_fov, max_fov);
+            maincam.fieldOfView = Mathf.Clamp(maincam.fieldOfView + fov_changeamount*Time.deltaTime*5 , min_fov, max_fov);
             //maincam.fieldOfView = max_fov;
         }
     }
