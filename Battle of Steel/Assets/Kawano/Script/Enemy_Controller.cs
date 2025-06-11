@@ -7,13 +7,15 @@ public enum Enemy_Ai_Style
     //敵のAIリスト
     Idle,//停止
     Boss_Idle,//ボス（停止）
+    Boss_Fast,//(散弾弾発射ボス)
 }
 public enum Enemy_ID
 {
     //敵のIDリスト
     Idle_Robot,//ロボット(停止)
     Idle_Fast_Robot,//ロボット(弾丸高速発射)
-    Boss_Normal,//通常のボス(停止)
+    Boss_01,
+    Boss_02,
 }
 public class Enemy_Status
 {
@@ -44,7 +46,8 @@ public class Enemy_Controller : Damage_Calclate
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
         {Enemy_ID.Idle_Robot,     new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle,350f) },
         {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 45, 3,Enemy_Ai_Style.Idle,150f) },
-        {Enemy_ID.Boss_Normal,     new Enemy_Status(100,15,Enemy_Ai_Style.Boss_Idle,300f) },
+        {Enemy_ID.Boss_01,     new Enemy_Status(100,15,Enemy_Ai_Style.Boss_Idle,300f) },
+        {Enemy_ID.Boss_02,     new Enemy_Status(100,15,Enemy_Ai_Style.Boss_Fast,260f) },
     };
 
     //変数
@@ -82,21 +85,25 @@ public class Enemy_Controller : Damage_Calclate
         Enmey_State(ai_style);//エネミーの行動管理
         b_time++;
         //体力が1以下ならアニメーション更新
-        if(hp < 1)
+        if(hp < 1 && animator != null)
         {
             hp = 0;//体力が0以下にならないようにする
             act_shot = false;
             Destroy(bullet_point);//銃弾発射位置削除
             animator.SetBool("Death", true);//アニメーションを設定
         }
+        else if (hp < 1)
+        {
+            hp = 0;
+            Destroy(gameObject);
+        }
     }
     //エネミーの行動処理
     private void Enmey_State(Enemy_Ai_Style style)
     {
+        //停止状態(何もしない
         if (style == Enemy_Ai_Style.Idle)
         {
-            //停止状態(何もしない
-
             //弾丸発射が許可されている、かつ、体力が１以上、b_timeが間隔時間より大きくなったら
             if(act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
@@ -105,8 +112,9 @@ public class Enemy_Controller : Damage_Calclate
                 b_time = 0;//時間初期化
             }
         }
-        if(style == Enemy_Ai_Style.Boss_Idle && id == Enemy_ID.Boss_Normal)
-        {
+        //ボス（停止するボス）
+        if(style == Enemy_Ai_Style.Boss_Idle)
+        {    
             if (act_shot == true && bullet_per_shot < b_time && hp > 0 && boss_act_count > 1)
             {
                 Debug.Log("ボスの攻撃");
@@ -124,6 +132,21 @@ public class Enemy_Controller : Damage_Calclate
                 boss_act_count++;
                 b_time = 0;//時間初期化
             }
+        }
+        if(style == Enemy_Ai_Style.Boss_Fast)
+        {
+            if(act_shot == true && bullet_per_shot < b_time && hp > 0)
+            {
+                //発射カウントで放つ弾の数を変更する
+                switch (boss_act_count)
+                {
+                    case 0:          Shot(); boss_act_count = 1; break;
+                    case 1: Way_Shot(2, 10); boss_act_count = 2; break;
+                    case 2: Way_Shot(3, 15); boss_act_count = 0; break;
+                }
+                b_time = 0;
+            }
+
         }
     }
     //Playerが範囲内に入ったらその方向を向く

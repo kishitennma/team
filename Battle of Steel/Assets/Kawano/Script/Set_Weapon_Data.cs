@@ -7,16 +7,14 @@ public class Set_Weapon_Data : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //お試し(ほんとはボタンにこれをアタッチ)
-        Set_Weapons_Index(1);//0番目の武器
-        Set_Weapons_Index(0);
+
     }
 
     public void Set_Weapons_Index(int set_number)
     {
         if (selectWeapons.Count >= 2) return;
         if (selectWeapons.Contains(set_number)) return;
-
+        Debug.LogError("set_number ="+set_number);
         selectWeapons.Add(set_number);
         //二回読み込まれたら、セーブ
         if(selectWeapons.Count == 2)
