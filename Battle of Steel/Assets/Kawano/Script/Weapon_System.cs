@@ -54,8 +54,8 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.01f,false,25)},//ピストル
-        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.01f,true, 10)},//アサルト
+        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.01f,false,15)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.3f,0.3f,36,0.01f,true, 10)},//アサルト
         {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.2f,  false, 6)},//6*5で30ダメージ
     };
 
