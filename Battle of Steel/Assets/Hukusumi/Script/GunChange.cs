@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class GunChange : MonoBehaviour
 {
     public int Gun_Num=0;
+
+    bool tb=false;
     RectTransform rectTransform_get;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,7 +16,26 @@ public class GunChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Gun_Num==1)
+        if (Input.GetKey(KeyCode.V))
+        {
+            if (tb == false)
+            {
+                if (Gun_Num == 1)
+                {
+                    Gun_Num = 2;
+                }
+                else
+                {
+                    Gun_Num = 1;
+                }
+                tb = true;
+            }
+        }
+        else
+        {
+            tb = false;
+        }
+        if (Gun_Num==1)
         {
             //Vector3 pos = rectTransform_get.position;
             //pos.x = 5;
