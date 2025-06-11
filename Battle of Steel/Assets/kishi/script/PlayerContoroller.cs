@@ -261,8 +261,8 @@ public class PlayerController : MonoBehaviour
     {
         if (maincam != null)
         {
-            //maincam.fieldOfView = Mathf.Clamp(maincam.fieldOfView + fov_changeamount * Time.deltaTime, min_fov, max_fov);
-            maincam.fieldOfView = max_fov;
+            maincam.fieldOfView = Mathf.Clamp(maincam.fieldOfView + fov_changeamount*Time.deltaTime*10 , min_fov, max_fov);
+            //maincam.fieldOfView = max_fov;
         }
     }
     void camera_Fovreturn()
