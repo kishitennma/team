@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum Enemy_Ai_Style
 {
@@ -41,13 +42,14 @@ public class Enemy_Controller : Damage_Calclate
     [SerializeField] GameObject bullet_prefab;//弾のプレハブ
     [SerializeField] GameObject bullet_point;//弾の発射位置
     [SerializeField] int bullet_force;//弾丸の発射速度
+    [SerializeField] GameObject Explosive_unit;//爆発エフェクト
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
         {Enemy_ID.Idle_Robot,     new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle,350f) },
         {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 45, 3,Enemy_Ai_Style.Idle,150f) },
         {Enemy_ID.Boss_01,     new Enemy_Status(100,15,Enemy_Ai_Style.Boss_Idle,300f) },
-        {Enemy_ID.Boss_02,     new Enemy_Status(100,15,Enemy_Ai_Style.Boss_Fast,260f) },
+        {Enemy_ID.Boss_02,     new Enemy_Status(250,15,Enemy_Ai_Style.Boss_Fast,260f) },
     };
 
     //変数
@@ -63,6 +65,7 @@ public class Enemy_Controller : Damage_Calclate
     private bool act_shot = false;//弾丸発射許可値
     private Vector3 e_vec;//ベクトル
     private Enemy_Ai_Style ai_style;//AIスタイル
+    private int per_shots_count = 0;//弾丸の間隔計測用
     
 
     //ボス用
@@ -75,7 +78,7 @@ public class Enemy_Controller : Damage_Calclate
         e_status = enemy_index[id];
         act_shot = false;
         animator = GetComponent<Animator>();//Animator取得
-        bullet_per_shot = e_status.bullet_per_shot;
+        bullet_per_shot = e_status.bullet_per_shot;//弾丸の発射間隔を設定
         hp = e_status.max_hp + (add_count * count_game_state);//体力を設定
         damage = e_status.attack_damage + (add_count * count_game_state);//攻撃力設定
         ai_style = e_status.style;//AIスタイルを設定
@@ -85,17 +88,17 @@ public class Enemy_Controller : Damage_Calclate
         Enmey_State(ai_style);//エネミーの行動管理
         b_time++;
         //体力が1以下ならアニメーション更新
-        if(hp < 1 && animator != null)
+        if(hp < 1)
         {
+            GameObject explosive = Instantiate(Explosive_unit, gameObject.transform.position, Quaternion.identity);
+            if (animator != null)
+            {
+                animator.SetBool("Death", true);//アニメーションを設定
+            }
             hp = 0;//体力が0以下にならないようにする
             act_shot = false;
             Destroy(bullet_point);//銃弾発射位置削除
-            animator.SetBool("Death", true);//アニメーションを設定
-        }
-        else if (hp < 1)
-        {
-            hp = 0;
-            Destroy(gameObject);
+            DestroyObject();//オブジェクト
         }
     }
     //エネミーの行動処理
@@ -105,7 +108,7 @@ public class Enemy_Controller : Damage_Calclate
         if (style == Enemy_Ai_Style.Idle)
         {
             //弾丸発射が許可されている、かつ、体力が１以上、b_timeが間隔時間より大きくなったら
-            if(act_shot == true && bullet_per_shot < b_time && hp > 0)
+            if(act_shot == true && b_time > bullet_per_shot && hp > 0)
             {
                 //弾を発射
                 Shot();
@@ -115,15 +118,14 @@ public class Enemy_Controller : Damage_Calclate
         //ボス（停止するボス）
         if(style == Enemy_Ai_Style.Boss_Idle)
         {    
-            if (act_shot == true && bullet_per_shot < b_time && hp > 0 && boss_act_count > 1)
+            if (act_shot == true && b_time > bullet_per_shot && hp > 0 && boss_act_count > 1)
             {
-                Debug.Log("ボスの攻撃");
 
-                Way_Shot(1,20);//-1,0,1の三回、10度ずつ
+                Way_Shot(1,20);//-1,0,1の三回、20度ずつ
                 boss_act_count = 0;
                 b_time = 0;
             }
-            else if (act_shot == true && bullet_per_shot < b_time && hp > 0)
+            else if (act_shot == true && b_time > bullet_per_shot && hp > 0)
             {
                 //弾丸発射が許可されている、かつ、体力が１以上、b_timeが間隔時間より大きくなったら
 
@@ -133,6 +135,7 @@ public class Enemy_Controller : Damage_Calclate
                 b_time = 0;//時間初期化
             }
         }
+        //弾のパターンが変わるボス
         if(style == Enemy_Ai_Style.Boss_Fast)
         {
             if(act_shot == true && bullet_per_shot < b_time && hp > 0)
@@ -140,13 +143,12 @@ public class Enemy_Controller : Damage_Calclate
                 //発射カウントで放つ弾の数を変更する
                 switch (boss_act_count)
                 {
-                    case 0:          Shot(); boss_act_count = 1; break;
-                    case 1: Way_Shot(2, 10); boss_act_count = 2; break;
-                    case 2: Way_Shot(3, 15); boss_act_count = 0; break;
+                    case 0: Shot(); boss_act_count = 1; break;
+                    case 1: Way_Shot(2, 25); boss_act_count = 2; break;
+                    case 2: Way_Shot(3, 30); boss_act_count = 0; break;
                 }
                 b_time = 0;
             }
-
         }
     }
     //Playerが範囲内に入ったらその方向を向く
@@ -178,6 +180,7 @@ public class Enemy_Controller : Damage_Calclate
     {
         Destroy(gameObject);
     }
+    //通常の弾丸発射スクリプト
     private void Shot()
     {
         //弾のプレハブを生成
@@ -230,4 +233,5 @@ public class Enemy_Controller : Damage_Calclate
             }
         }
     }
+
 }

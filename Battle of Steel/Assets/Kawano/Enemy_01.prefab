@@ -1046,6 +1046,7 @@ MonoBehaviour:
   bullet_prefab: {fileID: 4863636613212147957, guid: 6c5a1469a05712b498d9b034bee6f4cd, type: 3}
   bullet_point: {fileID: 7053271663584135108}
   bullet_force: 80
+  Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
   count_game_state: 0
 --- !u!95 &2467031380012375953
 Animator:
