@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy_Manager : MonoBehaviour
 {
@@ -21,19 +22,27 @@ public class Enemy_Manager : MonoBehaviour
     }
     private void Update()
     {
-        int remaining = Enemy_Manager.enemy_count.GetAliveEnemyCount();
+        int remaining = enemy_count.GetAliveEnemyCount();
         if(!boss_spawned && remaining == 0)
         {
             //ボスを出現
             for (int i = 0; i < boss.Count; i++)
             {
                 boss[i].SetActive(true);
+                remaining++;
             }
             boss_spawned = true;
             Debug.Log("ボス出現");
         }
-    }
 
+        //ボスも全て倒されたらリザルトを表示
+        if(boss_spawned && remaining == 0)
+        {
+            
+            SceneManager.LoadScene("GameTitle");//いったんタイトルに戻る
+        }
+    }
+    
     public void RegisterEnemy(GameObject enemy)
     {
         if(!enemys.Contains(enemy))
