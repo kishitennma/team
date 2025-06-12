@@ -17,7 +17,7 @@ public class GunChange : MonoBehaviour
     void Update()
     {
         //デバック
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetKey(KeyCode.Q))
         {
             if (tb == false)
             {
