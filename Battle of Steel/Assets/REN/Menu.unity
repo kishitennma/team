@@ -2166,7 +2166,7 @@ MonoBehaviour:
   button: {fileID: 1732270850}
   audioSource: {fileID: 804191024}
   soundClip: {fileID: 8300000, guid: c2514db3ec6a81045897bbe6f4eb34e7, type: 3}
-  sceneName: City
+  sceneName: Test_Game_01
   delayBeforeSceneChange: 0.7
 --- !u!1 &1755832268
 GameObject:

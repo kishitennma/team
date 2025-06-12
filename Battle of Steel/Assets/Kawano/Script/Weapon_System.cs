@@ -8,8 +8,6 @@ public enum WeaponType
     AssaultRifle,
     ShotGun,
 }
-
-
 public class WeaponSystem : MonoBehaviour
 {
     [Header("武器生成")]
@@ -54,8 +52,8 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.01f,false,15)},//ピストル
-        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.3f,0.3f,36,0.01f,true, 10)},//アサルト
+        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.4f,12,0.01f,false,12)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.3f,0.3f,36,0.01f,true, 8)},//アサルト
         {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.2f,  false, 6)},//6*5で30ダメージ
     };
 
@@ -98,8 +96,6 @@ public class WeaponSystem : MonoBehaviour
         bullets_left = magazine_size;
         spread = weapon.spread_amount;
         allow_bullet_hold = weapon.allow_bullet_hold;
-        player.attack_power = weapon.attack_damage;
-        Debug.Log("プレイヤー攻撃力" + player.attack_power);
         flash_light.SetActive(false);
     }
 
@@ -107,7 +103,7 @@ public class WeaponSystem : MonoBehaviour
     void Update()
     {
         //常にこの武器のSetActiveがtrueの時、攻撃力を更新させる
-        player.attack_power = weapon.attack_damage;
+        Player_Status.Player_Attack_Damage = weapon.attack_damage;
         //フラッシュライトが有効にされたら時間経過で消去
         if (flash_light.activeInHierarchy == true)
             flash_light_time++;
@@ -148,7 +144,6 @@ public class WeaponSystem : MonoBehaviour
                 {
                     Shoot();
                 }
-                
             }
             else
             {
