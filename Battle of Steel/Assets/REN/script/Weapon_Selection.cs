@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class weapon_selection : MonoBehaviour
 {
-    private static int click_count = 0;
+    public static int click_count = 0;
     private const int MAX_WEAPONS = 2;
     private static List<string> selected_weapon = new List<string>();
 

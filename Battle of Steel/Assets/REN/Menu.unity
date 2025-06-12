@@ -1342,8 +1342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -407, y: -214}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -336, y: -121.92}
+  m_SizeDelta: {x: 190.272, y: 217.8426}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1112445539
 MonoBehaviour:
@@ -1715,6 +1715,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: {x: 0, y: 10, z: 0}
+--- !u!114 &1422584931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422584925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a846b3c0eff64d802e23f2290d0b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glitchChance: 0.1
 --- !u!1 &1524277497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,6 +1959,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8155533566880544754, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ad9ed8f7ef7304a498ecee69ad9d19f5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1953,6 +1970,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8155533566875335504, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1422584928}
+    - targetCorrespondingSourceObject: {fileID: 8155533566875335504, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1422584931}
   m_SourcePrefab: {fileID: 100100000, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
 --- !u!1001 &1732270848
 PrefabInstance:
