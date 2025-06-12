@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class GageGagerB : MonoBehaviour
 {
-    private float boostG = 500.0f;
+    private float boostG;
     private Image image;
-
-    public bool ZERO = false;
+    public PlayerController player;
+    public bool Zero = false;
     float PassedTimes = 0;
 
     float max;
@@ -18,21 +18,24 @@ public class GageGagerB : MonoBehaviour
     private void Start()
     {
         image = this.GetComponent<Image>();
+        boostG = player.boost;
         max = boostG;
+
     }
 
     private void Update()
     {
+        boostG = player.boost;
         if (boostG / max <= 0)
         {
-            ZERO = true;
+            Zero = true;
         }
         else if (boostG / max >= 1)
         {
-            ZERO = false;
+            Zero = false;
         }
 
-        if (ZERO)
+        if (Zero)
         {
             PassedTimes += Time.deltaTime;//ŽžŠÔŒo‰ß
 

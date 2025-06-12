@@ -15,7 +15,7 @@ public class GageGagerB_Un : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Boost.GetComponent<GageGagerB>().ZERO)
+        if (Boost.GetComponent<GageGagerB>().Zero)
         {
             image.color = new Color32(255, 0, 0, 54);
         }
