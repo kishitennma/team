@@ -860,9 +860,6 @@ PrefabInstance:
       addedObject: {fileID: 7957419013339493518}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6493975742196561998}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8079781583083389508}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
@@ -890,7 +887,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2439496363594396244}
   rb: {fileID: 8079781583083389508}
-  Cam: {fileID: 4681797423250184076}
+  cam: {fileID: 0}
+  maincam: {fileID: 0}
   animator: {fileID: 8966993948193796756}
   jump_flag: 1
   jump_second: 0
@@ -899,7 +897,11 @@ MonoBehaviour:
   dash_speed: 1.2
   attack_power: 0
   boost: 100
-  boost_max: 100
+  boost_empty: 0
+  target_fov: 0
+  fov_changeamount: 10
+  min_fov: 60
+  max_fov: 90
 --- !u!114 &3200003842569496204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,21 +935,6 @@ MonoBehaviour:
   ammo_texts: {fileID: 1290642798741142559}
   player_animator: {fileID: 8966993948193796756}
   set_key: 113
---- !u!114 &6493975742196561998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2439496363594396244}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b80055e6a18cd5418c9685212c5cd47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  move_speed: 45
-  dash_speed: 1.2
-  player_animator: {fileID: 8966993948193796756}
 --- !u!54 &8079781583083389508
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1184,7 +1171,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -431
+      value: -431.00003
       objectReference: {fileID: 0}
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1256,7 +1243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2855844314949500438, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -431
+      value: -431.00003
       objectReference: {fileID: 0}
     - target: {fileID: 2855844314949500438, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1292,7 +1279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -404
+      value: -404.00003
       objectReference: {fileID: 0}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y

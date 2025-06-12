@@ -68,17 +68,6 @@ public class Player_Move_Rigid : MonoBehaviour
         float v = Input.GetAxis("Vertical");//縦
                                             
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
-        Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
-        float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
-        float radius = 0.8f;                                                           //SpeheCast用に半径設定
-  
-
-
-        //移動方向にRigidBody持ちのオブジェクトがあったら
-        //if (Physics.SphereCast(origin, radius, move_dir, out RaycastHit hit, move_distance + 0.05f))
-        //{
-        //    //move_dir = Vector3.ProjectOnPlane(input_direction, hit.normal).normalized / 12;//距離減衰かつ、滑りを計算
-        //}
 
         if (!Collision_Hit)
         {
@@ -103,8 +92,8 @@ public class Player_Move_Rigid : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
-        rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.03f, rb.transform.position.z));
+        //if(collision.gameObject.CompareTag("Ground"))
+        //rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.03f, rb.transform.position.z));
     }
     private void OnCollisionStay(Collision collision)
     {
