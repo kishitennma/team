@@ -4,6 +4,7 @@ using UnityEngine;
 public class Set_Weapon_Data : MonoBehaviour
 {
     List<int> selectWeapons = new();
+    private bool hit_check = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,19 +13,29 @@ public class Set_Weapon_Data : MonoBehaviour
 
     public void Set_Weapons_Index(int set_number)
     {
-        if (weapon_selection.click_count >= 2) return;
-        //if (selectWeapons.Contains(set_number)) return;
-        //Debug.LogError("set_number ="+set_number);
-        //selectWeapons.Add(set_number);
-        //二回読み込まれたら、セーブ
-        if(weapon_selection.click_count == 2)
+        if(!hit_check)
         {
-            Debug.Log("aaaaa");
+            if (weapon_selection.click_count >= 2) return;
+            if (selectWeapons.Contains(set_number)) return;
+            selectWeapons.Add(set_number);
+
+        }
+        else
+        {
+
+        }
+    }
+    public void Save_Weapons_Index()
+    {
+        //二回読み込まれたら、セーブ
+        if (weapon_selection.click_count == 2)
+        {
             PlayerPrefs.SetInt("Select_f", selectWeapons[0]);
             PlayerPrefs.SetInt("Select_s", selectWeapons[1]);
             PlayerPrefs.Save();
         }
     }
+
     public void Compare_Weapon_Index()
     {
         int index_a = PlayerPrefs.GetInt("Select_f",0);
