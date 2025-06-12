@@ -22,7 +22,7 @@ public class Change : MonoBehaviour
     void Update()
     {
         //デバック
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetKey(KeyCode.Q))
         {
             if (C_Check ==true)
             {
