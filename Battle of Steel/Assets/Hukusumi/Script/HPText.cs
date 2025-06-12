@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class HPText : MonoBehaviour
 {
-    public float myhp = 500.0f;
+    public float myhp = 500.0f;//初期値デバック
     private Text text;
-    private int hp=0;
+    private int hp=0;//float→int用
 
-    float max;
+    float max;//最大値
     float BHP = 0.0f;
     private void Start()
     {
@@ -23,6 +23,7 @@ public class HPText : MonoBehaviour
     {
         hp= (int)myhp;
         gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();
+        //デバック
         if (Input.GetKey(KeyCode.S))
         {
             myhp--;
@@ -32,6 +33,7 @@ public class HPText : MonoBehaviour
             myhp++;
         }
 
+        //超過対策
         if (myhp / max < 0)
         {
             myhp = 0.0f;
@@ -40,6 +42,7 @@ public class HPText : MonoBehaviour
         {
             myhp = max;
         }
+        //色管理
         if (myhp / max <= 0)
         {
             text.color = new Color32(0, 0, 0, 255);

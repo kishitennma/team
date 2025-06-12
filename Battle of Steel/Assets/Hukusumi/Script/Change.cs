@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Change : MonoBehaviour
 {
-    public float C_S = 1;
-    public bool C_Check=false;
+    public float C_S = 1;// 回転速度
+    public bool C_Check=false;//回転確認
     RectTransform rg;
     int x, y;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,6 +21,7 @@ public class Change : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //デバック
         if (Input.GetKey(KeyCode.V))
         {
             if (C_Check ==true)
@@ -29,6 +30,7 @@ public class Change : MonoBehaviour
             }
         }
         
+        //半回転
         if (C_Check == false)
         {
             rg.Rotate(new Vector3(0, 0, C_S));

@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class GageGagerB : MonoBehaviour
 {
-    private float boostG;
+    private float boostG;//ブーストゲージ現在値取得
     private Image image;
-    public PlayerController player;
-    public bool Zero = false;
-    float PassedTimes = 0;
+    public PlayerController player;//プレイヤー取得
+    public bool Zero = false;//ヒート確認
+    float PassedTimes = 0;//点滅用秒数
 
-    float max;
+    float max;//最大値
 
     // 点滅させる対象（ここがBehaviourに変更されている）
     [SerializeField] private Behaviour _target;
@@ -25,6 +25,7 @@ public class GageGagerB : MonoBehaviour
 
     private void Update()
     {
+        //完全回復まで点滅
         boostG = player.boost;
         if (boostG / max <= 0)
         {
@@ -35,6 +36,7 @@ public class GageGagerB : MonoBehaviour
             Zero = false;
         }
 
+        //点滅プログラム
         if (Zero)
         {
             PassedTimes += Time.deltaTime;//時間経過
@@ -51,16 +53,17 @@ public class GageGagerB : MonoBehaviour
             _target.enabled = true;
         }
 
+        //旧デバック
+        //if (Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    boostG--;
+        //}
+        //else if (Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    boostG++;
+        //}
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            boostG--;
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            boostG++;
-        }
-
+        //ゲージ管理
         image.fillAmount = boostG / max;
         if (boostG / max < 0)
         {

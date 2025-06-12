@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class GageGagerG : MonoBehaviour
 {
-    private float gun_bullet = 500.0f;
+    private float gun_bullet = 500.0f;//初期値デバック
     private Image image;
-    float max;
+    float max;//最大値
 
     private void Start()
     {
@@ -15,6 +15,7 @@ public class GageGagerG : MonoBehaviour
 
     private void Update()
     {
+        //デバック
         if (Input.GetKey(KeyCode.Q))
         {
             gun_bullet--;
@@ -24,6 +25,7 @@ public class GageGagerG : MonoBehaviour
             gun_bullet++;
         }
 
+        //ゲージ管理
         image.fillAmount = gun_bullet / max;
         if (gun_bullet / max < 0)
         {
