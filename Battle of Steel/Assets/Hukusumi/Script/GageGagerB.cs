@@ -3,37 +3,71 @@ using UnityEngine.UI;
 
 public class GageGagerB : MonoBehaviour
 {
-    private float _myHp = 500.0f;
-    private Image _image;
+    private float boostG = 500.0f;
+    private Image image;
 
-    float Max;
+    public bool ZERO = false;
+    float PassedTimes = 0;
+
+    float max;
+
+    // 点滅させる対象（ここがBehaviourに変更されている）
+    [SerializeField] private Behaviour _target;
+    // 点滅周期[s]
+    [SerializeField] private float _cycle = 1;
     private void Start()
     {
-        _image = this.GetComponent<Image>();
-        Max=_myHp;
+        image = this.GetComponent<Image>();
+        max = boostG;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (boostG / max <= 0)
         {
-            _myHp--;
+            ZERO = true;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (boostG / max >= 1)
         {
-            _myHp++;
+            ZERO = false;
         }
 
-        _image.fillAmount = _myHp / Max;
-        if (_myHp / Max < 0)
+        if (ZERO)
         {
-            _image.fillAmount = 0.0f;
-            _myHp = 0.0f;
+            PassedTimes += Time.deltaTime;//時間経過
+
+            var repeatValue = Mathf.Repeat((float)PassedTimes, _cycle);
+            // 内部時刻timeにおける明滅状態を反映
+            _target.enabled = repeatValue >= _cycle * 0.5f;
+            //boostG++;
+
         }
-        else if (_myHp / Max > 1.0f)
+        else
         {
-            _image.fillAmount = 1.0f;
-            _myHp = Max;
+            PassedTimes = 1;
+            _target.enabled = true;
+        }
+
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            boostG--;
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            boostG++;
+        }
+
+        image.fillAmount = boostG / max;
+        if (boostG / max < 0)
+        {
+            image.fillAmount = 0.0f;
+            boostG = 0.0f;
+        }
+        else if (boostG / max > 1.0f)
+        {
+            image.fillAmount = 1.0f;
+            boostG = max;
         }
     }
 }

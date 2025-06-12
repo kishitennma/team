@@ -5,60 +5,61 @@ using UnityEngine.UI;
 
 public class GageGagerHP : MonoBehaviour
 {
-    private float _myHp = 500.0f;
-    private Image _image;
-    private Text _text;
+    GameObject HP_Text;
+    HPText script;
 
-    float Max;
+    private float myhp ;
+    private Image image;
+
+    float max;
     private void Start()
     {
-        _image = this.GetComponent<Image>();
-        _text = this.GetComponent<Text>();
-        Max=_myHp;
+        HP_Text = GameObject.Find("HP_Text"); //Unityちゃんをオブジェクトの名前から取得して変数に格納する
+        script = HP_Text.GetComponent<HPText>(); //unitychanの中にあるUnityChanScriptを取得して変数に格納する
+        image = this.GetComponent<Image>();
+        myhp = script.myhp;
+        max = myhp;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        myhp = script.myhp;
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    myhp--;
+        //}
+        //else if (Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    myhp++;
+        //}
+
+        image.fillAmount = myhp / max;
+        if(myhp / max <0)
         {
-            _myHp--;
+            image.fillAmount = 0.0f;
+            myhp = 0.0f;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if(myhp / max >1.0f)
         {
-            _myHp++;
+            image.fillAmount = 1.0f;
+            myhp = max;
         }
 
-        _image.fillAmount = _myHp / Max;
-        if(_myHp / Max <0)
+        if (image.fillAmount <= 0)
         {
-            _image.fillAmount = 0.0f;
-            _myHp = 0.0f;
+            image.color = new Color32(0, 0, 0, 255);
         }
-        else if(_myHp / Max >1.0f)
+        else if (image.fillAmount < 0.2)
         {
-            _image.fillAmount = 1.0f;
-            _myHp = Max;
+            image.color = new Color32(235, 33, 13, 255);
         }
-
-        if (_image.fillAmount <= 0)
+        else if (image.fillAmount < 0.4)
         {
-            _image.color = new Color32(0, 0, 0, 255);
-            _text.color= new Color32(0, 0, 0, 255);
-        }
-        else if (_image.fillAmount <= 0.2)
-        {
-            _image.color = new Color32(235, 33, 13, 255);
-            _text.color = new Color32(235, 33, 13, 255);
-        }
-        else if (_image.fillAmount <= 0.4)
-        {
-            _image.color = new Color32(184, 235, 13, 255);
-            _text.color = new Color32(184, 235, 13, 255);
+            image.color = new Color32(184, 235, 13, 255);
         }
         else
         {
-            _image.color = new Color32(13, 235, 69, 255);
-            _text.color = new Color32(13, 235, 69, 255);
+            image.color = new Color32(13, 235, 69, 255);
         }
     }
 
