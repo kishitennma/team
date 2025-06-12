@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Change : MonoBehaviour
 {
-    public float C_S = 1;// ‰ñ“]‘¬“x
+    public float C_S = 5;// ‰ñ“]‘¬“x
     public bool C_Check=false;//‰ñ“]Šm”F
     RectTransform rg;
     int x, y;
