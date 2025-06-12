@@ -12,13 +12,14 @@ public class Set_Weapon_Data : MonoBehaviour
 
     public void Set_Weapons_Index(int set_number)
     {
-        if (selectWeapons.Count >= 2) return;
-        if (selectWeapons.Contains(set_number)) return;
-        Debug.LogError("set_number ="+set_number);
-        selectWeapons.Add(set_number);
+        if (weapon_selection.click_count >= 2) return;
+        //if (selectWeapons.Contains(set_number)) return;
+        //Debug.LogError("set_number ="+set_number);
+        //selectWeapons.Add(set_number);
         //二回読み込まれたら、セーブ
-        if(selectWeapons.Count == 2)
+        if(weapon_selection.click_count == 2)
         {
+            Debug.Log("aaaaa");
             PlayerPrefs.SetInt("Select_f", selectWeapons[0]);
             PlayerPrefs.SetInt("Select_s", selectWeapons[1]);
             PlayerPrefs.Save();
