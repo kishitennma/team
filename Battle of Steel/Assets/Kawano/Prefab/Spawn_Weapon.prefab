@@ -50,7 +50,7 @@ MonoBehaviour:
   weaponParent: {fileID: 1770939567962849701}
   isMainWeapon: 0
   type: 0
-  bullet_prefab: {fileID: 8681187892579714221, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
+  bullet_prefab: {fileID: 7653338419620912568, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
   ammo_text: {fileID: 0}
   flash: {fileID: 4665344555953982560}
   flash_light: {fileID: 5368437844840972801}

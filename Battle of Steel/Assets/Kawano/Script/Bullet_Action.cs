@@ -21,4 +21,17 @@ public class Bullet_Action : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
+        {
+            GameObject explosive = Instantiate(explosive_obj, gameObject.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
+
+    }
 }

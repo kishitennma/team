@@ -31,4 +31,22 @@ public class EnemyBulletAction : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //’eŠÛ‚ªƒvƒŒƒCƒ„[‚É“–‚½‚Á‚½‚ç‘Ì—Í‚ğŒ¸‚ç‚·
+            GameObject explosive = Instantiate(explosive_effect, gameObject.transform.position, Quaternion.identity);
+            Debug.Log("Œ»İ‚Ì‘Ì—Í" + Player_Status.Player_HP);
+            Player_Status.Player_HP = cal.Damage_Cal(attack_damage, Player_Status.Player_HP);
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            //•Ç‚É“–‚½‚Á‚½‚çÁ‚·
+            Destroy(gameObject);
+        }
+
+    }
 }

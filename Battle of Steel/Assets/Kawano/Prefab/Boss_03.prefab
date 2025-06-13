@@ -85,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 611b0f4b5b132aa4ab23030d7a8950e1, type: 2}
     - target: {fileID: 919132149155446097, guid: cd71b3fe7d88e2147b811084067e90e5, type: 3}
       propertyPath: m_Name
-      value: Boss_02 (1)
+      value: Boss_03
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cd71b3fe7d88e2147b811084067e90e5, type: 3}
       propertyPath: m_TagString
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 3
-  bullet_prefab: {fileID: 5354704305479009529, guid: 747b38f512dceb94e86b2475329271cc, type: 3}
+  bullet_prefab: {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
   bullet_point: {fileID: 6167045199002844017}
   bullet_force: 80
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}

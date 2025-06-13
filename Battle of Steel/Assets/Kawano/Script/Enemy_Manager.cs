@@ -39,7 +39,7 @@ public class Enemy_Manager : MonoBehaviour
         if(boss_spawned && remaining == 0)
         {
             
-            SceneManager.LoadScene("GameTitle");//いったんタイトルに戻る
+            SceneManager.LoadScene("GameTitle");//いったんタイトルに戻る//リザルト画面
         }
     }
     

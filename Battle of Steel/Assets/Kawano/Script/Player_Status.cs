@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_Status : MonoBehaviour
 {
@@ -10,4 +11,13 @@ public class Player_Status : MonoBehaviour
     {
         Player_HP = 100;
     }
+
+    private void FixedUpdate()
+    {
+        if (Player_HP < 1)
+        {
+            SceneManager.LoadScene("GameTitle");//仮でいったんタイトルに戻る//ゲームオーバー画面
+        }
+    }
+
 }
