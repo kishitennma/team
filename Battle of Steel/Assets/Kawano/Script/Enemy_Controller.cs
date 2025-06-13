@@ -137,13 +137,20 @@ public class Enemy_Controller : Damage_Calclate
         {
             if(act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                //発射カウントで放つ弾の数を変更する
                 switch (boss_act_count)
                 {
-                    case 0: Shot(); boss_act_count = 1; break;
-                    case 1: Way_Shot(2, 25); boss_act_count = 2; break;
-                    case 2: Way_Shot(3, 30); boss_act_count = 0; break;
+                    case 0: Way_Shot(2,2); break;
+                    case 1: Way_Shot(3, 9); break;
+                    case 2: Way_Shot(5, 14); break;
                 }
+                switch(boss_act_count)
+                {
+                    case 0:boss_act_count++;break;
+                    case 1:boss_act_count++;break;
+                    case 2:boss_act_count-=2;break;
+                }
+
+                //発射カウントで放つ弾の数を変更する
                 b_time = 0;
             }
         }
