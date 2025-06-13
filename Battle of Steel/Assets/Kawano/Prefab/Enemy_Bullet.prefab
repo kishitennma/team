@@ -396,6 +396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life_time: 0.5
+  explosive_effect: {fileID: 1281529153650206152, guid: 06c097f4911c6e94b8422363cfe590c2, type: 3}
+  attack_damage: 0
 --- !u!4 &5203006772346374735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dbf32749ce191cf44a21ba56b82760b7, type: 3}

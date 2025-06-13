@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//Game_Managerにアタッチ
 public class Damage_Calclate : MonoBehaviour
 {
     //現在はシンプルに攻撃力分体力を減らすのみ

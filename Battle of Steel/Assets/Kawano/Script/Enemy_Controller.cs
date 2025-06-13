@@ -180,11 +180,11 @@ public class Enemy_Controller : Damage_Calclate
     {
         //弾のプレハブを生成
         GameObject bullet = Instantiate(bullet_prefab, gameObject.transform.position, Quaternion.identity);
+        //弾丸に攻撃力の情報を渡しておく
+        EnemyBulletAction e_bullet_act = bullet.GetComponent<EnemyBulletAction>();
+        e_bullet_act.attack_damage = damage;//攻撃力を渡す
         bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
         bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
-        //弾丸に攻撃力の情報を渡しておく
-        EnemyBulletAction e_bulet_act = bullet.GetComponent<EnemyBulletAction>();
-        e_bulet_act.attack_damage = damage;//攻撃力を渡す
 
         //RigidBodyにbullet_force分の力を加える
         bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);

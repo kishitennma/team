@@ -67,7 +67,7 @@ public class WeaponSystem : MonoBehaviour
     private int allow_per_shots = 5;//同時発射数
     int index; Weapon_Date weapon;//武器保存用
 
-    private Transform muzzle_transform;//Muzzleの位置
+    public Transform muzzle_transform;//Muzzleの位置
     private bool allow_bullet_hold;//連射
     private int flash_light_time = 0;//フラッシュライトの発射時間
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
@@ -220,7 +220,7 @@ public class WeaponSystem : MonoBehaviour
         ConnectParts(handle.transform.Find("ConnectPoint_Body"), body.transform.Find("ConnectPoint_Handle"));
         ConnectParts(body.transform.Find("ConnectPoint_Nozzle"), nozzle.transform.Find("ConnectPoint_Body"));
 
-        muzzle_transform = nozzle.transform;
+        //muzzle_transform = nozzle.transform;
 
         ready_to_shoot = true;
     }

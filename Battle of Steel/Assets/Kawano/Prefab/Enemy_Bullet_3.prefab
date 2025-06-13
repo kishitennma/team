@@ -270,4 +270,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life_time: 1
+  explosive_effect: {fileID: 1281529153650206152, guid: 06c097f4911c6e94b8422363cfe590c2, type: 3}
   attack_damage: 0

@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 861a6bcb111a44e4b9895aa97a762686, type: 2}
     - target: {fileID: 919132149155446097, guid: 483864386190b2845a7d1c86b6bf2c46, type: 3}
       propertyPath: m_Name
-      value: Bullet_2
+      value: Enemy_Bullet_2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 483864386190b2845a7d1c86b6bf2c46, type: 3}
       propertyPath: m_Layer
@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life_time: 1
+  explosive_effect: {fileID: 1281529153650206152, guid: 06c097f4911c6e94b8422363cfe590c2, type: 3}
+  attack_damage: 0
 --- !u!96 &7441774544297752902
 TrailRenderer:
   serializedVersion: 3
