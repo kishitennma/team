@@ -19,5 +19,4 @@ public class Player_Status : MonoBehaviour
             SceneManager.LoadScene("GameTitle");//仮でいったんタイトルに戻る//ゲームオーバー画面
         }
     }
-
 }
