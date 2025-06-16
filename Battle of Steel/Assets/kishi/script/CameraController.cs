@@ -35,7 +35,6 @@ public class CameraControllert : MonoBehaviour
                 my = 0;
             }
             height -= my / 10;
-           
         }
     }
 
