@@ -38,8 +38,11 @@ public class Enemy_Manager : MonoBehaviour
         //ボスも全て倒されたらリザルトを表示
         if(boss_spawned && remaining == 0)
         {
-            
-            SceneManager.LoadScene("GameTitle");//いったんタイトルに戻る//リザルト画面
+            /*Time.timeScale = 0f; // ゲーム停止
+            FindObjectOfType<ResultManager>()?.ShowResult(); // リザルト表示のトリガー
+            this.enabled = false; // Enemy_ManagerのUpdateを止める（任意）*/
+           
+            SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
         }
     }
     
