@@ -5,7 +5,7 @@ public class Player_Status : MonoBehaviour
 {
     [Header("プレイヤーのステータス")]
     public static int Player_Attack_Damage;//プレイヤーの攻撃力を保持
-    public static int Player_HP;//プレイヤーの体力
+    public static int Player_HP=100;//プレイヤーの体力
 
     private void Start()
     {
