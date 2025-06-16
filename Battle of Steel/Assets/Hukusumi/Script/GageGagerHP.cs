@@ -8,22 +8,22 @@ public class GageGagerHP : MonoBehaviour
     GameObject HP_Text;//HP取得
     HPText script;
 
-    private float myhp ;//HP現在値
+    private int myhp ;//HP現在値
     private Image image;
 
-    float max;//最大値
+    int max;//最大値
     private void Start()
     {
         HP_Text = GameObject.Find("HP_Text"); //Unityちゃんをオブジェクトの名前から取得して変数に格納する
         script = HP_Text.GetComponent<HPText>(); //unitychanの中にあるUnityChanScriptを取得して変数に格納する
         image = this.GetComponent<Image>();
-        myhp = script.myhp;
-        max = myhp;
+        myhp = Player_Status.Player_HP;
+        max = Player_Status.Player_HP;
     }
 
     private void Update()
     {
-        myhp = script.myhp;
+        myhp = Player_Status.Player_HP;
         //if (Input.GetKey(KeyCode.LeftArrow))
         //{
         //    myhp--;
@@ -38,7 +38,7 @@ public class GageGagerHP : MonoBehaviour
         if(myhp / max <0)
         {
             image.fillAmount = 0.0f;
-            myhp = 0.0f;
+            myhp = 0;
         }
         else if(myhp / max >1.0f)
         {

@@ -5,53 +5,54 @@ using UnityEngine.UI;
 
 public class HPText : MonoBehaviour
 {
-    public float myhp = 500.0f;//初期値デバック
+    //public float myhp = 500.0f;//初期値デバック
     private Text text;
-    private int hp=0;//float→int用
+    public PlayerController Game_Manager;//プレイヤー取得
+    public int hp;//hp
 
-    float max;//最大値
+    int max;//最大値
     float BHP = 0.0f;
     private void Start()
     {
         //StartCoroutine(IncrementCoroutine());
 
         text = this.GetComponent<Text>();
-        max = myhp;
+        max = Player_Status.Player_HP;
     }
 
     private void Update()
     {
-        hp= (int)myhp;
+        hp= Player_Status.Player_HP;
         gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();
         //デバック
-        if (Input.GetKey(KeyCode.S))
-        {
-            myhp--;
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            myhp++;
-        }
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    hp--;
+        //}
+        //else if (Input.GetKey(KeyCode.W))
+        //{
+        //    hp++;
+        //}
 
         //超過対策
-        if (myhp / max < 0)
+        if (hp / max < 0)
         {
-            myhp = 0.0f;
+            hp = 0;
         }
-        else if (myhp / max > 1.0f)
+        else if (hp / max > 1.0f)
         {
-            myhp = max;
+            hp = max;
         }
         //色管理
-        if (myhp / max <= 0)
+        if (hp / max <= 0)
         {
             text.color = new Color32(0, 0, 0, 255);
         }
-        else if (myhp / max < 0.2)
+        else if (hp / max < 0.2)
         {
             text.color = new Color32(235, 33, 13, 255);
         }
-        else if (myhp / max < 0.4)
+        else if (hp / max < 0.4)
         {
             text.color = new Color32(184, 235, 13, 255);
         }
