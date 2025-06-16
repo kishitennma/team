@@ -40,7 +40,7 @@ public class GunChange : MonoBehaviour
         //プロト位置変更
         if (Gun_Num==1)//メイン
         {
-            transform.localPosition = new Vector3(283.5f, -112.0f, 0.0f);
+            transform.localPosition = new Vector3(300.0f, -112.0f, 0.0f);
         }
         else if(Gun_Num==2)//サブ
         {
