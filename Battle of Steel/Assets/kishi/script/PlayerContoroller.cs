@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour
 
         if (jump_flag && boost < boost_max && animator.GetFloat("IsDashing") != 1.0f)//地面に立っているときブースト回復
         {
-
             boost += 0.4f;
         }
 
