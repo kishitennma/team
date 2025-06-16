@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public int attack_power;
     public float boost = 100.0f;//ブースト残量
-    public float boost_max = 100.0f;//ブーストの上限
+    private float boost_max;//ブーストの上限
     public bool boost_empty = false;
 
     public float target_fov;
@@ -75,6 +75,9 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         rb = GetComponent<Rigidbody>();
+
+        //ブースト初期値反映H
+        boost_max = boost;
     }
 
     /// <summary>
@@ -209,7 +212,15 @@ public class PlayerController : MonoBehaviour
             rb.useGravity = true;
         }
 
-        
+        //ブースト超過対策H
+        if (boost / boost_max < 0)
+        {
+            boost = 0.0f;
+        }
+        else if (boost / boost_max > 1.0f)
+        {
+            boost = boost_max;
+        }
 
     }
 

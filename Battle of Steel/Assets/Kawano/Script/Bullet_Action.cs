@@ -1,42 +1,37 @@
 using UnityEngine;
 
-enum Bullet_type
-{
-    Null,
-    Homing,
-    Explosive,
-}
-
-
 public class Bullet_Action : MonoBehaviour
 {
     [SerializeField] float life_time;//弾丸の生存時間
-    [SerializeField] Bullet_type type;
+    public GameObject explosive_obj;//弾丸爆発エフェクト
     private void Start()
     {
         Destroy(gameObject,life_time);
     }
-    private void Update()
-    {
-        if(type == Bullet_type.Homing)
-        {
-            //ホーミング弾
-        }
-        else if(type == Bullet_type.Explosive)
-        {
-            //爆発弾
-
-        }
-    }
-
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("当たった");
+            GameObject explosive = Instantiate(explosive_obj, gameObject.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+        if(collision.gameObject.CompareTag("Ground"))
+        {
             Destroy(gameObject);
         }
     }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
+        {
+            GameObject explosive = Instantiate(explosive_obj, gameObject.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
 
+    }
 }

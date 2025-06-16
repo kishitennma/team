@@ -8,8 +8,6 @@ public enum WeaponType
     AssaultRifle,
     ShotGun,
 }
-
-
 public class WeaponSystem : MonoBehaviour
 {
     [Header("武器生成")]
@@ -54,9 +52,9 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.6f,12,0.01f,false,25)},//ピストル
-        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.2f,0.3f,36,0.01f,true, 10)},//アサルト
-        {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.2f,  false, 6)},//6*5で30ダメージ
+        {0,new Weapon_Date(WeaponType.Pistol,      50,0.4f,0.4f,12,0.005f,false,12)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,60,0.3f,0.3f,36,0.01f,true, 8)},//アサルト
+        {2,new Weapon_Date(WeaponType.ShotGun,     60,1.2f,0.7f,6,0.05f,  false, 6)},//6*5で30ダメージ//ショットガン
     };
 
     private List<Material> loadedMaterials = new();//マテリアルリスト
@@ -69,7 +67,7 @@ public class WeaponSystem : MonoBehaviour
     private int allow_per_shots = 5;//同時発射数
     int index; Weapon_Date weapon;//武器保存用
 
-    private Transform muzzle_transform;//Muzzleの位置
+    public Transform muzzle_transform;//Muzzleの位置
     private bool allow_bullet_hold;//連射
     private int flash_light_time = 0;//フラッシュライトの発射時間
     private bool ready_to_shoot = true, reloading = false, allow_invoke = true, shooting = false;
@@ -85,8 +83,12 @@ public class WeaponSystem : MonoBehaviour
             Debug.LogError($"武器インデックス {index} が見つかりません");
             return;
         }
+        else
+        {
+            Debug.Log("武器インデックス" + index + "を装備");
+        }
 
-        weapon = weapon_index[index];//武器情報を持たせる
+            weapon = weapon_index[index];//武器情報を持たせる
         Debug.Log(index);//インデックス番号を取得
         BuildWeapon(weapon.type); // 見た目生成
 
@@ -98,8 +100,6 @@ public class WeaponSystem : MonoBehaviour
         bullets_left = magazine_size;
         spread = weapon.spread_amount;
         allow_bullet_hold = weapon.allow_bullet_hold;
-        player.attack_power = weapon.attack_damage;
-        Debug.Log("プレイヤー攻撃力" + player.attack_power);
         flash_light.SetActive(false);
     }
 
@@ -107,7 +107,7 @@ public class WeaponSystem : MonoBehaviour
     void Update()
     {
         //常にこの武器のSetActiveがtrueの時、攻撃力を更新させる
-        player.attack_power = weapon.attack_damage;
+        Player_Status.Player_Attack_Damage = weapon.attack_damage;
         //フラッシュライトが有効にされたら時間経過で消去
         if (flash_light.activeInHierarchy == true)
             flash_light_time++;
@@ -148,7 +148,6 @@ public class WeaponSystem : MonoBehaviour
                 {
                     Shoot();
                 }
-                
             }
             else
             {
@@ -221,7 +220,7 @@ public class WeaponSystem : MonoBehaviour
         ConnectParts(handle.transform.Find("ConnectPoint_Body"), body.transform.Find("ConnectPoint_Handle"));
         ConnectParts(body.transform.Find("ConnectPoint_Nozzle"), nozzle.transform.Find("ConnectPoint_Body"));
 
-        muzzle_transform = nozzle.transform;
+        //muzzle_transform = nozzle.transform;
 
         ready_to_shoot = true;
     }

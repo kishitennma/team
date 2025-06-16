@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class GageGagerHP : MonoBehaviour
 {
-    GameObject HP_Text;
+    GameObject HP_Text;//HP取得
     HPText script;
 
-    private float myhp ;
+    private float myhp ;//HP現在値
     private Image image;
 
-    float max;
+    float max;//最大値
     private void Start()
     {
         HP_Text = GameObject.Find("HP_Text"); //Unityちゃんをオブジェクトの名前から取得して変数に格納する
@@ -33,6 +33,7 @@ public class GageGagerHP : MonoBehaviour
         //    myhp++;
         //}
 
+        //ゲージ管理
         image.fillAmount = myhp / max;
         if(myhp / max <0)
         {
@@ -45,6 +46,7 @@ public class GageGagerHP : MonoBehaviour
             myhp = max;
         }
 
+        //色管理
         if (image.fillAmount <= 0)
         {
             image.color = new Color32(0, 0, 0, 255);

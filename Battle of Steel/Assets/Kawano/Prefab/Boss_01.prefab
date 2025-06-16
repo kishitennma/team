@@ -2668,6 +2668,7 @@ GameObject:
   - component: {fileID: 3537470855930296797}
   - component: {fileID: 6991676851204031509}
   - component: {fileID: 8157420805036801962}
+  - component: {fileID: 7246168395454301060}
   m_Layer: 0
   m_Name: Boss_01
   m_TagString: Enemy
@@ -2756,10 +2757,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  bullet_prefab: {fileID: 4863636613212147957, guid: 6c5a1469a05712b498d9b034bee6f4cd, type: 3}
+  bullet_prefab: {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
   bullet_point: {fileID: 3704990444922041111}
   bullet_force: 80
-  bullet_per_shot: 290
+  Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
+  count_game_state: 0
 --- !u!95 &6991676851204031509
 Animator:
   serializedVersion: 7
@@ -2803,6 +2805,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 7
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7246168395454301060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949713004453698334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c192448eafcd82b4096a1e4e3e5d1f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8231141609623039779
 GameObject:
   m_ObjectHideFlags: 0
