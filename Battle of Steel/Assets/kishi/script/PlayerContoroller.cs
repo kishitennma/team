@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
-            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.15f, rb.transform.position.z));
 
         if (jump_flag == false)
         {
@@ -162,10 +162,10 @@ public class PlayerController : MonoBehaviour
             boost_empty = true;
         if (boost >= boost_max)
             boost_empty = false;
-
         if (Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f && !boost_empty)//地上からのジャンプ
         {
             rb.linearVelocity = new Vector3(0, (jumppower * 3.0f), 0);
+            Debug.Log(rb.linearVelocity);
             boost -= 20.0f;
             jump_flag = false;
         }
@@ -225,16 +225,21 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        Debug.Log(rb.linearVelocity.y);
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
-                                            //      Debug.Log(transform.forward);
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
         Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
         float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
 
-        //衝突していないとき飲み移動速度を設定
-        if (!Collision_Hit)
+        if(Collision_Hit)
+        {
+            move_dir = -move_dir;
+        }
+        //衝突していないとき移動速度を設定
+        else if (!Collision_Hit)
         {
             if (!Input.GetKey(KeyCode.LeftShift))
             {
@@ -271,7 +276,6 @@ public class PlayerController : MonoBehaviour
             Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
             rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
         }
-      
     }
     /// <summary>
     /// Addforceの力を0にする

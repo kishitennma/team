@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 133803052}
   - component: {fileID: 133803051}
   m_Layer: 5
-  m_Name: Black(FadeScene4)
+  m_Name: Black(FadeScene4) (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 216570961}
   - component: {fileID: 216570960}
   m_Layer: 5
-  m_Name: Black(FadeScene2)
+  m_Name: Black(FadeScene2) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1923,7 +1923,7 @@ GameObject:
   - component: {fileID: 1151190054}
   - component: {fileID: 1151190053}
   m_Layer: 5
-  m_Name: Black(FadeScene3)
+  m_Name: Black(FadeScene3) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2133,7 +2133,7 @@ MonoBehaviour:
   button: {fileID: 1315665933}
   audioSource: {fileID: 804191024}
   soundClip: {fileID: 8300000, guid: c2514db3ec6a81045897bbe6f4eb34e7, type: 3}
-  sceneName: Cledit
+  sceneName: "\u5207\u308A\u66FF\u3048\u5148\u306E\u30B7\u30FC\u30F3\u540D"
   delayBeforeSceneChange: 0.7
 --- !u!1 &1371768145
 GameObject:
@@ -2850,7 +2850,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Name
-      value: Cledit
+      value: KARI
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Color.b
@@ -2862,7 +2862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Text
-      value: Cledit
+      value: KARI
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_FontData.m_MaxSize

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 //ロックオンシステム
 
@@ -87,7 +86,7 @@ public class RockOn : MonoBehaviour
         if (lockon_target != null)
         {
             Vector3 direction = (lockon_target.position - transform.position);
-            direction.y = 0;//水平方向のみ
+            //direction.y = 0;//水平方向のみ
             if (direction != Vector3.zero)
             {
                 Quaternion lockrotation = Quaternion.LookRotation(direction);
