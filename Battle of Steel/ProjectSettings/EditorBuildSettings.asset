@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Test_Game_01.unity
     guid: 720cae40de79e1b4ead56ec3a261a194
+  - enabled: 1
+    path: Assets/REN/Result.unity
+    guid: 4ca454d71539c6043be19a4d387c9b39
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
