@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 754860682}
   - component: {fileID: 754860683}
   m_Layer: 0
-  m_Name: Trail_spot
+  m_Name: Trail_spot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 806997788}
   - component: {fileID: 806997789}
   m_Layer: 0
-  m_Name: Trail_spot
+  m_Name: Trail_spot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1340,8 +1340,11 @@ MonoBehaviour:
   player: {fileID: 1412561548}
   rb: {fileID: 1412561549}
   cam: {fileID: 961739749}
+  trail1: {fileID: 754860681}
+  trail2: {fileID: 806997787}
   maincam: {fileID: 961739752}
   animator: {fileID: 1412561555}
+  motionBlur: {fileID: 0}
   jump_flag: 1
   jump_second: 0
   jumppower: 10

@@ -1,13 +1,17 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] GameObject player;//キャラクターオブジェクト
     public Rigidbody rb;//キャラクターオブジェクトのRigidBody
     public GameObject cam;
+    public GameObject trail1;
+    public GameObject trail2;
     public Camera maincam;
     public Animator animator; // キャラクターオブジェクトのAnimator
+    public MotionBlur motionBlur;
 
     public bool jump_flag = true;//地上でのジャンプフラグ
     public bool jump_second = false;//空中でのジャンンプフラグ
@@ -227,6 +231,8 @@ public class PlayerController : MonoBehaviour
                 //通常時
                 animator.SetFloat("IsDashing", 0.0f);
                 input_direction = move_dir;
+                trail1.SetActive(false);
+                trail2.SetActive(false);
 
             }
             else
@@ -236,6 +242,8 @@ public class PlayerController : MonoBehaviour
                     //ダッシュ時
                     animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
                     input_direction = move_dir * dash_speed;//移動ベクトルを設定
+                    trail1.SetActive(true);
+                    trail2.SetActive(true);
 
                 }
                 else
@@ -244,6 +252,8 @@ public class PlayerController : MonoBehaviour
                     //通常時
                     animator.SetFloat("IsDashing", 0.0f);
                     input_direction = move_dir;
+                    trail1.SetActive(false);
+                    trail2.SetActive(false);
                 }
 
             }
