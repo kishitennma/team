@@ -1,79 +1,53 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GunChange : MonoBehaviour
 {
-    public int Gun_Num=0;//銃コード
-    int Gun_Cord;
+    public int Gun_Num=0;//銃コード※ここで変えるな
 
-    public WeaponSystem w_index;//武器の番号
-    public Player_Weapon_Manager pw_manager;
-    public bool change_weapon_flag;
-    bool tb=false;//デバック長押しロック
-    RectTransform rectTransform_get;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        rectTransform_get = gameObject.GetComponent<RectTransform>();
-        Gun_Cord = w_index.index;
-        Gun_Num = Gun_Cord;
-    }
+    public WeaponSystem w_index;//武器の番号メイン
+    public WeaponSystem w_index2;//武器の番号サブ
+    public Player_Weapon_Manager pw_manager;//現在値確認
+    public bool sub = false;//サブかどうか
 
     // Update is called once per frame
     void Update()
     {
-        //デバック
-        //if (Input.GetKey(KeyCode.Q))
-        //{
-        //    if (tb == false)
-        //    {
-        //        if (Gun_Num == 1)
-        //        {
-        //            Gun_Num = 2;
-        //        }
-        //        else
-        //        {
-        //            Gun_Num = 1;
-        //        }
-        //        tb = true;
-        //    }
-        //}
-        //else
-        //{
-        //    tb = false;
-        //}
-
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Gun_Num == w_index.index)//メイン
         {
-            if (!tb)
-            {
-                if (change_weapon_flag)
-                {
-                    change_weapon_flag = false;
-                }
-                else
-                {
-                    change_weapon_flag = true;
-                }
-                tb = false;
-            }
-            else
-            {
-                tb = false;
-            }
+            //保持
+        }
+        else if (Gun_Num == w_index2.index)//サブ
+        {
+            sub = true;
+        }
+        else//その他
+        {
+            Destroy(this.gameObject);
         }
         //プロト位置変更
-        if (!change_weapon_flag)//メイン
+        if (sub == false)
         {
-            transform.localPosition = new Vector3(300.0f, -112.0f, 0.0f);
-        }
-        else if (change_weapon_flag)//サブ
-        {
-            transform.localPosition = new Vector3(400.0f, -43.0f, 0.0f);
+            if (!pw_manager.hold_secondry_weapon)//メイン
+            {
+                transform.localPosition = new Vector3(300.0f, -112.0f, 0.0f);
+            }
+            else if (pw_manager.hold_secondry_weapon)//サブ
+            {
+                transform.localPosition = new Vector3(400.0f, -43.0f, 0.0f);
+            }
         }
         else
         {
-            Destroy(this.gameObject);
+            if (pw_manager.hold_secondry_weapon)//メイン
+            {
+                transform.localPosition = new Vector3(300.0f, -112.0f, 0.0f);
+            }
+            else if (!pw_manager.hold_secondry_weapon)//サブ
+            {
+                transform.localPosition = new Vector3(400.0f, -43.0f, 0.0f);
+            }
         }
     }
 }
