@@ -76,6 +76,10 @@ public class RockOn : MonoBehaviour
     //ƒƒbƒNƒIƒ“’†~
     private void Stop_LockOn()
     {
+        Vector3 amgles = transform.eulerAngles;
+        amgles.x = 0;
+        transform.eulerAngles = amgles;
+
         lockon_target = null;
         is_lock_on = false;
         lockon_flag = false;

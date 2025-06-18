@@ -838,9 +838,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7076371434039337175}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1057252574742604308}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
@@ -848,6 +845,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7400944161007414330}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7076371434039337175}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
@@ -922,6 +922,7 @@ MonoBehaviour:
   motionBlur: {fileID: 0}
   jump_flag: 1
   jump_second: 0
+  jump_end: 0
   jumppower: 30
   move_speed: 30
   dash_speed: 1.2
@@ -1007,6 +1008,8 @@ MonoBehaviour:
   ammo_texts: {fileID: 1290642798741142559}
   player_animator: {fileID: 8966993948193796756}
   set_key: 113
+  hold_secondry_weapon: 0
+  anim_end_flag: 0
 --- !u!4 &2558309710869939043 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1052520655926217830, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}

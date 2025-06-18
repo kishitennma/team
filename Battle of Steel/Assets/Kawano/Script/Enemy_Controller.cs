@@ -55,6 +55,7 @@ public class Enemy_Controller : Damage_Calclate
     };
 
     //変数
+    public AudioSource a_source;
     public int count_game_state = 0;//ゲーム回数
     private Enemy_Status e_status;//エネミーステータス
     private Animator animator;//アニメーター
@@ -203,6 +204,7 @@ public class Enemy_Controller : Damage_Calclate
     //通常の弾丸発射スクリプト
     private void Shot()
     {
+        a_source.Play();
         //弾のプレハブを生成
         GameObject bullet = Instantiate(bullet_prefab, gameObject.transform.position, Quaternion.identity);
         //弾丸に攻撃力の情報を渡しておく
@@ -220,6 +222,8 @@ public class Enemy_Controller : Damage_Calclate
 
         for(int i = 0; i <= counts; i++)
         {
+            //効果音をつける
+            //a_source.Play();
             Debug.Log(i + "回目");
             if(i== 0)
             {
@@ -272,6 +276,7 @@ public class Enemy_Controller : Damage_Calclate
     {
         for (int i = 0; i <= counts; i++)
         {
+            a_source.Play();
             Debug.Log(i + "回目");
             if (i == 0)
             {
@@ -308,6 +313,7 @@ public class Enemy_Controller : Damage_Calclate
     {
         if (shot_count < counts && act_time > time)
         {
+            a_source.Play();
             bullet_per_shot = time;
             Shot();
             shot_count++;

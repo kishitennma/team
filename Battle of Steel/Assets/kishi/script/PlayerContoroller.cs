@@ -70,7 +70,10 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
-        //物体が埋まっている間は移動フラグをfalse
+        //地面に埋まっていたら位置を上げる
+        if(collision.gameObject.CompareTag("Ground"))
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
+
         Collision_Hit = true;
     }
     private void OnCollisionExit(Collision collision)
