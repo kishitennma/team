@@ -34,8 +34,8 @@ public class GageGagerHP : MonoBehaviour
         //}
 
         //ÉQÅ[ÉWä«óù
-        image.fillAmount = myhp / max;
-        if(myhp / max <0)
+        image.fillAmount = (float)myhp / (float)max;
+        if((myhp / max) <0)
         {
             image.fillAmount = 0.0f;
             myhp = 0;
@@ -51,11 +51,11 @@ public class GageGagerHP : MonoBehaviour
         {
             image.color = new Color32(0, 0, 0, 255);
         }
-        else if (image.fillAmount < 0.2)
+        else if (image.fillAmount <= 0.2)
         {
             image.color = new Color32(235, 33, 13, 255);
         }
-        else if (image.fillAmount < 0.4)
+        else if (image.fillAmount <= 0.4)
         {
             image.color = new Color32(184, 235, 13, 255);
         }

@@ -9,6 +9,7 @@ public class HPText : MonoBehaviour
     private Text text;
     public PlayerController Game_Manager;//プレイヤー取得
     public int hp;//hp
+    private float get_hp;//現在の体力の比率
 
     int max;//最大値
     float BHP = 0.0f;
@@ -23,6 +24,7 @@ public class HPText : MonoBehaviour
     private void Update()
     {
         hp= Player_Status.Player_HP;
+        get_hp = (float)hp / (float)max;
         gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();
         //デバック
         //if (Input.GetKey(KeyCode.S))
@@ -35,24 +37,24 @@ public class HPText : MonoBehaviour
         //}
 
         //超過対策
-        if (hp / max < 0)
+        if (get_hp < 0)
         {
             hp = 0;
         }
-        else if (hp / max > 1.0f)
+        else if (get_hp > 1.0f)
         {
             hp = max;
         }
         //色管理
-        if (hp / max <= 0)
+        if (get_hp <= 0)
         {
             text.color = new Color32(0, 0, 0, 255);
         }
-        else if (hp / max < 0.2)
+        else if (get_hp <= 0.2)
         {
             text.color = new Color32(235, 33, 13, 255);
         }
-        else if (hp / max < 0.4)
+        else if (get_hp <= 0.4)
         {
             text.color = new Color32(184, 235, 13, 255);
         }

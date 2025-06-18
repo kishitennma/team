@@ -176,6 +176,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+--- !u!114 &81727390 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8329112328946954173, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 744261330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b4c7ad04c52c5428298327f3581365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &137691366 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4379194472982320862, guid: daec22eeaa94aec44921da59d6691098, type: 3}
@@ -492,6 +503,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -17.669922
       objectReference: {fileID: 0}
+    - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: Gun_Num
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: w_index
+      value: 
+      objectReference: {fileID: 81727390}
+    - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: pw_manager
+      value: 
+      objectReference: {fileID: 2130496869}
+    - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: change_weapon_flag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2548716147186129111, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.1
@@ -624,6 +651,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 0761e555993fccd4685b820c9180bae3, type: 3}
+    - target: {fileID: 8711464512251144834, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: Gun_Num
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8711464512251144834, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: w_index
+      value: 
+      objectReference: {fileID: 1676456421}
+    - target: {fileID: 8711464512251144834, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: pw_manager
+      value: 
+      objectReference: {fileID: 2130496869}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -753,6 +792,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1676456421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8169208741916589253, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 744261330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b4c7ad04c52c5428298327f3581365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2027920897
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2027920898
 RectTransform:
   m_ObjectHideFlags: 0
@@ -806,6 +856,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gun_Num: 3
+  w_index: {fileID: 0}
+  pw_manager: {fileID: 0}
+  change_weapon_flag: 0
 --- !u!114 &2027920900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,6 +1035,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6725ab6ac848d94caa9a5f4e33542e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2130496869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1606614295994982429, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 744261330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b8b6f0858cabd4da7a40779dc38caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

@@ -12,7 +12,7 @@ public class WeaponSystem : MonoBehaviour
 {
     [Header("武器生成")]
     [SerializeField] Transform weaponParent;
-    [SerializeField] bool isMainWeapon;
+    [SerializeField] public bool isMainWeapon;
     public WeaponType type;
     [Header("弾丸プレハブ")]
     [SerializeField] GameObject bullet_prefab;
@@ -65,7 +65,7 @@ public class WeaponSystem : MonoBehaviour
     private float blinkSpeed = 2f;//明滅速度
     private float emissionIntensity = 1f;//発光強度
     private int allow_per_shots = 5;//同時発射数
-    int index; Weapon_Date weapon;//武器保存用
+    public int index; Weapon_Date weapon;//武器保存用
 
     public Transform muzzle_transform;//Muzzleの位置
     private bool allow_bullet_hold;//連射
