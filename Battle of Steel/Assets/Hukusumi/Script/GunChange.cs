@@ -26,7 +26,7 @@ public class GunChange : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        //プロト位置変更
+        //位置変更
         if (sub == false)
         {
             if (!pw_manager.hold_secondry_weapon)//メイン
