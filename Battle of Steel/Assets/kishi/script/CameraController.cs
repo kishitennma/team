@@ -15,7 +15,7 @@ public class CameraControllert : MonoBehaviour
         float my = Input.GetAxis("Mouse Y");
         float mx = Input.GetAxis("Mouse X");
 
-        // X•ûŒü‚Éˆê’è—ÊˆÚ“®‚µ‚Ä‚¢‚ê‚Î‰¡‰ñ“]
+        //X•ûŒü‚Éˆê’è—ÊˆÚ“®‚µ‚Ä‚¢‚ê‚Î‰¡‰ñ“]
         //0.0000001f‚ÍŠŠ‚ç‚©‚³
         if (Mathf.Abs(mx) > 0.0000001f)
         {

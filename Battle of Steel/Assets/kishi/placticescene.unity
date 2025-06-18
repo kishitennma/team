@@ -1352,7 +1352,6 @@ MonoBehaviour:
   dash_speed: 1.5
   attack_power: 0
   boost: 100
-  boost_max: 100
   boost_empty: 0
   target_fov: 0
   fov_changeamount: 10
