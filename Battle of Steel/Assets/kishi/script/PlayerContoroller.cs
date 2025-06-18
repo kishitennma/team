@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public bool jump_flag = true;//地上でのジャンプフラグ
     public bool jump_second = false;//空中でのジャンンプフラグ
+    public bool jump_end = false;//ジャンプ終了フラグ
     public float jumppower;
 
     [SerializeField] float move_speed;//キャラクターの移動速度
@@ -47,7 +48,16 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
-            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.15f, rb.transform.position.z));
+        {
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
+            if(jump_end == true)
+            {
+                Vector3 amgles = transform.eulerAngles;
+                amgles.x = 0;
+                transform.eulerAngles = amgles; 
+                jump_end = false;
+            }
+        }
 
         if (jump_flag == false)
         {
@@ -168,6 +178,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(rb.linearVelocity);
             boost -= 20.0f;
             jump_flag = false;
+            jump_end = true;
         }
         if (Input.GetKeyUp(KeyCode.Space) && !jump_flag)//空中でスペースキーを離した判定
         {
@@ -231,16 +242,12 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
-        Vector3 origin = transform.position + Vector3.up * 1.5f;                       //中心点の少し上を取る
-        float move_distance = move_speed * Time.fixedDeltaTime;                        //移動距離設定
 
         if(Collision_Hit)
         {
-            move_dir = -move_dir;
+            move_dir /= 4;
         }
-        //衝突していないとき移動速度を設定
-        else if (!Collision_Hit)
-        {
+            
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 //通常時
@@ -275,7 +282,17 @@ public class PlayerController : MonoBehaviour
             //移動方向を設定
             Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
             rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
+
+        if(Collision_Hit)
+        {
+            
+            Debug.Log(move_dir);
         }
+        //衝突していないとき移動速度を設定
+        else if (!Collision_Hit)
+        {
+        }
+
     }
     /// <summary>
     /// Addforceの力を0にする

@@ -501,6 +501,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2726932556095588042, guid: 390dc959598a61f41891104c988b6141, type: 3}
   m_PrefabInstance: {fileID: 63193306}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &68900475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8357306869762012840, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+  m_PrefabInstance: {fileID: 5885130648013540472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b4c7ad04c52c5428298327f3581365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &88109545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2446,6 +2457,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -438.30005
       objectReference: {fileID: 0}
+    - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: w_index
+      value: 
+      objectReference: {fileID: 1868466054}
+    - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: pw_manager
+      value: 
+      objectReference: {fileID: 1637016350}
+    - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: change_weapon_flag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2548716147186129111, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_LocalPosition.x
       value: -73.29369
@@ -2514,6 +2537,14 @@ PrefabInstance:
       propertyPath: m_PlaneDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8711464512251144834, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: w_index
+      value: 
+      objectReference: {fileID: 68900475}
+    - target: {fileID: 8711464512251144834, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: pw_manager
+      value: 
+      objectReference: {fileID: 1637016350}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11703,6 +11734,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3067239040804120814, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
   m_PrefabInstance: {fileID: 5885130648013540472}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1637016350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7957419013339493518, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+  m_PrefabInstance: {fileID: 5885130648013540472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b8b6f0858cabd4da7a40779dc38caf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1655058548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12139,7 +12181,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727030610}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -12155,9 +12197,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1727030614
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13040,6 +13082,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2726932556095588042, guid: 390dc959598a61f41891104c988b6141, type: 3}
   m_PrefabInstance: {fileID: 1867914013}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1868466054 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5527278702403864828, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+  m_PrefabInstance: {fileID: 5885130648013540472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b4c7ad04c52c5428298327f3581365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1869963020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15162,7 +15215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1062671150386508195, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Size.x
-      value: 2.951004
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1062671150386508195, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Size.y
@@ -15170,7 +15223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1062671150386508195, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Size.z
-      value: 1.2282914
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1062671150386508195, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Center.x
@@ -15184,6 +15237,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.114145756
       objectReference: {fileID: 0}
+    - target: {fileID: 1062671150386508195, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 67972f17000d16240a5b48b84a1d93a8, type: 2}
     - target: {fileID: 1076227269858568005, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -15197,12 +15254,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1388391964733735676, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388391964733735676, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 1388391964733735676, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Interpolate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388391964733735676, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1402854091605543251, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: m_Layer
