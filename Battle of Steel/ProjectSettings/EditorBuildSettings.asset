@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/REN/Result.unity
     guid: 4ca454d71539c6043be19a4d387c9b39
+  - enabled: 1
+    path: Assets/Kawano/credit.unity
+    guid: 017e69aaedf01f940a7bee85d2ab77bf
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -856,8 +856,8 @@ Canvas:
   m_GameObject: {fileID: 491186967}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 771309545}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2133,7 +2133,7 @@ MonoBehaviour:
   button: {fileID: 1315665933}
   audioSource: {fileID: 804191024}
   soundClip: {fileID: 8300000, guid: c2514db3ec6a81045897bbe6f4eb34e7, type: 3}
-  sceneName: "\u5207\u308A\u66FF\u3048\u5148\u306E\u30B7\u30FC\u30F3\u540D"
+  sceneName: credit
   delayBeforeSceneChange: 0.7
 --- !u!1 &1371768145
 GameObject:
