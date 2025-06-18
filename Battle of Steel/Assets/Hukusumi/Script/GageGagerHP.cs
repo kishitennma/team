@@ -14,8 +14,8 @@ public class GageGagerHP : MonoBehaviour
     int max;//最大値
     private void Start()
     {
-        HP_Text = GameObject.Find("HP_Text"); //Unityちゃんをオブジェクトの名前から取得して変数に格納する
-        script = HP_Text.GetComponent<HPText>(); //unitychanの中にあるUnityChanScriptを取得して変数に格納する
+        HP_Text = GameObject.Find("HP_Text"); 
+        script = HP_Text.GetComponent<HPText>();
         image = this.GetComponent<Image>();
         myhp = Player_Status.Player_HP;
         max = Player_Status.Player_HP;
