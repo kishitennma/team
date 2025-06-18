@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8280450290280350329}
   - component: {fileID: 6533953129289392116}
   m_Layer: 5
-  m_Name: GunGage1
+  m_Name: GunGage0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,6 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2aeced9a538b5545b4134a31c73c9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Num: {fileID: 8711464512251144834}
+  w_index: {fileID: 0}
+  w_index2: {fileID: 0}
 --- !u!1 &692360530918888942
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,8 +214,8 @@ RectTransform:
   - {fileID: 4886373221883689776}
   - {fileID: 5286440066837073858}
   - {fileID: 5548570070462607372}
-  - {fileID: 3527421624931591523}
   - {fileID: 475130737611968825}
+  - {fileID: 3527421624931591523}
   - {fileID: 6427730770261972465}
   - {fileID: 148898895059657405}
   - {fileID: 5726481039723475116}
@@ -376,6 +379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2aeced9a538b5545b4134a31c73c9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Num: {fileID: 544116574024904499}
+  w_index: {fileID: 0}
+  w_index2: {fileID: 0}
 --- !u!1 &1714160388152146018
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +756,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2aeced9a538b5545b4134a31c73c9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Num: {fileID: 1373612795482080654}
+  w_index: {fileID: 0}
+  w_index2: {fileID: 0}
 --- !u!1 &3127926289236810321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1168,7 @@ GameObject:
   - component: {fileID: 1809939913812357031}
   - component: {fileID: 1373612795482080654}
   m_Layer: 5
-  m_Name: Gun3
+  m_Name: Gun1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1250,11 +1259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d0f858a9e31e44695a83446c3cd2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gun_Num: 3
+  Gun_Num: 1
   w_index: {fileID: 0}
   w_index2: {fileID: 0}
   pw_manager: {fileID: 0}
-  change_weapon_flag: 0
   sub: 0
 --- !u!1 &5420904893584109244
 GameObject:
@@ -1270,7 +1278,7 @@ GameObject:
   - component: {fileID: 1326217602298290440}
   - component: {fileID: 8711464512251144834}
   m_Layer: 5
-  m_Name: Gun1
+  m_Name: Gun0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1361,11 +1369,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d0f858a9e31e44695a83446c3cd2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gun_Num: 1
+  Gun_Num: 0
   w_index: {fileID: 0}
   w_index2: {fileID: 0}
   pw_manager: {fileID: 0}
-  change_weapon_flag: 0
   sub: 0
 --- !u!1 &5443737469345190283
 GameObject:
@@ -1662,7 +1669,6 @@ MonoBehaviour:
   w_index: {fileID: 0}
   w_index2: {fileID: 0}
   pw_manager: {fileID: 0}
-  change_weapon_flag: 0
   sub: 0
 --- !u!1 &8466150628101262115
 GameObject:
