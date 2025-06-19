@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.03f, rb.transform.position.z));
             if(jump_end == true)
             {
                 Vector3 amgles = transform.eulerAngles;
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         //地面に埋まっていたら位置を上げる
         if(collision.gameObject.CompareTag("Ground"))
-            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.06f, rb.transform.position.z));
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.03f, rb.transform.position.z));
 
         Collision_Hit = true;
     }
@@ -251,43 +251,43 @@ public class PlayerController : MonoBehaviour
         {
             move_dir /= 4;
         }
-            
-            if (!Input.GetKey(KeyCode.LeftShift))
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            //通常時
+            animator.SetFloat("IsDashing", 0.0f);
+            input_direction = move_dir;
+            trail1.SetActive(false);
+            trail2.SetActive(false);
+
+        }
+        else
+        {
+            if (!boost_empty)
             {
+                //ダッシュ時
+                animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
+                input_direction = move_dir * dash_speed;//移動ベクトルを設定
+                trail1.SetActive(true);
+                trail2.SetActive(true);
+
+            }
+            else
+            {
+
                 //通常時
                 animator.SetFloat("IsDashing", 0.0f);
                 input_direction = move_dir;
                 trail1.SetActive(false);
                 trail2.SetActive(false);
-
             }
-            else
-            {
-                if (!boost_empty)
-                {
-                    //ダッシュ時
-                    animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
-                    input_direction = move_dir * dash_speed;//移動ベクトルを設定
-                    trail1.SetActive(true);
-                    trail2.SetActive(true);
 
-                }
-                else
-                {
+        }
+        //移動方向を設定
+        Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
+        rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
 
-                    //通常時
-                    animator.SetFloat("IsDashing", 0.0f);
-                    input_direction = move_dir;
-                    trail1.SetActive(false);
-                    trail2.SetActive(false);
-                }
 
-            }
-            //移動方向を設定
-            Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
-            rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
-
-        if(Collision_Hit)
+        if (Collision_Hit)
         {
             
             Debug.Log(move_dir);
