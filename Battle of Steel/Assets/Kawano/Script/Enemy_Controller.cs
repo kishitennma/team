@@ -96,10 +96,10 @@ public class Enemy_Controller : Damage_Calclate
             if (animator != null)
             {
                 animator.SetBool("Death", true);//アニメーションを設定
-                Enemy_Die.Play();
-
             }
             hp = 0;//体力が0以下にならないようにする
+            
+            Enemy_Die.Play();
             act_shot = false;
             Destroy(bullet_point);//銃弾発射位置削除
             DestroyObject();//オブジェクト

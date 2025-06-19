@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         //地面に埋まっていたら位置を上げる
         if(collision.gameObject.CompareTag("Ground"))
-            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.06f, rb.transform.position.z));
 
         Collision_Hit = true;
     }
@@ -119,14 +119,13 @@ public class PlayerController : MonoBehaviour
     //        jump_flag = true;
     //    }
     //}
+
     void Update()
     {
 
         //移動方向を初期化
         move_x = 0; move_y = 0; animator.SetBool("Action", false);
-        //各移動方向へアニメーション変化
-        float mx = Input.GetAxis("Mouse X");
-        Screen_movement(mx);
+
 
         if (Input.GetKey(KeyCode.W))//方向キーだけが押されていた場合
         {
@@ -239,7 +238,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        //各移動方向へアニメーション変化
+        float mx = Input.GetAxis("Mouse X");
+        Screen_movement(mx);
         Debug.Log(rb.linearVelocity.y);
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
