@@ -634,7 +634,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 6858abb4516aae344881bf286b3aac33, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -763,7 +763,7 @@ MonoBehaviour:
   button: {fileID: 597322433}
   audioSource: {fileID: 597322436}
   soundClip: {fileID: 8300000, guid: c2514db3ec6a81045897bbe6f4eb34e7, type: 3}
-  sceneName: Menu
+  sceneName: Guide
   delayBeforeSceneChange: 0.4
 --- !u!1 &1115074925
 GameObject:
@@ -1102,7 +1102,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\u4F7F\u7528BGM\n\u30D5\u30EA\u30FCBGM\u30FB\u97F3\u697D\u7D20\u6750\u3000\n\n\u9B54\u738B\u9B42\n\u30B5\u30A4\u30D0\u30FC43
     -Crossing-\n\nDova-Syndrome\n\u30A8\u30C7\u30A3\u30C3\u30C8\u30E2\u30FC\u30C902 
-    \u98A8\u4EBA\nFighting spirits   Causality Sound\n\n\u4F7F\u7528 SE\n\u52B9\u679C\u97F3\u30E9\u30DC\nhttps://soundeffect-lab.info/sound/battle/battle2.html                  "
+    \u98A8\u4EBA\nFighting spirits   Causality Sound\n\n\u4F7F\u7528 SE\n\u52B9\u679C\u97F3\u30E9\u30DC\nhttps://soundeffect-lab.info/sound/battle/battle2.html
+    \n\u7206\u767A(3)\nhttps://teams.microsoft.com/l/message/19:992876c423ba407eb5e448b3c16a6e95@thread.v2/1750294650868?context=%7B%22contextType%22%3A%22chat%22%7D"
 --- !u!222 &1860927638
 CanvasRenderer:
   m_ObjectHideFlags: 0
