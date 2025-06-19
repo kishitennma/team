@@ -211,7 +211,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30C0\u30E1\u30FC\u30B8:6 ~ 30\u3000\u5F3E\u6570:\u3000\u30EA\u30ED\u30FC\u30C9:\u3084\u3084\u9045\u3044"
+  m_Text: "\u30C0\u30E1\u30FC\u30B8:6 ~ 30\u3000\u5F3E\u6570:12\u3000\u30EA\u30ED\u30FC\u30C9:\u3084\u3084\u9045\u3044"
 --- !u!222 &194881327
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2802,7 +2802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53772b6957a7c2f4f80d6e58b24a99c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipText: "\u30C0\u30E1\u30FC\u30B8:\u3000\u5F3E\u6570:\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
+  tooltipText: "\u30C0\u30E1\u30FC\u30B8:8\u3000\u5F3E\u6570:36\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
   customFont: {fileID: 12800000, guid: 2c82ed6bbfe25d045a9e9cd779c9b83f, type: 3}
   glitchDuration: 0.03
   revealDuration: 0.8
@@ -2839,7 +2839,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30C0\u30E1\u30FC\u30B8:\u3000\u5F3E\u6570:\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
+  m_Text: "\u30C0\u30E1\u30FC\u30B8:8\u3000\u5F3E\u6570:36\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
 --- !u!222 &1390842834
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2898,7 +2898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53772b6957a7c2f4f80d6e58b24a99c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipText: "\u30C0\u30E1\u30FC\u30B8:\u3000\u5F3E\u6570:\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
+  tooltipText: "\u30C0\u30E1\u30FC\u30B8:12\u3000\u5F3E\u6570:12\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
   customFont: {fileID: 12800000, guid: 2c82ed6bbfe25d045a9e9cd779c9b83f, type: 3}
   glitchDuration: 0.03
   revealDuration: 0.8
@@ -2935,7 +2935,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30C0\u30E1\u30FC\u30B8:\u3000\u5F3E\u6570:\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
+  m_Text: "\u30C0\u30E1\u30FC\u30B8:12\u3000\u5F3E\u6570:12\u3000\u30EA\u30ED\u30FC\u30C9:\u65E9\u3044"
 --- !u!222 &1548318493
 CanvasRenderer:
   m_ObjectHideFlags: 0
