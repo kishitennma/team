@@ -67,6 +67,7 @@ public class Enemy_Controller : Damage_Calclate
     private bool act_shot = false;//弾丸発射許可値
     private Vector3 e_vec;//ベクトル
     private Enemy_Ai_Style ai_style;//AIスタイル
+    public AudioSource Enemy_Die;
     
     //ボス用
     private int boss_act_count;//ボスのアクションカウント
@@ -95,6 +96,8 @@ public class Enemy_Controller : Damage_Calclate
             if (animator != null)
             {
                 animator.SetBool("Death", true);//アニメーションを設定
+                Enemy_Die.Play();
+
             }
             hp = 0;//体力が0以下にならないようにする
             act_shot = false;
