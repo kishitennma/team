@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 public class Enemy_Manager : MonoBehaviour
 {
     public static Enemy_Manager enemy_count;
-    public List<GameObject> boss;//ボスの出現フラグ
+    public List<GameObject> boss;//ボスの出現フラグリスト
     private bool boss_spawned = false;//ボスの出現フラグ
+    private bool last_boss_spawnwd = false;//最終ボス出現フラグ
     private List<GameObject> enemys = new();
 
     private void Awake()
@@ -26,7 +27,7 @@ public class Enemy_Manager : MonoBehaviour
         if(!boss_spawned && remaining == 0)
         {
             //ボスを出現
-            for (int i = 0; i < boss.Count; i++)
+            for (int i = 0; i < boss.Count-1; i++)
             {
                 boss[i].SetActive(true);
                 remaining++;
@@ -34,9 +35,14 @@ public class Enemy_Manager : MonoBehaviour
             boss_spawned = true;
             Debug.Log("ボス出現");
         }
-
+        //ボスが全て倒されたら最終ボスを出現させる
+        if (!last_boss_spawnwd && boss_spawned && remaining == 0)
+        {
+            boss[boss.Count].SetActive(true);
+            remaining++;
+        }
         //ボスも全て倒されたらリザルトを表示
-        if(boss_spawned && remaining == 0)
+        if(boss_spawned && last_boss_spawnwd && remaining == 0)
         {
             /*Time.timeScale = 0f; // ゲーム停止
             FindObjectOfType<ResultManager>()?.ShowResult(); // リザルト表示のトリガー
