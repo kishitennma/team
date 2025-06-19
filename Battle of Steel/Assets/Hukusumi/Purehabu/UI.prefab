@@ -993,8 +993,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -438.30002, y: -17.669922}
-  m_SizeDelta: {x: -2, y: -2}
+  m_AnchoredPosition: {x: -438.9, y: -16.100006}
+  m_SizeDelta: {x: -2, y: -0.99999905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6812647752919861127
 CanvasRenderer:
@@ -1682,7 +1682,6 @@ GameObject:
   - component: {fileID: 8774239887476581560}
   - component: {fileID: 3458130950590829363}
   - component: {fileID: 185140939881943162}
-  - component: {fileID: 5397352463043290512}
   - component: {fileID: 1338454285356240131}
   m_Layer: 5
   m_Name: HHP
@@ -1760,21 +1759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace9370e3ed290948b90e74dc86a924d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5397352463043290512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8466150628101262115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a713e61211625c94db334757d53fb7e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ZERO: 0
-  _target: {fileID: 3458130950590829363}
-  _cycle: 1
 --- !u!114 &1338454285356240131
 MonoBehaviour:
   m_ObjectHideFlags: 0
