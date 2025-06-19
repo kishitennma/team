@@ -2639,7 +2639,7 @@ MonoBehaviour:
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
   a_source: {fileID: 869444601519009215}
   count_game_state: 0
-  Enemy_Die: {fileID: 5456866604013756701}
+  Enemy_Die: {fileID: 8898038457827238276, guid: 8f53feb770b6e19438d920712759cb99, type: 3}
 --- !u!95 &1127706237799162832
 Animator:
   serializedVersion: 7
