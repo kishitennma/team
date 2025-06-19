@@ -25,7 +25,7 @@ public class Magazine0 : MonoBehaviour
         }
         else
         {
-            PassedTimes = 1;
+            PassedTimes = 0;
             _target.enabled = true;
         }
     }
