@@ -274,6 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca167fe55182d3e4f8f24243bfc48f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life_time: 1
+  life_time: 5
   explosive_effect: {fileID: 1281529153650206152, guid: 06c097f4911c6e94b8422363cfe590c2, type: 3}
   attack_damage: 0
