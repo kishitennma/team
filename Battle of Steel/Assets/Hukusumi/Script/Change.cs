@@ -8,8 +8,7 @@ public class Change : MonoBehaviour
 {
     public float C_S = 5;// 回転速度
     public bool C_Check=false;//回転確認
-    RectTransform rg;
-    int x, y;
+    RectTransform rg;//トランスフォーム取得
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,7 +40,7 @@ public class Change : MonoBehaviour
 
             if (rotationZ > 180f) // 例えば45度以上なら条件成立
             {
-                rg.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+                rg.rotation = Quaternion.Euler(rotationX, rotationY, 0);//初期角度化
                 C_Check = true;
 
             }

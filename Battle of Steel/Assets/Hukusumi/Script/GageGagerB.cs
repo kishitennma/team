@@ -3,12 +3,11 @@ using UnityEngine.UI;
 
 public class GageGagerB : MonoBehaviour
 {
-    private float boostG;//ブーストゲージ現在値取得
-    private Image image;
+    private Image image;//image取得
     public PlayerController player;//プレイヤー取得
     public bool Zero = false;//ヒート確認
     float PassedTimes = 0;//点滅用秒数
-
+    //player.boost=ブーストゲージ現在値取得
     float max;//最大値
 
     // 点滅させる対象（ここがBehaviourに変更されている）
@@ -18,20 +17,18 @@ public class GageGagerB : MonoBehaviour
     private void Start()
     {
         image = this.GetComponent<Image>();
-        boostG = player.boost;
-        max = boostG;
+        max = player.boost;
 
     }
 
     private void Update()
     {
         //完全回復まで点滅
-        boostG = player.boost;
-        if (boostG / max <= 0)
+        if (player.boost / max <= 0)
         {
             Zero = true;
         }
-        else if (boostG / max >= 1)
+        else if (player.boost / max >= 1)
         {
             Zero = false;
         }
@@ -44,36 +41,26 @@ public class GageGagerB : MonoBehaviour
             var repeatValue = Mathf.Repeat((float)PassedTimes, _cycle);
             // 内部時刻timeにおける明滅状態を反映
             _target.enabled = repeatValue >= _cycle * 0.5f;
-            //boostG++;
 
         }
         else
         {
-            PassedTimes = 1;
-            _target.enabled = true;
+            PassedTimes = 0;
+            _target.enabled = true;//表示
         }
-
-        //旧デバック
-        //if (Input.GetKey(KeyCode.RightArrow))
-        //{
-        //    boostG--;
-        //}
-        //else if (Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    boostG++;
-        //}
 
         //ゲージ管理
-        image.fillAmount = boostG / max;
-        if (boostG / max < 0)
+        image.fillAmount = player.boost / max;
+        //超過防止
+        if (player.boost / max < 0)
         {
             image.fillAmount = 0.0f;
-            boostG = 0.0f;
+            player.boost = 0.0f;
         }
-        else if (boostG / max > 1.0f)
+        else if (player.boost / max > 1.0f)
         {
             image.fillAmount = 1.0f;
-            boostG = max;
+            player.boost = max;
         }
     }
 }

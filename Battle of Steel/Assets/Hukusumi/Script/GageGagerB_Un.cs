@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GageGagerB_Un : MonoBehaviour
 {
-    private Image image;
+    private Image image;//imageæ“¾
     public GameObject Boost;//ƒQ[ƒW’læ“¾
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
