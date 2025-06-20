@@ -14530,6 +14530,10 @@ PrefabInstance:
       propertyPath: Enemy_Die
       value: 
       objectReference: {fileID: 1894461331}
+    - target: {fileID: 2455211184686834224, guid: 5e63e2fa66a522045a2497c6be88324b, type: 3}
+      propertyPath: bullet_prefab.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5456866604013756701, guid: 5e63e2fa66a522045a2497c6be88324b, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0

@@ -372,6 +372,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -206220393438731704, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c8a52c3f116da79459610decc8b8d708, type: 2}
     - target: {fileID: -116748826382306773, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -788,11 +792,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  bullet_prefab: {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
+  bullet_prefab:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   bullet_point: {fileID: 5517752301159695829}
   bullet_force: 110
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
   a_source: {fileID: 6800895121598482014}
+  boss_mat: {fileID: 0}
   count_game_state: 0
   Enemy_Die: {fileID: 8898038457827238276, guid: 8f53feb770b6e19438d920712759cb99, type: 3}
 --- !u!95 &6982814605210737259
