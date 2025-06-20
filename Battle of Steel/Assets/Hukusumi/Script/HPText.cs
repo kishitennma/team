@@ -6,13 +6,12 @@ using UnityEngine.UI;
 public class HPText : MonoBehaviour
 {
     //public float myhp = 500.0f;//初期値デバック
-    private Text text;
+    private Text text;//text取得
     public PlayerController Game_Manager;//プレイヤー取得
     public int hp;//hp
     private float get_hp;//現在の体力の比率
 
     int max;//最大値
-    float BHP = 0.0f;
     private void Start()
     {
         //StartCoroutine(IncrementCoroutine());
@@ -23,18 +22,9 @@ public class HPText : MonoBehaviour
 
     private void Update()
     {
-        hp= Player_Status.Player_HP;
+        hp= Player_Status.Player_HP;//現在値取得
         get_hp = (float)hp / (float)max;
-        gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();
-        //デバック
-        //if (Input.GetKey(KeyCode.S))
-        //{
-        //    hp--;
-        //}
-        //else if (Input.GetKey(KeyCode.W))
-        //{
-        //    hp++;
-        //}
+        gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();//値の表示
 
         //超過対策
         if (get_hp < 0)
@@ -63,14 +53,4 @@ public class HPText : MonoBehaviour
             text.color = new Color32(13, 235, 69, 255);
         }
     }
-
-    //private IEnumerator IncrementCoroutine()
-    //{
-    //    while (BHP < _myHp)
-    //    {
-    //        BHP++;
-    //        Debug.Log("Current Value: " + BHP);
-    //        yield return new WaitForSeconds(0.5f);
-    //    }
-    //}
 }

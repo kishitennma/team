@@ -5,7 +5,7 @@ public class Damage_Calclate : MonoBehaviour
     //Œ»İ‚ÍƒVƒ“ƒvƒ‹‚ÉUŒ‚—Í•ª‘Ì—Í‚ğŒ¸‚ç‚·‚Ì‚İ
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+       // DontDestroyOnLoad(gameObject);
     }
 
     public int Damage_Cal(int damage, int hp)

@@ -13,6 +13,7 @@ public class Fade : MonoBehaviour
     {
         //初期透明度設定
         Color startColor = uiElement.color;
+        elapsedTime = 0;
         startColor.a = startAlpha;
         uiElement.color = startColor;
         //待機後にフェード開始
@@ -21,7 +22,7 @@ public class Fade : MonoBehaviour
     IEnumerator FadeAfterDelay()
     {
         yield return new WaitForSeconds(waitTime); //指定秒数待機
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < fadeDuration)//
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / fadeDuration; //指定時間内で完了するように調整

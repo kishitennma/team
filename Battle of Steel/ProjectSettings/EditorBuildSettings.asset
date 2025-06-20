@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Kawano/credit.unity
     guid: 017e69aaedf01f940a7bee85d2ab77bf
+  - enabled: 1
+    path: Assets/REN/GameOver.unity
+    guid: 532ff06de1f63a347810ad0fa9c16f98
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
