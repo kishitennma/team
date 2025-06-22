@@ -30,7 +30,6 @@ public class Boss_Cnt : Damage_Calclate
     private float bullet_per_shot;//発射間隔
     private bool act_shot = false;//弾丸発射許可値
     private Vector3 e_vec;//ベクトル
-    private Enemy_Ai_Style ai_style;//AIスタイル
     public AudioSource Enemy_Die;
 
     //ボス用
@@ -38,6 +37,7 @@ public class Boss_Cnt : Damage_Calclate
     private Quaternion tpr_rotate_bullets;//弾の初期位置を保存
     private int act_time;//Boss＿Second用時間計測
     private int shot_count;//Boss_Second用発射カウント
+    private bool stop_rand = false;
     void Start()
     {
         if (boss_mat == null)
@@ -50,11 +50,10 @@ public class Boss_Cnt : Damage_Calclate
         bullet_per_shot = e_status.bullet_per_shot;//弾丸の発射間隔を設定
         hp = e_status.max_hp + (add_count * count_game_state);//体力を設定
         damage = e_status.attack_damage + (add_count * count_game_state);//攻撃力設定
-        ai_style = e_status.style;//AIスタイルを設定
     }
     void Update()
     {
-        Enmey_State(ai_style);//エネミーの行動管理
+        Enmey_State();//エネミーの行動管理
         b_time++;
         //体力が1以下ならアニメーション更新
         if (hp < 1)
@@ -73,46 +72,40 @@ public class Boss_Cnt : Damage_Calclate
         }
     }
     //エネミーの行動処理
-    private void Enmey_State(Enemy_Ai_Style style)
+    private void Enmey_State()
     {
-        if (style == Enemy_Ai_Style.Last_Boss)
+        act_time++;
+        if (act_shot == true && bullet_per_shot < b_time && hp > 0)
         {
-            act_time++;
-            if (act_shot == true && bullet_per_shot < b_time && hp > 0)
+            if(!stop_rand)
+            boss_act_count = Random.Range(1, 4);
+            C_Color(boss_act_count, boss_mat);//カラーをカウント事にマテリアルを変える
+            switch (boss_act_count)
             {
-                boss_act_count = Random.Range(1, 4);
-                C_Color(boss_act_count, boss_mat);//カラーをカウント事にマテリアルを変える
-                switch (boss_act_count)
-                {
-                    case 0:
-                        {
-                            //何もしないデフォルトの状態
-                        }
-                        break;
-                    case 1:
-                        {
-                            Way_Shot(6, 12, false);
-                            b_time = 0;boss_act_count = 0;
-                        }break;
-                    case 2:
-                        {
-                            Homing_Shot(3, 10);
-                            b_time = 0; boss_act_count = 0;
+                case 1:
+                    {
+                        Way_Shot(6, 12, false);
+                        b_time = 0;
+                    }
+                    break;
+                case 2:
+                    {
+                        Homing_Shot(3, 10);
+                        b_time = 0;
 
-                        }
-                        break;
-                    case 3:
-                        {
-                            Mul_Shot(3, 10);
-                            b_time = 0; boss_act_count = 0;
-                        }
-                        break;
-                }
+                    }
+                    break;
+                case 3:
+                    {
+                        Mul_Shot(3, 10);
+                        b_time = 0;
+                    }
+                    break;
             }
         }
     }
-    //Playerが範囲内に入ったらその方向を向く
-    void OnTriggerStay(Collider collider)
+//Playerが範囲内に入ったらその方向を向く
+void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.CompareTag("Player"))
         {
@@ -248,6 +241,7 @@ public class Boss_Cnt : Damage_Calclate
     //弾丸を指定回数分指定時間間隔で発射
     private void Mul_Shot(int counts, int time)
     {
+        stop_rand = true;
         if (shot_count < counts && act_time > time)
         {
             a_source.Play();
@@ -257,14 +251,15 @@ public class Boss_Cnt : Damage_Calclate
             act_time = 0;
             if (shot_count == counts)
             {
+                Debug.Log("動いてるよ");
                 bullet_per_shot = e_status.bullet_per_shot;
-                shot_count = 0;
-                boss_act_count++;
+                shot_count = 0; stop_rand = false;
             }
         }
     }
     private void Homing_Shot(int counts, int time)
     {
+        stop_rand = true;
         if (shot_count < counts && act_time > time)
         {
             a_source.Play();
@@ -283,9 +278,9 @@ public class Boss_Cnt : Damage_Calclate
             act_time = 0;
             if (shot_count == counts)
             {
+                Debug.Log("動いてるよ");
                 bullet_per_shot = e_status.bullet_per_shot;
-                shot_count = 0;
-                boss_act_count++;
+                shot_count = 0;stop_rand = false;
             }
         }
     }

@@ -288,9 +288,7 @@ public class PlayerController : MonoBehaviour
 
 
         if (Collision_Hit)
-        {
-            
-            Debug.Log(move_dir);
+        {            
         }
         //Õ“Ë‚µ‚Ä‚¢‚È‚¢‚Æ‚«ˆÚ“®‘¬“x‚ğİ’è
         else if (!Collision_Hit)

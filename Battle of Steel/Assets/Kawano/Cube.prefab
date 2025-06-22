@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1476922869501124002}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.974501, y: 0.02, z: 42.120895}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5146748010671736718}
@@ -125,7 +125,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d7ef0d4344d959440adef2303d204e0c, type: 3}
   m_Resource: {fileID: 8300000, guid: d7ef0d4344d959440adef2303d204e0c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -222,7 +222,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e6a4252f778daeb41a9b276401be2032, type: 3}
   m_Resource: {fileID: 8300000, guid: e6a4252f778daeb41a9b276401be2032, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -320,9 +320,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 5
-  bullet_prefab: []
+  bullet_prefab:
+  - {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
+  - {fileID: 5469406016197046517, guid: 3ae377ee95d2c924aa2cd51cba0175c0, type: 3}
   bullet_point: {fileID: 3507731114574946261}
-  bullet_force: 0
+  bullet_force: 70
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
   a_source: {fileID: 4604699664833398668}
   boss_mat: {fileID: 2100000, guid: 1ae4ad866f7c0c1418317d1bcd6ef101, type: 2}
@@ -374,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 3507731114574946261}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.19, y: 0, z: -0.06}
+  m_LocalPosition: {x: -0.061, y: 0.007, z: -1.939}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
