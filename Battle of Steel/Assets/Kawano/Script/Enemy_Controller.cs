@@ -49,11 +49,11 @@ public class Enemy_Controller : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Idle_Robot,      new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle,      350f) },
-        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 45, 5,Enemy_Ai_Style.Idle,      150f) },
-        {Enemy_ID.Boss_01,         new Enemy_Status(100,10,Enemy_Ai_Style.Boss_Idle, 300f) },
-        {Enemy_ID.Boss_02,         new Enemy_Status(250, 7,Enemy_Ai_Style.Boss_Fast, 260f) },
-        {Enemy_ID.Boss_03,         new Enemy_Status(300, 8,Enemy_Ai_Style.Boss_Second,200f) },
+        {Enemy_ID.Idle_Robot,      new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle,        100f) },
+        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 45, 5,Enemy_Ai_Style.Idle,        150f) },
+        {Enemy_ID.Boss_01,         new Enemy_Status(100,10,Enemy_Ai_Style.Boss_Idle,   150f) },
+        {Enemy_ID.Boss_02,         new Enemy_Status(250, 7,Enemy_Ai_Style.Boss_Fast,   230f) },
+        {Enemy_ID.Boss_03,         new Enemy_Status(300, 8,Enemy_Ai_Style.Boss_Second, 200f) },
     };
 
     //変数
@@ -75,7 +75,8 @@ public class Enemy_Controller : Damage_Calclate
     private int boss_act_count;//ボスのアクションカウント
     private Quaternion tpr_rotate_bullets;//弾の初期位置を保存
     private int act_time;//Boss＿Second用時間計測
-    private int shot_count;//Boss_Second用発射カウント
+    private int shot_count = 0;//Boss_Second用発射カウント
+    private int shot_count_s = 0;//Boss_Second用発射カウント
     void Start()
     {
         //エネミーのインデックスを取得
@@ -122,34 +123,29 @@ public class Enemy_Controller : Damage_Calclate
             }
         }
         //ボス（停止するボス）
-        if(style == Enemy_Ai_Style.Boss_Idle)
-        {    
-            if (act_shot == true && b_time > bullet_per_shot && hp > 0 && boss_act_count > 1)
+        if(style == Enemy_Ai_Style.Boss_Fast)
+        {
+            if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
+                //修正中;
+                switch (boss_act_count)
+                {
+                    case 0: Mul_Shot(2, 2);Debug.Log("打った"); break;
+                }
 
-                Way_Shot(1,20, false);//-1,0,1の三回、20度ずつ
-                boss_act_count = 0;
+                //発射カウントで放つ弾の数を変更する
                 b_time = 0;
-            }
-            else if (act_shot == true && b_time > bullet_per_shot && hp > 0)
-            {
-                //弾丸発射が許可されている、かつ、体力が１以上、b_timeが間隔時間より大きくなったら
-
-                //弾を発射
-                Shot();
-                boss_act_count++;
-                b_time = 0;//時間初期化
             }
         }
         //弾のパターンが変わるボス
-        if(style == Enemy_Ai_Style.Boss_Fast)
+        if (style == Enemy_Ai_Style.Boss_Idle)
         {
             if(act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
                 switch (boss_act_count)
                 {
                     case 0: Way_Shot(2,2, false); break;
-                    case 1: Mul_Shot(3, 9); break;
+                    case 1: Way_Shot(3, 9,true); break;
                     case 2: Way_Shot(5, 14, false); break;
                 }
                 switch(boss_act_count)
@@ -170,9 +166,7 @@ public class Enemy_Controller : Damage_Calclate
             {
                 switch (boss_act_count)
                 {
-                    case 0: Homing_Shot(8, 20);break;
-                    case 1: Way_Shot(3, 4,false); boss_act_count++; break;
-                    case 2: Way_Shot_Left(12, 87); boss_act_count-= 2; break;
+                    case 0: Homing_Shot(5, 20);boss_act_count = 0; break;
                 }
                 //発射カウントで放つ弾の数を変更する
                 b_time = 0;
@@ -308,64 +302,37 @@ public class Enemy_Controller : Damage_Calclate
             }
         }
     }
-    //左周りで角度を変更して発射
-    private void Way_Shot_Left(int counts,int radius)
-    {
-        for (int i = 0; i <= counts; i++)
-        {
-            a_source.Play();
-            Debug.Log(i + "回目");
-            if (i == 0)
-            {
-                //弾のプレハブを生成
-                GameObject bullet = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-                bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
-                bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
-                //弾丸に攻撃力の情報を渡しておく
-                EnemyBulletAction e_bulet_act = bullet.GetComponent<EnemyBulletAction>();
-                e_bulet_act.attack_damage = damage;//攻撃力を渡す
-
-                bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
-                tpr_rotate_bullets = bullet.transform.rotation;
-            }
-            if (i > 0)
-            {
-
-                GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-                bullet_r.transform.position = bullet_point.transform.position;
-                Quaternion qua_r = Quaternion.AngleAxis(-radius * i, Vector3.up);
-                bullet_r.transform.rotation = qua_r;                
-                //角度を計算
-                Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.up) * e_vec;
-                //弾丸の発射角度を変更
-                bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
-                //弾丸に攻撃力の情報を渡しておく
-                EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
-                e_bulet_act_r.attack_damage = damage;//攻撃力を渡す
-            }
-        }
-    }
     //弾丸を指定回数分指定時間間隔で発射
     private void Mul_Shot(int counts,int time)
     {
-        if (shot_count < counts && act_time > time)
+        if (shot_count_s <= counts && act_time > time)
         {
             a_source.Play();
             bullet_per_shot = time;
-            Shot();
-            shot_count++;
+            //弾のプレハブを生成
+            GameObject bullet = Instantiate(bullet_prefab[2], bullet_point.transform.position, Quaternion.identity);
+            //弾丸に攻撃力の情報を渡しておく
+            EnemyBulletAction e_bullet_act = bullet.GetComponent<EnemyBulletAction>();
+            e_bullet_act.attack_damage = damage;//攻撃力を渡す
+            bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
+            bullet.transform.rotation = Quaternion.LookRotation(-e_vec);//角度をdirectionまで変更
+
+            //RigidBodyにbullet_force分の力を加える
+            bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
+
+            shot_count_s++;
             act_time = 0;
-            if (shot_count == counts)
-            {
-                bullet_per_shot = e_status.bullet_per_shot;
-                shot_count = 0;
-                boss_act_count++;
-            }
+        }
+        if (shot_count_s >= counts)
+        {
+            bullet_per_shot = e_status.bullet_per_shot;
+            shot_count_s = 0;
+            boss_act_count++;
         }
     }
     private void Homing_Shot(int counts,int time)
     {
-        if (shot_count < counts && act_time > time)
+        if (shot_count <= counts && act_time > time)
         {
             a_source.Play();
             bullet_per_shot = time;
@@ -381,7 +348,7 @@ public class Enemy_Controller : Damage_Calclate
             bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force/2, ForceMode.Impulse);
             shot_count++;
             act_time = 0;
-            if (shot_count == counts)
+            if (shot_count >= counts)
             {
                 bullet_per_shot = e_status.bullet_per_shot;
                 shot_count = 0;

@@ -146,6 +146,7 @@ MonoBehaviour:
   bullet_prefab:
   - {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
   - {fileID: 5469406016197046517, guid: 3ae377ee95d2c924aa2cd51cba0175c0, type: 3}
+  - {fileID: 4954745963997508492, guid: c5d0c7b8659e0ae409e10ec891a2a0c9, type: 3}
   bullet_point: {fileID: 1017766466973452803}
   bullet_force: 80
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}

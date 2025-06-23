@@ -37,6 +37,7 @@ public class Boss_Cnt : Damage_Calclate
     private Quaternion tpr_rotate_bullets;//弾の初期位置を保存
     private int act_time;//Boss＿Second用時間計測
     private int shot_count;//Boss_Second用発射カウント
+    private int shot_count_second;//Boss_Second用発射カウント
     private bool stop_rand = false;
     void Start()
     {
@@ -58,7 +59,7 @@ public class Boss_Cnt : Damage_Calclate
         //体力が1以下ならアニメーション更新
         if (hp < 1)
         {
-            GameObject explosive = Instantiate(Explosive_unit, gameObject.transform.position, Quaternion.identity);
+            GameObject explosive = Instantiate(Explosive_unit, bullet_point.transform.position, Quaternion.identity);
             if (animator != null)
             {
                 animator.SetBool("Death", true);//アニメーションを設定
@@ -67,6 +68,7 @@ public class Boss_Cnt : Damage_Calclate
 
             Enemy_Die.Play();
             act_shot = false;
+            Enemy_Manager.last_boss_spawnwd = true;
             Destroy(bullet_point);//銃弾発射位置削除
             DestroyObject();//オブジェクト
         }
@@ -117,8 +119,9 @@ void OnTriggerStay(Collider collider)
     }
     private void OnTriggerExit(Collider other)
     {
-        act_shot = false;
-        boss_act_count = 0;
+        act_shot = false;//弾丸を発射しなくする
+        shot_count = 0;shot_count_second = 0;//数値初期化
+        Debug.Log("対象を見失った");
     }
     //Bulletタグに当たったら体力を減らす
     private void OnCollisionEnter(Collision collision)
@@ -136,21 +139,6 @@ void OnTriggerStay(Collider collider)
     {
         Destroy(gameObject);
     }
-    //通常の弾丸発射スクリプト
-    private void Shot()
-    {
-        a_source.Play();
-        //弾のプレハブを生成
-        GameObject bullet = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-        //弾丸に攻撃力の情報を渡しておく
-        EnemyBulletAction e_bullet_act = bullet.GetComponent<EnemyBulletAction>();
-        e_bullet_act.attack_damage = damage;//攻撃力を渡す
-        bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
-        bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
-
-        //RigidBodyにbullet_force分の力を加える
-        bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
-    }
     //弾丸を扇状に決められた回数分左右2方向に発射
     private void Way_Shot(int counts, int radius, bool derct)
     {
@@ -162,7 +150,7 @@ void OnTriggerStay(Collider collider)
             if (i == 0)
             {
                 //弾のプレハブを生成
-                GameObject bullet = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                GameObject bullet = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
                 bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
                 bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
                 //弾丸に攻撃力の情報を渡しておく
@@ -177,7 +165,7 @@ void OnTriggerStay(Collider collider)
                 //横軸
                 if (!derct)
                 {
-                    GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                    GameObject bullet_r = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
                     bullet_r.transform.position = bullet_point.transform.position;
                     //弾丸の初期角度を入れる
                     Quaternion qua_r = tpr_rotate_bullets;
@@ -193,7 +181,7 @@ void OnTriggerStay(Collider collider)
                     EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
                     e_bulet_act_r.attack_damage = damage;//攻撃力を渡す
                     //右側
-                    GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                    GameObject bullet_l = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
                     bullet_l.transform.position = bullet_point.transform.position;
                     Quaternion qua_l = tpr_rotate_bullets;
                     qua_l.y = tpr_rotate_bullets.y + (i * radius);
@@ -207,7 +195,7 @@ void OnTriggerStay(Collider collider)
                 }
                 else
                 {
-                    GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                    GameObject bullet_r = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
                     bullet_r.transform.position = bullet_point.transform.position;
                     //弾丸の初期角度を入れる
                     Quaternion qua_r = tpr_rotate_bullets;
@@ -223,7 +211,7 @@ void OnTriggerStay(Collider collider)
                     EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
                     e_bulet_act_r.attack_damage = damage;//攻撃力を渡す
                     //右側
-                    GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                    GameObject bullet_l = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
                     bullet_l.transform.position = bullet_point.transform.position;
                     Quaternion qua_l = tpr_rotate_bullets;
                     qua_l.y = tpr_rotate_bullets.x + (i * radius);
@@ -242,30 +230,14 @@ void OnTriggerStay(Collider collider)
     private void Mul_Shot(int counts, int time)
     {
         stop_rand = true;
-        if (shot_count < counts && act_time > time)
+        if (shot_count_second <= counts && act_time > time)
         {
             a_source.Play();
             bullet_per_shot = time;
-            Shot();
-            shot_count++;
-            act_time = 0;
-            if (shot_count == counts)
-            {
-                Debug.Log("動いてるよ");
-                bullet_per_shot = e_status.bullet_per_shot;
-                shot_count = 0; stop_rand = false;
-            }
-        }
-    }
-    private void Homing_Shot(int counts, int time)
-    {
-        stop_rand = true;
-        if (shot_count < counts && act_time > time)
-        {
+
             a_source.Play();
-            bullet_per_shot = time;
             //弾のプレハブを生成
-            GameObject bullet = Instantiate(bullet_prefab[1], gameObject.transform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bullet_prefab[2], bullet_point.transform.position, Quaternion.identity);
             //弾丸に攻撃力の情報を渡しておく
             EnemyBulletAction e_bullet_act = bullet.GetComponent<EnemyBulletAction>();
             e_bullet_act.attack_damage = damage;//攻撃力を渡す
@@ -273,16 +245,45 @@ void OnTriggerStay(Collider collider)
             bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
 
             //RigidBodyにbullet_force分の力を加える
-            bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force / 2, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
+
+
+            shot_count_second++;
+            act_time = 0;
+        }
+        if (shot_count_second >= counts)
+        {
+            bullet_per_shot = e_status.bullet_per_shot;
+            shot_count_second = 0; stop_rand = false;
+        }
+
+    }
+    private void Homing_Shot(int counts, int time)
+    {
+        stop_rand = true;
+        if (shot_count <= counts && act_time > time)
+        {
+            a_source.Play();
+            bullet_per_shot = time;
+            //弾のプレハブを生成
+            GameObject bullet = Instantiate(bullet_prefab[1], bullet_point.transform.position, Quaternion.identity);
+            //弾丸に攻撃力の情報を渡しておく
+            EnemyBulletAction e_bullet_act = bullet.GetComponent<EnemyBulletAction>();
+            e_bullet_act.attack_damage = damage;//攻撃力を渡す
+            bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
+            bullet.transform.rotation = Quaternion.LookRotation(-e_vec);//角度をdirectionまで変更
+
+            //RigidBodyにbullet_force分の力を加える
+            bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
             shot_count++;
             act_time = 0;
-            if (shot_count == counts)
-            {
-                Debug.Log("動いてるよ");
-                bullet_per_shot = e_status.bullet_per_shot;
-                shot_count = 0;stop_rand = false;
-            }
         }
+        if (shot_count >= counts)
+        {
+            bullet_per_shot = e_status.bullet_per_shot;
+            shot_count = 0; stop_rand = false;
+        }
+
     }
 
     private void C_Color(int c,Material mat)
