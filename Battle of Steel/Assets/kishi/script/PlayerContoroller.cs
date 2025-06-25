@@ -196,6 +196,11 @@ public class PlayerController : MonoBehaviour
             jump_flag = false;
             boost -= 0.3f;
         }
+        if(!jump_flag) //‹ó’†‚É‚Æ‚Ç‚Ü‚ê‚È‚­‚·‚éˆ—
+        {
+            boost -= 0.2f;
+        }
+
         if (animator.GetFloat("IsDashing") == 1.0f )
         {
             boost -= 0.5f;
