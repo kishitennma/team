@@ -7,7 +7,7 @@ public class Enemy_Manager : MonoBehaviour
     public static Enemy_Manager enemy_count;
     public List<GameObject> boss;//ボスの出現フラグリスト
     private bool boss_spawned = false;//ボスの出現フラグ
-    private bool last_boss_spawnwd = false;//最終ボス出現フラグ
+    public static bool last_boss_spawnwd = false;//最終ボス出現フラグ
     private List<GameObject> enemys = new();
 
     private void Awake()
@@ -38,8 +38,8 @@ public class Enemy_Manager : MonoBehaviour
         //ボスが全て倒されたら最終ボスを出現させる
         if (!last_boss_spawnwd && boss_spawned && remaining == 0)
         {
-            boss[boss.Count].SetActive(true);
             remaining++;
+            boss[boss.Count-1].SetActive(true);
         }
         //ボスも全て倒されたらリザルトを表示
         if(boss_spawned && last_boss_spawnwd && remaining == 0)
