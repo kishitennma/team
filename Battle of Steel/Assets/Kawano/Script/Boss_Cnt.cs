@@ -14,7 +14,7 @@ public class Boss_Cnt : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Last_Boss,new Enemy_Status(400, 3,Enemy_Ai_Style.Last_Boss,260f) },
+        {Enemy_ID.Last_Boss,new Enemy_Status(600, 3,Enemy_Ai_Style.Last_Boss,230f) },
     };
 
     //変数
@@ -92,14 +92,14 @@ public class Boss_Cnt : Damage_Calclate
                     break;
                 case 2:
                     {
-                        Homing_Shot(5, 10);
+                        Homing_Shot(3, 20);
                         b_time = 0;
 
                     }
                     break;
                 case 3:
                     {
-                        Mul_Shot(7, 5);
+                        Mul_Shot(5, 3);
                         b_time = 0;
                     }
                     break;
