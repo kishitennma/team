@@ -17,22 +17,28 @@ public class GageGagerHP : MonoBehaviour
 
     private void Update()
     {
+        //èCê≥
+        
         //åªç›íl
         myhp = Player_Status.Player_HP;
+        if(max<myhp)
+        {
+            max = myhp;
+        }
 
         //ÉQÅ[ÉWä«óù
         image.fillAmount = (float)myhp / (float)max;
         //í¥âﬂñhé~
-        if((myhp / max) <0)
-        {
-            image.fillAmount = 0.0f;
-            myhp = 0;
-        }
-        else if(myhp / max >1.0f)
-        {
-            image.fillAmount = 1.0f;
-            myhp = max;
-        }
+        //if((myhp / max) <0)
+        //{
+        //    image.fillAmount = 0.0f;
+        //    myhp = 0;
+        //}
+        //else if(myhp / max >1.0f)
+        //{
+        //    image.fillAmount = 1.0f;
+        //    myhp = max;
+        //}
 
         //êFä«óù
         if (image.fillAmount <= 0)

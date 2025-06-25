@@ -23,18 +23,22 @@ public class HPText : MonoBehaviour
     private void Update()
     {
         hp= Player_Status.Player_HP;//現在値取得
+        if(max<hp)
+        {
+            max = hp;
+        }
         get_hp = (float)hp / (float)max;
         gameObject.GetComponent<UnityEngine.UI.Text>().text = hp.ToString();//値の表示
 
-        //超過対策
-        if (get_hp < 0)
-        {
-            hp = 0;
-        }
-        else if (get_hp > 1.0f)
-        {
-            hp = max;
-        }
+        ////超過対策
+        //if (get_hp < 0)
+        //{
+        //    hp = 0;
+        //}
+        //else if (get_hp > 1.0f)
+        //{
+        //    hp = max;
+        //}
         //色管理
         if (get_hp <= 0)
         {

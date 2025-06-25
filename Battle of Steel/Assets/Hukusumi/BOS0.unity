@@ -417,6 +417,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -438.9
+      objectReference: {fileID: 0}
     - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: w_index
       value: 
@@ -501,6 +505,10 @@ PrefabInstance:
       propertyPath: w_index2
       value: 
       objectReference: {fileID: 81727390}
+    - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -411.09995
+      objectReference: {fileID: 0}
     - target: {fileID: 4910480069966234438, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_Name
       value: UI
@@ -720,7 +728,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3f43f58eb18b0ef44854489152dafff9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b4541ca99e8f12840ba6aba1647ee48c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
