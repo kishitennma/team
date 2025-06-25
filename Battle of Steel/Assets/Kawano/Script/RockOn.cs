@@ -8,11 +8,18 @@ public class RockOn : MonoBehaviour
     [SerializeField] GameObject player;//プレイヤーオブジェクト
     [Header("ロックオン設定")]
     [SerializeField] float lockon_range = 100.0f;//ロックオンの距離
+    [SerializeField] GameObject RockOnImage;//ロックオンイメージ画像
 
     private Transform lockon_target;
     private bool is_lock_on;
     private float rotate_speed = 90;
     private bool lockon_flag = false;
+    private Vector3 add_vec;
+
+    private void Start()
+    {
+        RockOnImage?.SetActive(false);
+    }
 
     private void Update()
     {
@@ -64,6 +71,7 @@ public class RockOn : MonoBehaviour
                 {
                     minDistance = distance;
                     clossest = hit.transform;
+
                 }
             }
         }
@@ -76,6 +84,7 @@ public class RockOn : MonoBehaviour
     //ロックオン中止
     private void Stop_LockOn()
     {
+        RockOnImage?.SetActive(false);
         Vector3 amgles = transform.eulerAngles;
         amgles.x = 0;
         transform.eulerAngles = amgles;
@@ -93,11 +102,18 @@ public class RockOn : MonoBehaviour
             //direction.y = 0;//水平方向のみ
             if (direction != Vector3.zero)
             {
+                add_vec = new Vector3(0, 5, 0);
+                RockOnImage.transform.position = lockon_target.position - (direction/3);
+                RockOnImage.transform.position += add_vec;
+                RockOnImage.transform.rotation = Quaternion.LookRotation(direction);
+               
+
+                RockOnImage.SetActive(true);
+
                 Quaternion lockrotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lockrotation, Time.deltaTime * rotate_speed);
                 transform.rotation = lockrotation;
             }
         }
-
     }
 }
