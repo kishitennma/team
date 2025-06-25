@@ -18,5 +18,10 @@ public class Player_Status : MonoBehaviour
         {
             SceneManager.LoadScene("GameOver");//仮でいったんタイトルに戻る//ゲームオーバー画面
         }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Player_HP = 0;
+        }
     }
 }
