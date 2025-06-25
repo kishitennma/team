@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject player;//キャラクターオブジェクト
     public Rigidbody rb;//キャラクターオブジェクトのRigidBody
     public GameObject cam;
-    public GameObject trail1;
-    public GameObject trail2;
+    //public GameObject trail1;
+    //public GameObject trail2;
     public Camera maincam;
     public Animator animator; // キャラクターオブジェクトのAnimator
     public MotionBlur motionBlur;
@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     public float fov_changeamount = 10.0f;
     public float min_fov = 60.0f;
     public float max_fov = 90.0f;
+    public TrailRenderer TrailLeft;
+    public TrailRenderer TrailRight;
+
 
     private bool Collision_Hit = false;
 
@@ -256,8 +259,11 @@ public class PlayerController : MonoBehaviour
             //通常時
             animator.SetFloat("IsDashing", 0.0f);
             input_direction = move_dir;
-            trail1.SetActive(false);
-            trail2.SetActive(false);
+            TrailLeft.time = 0.1f;
+            TrailRight.time = 0.1f;
+            TrailLeft.material.color = Color.white;
+            TrailRight.material.color = Color.white;
+
 
         }
         else
@@ -267,8 +273,10 @@ public class PlayerController : MonoBehaviour
                 //ダッシュ時
                 animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
                 input_direction = move_dir * dash_speed;//移動ベクトルを設定
-                trail1.SetActive(true);
-                trail2.SetActive(true);
+                TrailLeft.time = 0.5f;
+                TrailRight.time = 0.5f;
+                TrailLeft.material.color = Color.cyan;
+                TrailRight.material.color = Color.cyan;
 
             }
             else
@@ -277,8 +285,10 @@ public class PlayerController : MonoBehaviour
                 //通常時
                 animator.SetFloat("IsDashing", 0.0f);
                 input_direction = move_dir;
-                trail1.SetActive(false);
-                trail2.SetActive(false);
+                TrailLeft.time = 0.1f;
+                TrailRight.time = 0.1f;
+                TrailLeft.material.color = Color.white;
+                TrailRight.material.color = Color.white;
             }
 
         }
