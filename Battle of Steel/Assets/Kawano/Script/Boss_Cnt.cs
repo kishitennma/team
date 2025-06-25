@@ -92,14 +92,14 @@ public class Boss_Cnt : Damage_Calclate
                     break;
                 case 2:
                     {
-                        Homing_Shot(3, 10);
+                        Homing_Shot(5, 10);
                         b_time = 0;
 
                     }
                     break;
                 case 3:
                     {
-                        Mul_Shot(3, 10);
+                        Mul_Shot(7, 5);
                         b_time = 0;
                     }
                     break;

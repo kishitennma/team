@@ -52,7 +52,7 @@ public class Enemy_Controller : Damage_Calclate
         {Enemy_ID.Idle_Robot,      new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle,        100f) },
         {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 45, 5,Enemy_Ai_Style.Idle,        150f) },
         {Enemy_ID.Boss_01,         new Enemy_Status(100,10,Enemy_Ai_Style.Boss_Idle,   150f) },
-        {Enemy_ID.Boss_02,         new Enemy_Status(250, 7,Enemy_Ai_Style.Boss_Fast,   230f) },
+        {Enemy_ID.Boss_02,         new Enemy_Status(250, 7,Enemy_Ai_Style.Boss_Fast,   90f) },
         {Enemy_ID.Boss_03,         new Enemy_Status(300, 8,Enemy_Ai_Style.Boss_Second, 200f) },
     };
 
@@ -74,7 +74,7 @@ public class Enemy_Controller : Damage_Calclate
     //ボス用
     private int boss_act_count;//ボスのアクションカウント
     private Quaternion tpr_rotate_bullets;//弾の初期位置を保存
-    private int act_time;//Boss＿Second用時間計測
+    private int act_time = 0;//Boss＿Second用時間計測
     private int shot_count = 0;//Boss_Second用発射カウント
     private int shot_count_s = 0;//Boss_Second用発射カウント
     void Start()
@@ -92,6 +92,7 @@ public class Enemy_Controller : Damage_Calclate
     {
         Enmey_State(ai_style);//エネミーの行動管理
         b_time++;
+        act_time++;
         //体力が1以下ならアニメーション更新
         if (hp < 1)
         {
@@ -127,13 +128,9 @@ public class Enemy_Controller : Damage_Calclate
         {
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                //修正中;
-                switch (boss_act_count)
-                {
-                    case 0: Mul_Shot(2, 2);Debug.Log("打った"); break;
-                }
+                //修正中;                
+                Mul_Shot(10, 6);
 
-                //発射カウントで放つ弾の数を変更する
                 b_time = 0;
             }
         }
@@ -164,11 +161,7 @@ public class Enemy_Controller : Damage_Calclate
             act_time++;
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                switch (boss_act_count)
-                {
-                    case 0: Homing_Shot(5, 20);boss_act_count = 0; break;
-                }
-                //発射カウントで放つ弾の数を変更する
+                Homing_Shot(5, 20);
                 b_time = 0;
             }
         }
