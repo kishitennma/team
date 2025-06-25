@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
         }
         if (animator.GetFloat("IsDashing") == 1.0f )
         {
-            boost -= 0.1f;
+            boost -= 0.5f;
             camera_Fovaway();
         }
         else
