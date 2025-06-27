@@ -13,14 +13,17 @@ public class Player_Weapon_Manager : MonoBehaviour
     public Animator player_animator;//プレイヤーのアニメーションコントローラ
     [Header("ボタン入力")]
     [SerializeField] KeyCode set_key = KeyCode.Q;//切り替えボタン
-
+    public Image Change_Image;
     public bool hold_secondry_weapon;//サブ武器の所持状態
-    public bool anim_end_flag=false;//アニメション終了フラグ
+    public static bool anim_end_flag=false;//アニメション終了フラグ
     private WeaponSystem weapon_system;//weapon_system ammo_text変更用
     private void Start()
     {
         if (main_weapon != null)
         {
+            set_weapon_point.position = hand_point.position;
+            main_weapon.transform.position = set_weapon_point.position;
+            sub_weapon.transform.position = set_weapon_point.position;
             Set_Weapon_hand(main_weapon, sub_weapon);//メイン武器を手に持たせる
         }
         else
@@ -28,24 +31,28 @@ public class Player_Weapon_Manager : MonoBehaviour
             Debug.LogError("メイン武器がよみこまれませんでした");
         }
     }
-    private void Update()
+    private void FixedUpdate()
     {
         set_weapon_point.position = hand_point.position;
         main_weapon.transform.position = set_weapon_point.position;
         sub_weapon.transform.position = set_weapon_point.position;
+        Player_Status.Player_Put_Attack_Damage = weapon_system.setting_attack_dmg;//攻撃力を入力
         if (sub_weapon!= null)
         {
-            //サブ武器を所持している、手に持っているのがメイン武器の場合set_keyで変更
-            if(!hold_secondry_weapon && Input.GetKeyDown(set_key)&& anim_end_flag == false)
+            if(anim_end_flag == false)
             {
-                Set_Weapon_hand(sub_weapon, main_weapon);
-                hold_secondry_weapon = true;
+                if (!hold_secondry_weapon && Input.GetKey(set_key))
+                {
+                    Set_Weapon_hand(sub_weapon, main_weapon);
+                    hold_secondry_weapon = true;
+                }
+                else if (hold_secondry_weapon && Input.GetKey(set_key))
+                {
+                    Set_Weapon_hand(main_weapon, sub_weapon);
+                    hold_secondry_weapon = false;
+                }
             }
-            else if(hold_secondry_weapon && Input.GetKeyDown(set_key) && anim_end_flag == false)
-            {
-                Set_Weapon_hand(main_weapon, sub_weapon);
-                hold_secondry_weapon = false;
-            }
+            
         }
         else
         {
@@ -55,12 +62,14 @@ public class Player_Weapon_Manager : MonoBehaviour
 
     private void Set_Weapon_hand(GameObject change_weapon,GameObject set_weapon)
     {
-        player_animator.SetBool("Change_Weapon",true);
         anim_end_flag = true;
+        player_animator.SetBool("Change_Weapon",true);
         weapon_system = change_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
         weapon_system.ammo_text = ammo_texts;
         Player_Status.Player_Attack_Damage = weapon_system.setting_attack_dmg;//攻撃力を入力
         change_weapon.transform.position = set_weapon_point.transform.position;//位置を武器を持たせる位置に合わせる
+        Change_Image.color = Color.red;
+        Invoke(nameof(Set_End_Change_Anim), 0.5f);
     }
     //武器変更用アニメーションストップ
     public void Set_End_Change_Anim()
@@ -76,6 +85,7 @@ public class Player_Weapon_Manager : MonoBehaviour
             sub_weapon.SetActive(false);//変更前の武器を消す
             main_weapon.SetActive(true);//変更後の武器を出現
         }
+        Change_Image.color = Color.white;
         player_animator.SetBool("Change_Weapon", false);
         anim_end_flag = false;
     }

@@ -49,16 +49,16 @@ public class Enemy_Controller : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Idle_Robot,      new Enemy_Status( 30, 5,Enemy_Ai_Style.Idle,        100f) },
-        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 45, 5,Enemy_Ai_Style.Idle,        150f) },
-        {Enemy_ID.Boss_01,         new Enemy_Status(100,10,Enemy_Ai_Style.Boss_Idle,   150f) },
-        {Enemy_ID.Boss_02,         new Enemy_Status(250, 7,Enemy_Ai_Style.Boss_Fast,   90f) },
-        {Enemy_ID.Boss_03,         new Enemy_Status(300, 8,Enemy_Ai_Style.Boss_Second, 200f) },
+        {Enemy_ID.Idle_Robot,      new Enemy_Status( 15, 5,Enemy_Ai_Style.Idle,        100f) },
+        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 25, 5,Enemy_Ai_Style.Idle,        150f) },
+        {Enemy_ID.Boss_01,         new Enemy_Status(190,4,Enemy_Ai_Style.Boss_Idle,   150f) },
+        {Enemy_ID.Boss_02,         new Enemy_Status(230, 5,Enemy_Ai_Style.Boss_Fast,   90f) },
+        {Enemy_ID.Boss_03,         new Enemy_Status(230, 3,Enemy_Ai_Style.Boss_Second, 200f) },
     };
 
     //変数
     public AudioSource a_source;
-    public int count_game_state = 0;//ゲーム回数
+    public static int count_game_state = 0;//ゲーム回数
     private Enemy_Status e_status;//エネミーステータス
     private Animator animator;//アニメーター
     private int hp = 0;//現在の体力
@@ -96,6 +96,7 @@ public class Enemy_Controller : Damage_Calclate
         //体力が1以下ならアニメーション更新
         if (hp < 1)
         {
+            act_shot = false;
             GameObject explosive = Instantiate(Explosive_unit, gameObject.transform.position, Quaternion.identity);
             if (animator != null)
             {
@@ -104,7 +105,6 @@ public class Enemy_Controller : Damage_Calclate
             hp = 0;//体力が0以下にならないようにする
             
             Enemy_Die.Play();
-            act_shot = false;
             Destroy(bullet_point);//銃弾発射位置削除
             DestroyObject();//オブジェクト
         }
@@ -161,7 +161,7 @@ public class Enemy_Controller : Damage_Calclate
             act_time++;
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                Homing_Shot(3, 30);
+                Homing_Shot(5, 20);
                 b_time = 0;
             }
         }

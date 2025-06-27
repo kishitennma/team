@@ -3,25 +3,29 @@ using UnityEngine;
 public class StageChange : MonoBehaviour
 {
     //ボス登場フラグ
-    private bool boss_spawned = false;
-    public GameObject Building;
+    public static bool first_boss_spawned = false;//他のスクリプトからtrueにされる
+    public GameObject first_building;//下に行くオブジェクト群
 
-    void Update()
+    private int counts = 0;
+    void FixedUpdate()
     {
         //ボスが登場した場合
-        if(boss_spawned == false)
+        if(first_boss_spawned == true)
         {
-            //GameObjct型の配列Buildingsに"Building"タグが付いたオブジェクトを格納
-            GameObject[] Buildings = GameObject.FindGameObjectsWithTag("Building");
+            Vector3 fool = new(0, 0.5f, 0);
 
-            //GameObject型の変数moveに、cubesの中身を順番に取り出す
-            //foreachは配列の要素の数だけループ
-            foreach (GameObject move in Buildings)
+            if(first_building != null)
             {
-                //それらを下に直線移動
-                //Building.transform.positionへ毎フレーム一定の数値を足す
-                Building.transform.position += new Vector3(0, -1.0f, 0);
-
+                if (counts < 200)
+                {
+                    first_building.transform.position -= fool;//下へ移動
+                    counts++;
+                }
+                if (counts >= 200)
+                {
+                    first_building.SetActive(false);
+                    counts = 0;
+                }
             }
         }
     }

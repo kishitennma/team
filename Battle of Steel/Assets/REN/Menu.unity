@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiElement: {fileID: 216570961}
-  triggerButton: {fileID: 0}
+  triggerButton: {fileID: 1732270850}
   startAlpha: 0
   endAlpha: 1
   fadeDuration: 0.5

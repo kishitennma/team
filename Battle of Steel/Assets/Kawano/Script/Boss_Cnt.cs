@@ -14,7 +14,7 @@ public class Boss_Cnt : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Last_Boss,new Enemy_Status(600, 3,Enemy_Ai_Style.Last_Boss,230f) },
+        {Enemy_ID.Last_Boss,new Enemy_Status(1000, 3,Enemy_Ai_Style.Last_Boss,230f) },
     };
 
     //変数
@@ -80,29 +80,31 @@ public class Boss_Cnt : Damage_Calclate
         if (act_shot == true && bullet_per_shot < b_time && hp > 0)
         {
             if(!stop_rand)
-            boss_act_count = Random.Range(1, 4);
-            C_Color(boss_act_count, boss_mat);//カラーをカウント事にマテリアルを変える
-            switch (boss_act_count)
             {
-                case 1:
-                    {
-                        Way_Shot(6, 12, false);
-                        b_time = 0;
-                    }
-                    break;
-                case 2:
-                    {
-                        Homing_Shot(3, 20);
-                        b_time = 0;
+                boss_act_count = Random.Range(1, 4);
+                C_Color(boss_act_count, boss_mat);//カラーをカウント事にマテリアルを変える
+                switch (boss_act_count)
+                {
+                    case 1:
+                        {
+                            Way_Shot(12, 12, false);
+                            b_time = 0;
+                        }
+                        break;
+                    case 2:
+                        {
+                            Homing_Shot(5, 5);
+                            b_time = 0;
+                        }
+                        break;
+                    case 3:
+                        {
+                            Mul_Shot(10, 7);
+                            b_time = 0;
+                        }
+                        break;
+                }
 
-                    }
-                    break;
-                case 3:
-                    {
-                        Mul_Shot(5, 3);
-                        b_time = 0;
-                    }
-                    break;
             }
         }
     }
@@ -253,8 +255,9 @@ void OnTriggerStay(Collider collider)
         }
         if (shot_count_second >= counts)
         {
+            stop_rand = false;
             bullet_per_shot = e_status.bullet_per_shot;
-            shot_count_second = 0; stop_rand = false;
+            shot_count_second = 0; 
         }
 
     }
@@ -280,10 +283,10 @@ void OnTriggerStay(Collider collider)
         }
         if (shot_count >= counts)
         {
+            stop_rand = false;
             bullet_per_shot = e_status.bullet_per_shot;
-            shot_count = 0; stop_rand = false;
+            shot_count = 0; 
         }
-
     }
 
     private void C_Color(int c,Material mat)

@@ -118,11 +118,10 @@ public class RockOn : MonoBehaviour
                 transform.rotation = lockrotation;
             }
             //範囲外に行ったらロックオン解除
-            if(lockon_range*4 < distance)
+            if(lockon_range * 4 <= distance)
             {
                 Stop_LockOn();
             }
-
         }
     }
 }

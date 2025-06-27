@@ -272,25 +272,27 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.W) == false && Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D) == false)
         {
             move_speed = 20f;//ƒL[‚ð—£‚µ‚½‚ç‘¬“x‚ð–ß‚·
+            Player_Status.Player_Attack_Damage = Player_Status.Player_Put_Attack_Damage;//UŒ‚—Í‚ðŒ³‚Ì’l‚É–ß‚·
         }
         if(Collision_Hit)
         {
             move_dir /= 10;//‰½‚©‚É“–‚½‚Á‚½‚çˆÚ“®‹——£‚ðŒ¸‚ç‚·
+            move_speed = 20f;
+            Player_Status.Player_Attack_Damage = Player_Status.Player_Put_Attack_Damage;//UŒ‚—Í‚ðŒ³‚Ì’l‚É–ß‚·
         }
         else
         {
-            move_speed += 0.05f;//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚éŠÔ‚Í”’l‚ð‰ÁŽZ
+            move_speed += 0.1f;//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚éŠÔ‚Í”’l‚ð‰ÁŽZ
             if (move_speed >= 80.0f)
             {
                 move_speed = 80.0f;
             }
-            else if(move_speed >= 60.0f)
+            else if(move_speed >= 70.0f)
             {
-                //‘¬“x‚ªˆê’èˆÈã‚ÅUŒ‚—Í‚ð‰ÁŽZ
-                Player_Status.Player_Attack_Damage += 1;
-                if(Player_Status.Player_Attack_Damage >= 60)
+                Player_Status.Player_Attack_Damage++;
+                if(Player_Status.Player_Attack_Damage > 80)
                 {
-                    Player_Status.Player_Attack_Damage = 60;
+                    Player_Status.Player_Attack_Damage = 80;
                 }
             }
         }

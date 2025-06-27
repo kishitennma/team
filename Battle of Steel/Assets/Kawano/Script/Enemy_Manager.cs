@@ -24,15 +24,17 @@ public class Enemy_Manager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Update()
+    private void FixedUpdate()
     {
         int remaining = enemy_count.GetAliveEnemyCount();
         if(!boss_spawned && remaining == 0)
         {
             boss_set_time++;
             boss_flag_text.SetActive(true);
-            if(boss_set_time > 100)
+            StageChange.first_boss_spawned = true;
+            if (boss_set_time > 250)
             {
+
                 //ボスを出現
                 for (int i = 0; i < boss.Count - 1; i++)
                 {
@@ -40,6 +42,7 @@ public class Enemy_Manager : MonoBehaviour
                     remaining++;
                 }
                 boss_spawned = true;
+                boss_set_time = 0;
                 boss_flag_text.SetActive(false);
             }
             
@@ -50,11 +53,11 @@ public class Enemy_Manager : MonoBehaviour
         {
             boss_set_time++;
             boss_flag_text.SetActive(true);
-
-            if(boss_set_time > 200)
+            if(boss_set_time > 300)
             {
                 remaining++;
                 boss[boss.Count - 1].SetActive(true);
+                
                 boss_set_time = 0;
                 boss_flag_text.SetActive(false);
             }
@@ -62,11 +65,11 @@ public class Enemy_Manager : MonoBehaviour
         //ボスも全て倒されたらリザルトを表示
         if(boss_spawned && last_boss_spawnwd && remaining == 0)
         {
-           
             SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
             //カーソルを元に戻す
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            //Enemy_Controller.count_game_state+=1;//クリア回数に応じて敵ステータス強化
         }
     }
     
