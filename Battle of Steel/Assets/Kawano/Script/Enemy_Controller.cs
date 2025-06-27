@@ -129,7 +129,7 @@ public class Enemy_Controller : Damage_Calclate
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
                 //修正中;                
-                Mul_Shot(10, 6);
+                Mul_Shot(5, 20);
 
                 b_time = 0;
             }
@@ -161,7 +161,7 @@ public class Enemy_Controller : Damage_Calclate
             act_time++;
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                Homing_Shot(5, 20);
+                Homing_Shot(3, 30);
                 b_time = 0;
             }
         }

@@ -43,7 +43,7 @@ public class WeaponSystem : MonoBehaviour
     [Header("武器の性能（確認用）")]
     public float shoot_force, reload_time, time_between_shooting, spread;
     public int magazine_size, bullets_left, bullets_shot;
-
+    public int setting_attack_dmg = 0;//他のスクリプトに渡すようの変数
 
     public PlayerController player;
 
@@ -54,9 +54,9 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      40,0.4f,0.4f,12,0.005f,false,12)},//ピストル
-        {1,new Weapon_Date(WeaponType.AssaultRifle,40,0.3f,0.3f,36,0.01f,true, 8)},//アサルト
-        {2,new Weapon_Date(WeaponType.ShotGun,     40,1.2f,0.7f,6,0.05f,  false, 6)},//6*5で30ダメージ//ショットガン
+        {0,new Weapon_Date(WeaponType.Pistol,      40, 0.4f, 0.4f, 12, 0.005f,  false,12)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,40, 0.3f, 0.3f, 36,  0.01f,  true,  8)},//アサルト
+        {2,new Weapon_Date(WeaponType.ShotGun,     40, 1.2f, 0.7f,  6,  0.09f,  false, 6)},//6*5で30ダメージ//ショットガン
     };
 
     private List<Material> loadedMaterials = new();//マテリアルリスト
@@ -112,7 +112,7 @@ public class WeaponSystem : MonoBehaviour
             not_ammo_text.SetActive(false);
 
         //常にこの武器のSetActiveがtrueの時、攻撃力を更新させる
-        Player_Status.Player_Attack_Damage = weapon.attack_damage;
+        setting_attack_dmg = weapon.attack_damage;
         //フラッシュライトが有効にされたら時間経過で消去
         if (flash_light.activeInHierarchy == true)
             flash_light_time++;
@@ -141,6 +141,7 @@ public class WeaponSystem : MonoBehaviour
 
     void HandleInput()
     {
+        //武器の基礎を作成
         shooting = allow_bullet_hold ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
         if (ready_to_shoot && shooting && !reloading && bullets_left > 0)
         {
@@ -173,6 +174,7 @@ public class WeaponSystem : MonoBehaviour
 
     void Shoot()
     {
+        //弾丸を発射する
         ready_to_shoot = false;
         Vector3 spread_vec = muzzle_transform.TransformDirection(new Vector3(
             Random.Range(-spread, spread),
@@ -201,13 +203,13 @@ public class WeaponSystem : MonoBehaviour
     }
 
     void ResetShot() { ready_to_shoot = true; allow_invoke = true; }
-
+    //リロード開始関数
     public void Reload()
     {
         reloading = true;
        Invoke(nameof(ReloadFinished),reload_time);
     }
-
+    //リロード完了関数
     void ReloadFinished()
     {
         bullets_left = magazine_size;
@@ -216,6 +218,7 @@ public class WeaponSystem : MonoBehaviour
 
     public void BuildWeapon(WeaponType weapon_type)
     {
+        //武器を組み立てる
         ClearWeapon();
         LoadParts(weapon_type);
 
@@ -229,14 +232,12 @@ public class WeaponSystem : MonoBehaviour
 
         ConnectParts(handle.transform.Find("ConnectPoint_Body"), body.transform.Find("ConnectPoint_Handle"));
         ConnectParts(body.transform.Find("ConnectPoint_Nozzle"), nozzle.transform.Find("ConnectPoint_Body"));
-
-        //muzzle_transform = nozzle.transform;
-
         ready_to_shoot = true;
     }
 
     void ConnectParts(Transform base_point, Transform attach_point)
     {
+        //武器のパーツどうしをくっつける
         if (base_point == null || attach_point == null)
         {
             Debug.LogError("接続ポイントが見つかりません");
@@ -250,6 +251,7 @@ public class WeaponSystem : MonoBehaviour
 
     void LoadParts(WeaponType type)
     {
+        //武器のパーツをロード
         handles.Clear(); bodies.Clear(); nozzles.Clear();
         string basePath = $"{type}";
         handles.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Handles"));
@@ -315,14 +317,14 @@ public class WeaponSystem : MonoBehaviour
 // Weapon_Date.cs
 public class Weapon_Date
 {
-    public WeaponType type;
-    public int shot_force;
-    public float relode_time;
-    public float time_between_shooting;
-    public int magazine_size;
-    public float spread_amount;
-    public bool allow_bullet_hold;
-    public int attack_damage;
+    public WeaponType type;//武器の種類
+    public int shot_force;//発射速度
+    public float relode_time;//リロードにかかる時間
+    public float time_between_shooting;//発射間隔
+    public int magazine_size;//マガジンの容量
+    public float spread_amount;//発散の強度
+    public bool allow_bullet_hold;//フルオートかどうか
+    public int attack_damage;//攻撃力
     public Weapon_Date(WeaponType w_type, int force, float r_time, float bet_shot, int mag_size, float spr_amount, bool bullet_hold, int attack)
     {
         type = w_type;

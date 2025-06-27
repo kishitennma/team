@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
@@ -268,25 +269,28 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxis("Vertical");//c
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //•ûŒüÝ’è
 
+        if (Input.GetKey(KeyCode.W) == false && Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D) == false)
+        {
+            move_speed = 20f;//ƒL[‚ð—£‚µ‚½‚ç‘¬“x‚ð–ß‚·
+        }
         if(Collision_Hit)
         {
-            move_dir /= 10;
-            move_speed -= 0.5f;
-            
+            move_dir /= 10;//‰½‚©‚É“–‚½‚Á‚½‚çˆÚ“®‹——£‚ðŒ¸‚ç‚·
         }
         else
         {
-            move_speed += 0.05f;
+            move_speed += 0.05f;//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚éŠÔ‚Í”’l‚ð‰ÁŽZ
             if (move_speed >= 80.0f)
             {
                 move_speed = 80.0f;
             }
             else if(move_speed >= 60.0f)
             {
+                //‘¬“x‚ªˆê’èˆÈã‚ÅUŒ‚—Í‚ð‰ÁŽZ
                 Player_Status.Player_Attack_Damage += 1;
-                if(Player_Status.Player_Attack_Damage >= 100)
+                if(Player_Status.Player_Attack_Damage >= 60)
                 {
-                    Player_Status.Player_Attack_Damage = 100;
+                    Player_Status.Player_Attack_Damage = 60;
                 }
             }
         }

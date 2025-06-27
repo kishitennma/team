@@ -7,14 +7,14 @@ public class Enemy_Manager : MonoBehaviour
     public static Enemy_Manager enemy_count;
     public List<GameObject> boss;//ボスの出現フラグリスト
     private bool boss_spawned = false;//ボスの出現フラグ
-    //public GameObject boss_flag_text;//ボス出現テキスト
+    public GameObject boss_flag_text;//ボス出現テキスト
     public static bool last_boss_spawnwd = false;//最終ボス出現フラグ
     private List<GameObject> enemys = new();//エネミーのリスト
     private int boss_set_time = 0;
 
     private void Awake()
     {
-        //boss_flag_text.SetActive(false);
+        boss_flag_text.SetActive(false);
         if(enemy_count == null)
         {
             enemy_count = this;
@@ -30,7 +30,7 @@ public class Enemy_Manager : MonoBehaviour
         if(!boss_spawned && remaining == 0)
         {
             boss_set_time++;
-            //boss_flag_text.SetActive(true);
+            boss_flag_text.SetActive(true);
             if(boss_set_time > 100)
             {
                 //ボスを出現
@@ -40,7 +40,7 @@ public class Enemy_Manager : MonoBehaviour
                     remaining++;
                 }
                 boss_spawned = true;
-                //boss_flag_text.SetActive(false);
+                boss_flag_text.SetActive(false);
             }
             
             Debug.Log("ボス出現");
@@ -49,24 +49,24 @@ public class Enemy_Manager : MonoBehaviour
         if (!last_boss_spawnwd && boss_spawned && remaining == 0)
         {
             boss_set_time++;
-            //boss_flag_text.SetActive(true);
+            boss_flag_text.SetActive(true);
 
             if(boss_set_time > 200)
             {
                 remaining++;
                 boss[boss.Count - 1].SetActive(true);
                 boss_set_time = 0;
-                //boss_flag_text.SetActive(false);
+                boss_flag_text.SetActive(false);
             }
         }
         //ボスも全て倒されたらリザルトを表示
         if(boss_spawned && last_boss_spawnwd && remaining == 0)
         {
-            /*Time.timeScale = 0f; // ゲーム停止
-            FindObjectOfType<ResultManager>()?.ShowResult(); // リザルト表示のトリガー
-            this.enabled = false; // Enemy_ManagerのUpdateを止める（任意）*/
            
             SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+            //カーソルを元に戻す
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
     

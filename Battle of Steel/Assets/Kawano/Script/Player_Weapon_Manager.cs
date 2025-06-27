@@ -59,8 +59,8 @@ public class Player_Weapon_Manager : MonoBehaviour
         anim_end_flag = true;
         weapon_system = change_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
         weapon_system.ammo_text = ammo_texts;
+        Player_Status.Player_Attack_Damage = weapon_system.setting_attack_dmg;//攻撃力を入力
         change_weapon.transform.position = set_weapon_point.transform.position;//位置を武器を持たせる位置に合わせる
-        Debug.Log("武器を交換しました");
     }
     //武器変更用アニメーションストップ
     public void Set_End_Change_Anim()
