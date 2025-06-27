@@ -90,7 +90,7 @@ public class WeaponSystem : MonoBehaviour
             Debug.Log("武器インデックス" + index + "を装備");
         }
 
-            weapon = weapon_index[index];//武器情報を持たせる
+        weapon = weapon_index[index];//武器情報を持たせる
         Debug.Log(index);//インデックス番号を取得
         BuildWeapon(weapon.type); // 見た目生成
 

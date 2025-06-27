@@ -257,7 +257,25 @@ public class PlayerController : MonoBehaviour
 
         if(Collision_Hit)
         {
-            move_dir /= 4;
+            move_dir /= 10;
+            move_speed -= 0.5f;
+            
+        }
+        else
+        {
+            move_speed += 0.05f;
+            if (move_speed >= 80.0f)
+            {
+                move_speed = 80.0f;
+            }
+            else if(move_speed >= 60.0f)
+            {
+                Player_Status.Player_Attack_Damage += 1;
+                if(Player_Status.Player_Attack_Damage >= 100)
+                {
+                    Player_Status.Player_Attack_Damage = 100;
+                }
+            }
         }
         if (!Input.GetKey(KeyCode.LeftShift))
         {

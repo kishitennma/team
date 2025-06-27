@@ -38,13 +38,11 @@ public class Player_Weapon_Manager : MonoBehaviour
             //サブ武器を所持している、手に持っているのがメイン武器の場合set_keyで変更
             if(!hold_secondry_weapon && Input.GetKeyDown(set_key)&& anim_end_flag == false)
             {
-                player_animator.SetBool("Change_Weapon", true);
                 Set_Weapon_hand(sub_weapon, main_weapon);
                 hold_secondry_weapon = true;
             }
             else if(hold_secondry_weapon && Input.GetKeyDown(set_key) && anim_end_flag == false)
             {
-                player_animator.SetBool("Change_Weapon", true);
                 Set_Weapon_hand(main_weapon, sub_weapon);
                 hold_secondry_weapon = false;
             }
@@ -57,13 +55,13 @@ public class Player_Weapon_Manager : MonoBehaviour
 
     private void Set_Weapon_hand(GameObject change_weapon,GameObject set_weapon)
     {
+        player_animator.SetBool("Change_Weapon",true);
         anim_end_flag = true;
         weapon_system = change_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
         weapon_system.ammo_text = ammo_texts;
         change_weapon.transform.position = set_weapon_point.transform.position;//位置を武器を持たせる位置に合わせる
         Debug.Log("武器を交換しました");
     }
-  
     //武器変更用アニメーションストップ
     public void Set_End_Change_Anim()
     {
