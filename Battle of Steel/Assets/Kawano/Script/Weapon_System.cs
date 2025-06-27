@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Runtime.CompilerServices;
 
 public enum WeaponType 
 { 
@@ -18,6 +19,7 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] GameObject bullet_prefab;
     [Header("弾丸情報テキスト")]
     public Text ammo_text;
+    public GameObject not_ammo_text;
     [Header("マズルフラッシュを読み込む")]
     public ParticleSystem flash;//フラッシュパーティクル
     public GameObject flash_light;//フラッシュライト
@@ -74,7 +76,7 @@ public class WeaponSystem : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 120;//60FPS（仮）
-
+        not_ammo_text.SetActive(false);
         //PlayerPrefsにセーブされた二つの数字を読み込む
         index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
         //nullなら-1
@@ -106,6 +108,9 @@ public class WeaponSystem : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Q))
+            not_ammo_text.SetActive(false);
+
         //常にこの武器のSetActiveがtrueの時、攻撃力を更新させる
         Player_Status.Player_Attack_Damage = weapon.attack_damage;
         //フラッシュライトが有効にされたら時間経過で消去
@@ -154,6 +159,11 @@ public class WeaponSystem : MonoBehaviour
                 Shoot();
             }
                 bullets_left--;
+
+            if(bullets_left <= 0)
+            {
+                not_ammo_text.SetActive(true);
+            }
 
             flash.Play();
             flash_sound.Play();
@@ -299,8 +309,6 @@ public class WeaponSystem : MonoBehaviour
             }
         }
     }
-
-
 }
 
 //武器情報ベースクラス
