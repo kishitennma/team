@@ -5,46 +5,40 @@ using UnityEngine.UI;
 
 public class GageGagerHP : MonoBehaviour
 {
-    GameObject HP_Text;//HPéÊìæ
-    HPText script;
-
     private int myhp ;//HPåªç›íl
-    private Image image;
+    private Image image;//imageéÊìæ
 
     int max;//ç≈ëÂíl
     private void Start()
     {
-        HP_Text = GameObject.Find("HP_Text"); 
-        script = HP_Text.GetComponent<HPText>();
         image = this.GetComponent<Image>();
-        myhp = Player_Status.Player_HP;
         max = Player_Status.Player_HP;
     }
 
     private void Update()
     {
+        //èCê≥
+        
+        //åªç›íl
         myhp = Player_Status.Player_HP;
-        //if (Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    myhp--;
-        //}
-        //else if (Input.GetKey(KeyCode.RightArrow))
-        //{
-        //    myhp++;
-        //}
+        if(max<myhp)
+        {
+            max = myhp;
+        }
 
         //ÉQÅ[ÉWä«óù
         image.fillAmount = (float)myhp / (float)max;
-        if((myhp / max) <0)
-        {
-            image.fillAmount = 0.0f;
-            myhp = 0;
-        }
-        else if(myhp / max >1.0f)
-        {
-            image.fillAmount = 1.0f;
-            myhp = max;
-        }
+        //í¥âﬂñhé~
+        //if((myhp / max) <0)
+        //{
+        //    image.fillAmount = 0.0f;
+        //    myhp = 0;
+        //}
+        //else if(myhp / max >1.0f)
+        //{
+        //    image.fillAmount = 1.0f;
+        //    myhp = max;
+        //}
 
         //êFä«óù
         if (image.fillAmount <= 0)

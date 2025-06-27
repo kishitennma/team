@@ -1,6 +1,4 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GunChange : MonoBehaviour
 {
@@ -24,10 +22,10 @@ public class GunChange : MonoBehaviour
         }
         else//その他
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject);//破棄
         }
         //位置変更
-        if (sub == false)
+        if (sub == false)//メイン武器使用時
         {
             if (!pw_manager.hold_secondry_weapon)//メイン
             {
@@ -38,7 +36,7 @@ public class GunChange : MonoBehaviour
                 transform.localPosition = new Vector3(400.0f, -43.0f, 0.0f);
             }
         }
-        else
+        else//サブ武器使用時
         {
             if (pw_manager.hold_secondry_weapon)//メイン
             {

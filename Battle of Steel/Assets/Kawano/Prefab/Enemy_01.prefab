@@ -1331,7 +1331,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2224749531446805750, guid: d4045b9e7738c034b8a4a4f874ca6819, type: 3}
+  - {fileID: 2100000, guid: 06749284a6aedb44581289c5eb736f39, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2633,7 +2633,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  bullet_prefab: {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
+  bullet_prefab:
+  - {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
+  - {fileID: 5469406016197046517, guid: 3ae377ee95d2c924aa2cd51cba0175c0, type: 3}
   bullet_point: {fileID: 3942092277564725808}
   bullet_force: 80
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
@@ -2714,7 +2716,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.94, z: 1}
+  m_Size: {x: 1.3, y: 1.94, z: 1.3}
   m_Center: {x: 0, y: 1.06, z: -0.09}
 --- !u!82 &5456866604013756701
 AudioSource:

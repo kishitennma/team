@@ -1340,13 +1340,12 @@ MonoBehaviour:
   player: {fileID: 1412561548}
   rb: {fileID: 1412561549}
   cam: {fileID: 961739749}
-  trail1: {fileID: 754860681}
-  trail2: {fileID: 806997787}
   maincam: {fileID: 961739752}
   animator: {fileID: 1412561555}
   motionBlur: {fileID: 0}
   jump_flag: 1
   jump_second: 0
+  jump_end: 0
   jumppower: 10
   move_speed: 30
   dash_speed: 1.5
@@ -1357,6 +1356,8 @@ MonoBehaviour:
   fov_changeamount: 10
   min_fov: 60
   max_fov: 90
+  TrailLeft: {fileID: 754860683}
+  TrailRight: {fileID: 806997789}
 --- !u!1 &1467417832
 GameObject:
   m_ObjectHideFlags: 0

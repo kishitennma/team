@@ -1,11 +1,18 @@
 using UnityEngine;
-
+enum Bullet_Act
+{
+     None = 0,
+     Homing = 1
+}
 public class EnemyBulletAction : MonoBehaviour
 {
     [SerializeField] float life_time;//弾丸の生存時間
+    [SerializeField] Bullet_Act act;//弾丸の種類を設定
     public GameObject explosive_effect;//爆発エフェクト
+    public Rigidbody rb;
     public int attack_damage = 0;//弾丸のダメージ
     private Damage_Calclate cal;//ダメージ計算
+    private Vector3 b_vec;//弾丸の向いている方向
 
     private void Start()
     {
@@ -48,5 +55,15 @@ public class EnemyBulletAction : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        //ホーミングが有効で、かつ、プレイヤーだった場合
+        if(act == Bullet_Act.Homing && other.gameObject.CompareTag("Player")== true)
+        {
+            b_vec = gameObject.transform.position - other.gameObject.transform.position;
+            transform.rotation = Quaternion.LookRotation(b_vec);//角度をdirectionまで変更
+            rb.AddForce(-b_vec.normalized*2f,ForceMode.Impulse);
+        }
     }
 }

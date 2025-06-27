@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject player;//キャラクターオブジェクト
     public Rigidbody rb;//キャラクターオブジェクトのRigidBody
     public GameObject cam;
-    public GameObject trail1;
-    public GameObject trail2;
+    //public GameObject trail1;
+    //public GameObject trail2;
     public Camera maincam;
     public Animator animator; // キャラクターオブジェクトのAnimator
     public MotionBlur motionBlur;
@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     public float fov_changeamount = 10.0f;
     public float min_fov = 60.0f;
     public float max_fov = 90.0f;
+    public TrailRenderer TrailLeft;
+    public TrailRenderer TrailRight;
+
 
     private bool Collision_Hit = false;
 
@@ -193,9 +196,14 @@ public class PlayerController : MonoBehaviour
             jump_flag = false;
             boost -= 0.3f;
         }
+        if(!jump_flag) //空中にとどまれなくする処理
+        {
+            boost -= 0.2f;
+        }
+
         if (animator.GetFloat("IsDashing") == 1.0f )
         {
-            boost -= 0.1f;
+            boost -= 0.5f;
             camera_Fovaway();
         }
         else
@@ -241,7 +249,7 @@ public class PlayerController : MonoBehaviour
         //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
-        Debug.Log(rb.linearVelocity.y);
+       // Debug.Log(rb.linearVelocity.y);
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
@@ -256,8 +264,11 @@ public class PlayerController : MonoBehaviour
             //通常時
             animator.SetFloat("IsDashing", 0.0f);
             input_direction = move_dir;
-            trail1.SetActive(false);
-            trail2.SetActive(false);
+            TrailLeft.time = 0.1f;
+            TrailRight.time = 0.1f;
+            TrailLeft.material.color = Color.white;
+            TrailRight.material.color = Color.white;
+
 
         }
         else
@@ -267,8 +278,10 @@ public class PlayerController : MonoBehaviour
                 //ダッシュ時
                 animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
                 input_direction = move_dir * dash_speed;//移動ベクトルを設定
-                trail1.SetActive(true);
-                trail2.SetActive(true);
+                TrailLeft.time = 0.5f;
+                TrailRight.time = 0.5f;
+                TrailLeft.material.color = Color.cyan;
+                TrailRight.material.color = Color.cyan;
 
             }
             else
@@ -277,8 +290,10 @@ public class PlayerController : MonoBehaviour
                 //通常時
                 animator.SetFloat("IsDashing", 0.0f);
                 input_direction = move_dir;
-                trail1.SetActive(false);
-                trail2.SetActive(false);
+                TrailLeft.time = 0.1f;
+                TrailRight.time = 0.1f;
+                TrailLeft.material.color = Color.white;
+                TrailRight.material.color = Color.white;
             }
 
         }
@@ -288,9 +303,7 @@ public class PlayerController : MonoBehaviour
 
 
         if (Collision_Hit)
-        {
-            
-            Debug.Log(move_dir);
+        {            
         }
         //衝突していないとき移動速度を設定
         else if (!Collision_Hit)

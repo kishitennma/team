@@ -1823,7 +1823,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2224749531446805750, guid: d4045b9e7738c034b8a4a4f874ca6819, type: 3}
+  - {fileID: 2100000, guid: 06749284a6aedb44581289c5eb736f39, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2759,11 +2759,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  bullet_prefab: {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
+  bullet_prefab:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   bullet_point: {fileID: 3704990444922041111}
   bullet_force: 80
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
   a_source: {fileID: 6025016163334896014}
+  boss_mat: {fileID: 2100000, guid: 06749284a6aedb44581289c5eb736f39, type: 2}
   count_game_state: 0
   Enemy_Die: {fileID: 8898038457827238276, guid: 8f53feb770b6e19438d920712759cb99, type: 3}
 --- !u!95 &6991676851204031509

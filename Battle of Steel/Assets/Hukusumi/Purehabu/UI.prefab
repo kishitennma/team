@@ -211,15 +211,15 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7021753345817171431}
-  - {fileID: 4886373221883689776}
+  - {fileID: 5726481039723475116}
   - {fileID: 5286440066837073858}
   - {fileID: 5548570070462607372}
   - {fileID: 475130737611968825}
   - {fileID: 3527421624931591523}
   - {fileID: 6427730770261972465}
   - {fileID: 148898895059657405}
-  - {fileID: 5726481039723475116}
   - {fileID: 6897522816059407071}
+  - {fileID: 4886373221883689776}
   - {fileID: 1827489062305725567}
   m_Father: {fileID: 2548716147186129111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -417,7 +417,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.001159668, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6786100741122472100
@@ -993,7 +993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -438.9, y: -16.100006}
+  m_AnchoredPosition: {x: -439.1, y: -16.100037}
   m_SizeDelta: {x: -2, y: -0.99999905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6812647752919861127
@@ -1017,7 +1017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.21176471}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1081,7 +1081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 339, y: -201}
+  m_AnchoredPosition: {x: 339, y: -200.99994}
   m_SizeDelta: {x: 960.3154, y: 14.844513}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &207302560411874974

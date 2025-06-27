@@ -7,11 +7,14 @@ public class Enemy_Manager : MonoBehaviour
     public static Enemy_Manager enemy_count;
     public List<GameObject> boss;//ボスの出現フラグリスト
     private bool boss_spawned = false;//ボスの出現フラグ
-    private bool last_boss_spawnwd = false;//最終ボス出現フラグ
-    private List<GameObject> enemys = new();
+    public GameObject boss_flag_text;//ボス出現テキスト
+    public static bool last_boss_spawnwd = false;//最終ボス出現フラグ
+    private List<GameObject> enemys = new();//エネミーのリスト
+    private int boss_set_time = 0;
 
     private void Awake()
     {
+        boss_flag_text.SetActive(false);
         if(enemy_count == null)
         {
             enemy_count = this;
@@ -26,20 +29,35 @@ public class Enemy_Manager : MonoBehaviour
         int remaining = enemy_count.GetAliveEnemyCount();
         if(!boss_spawned && remaining == 0)
         {
-            //ボスを出現
-            for (int i = 0; i < boss.Count-1; i++)
+            boss_set_time++;
+            boss_flag_text.SetActive(true);
+            if(boss_set_time > 100)
             {
-                boss[i].SetActive(true);
-                remaining++;
+                //ボスを出現
+                for (int i = 0; i < boss.Count - 1; i++)
+                {
+                    boss[i].SetActive(true);
+                    remaining++;
+                }
+                boss_spawned = true;
+                boss_flag_text.SetActive(false);
             }
-            boss_spawned = true;
+            
             Debug.Log("ボス出現");
         }
         //ボスが全て倒されたら最終ボスを出現させる
         if (!last_boss_spawnwd && boss_spawned && remaining == 0)
         {
-            boss[boss.Count].SetActive(true);
-            remaining++;
+            boss_set_time++;
+            boss_flag_text.SetActive(true);
+
+            if(boss_set_time > 200)
+            {
+                remaining++;
+                boss[boss.Count - 1].SetActive(true);
+                boss_set_time = 0;
+                boss_flag_text.SetActive(false);
+            }
         }
         //ボスも全て倒されたらリザルトを表示
         if(boss_spawned && last_boss_spawnwd && remaining == 0)
