@@ -83,29 +83,29 @@ public class Boss_Cnt : Damage_Calclate
             {
                 boss_act_count = Random.Range(1, 4);
                 C_Color(boss_act_count, boss_mat);//カラーをカウント事にマテリアルを変える
-                switch (boss_act_count)
-                {
-                    case 1:
-                        {
-                            Way_Shot(12, 12, false);
-                            b_time = 0;
-                        }
-                        break;
-                    case 2:
-                        {
-                            Homing_Shot(5, 5);
-                            b_time = 0;
-                        }
-                        break;
-                    case 3:
-                        {
-                            Mul_Shot(10, 7);
-                            b_time = 0;
-                        }
-                        break;
-                }
-
             }
+            switch (boss_act_count)
+            {
+                case 1:
+                    {
+                        Way_Shot(12, 12, false);
+                        b_time = 0;
+                    }
+                    break;
+                case 2:
+                    {
+                        Homing_Shot(5, 5);
+                        b_time = 0;
+                    }
+                    break;
+                case 3:
+                    {
+                        Mul_Shot(10, 7);
+                        b_time = 0;
+                    }
+                    break;
+            }
+
         }
     }
 //Playerが範囲内に入ったらその方向を向く
