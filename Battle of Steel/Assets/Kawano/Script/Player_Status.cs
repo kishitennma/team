@@ -13,8 +13,6 @@ public class Player_Status : MonoBehaviour
     private void Start()
     {
         Player_HP = 100;
-        Cursor.visible = false;//カーソル非表示
-        Cursor.lockState = CursorLockMode.Locked;
         Weapon_image.SetActive(false);
     }
 
