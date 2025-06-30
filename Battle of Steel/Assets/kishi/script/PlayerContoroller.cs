@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool jump_second = false;//空中でのジャンンプフラグ
     public bool jump_end = false;//ジャンプ終了フラグ
     public float jumppower;
+    public bool move = false;
 
     [SerializeField] float move_speed;//キャラクターの移動速度
     [SerializeField] float dash_speed;//ダッシュ補正速度
@@ -177,7 +179,7 @@ public class PlayerController : MonoBehaviour
             boost_empty = true;
         if (boost >= boost_max)
             boost_empty = false;
-        if (Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f && !boost_empty)//地上からのジャンプ
+        if (Input.GetKeyDown(KeyCode.Space) && jump_flag && boost >= 20.0f && !boost_empty&&!move)//地上からのジャンプ
         {
             rb.linearVelocity = new Vector3(0, (jumppower * 3.0f), 0);
             Debug.Log(rb.linearVelocity);
@@ -200,8 +202,12 @@ public class PlayerController : MonoBehaviour
 
         if (animator.GetFloat("IsDashing") == 1.0f )
         {
-            boost -= 0.5f;
-            camera_Fovaway();
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+          Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
+            {
+                boost -= 0.3f;
+                camera_Fovaway();
+            }
         }
         else
         {
@@ -212,6 +218,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
           Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S))
         {
+           
             if (jump_flag == false)
             {
                 boost -= 0.1f;
@@ -224,11 +231,18 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (boost < 0.0f)
+        {
+           
+            rb.useGravity = true;
+        }
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) ||
            Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.S) || boost >= 0)
         {
             rb.useGravity = true;
+            move = false ;
         }
+        
 
         //ブースト超過対策H
         if (boost / boost_max < 0)
@@ -253,9 +267,32 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxis("Vertical");//縦
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
 
+        if (Input.GetKey(KeyCode.W) == false && Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D) == false)
+        {
+            move_speed = 20f;//キーを離したら速度を戻す
+            Player_Status.Player_Attack_Damage = Player_Status.Player_Put_Attack_Damage;//攻撃力を元の値に戻す
+        }
         if(Collision_Hit)
         {
-            move_dir /= 4;
+            move_dir /= 10;//何かに当たったら移動距離を減らす
+            move_speed = 20f;
+            Player_Status.Player_Attack_Damage = Player_Status.Player_Put_Attack_Damage;//攻撃力を元の値に戻す
+        }
+        else
+        {
+            move_speed += 0.1f;//キーが押されている間は数値を加算
+            if (move_speed >= 80.0f)
+            {
+                move_speed = 80.0f;
+            }
+            else if(move_speed >= 70.0f)
+            {
+                Player_Status.Player_Attack_Damage++;
+                if(Player_Status.Player_Attack_Damage > 80)
+                {
+                    Player_Status.Player_Attack_Damage = 80;
+                }
+            }
         }
         if (!Input.GetKey(KeyCode.LeftShift))
         {

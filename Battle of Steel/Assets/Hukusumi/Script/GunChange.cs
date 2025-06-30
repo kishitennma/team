@@ -10,7 +10,7 @@ public class GunChange : MonoBehaviour
     public bool sub = false;//ƒTƒu‚©‚Ç‚¤‚©
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Gun_Num == w_index.index)//ƒƒCƒ“
         {

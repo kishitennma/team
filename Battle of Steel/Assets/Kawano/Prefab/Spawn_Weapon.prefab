@@ -52,6 +52,7 @@ MonoBehaviour:
   type: 0
   bullet_prefab: {fileID: 7653338419620912568, guid: 4f26e74faffb53145913aa3f671b0dbc, type: 3}
   ammo_text: {fileID: 0}
+  not_ammo_text: {fileID: 0}
   flash: {fileID: 4665344555953982560}
   flash_light: {fileID: 5368437844840972801}
   flash_sound: {fileID: 6722274430989344847}
@@ -72,7 +73,9 @@ MonoBehaviour:
   magazine_size: 0
   bullets_left: 0
   bullets_shot: 0
+  setting_attack_dmg: 0
   player: {fileID: 5402645781308810900, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  index: 0
   muzzle_transform: {fileID: 7586738259177996003, guid: e5e1969ea9f079f4a9714b69b5e6c80e, type: 3}
 --- !u!82 &6722274430989344847
 AudioSource:
@@ -255,8 +258,20 @@ PrefabInstance:
       value: flash
       objectReference: {fileID: 0}
     - target: {fileID: 7107865335564259617, guid: 6d1e1d4c3cc76e842ade3aeec9af7a33, type: 3}
+      propertyPath: lengthInSec
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107865335564259617, guid: 6d1e1d4c3cc76e842ade3aeec9af7a33, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107865335564259617, guid: 6d1e1d4c3cc76e842ade3aeec9af7a33, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107865335564259617, guid: 6d1e1d4c3cc76e842ade3aeec9af7a33, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -331,6 +346,10 @@ PrefabInstance:
     - target: {fileID: 2738172474694730650, guid: f22060a30e484e9479cd8662f6613915, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143016366838581022, guid: f22060a30e484e9479cd8662f6613915, type: 3}
+      propertyPath: m_Range
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
