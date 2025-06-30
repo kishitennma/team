@@ -198,10 +198,7 @@ public class PlayerController : MonoBehaviour
             jump_flag = false;
             boost -= 0.3f;
         }
-        if(!jump_flag) //‹ó’†‚É‚Æ‚Ç‚Ü‚ê‚È‚­‚·‚éˆ—
-        {
-            boost -= 0.2f;
-        }
+       
 
         if (animator.GetFloat("IsDashing") == 1.0f )
         {
@@ -224,6 +221,7 @@ public class PlayerController : MonoBehaviour
            
             if (jump_flag == false)
             {
+                boost -= 0.1f;
                 if (boost > 0.0f)
                 {
                     AddForce_reset();
@@ -239,7 +237,7 @@ public class PlayerController : MonoBehaviour
             rb.useGravity = true;
         }
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) ||
-           Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.S))
+           Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.S) || boost >= 0)
         {
             rb.useGravity = true;
             move = false ;
