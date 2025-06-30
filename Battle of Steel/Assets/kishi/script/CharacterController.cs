@@ -105,7 +105,7 @@ public class ChracterController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-        tr = this.transform;
+  
 
         //ブースト初期値反映H
         boost_max = boost;
@@ -183,21 +183,21 @@ public class ChracterController : MonoBehaviour
 
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
-         if(horizontal > 0)
-         {
-            transform.Rotate(0, rotatespeed * Time.fixedDeltaTime, 0);
-         }
-         if(horizontal < 0)
-         {
-            transform.Rotate(0, (-1) * rotatespeed * Time.fixedDeltaTime, 0);
-         }
+         //if(horizontal > 0)
+         //{
+         //   transform.Rotate(0, rotatespeed * Time.fixedDeltaTime, 0);
+         //}
+         //if(horizontal < 0)
+         //{
+         //   transform.Rotate(0, (-1) * rotatespeed * Time.fixedDeltaTime, 0);
+         //}
 
-        movevecter = tr.forward * vertical * Time.fixedDeltaTime * speed;
-        rb.linearVelocity = new Vector3(movevecter.x, rb.linearVelocity.y, movevecter.z);
-
-
+        movevecter = new Vector3(horizontal, 0, vertical).normalized;
+        rb.linearVelocity = movevecter * speed;
 
 
+
+       
 
 
 
@@ -284,7 +284,7 @@ public class ChracterController : MonoBehaviour
         }
         //移動方向を設定
         Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
-        rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
+        //rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
 
 
         if (Collision_Hit)
