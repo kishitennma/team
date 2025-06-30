@@ -6,6 +6,11 @@ public class StageChange : MonoBehaviour
     public static bool first_boss_spawned = false;//他のスクリプトからtrueにされる
     public GameObject first_building;//下に行くオブジェクト群
 
+    private void Start()
+    {
+        first_boss_spawned = false;
+    }
+
     private int counts = 0;
     void FixedUpdate()
     {
