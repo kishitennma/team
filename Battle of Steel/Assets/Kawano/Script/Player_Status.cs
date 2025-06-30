@@ -18,13 +18,14 @@ public class Player_Status : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //UŒ‚—Í‚ªŠî–{’l‚æ‚è‚à‘å‚«‚­‚È‚Á‚½‚ç‰æ‘œ‚ğ•\¦
         if(Player_Put_Attack_Damage < Player_Attack_Damage)
         {
             Weapon_image.SetActive(true);
         }
         else
         {
-            Weapon_image?.SetActive(false);
+            Weapon_image.SetActive(false);
         }
         if (Player_HP < 1)
         {
