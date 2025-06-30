@@ -2541,11 +2541,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -438.30002
+      value: -438.30005
       objectReference: {fileID: 0}
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -16.100021
+      value: -16.100037
       objectReference: {fileID: 0}
     - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: w_index
@@ -2641,11 +2641,11 @@ PrefabInstance:
       objectReference: {fileID: 1868466054}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -411.09982
+      value: -411.09985
       objectReference: {fileID: 0}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -219.09996
+      value: -219.09998
       objectReference: {fileID: 0}
     - target: {fileID: 4910480069966234438, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_Name
@@ -16297,6 +16297,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 100352824}
     - target: {fileID: 2032771080217421395, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+      propertyPath: TrailLeft
+      value: 
+      objectReference: {fileID: 1950770765}
+    - target: {fileID: 2032771080217421395, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: jumppower
       value: 10
       objectReference: {fileID: 0}
@@ -16304,6 +16308,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2032771080217421395, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
+      propertyPath: TrailRight
+      value: 
+      objectReference: {fileID: 153654357}
     - target: {fileID: 2032771080217421395, guid: b1151b8914bcc9246ad7a56194dd7853, type: 3}
       propertyPath: dash_speed
       value: 1.3
