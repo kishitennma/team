@@ -128,7 +128,7 @@ public class Enemy_Controller : Damage_Calclate
         {
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                Mul_Shot(8, 2);
+                Mul_Shot(5, 4);
 
                 b_time = 0;
             }
@@ -175,6 +175,11 @@ public class Enemy_Controller : Damage_Calclate
             transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
             act_shot = true;//弾丸発射
         }
+    }
+    //Playerが範囲外だったらやめる
+    private void OnTriggerExit(Collider other)
+    {
+        act_shot = false;
     }
     //Bulletタグに当たったら体力を減らす
     private void OnCollisionEnter(Collision collision)
@@ -311,9 +316,9 @@ public class Enemy_Controller : Damage_Calclate
 
             //プレイヤーが移動している方向へ、偏差で撃つ
             if (Input.GetKey(KeyCode.D))
-                e_vec += new Vector3(20f, 0, 0);
+                e_vec += new Vector3(10f, 0, 0);
             else if (Input.GetKey(KeyCode.A))
-                e_vec += new Vector3(-20f, 0, 0);
+                e_vec += new Vector3(-10f, 0, 0);
 
 
                 //RigidBodyにbullet_force分の力を加える

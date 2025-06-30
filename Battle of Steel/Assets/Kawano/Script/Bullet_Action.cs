@@ -1,8 +1,9 @@
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Bullet_Action : MonoBehaviour
 {
-    [SerializeField] float life_time;//弾丸の生存時間
+    public static float life_time;//弾丸の生存時間
     public GameObject explosive_obj;//弾丸爆発エフェクト
     private void Start()
     {

@@ -149,6 +149,7 @@ public class WeaponSystem : MonoBehaviour
             //ショットガンの場合、複数の弾を同時に出す
             if(weapon.type == WeaponType.ShotGun)
             {
+                Bullet_Action.life_time = 0.25f;
                 int bullet_per_tap = allow_per_shots;//５発
                 for (int i = 0; i < bullet_per_tap;i++)
                 {
@@ -157,6 +158,7 @@ public class WeaponSystem : MonoBehaviour
             }
             else
             {
+                Bullet_Action.life_time = 0.6f;
                 Shoot();
             }
                 bullets_left--;

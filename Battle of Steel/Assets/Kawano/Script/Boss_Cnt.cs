@@ -9,7 +9,6 @@ public class Boss_Cnt : Damage_Calclate
     [Header("弾のプレハブ")]
     [SerializeField] GameObject[] bullet_prefab;//弾のプレハブ
     [SerializeField] GameObject bullet_point;//弾の発射位置
-    [SerializeField] int bullet_force;//弾丸の発射速度
     [SerializeField] GameObject Explosive_unit;//爆発エフェクト
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
@@ -29,6 +28,7 @@ public class Boss_Cnt : Damage_Calclate
     private int add_count = 10;//加算値
     private float bullet_per_shot;//発射間隔
     private bool act_shot = false;//弾丸発射許可値
+    private float bullet_force;//弾丸の発射速度
     private Vector3 e_vec;//ベクトル
     public AudioSource Enemy_Die;
 
@@ -88,18 +88,21 @@ public class Boss_Cnt : Damage_Calclate
             {
                 case 1:
                     {
+                        bullet_force = 40.0f;
                         Way_Shot(12, 12, false);
                         b_time = 0;
                     }
                     break;
                 case 2:
                     {
+                        bullet_force = 12.0f;
                         Homing_Shot(5, 5);
                         b_time = 0;
                     }
                     break;
                 case 3:
                     {
+                        bullet_force = 200f;
                         Mul_Shot(10, 7);
                         b_time = 0;
                     }
