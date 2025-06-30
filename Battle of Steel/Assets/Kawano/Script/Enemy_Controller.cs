@@ -128,8 +128,7 @@ public class Enemy_Controller : Damage_Calclate
         {
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                //修正中;                
-                Mul_Shot(5, 20);
+                Mul_Shot(8, 2);
 
                 b_time = 0;
             }
@@ -310,8 +309,15 @@ public class Enemy_Controller : Damage_Calclate
             bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
             bullet.transform.rotation = Quaternion.LookRotation(-e_vec);//角度をdirectionまで変更
 
-            //RigidBodyにbullet_force分の力を加える
-            bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
+            //プレイヤーが移動している方向へ、偏差で撃つ
+            if (Input.GetKey(KeyCode.D))
+                e_vec += new Vector3(20f, 0, 0);
+            else if (Input.GetKey(KeyCode.A))
+                e_vec += new Vector3(-20f, 0, 0);
+
+
+                //RigidBodyにbullet_force分の力を加える
+                bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
 
             shot_count_s++;
             act_time = 0;
