@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class MouseLock : MonoBehaviour
 {
+    private float get_hp;//現在の体力
+    public PlayerController Game_Manager;//プレイヤー取得
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Tab))//カーソル有効化
+        get_hp=Player_Status.Player_HP;//現在値取得
+        if (Input.GetKey(KeyCode.Tab)|| get_hp<=0)//カーソル有効化
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
