@@ -11,7 +11,7 @@ public class MouseLock : MonoBehaviour
     void Update()
     {
         get_hp=Player_Status.Player_HP;//現在値取得
-        if (Input.GetKey(KeyCode.Tab)|| get_hp<=0)//カーソル有効化
+        if (Input.GetKey(KeyCode.Tab))//カーソル有効化
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
