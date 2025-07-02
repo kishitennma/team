@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6960646445782145248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1852986659685546530}
+  m_Layer: 0
+  m_Name: Bullet_Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1852986659685546530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960646445782145248}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.063, y: 1.392, z: -0.504}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2436771221282431930}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2763978712240243793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -750,7 +781,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1852986659685546530}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
       insertIndex: -1
@@ -777,6 +811,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2343398458044421258}
   m_SourcePrefab: {fileID: 100100000, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
+--- !u!4 &2436771221282431930 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
+  m_PrefabInstance: {fileID: 2763978712240243793}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3070036779774998784 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
@@ -799,11 +838,10 @@ MonoBehaviour:
   - {fileID: 6551706361343100762, guid: 1d1b66701818c0a49991fb300ccf5038, type: 3}
   - {fileID: 5469406016197046517, guid: 3ae377ee95d2c924aa2cd51cba0175c0, type: 3}
   - {fileID: 4954745963997508492, guid: c5d0c7b8659e0ae409e10ec891a2a0c9, type: 3}
-  bullet_point: {fileID: 5517752301159695829}
+  bullet_point: {fileID: 6960646445782145248}
   bullet_force: 110
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
   a_source: {fileID: 6800895121598482014}
-  count_game_state: 0
   Enemy_Die: {fileID: 8898038457827238276, guid: 8f53feb770b6e19438d920712759cb99, type: 3}
 --- !u!95 &6982814605210737259
 Animator:
@@ -1102,8 +1140,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c192448eafcd82b4096a1e4e3e5d1f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5517752301159695829 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -1528583373299809916, guid: 3ca8db664729d5b4486c41776482aa9e, type: 3}
-  m_PrefabInstance: {fileID: 2763978712240243793}
-  m_PrefabAsset: {fileID: 0}
