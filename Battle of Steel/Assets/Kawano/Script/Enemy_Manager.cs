@@ -14,6 +14,10 @@ public class Enemy_Manager : MonoBehaviour
 
     private void Awake()
     {
+        //ƒtƒ‰ƒO‰Šú‰»
+        last_boss_spawnwd = false;
+        boss_spawned = false;
+
         boss_flag_text.SetActive(false);
         if(enemy_count == null)
         {

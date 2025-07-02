@@ -24,7 +24,6 @@ public class Set_Weapon_Data : MonoBehaviour
             {
                 return;
             }
-            Save_Weapons_Index();
         }
 
     }
