@@ -8,7 +8,7 @@ public class MouseReset : MonoBehaviour
     void Start()
     {
         //ƒ}ƒEƒX‰Šú‰»
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
