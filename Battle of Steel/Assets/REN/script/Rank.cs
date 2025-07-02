@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; //TextMeshProを使うための名前空間
+using UnityEngine.UI;
 public class Rank : MonoBehaviour
 {
-
-   //[SerializeField] TextMeshProUGUI countText;     //体力（またはスコア）を表示するUIテキスト(多分いらない)
-    [SerializeField] TextMeshProUGUI rankText;      //ランク（A〜Dなど）を表示するUIテキスト
+    [SerializeField] Text rankText;      //ランク（S〜Cなど）を表示するUIテキスト
 
     private int HP = 0;
     void Start()
@@ -16,7 +14,7 @@ public class Rank : MonoBehaviour
 
       
 
-        //countText.text = HP.ToString();     //現在の体力を表示(リザルトなので多分いらない)
+        //countText.text = HP.ToString();   //現在の体力を表示(リザルトなので多分いらない)
         rankText.text = "";                 //初期は空
 
         //プレイヤーの残り体力に応じてランク分け
