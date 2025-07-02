@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 6917285836103759035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.494}
+  m_LocalPosition: {x: 0, y: -0.704, z: -2.583}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -249,7 +249,6 @@ MonoBehaviour:
   - {fileID: 5469406016197046517, guid: 3ae377ee95d2c924aa2cd51cba0175c0, type: 3}
   - {fileID: 4954745963997508492, guid: c5d0c7b8659e0ae409e10ec891a2a0c9, type: 3}
   bullet_point: {fileID: 6917285836103759035}
-  bullet_force: 90
   Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
   a_source: {fileID: 4976767362290315386}
   boss_mat: {fileID: 2100000, guid: 623476d1fbf139349942a7c5e154b527, type: 2}

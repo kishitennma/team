@@ -34,7 +34,7 @@ public class EnemyBulletAction : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Wall"))
         {
-            //ï«Ç…ìñÇΩÇ¡ÇΩÇÁè¡Ç∑
+            //ï«,ínñ Ç…ìñÇΩÇ¡ÇΩÇÁè¡Ç∑
             Destroy(gameObject);
         }
     }

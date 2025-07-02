@@ -9,23 +9,44 @@ public class Player_Status : MonoBehaviour
     public static int Player_Attack_Damage;//プレイヤーの攻撃力を保持(変動あり)
     public static int Player_Put_Attack_Damage;//プレイヤーの攻撃力を保持(変動無し)
     public static int Player_HP=100;//プレイヤーの体力
-    public GameObject Weapon_image;
+    public GameObject weapon_image;
+    public GameObject guide_image;
+
+    private bool guide_flag;//ガイド表示フラグ
     private void Start()
     {
         Player_HP = 100;
-        Weapon_image.SetActive(false);
+        weapon_image.SetActive(false);//攻撃力が上昇中に表示させる画像
+        guide_image.SetActive(false);//操作方法のオブジェクト
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            if(guide_flag)
+                guide_flag = false;
+            else
+                guide_flag = true;
+        }
+
+        if (guide_flag)
+            guide_image.SetActive(true);
+        else
+            guide_image.SetActive(false);
+
     }
 
     private void FixedUpdate()
     {
         //攻撃力が基本値よりも大きくなったら画像を表示
-        if(Player_Put_Attack_Damage < Player_Attack_Damage)
+        if(Player_Put_Attack_Damage < Player_Attack_Damage && Input.GetKey(KeyCode.Q) == false)
         {
-            Weapon_image.SetActive(true);
+            weapon_image.SetActive(true);
         }
         else
         {
-            Weapon_image.SetActive(false);
+            weapon_image.SetActive(false);
         }
         if (Player_HP < 1)
         {

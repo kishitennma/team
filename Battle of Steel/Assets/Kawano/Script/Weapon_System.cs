@@ -224,16 +224,18 @@ public class WeaponSystem : MonoBehaviour
         ClearWeapon();
         LoadParts(weapon_type);
 
+        //パーツ生成
         GameObject handle = overrideHandle ? Instantiate(overrideHandle, weaponParent) : Instantiate(GetRandomPart(handles), weaponParent);
         GameObject body = overrideBody ? Instantiate(overrideBody, weaponParent) : Instantiate(GetRandomPart(bodies), weaponParent);
         GameObject nozzle = overrideNozzle ? Instantiate(overrideNozzle, weaponParent) : Instantiate(GetRandomPart(nozzles), weaponParent);
-
+        //マテリアル適用
         ApplyMaterial(handle.GetComponentInChildren<Renderer>());
         ApplyMaterial(body.GetComponentInChildren<Renderer>());
         ApplyMaterial(nozzle.GetComponentInChildren<Renderer>());
-
+        //パーツ接続
         ConnectParts(handle.transform.Find("ConnectPoint_Body"), body.transform.Find("ConnectPoint_Handle"));
         ConnectParts(body.transform.Find("ConnectPoint_Nozzle"), nozzle.transform.Find("ConnectPoint_Body"));
+        //発射可能にする
         ready_to_shoot = true;
     }
 

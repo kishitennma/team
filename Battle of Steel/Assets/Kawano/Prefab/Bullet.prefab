@@ -34,11 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4759d547612d1034b814f2ef03a33ee7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4759d547612d1034b814f2ef03a33ee7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4759d547612d1034b814f2ef03a33ee7, type: 3}
       propertyPath: m_LocalRotation.y
@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4759d547612d1034b814f2ef03a33ee7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4759d547612d1034b814f2ef03a33ee7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -274,5 +274,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42206a85c0d9b70419b53661821c1ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life_time: 1.6
   explosive_obj: {fileID: 1281529153650206152, guid: 06c097f4911c6e94b8422363cfe590c2, type: 3}

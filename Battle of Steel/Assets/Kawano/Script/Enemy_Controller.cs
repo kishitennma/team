@@ -148,7 +148,7 @@ public class Enemy_Controller : Damage_Calclate
                 {
                     case 0:boss_act_count++;break;
                     case 1:boss_act_count++;break;
-                    case 2:boss_act_count-=2;break;
+                    case 2:boss_act_count=0;break;
                 }
 
                 //発射カウントで放つ弾の数を変更する
@@ -160,7 +160,7 @@ public class Enemy_Controller : Damage_Calclate
             act_time++;
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                Homing_Shot(5, 20);
+                Homing_Shot(5, 25);
                 b_time = 0;
             }
         }
