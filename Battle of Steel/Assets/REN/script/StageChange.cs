@@ -5,6 +5,7 @@ public class StageChange : MonoBehaviour
     //ボス登場フラグ
     public static bool first_boss_spawned = false;//他のスクリプトからtrueにされる
     public GameObject first_building;//下に行くオブジェクト群
+    public GameObject destroy_object;//削除するオブジェクト
 
     private void Start()
     {
@@ -24,6 +25,7 @@ public class StageChange : MonoBehaviour
                 if (counts < 200)
                 {
                     first_building.transform.position -= fool;//下へ移動
+                    destroy_object.SetActive(false);
                     counts++;
                 }
                 if (counts >= 200)

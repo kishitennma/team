@@ -269,7 +269,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) == false && Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D) == false)
         {
-            move_speed = 20f;//キーを離したら速度を戻す
+            if(move_speed > 20.0f)
+            {
+                move_speed -= 0.5f;
+            }
             Player_Status.Player_Attack_Damage = Player_Status.Player_Put_Attack_Damage;//攻撃力を元の値に戻す
         }
         if(Collision_Hit)

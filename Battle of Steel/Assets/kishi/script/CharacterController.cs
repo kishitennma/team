@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
@@ -41,13 +42,10 @@ public class ChracterController : MonoBehaviour
     public TrailRenderer TrailRight;
 
     //テスト/////////////////////////////////////////////
-    Transform tr;
-    Vector3 characterfoward;
-    Vector3 movevecter;
-    float vertical;
-    float horizontal;
+  
+  
     public float speed;
-    public float rotatespeed;
+   
 
 
 
@@ -174,117 +172,37 @@ public class ChracterController : MonoBehaviour
         animator.SetFloat("Horizontal", move_x);
         animator.SetFloat("Vertical", move_y);
 
-      
 
+      
     }
 
     private void FixedUpdate()
     {
 
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
-         //if(horizontal > 0)
-         //{
-         //   transform.Rotate(0, rotatespeed * Time.fixedDeltaTime, 0);
-         //}
-         //if(horizontal < 0)
-         //{
-         //   transform.Rotate(0, (-1) * rotatespeed * Time.fixedDeltaTime, 0);
-         //}
-
-        movevecter = new Vector3(horizontal, 0, vertical).normalized;
-        rb.linearVelocity = movevecter * speed;
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
         //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
+
         // Debug.Log(rb.linearVelocity.y);
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
         Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
+      
 
-        if (Input.GetKey(KeyCode.W) == false && Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D) == false)
+        if(Input.GetKey(KeyCode.LeftShift))
         {
-            move_speed = 20f;//キーを離したら速度を戻す
-            Player_Status.Player_Attack_Damage = Player_Status.Player_Put_Attack_Damage;//攻撃力を元の値に戻す
-        }
-        if (Collision_Hit)
-        {
-            move_dir /= 10;//何かに当たったら移動距離を減らす
-            move_speed = 20f;
-            Player_Status.Player_Attack_Damage = Player_Status.Player_Put_Attack_Damage;//攻撃力を元の値に戻す
+            rb.linearVelocity = move_dir * move_speed*dash_speed;
         }
         else
         {
-            move_speed += 0.1f;//キーが押されている間は数値を加算
-            if (move_speed >= 80.0f)
-            {
-                move_speed = 80.0f;
-            }
-            else if (move_speed >= 70.0f)
-            {
-                Player_Status.Player_Attack_Damage++;
-                if (Player_Status.Player_Attack_Damage > 80)
-                {
-                    Player_Status.Player_Attack_Damage = 80;
-                }
-            }
+            rb.linearVelocity = move_dir * move_speed;
         }
-        if (!Input.GetKey(KeyCode.LeftShift))
+
+        if (Input.GetKey(KeyCode.Space))
         {
-            //通常時
-            animator.SetFloat("IsDashing", 0.0f);
-            input_direction = move_dir;
-            TrailLeft.time = 0.1f;
-            TrailRight.time = 0.1f;
-            TrailLeft.material.color = Color.white;
-            TrailRight.material.color = Color.white;
-
-
+            rb.linearVelocity = new Vector3(0, jumppower * 4, 0);
         }
-        else
-        {
-            if (!boost_empty)
-            {
-                //ダッシュ時
-                animator.SetFloat("IsDashing", 1.0f);//Animatorをダッシュに切り替え
-                input_direction = move_dir * dash_speed;//移動ベクトルを設定
-                TrailLeft.time = 0.5f;
-                TrailRight.time = 0.5f;
-                TrailLeft.material.color = Color.cyan;
-                TrailRight.material.color = Color.cyan;
-
-            }
-            else
-            {
-
-                //通常時
-                animator.SetFloat("IsDashing", 0.0f);
-                input_direction = move_dir;
-                TrailLeft.time = 0.1f;
-                TrailRight.time = 0.1f;
-                TrailLeft.material.color = Color.white;
-                TrailRight.material.color = Color.white;
-            }
-
-        }
-        //移動方向を設定
-        Vector3 move_offset = input_direction * move_speed * Time.deltaTime;
-        //rb.MovePosition(rb.position + move_offset);//RigidBody自体の位置を移動
 
 
         if (Collision_Hit)
