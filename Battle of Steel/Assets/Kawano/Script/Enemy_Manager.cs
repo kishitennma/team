@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Enemy_Manager : MonoBehaviour
 {
     public static Enemy_Manager enemy_count;
+    public bool tutorial_flag;
     public List<GameObject> boss;//ボスの出現フラグリスト
     private bool boss_spawned = false;//ボスの出現フラグ
     public GameObject boss_flag_text;//ボス出現テキスト
@@ -56,8 +57,23 @@ public class Enemy_Manager : MonoBehaviour
         if (!last_boss_spawnwd && boss_spawned && remaining == 0)
         {
             boss_set_time++;
-            boss_flag_text.SetActive(true);
-            if(boss_set_time > 300)
+            if (tutorial_flag == true)
+            {
+                if(boss_set_time > 60)
+                {
+                    boss_flag_text.SetActive(false);
+                    SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+
+                }
+            }
+            else
+            {
+                boss_flag_text.SetActive(true);
+            }
+
+            if (boss_set_time > 300)
             {
                 remaining++;
                 boss[boss.Count - 1].SetActive(true);
@@ -75,6 +91,7 @@ public class Enemy_Manager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             //Enemy_Controller.count_game_state+=1;//クリア回数に応じて敵ステータス強化
         }
+
     }
     
     public void RegisterEnemy(GameObject enemy)
