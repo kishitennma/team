@@ -45,7 +45,9 @@ public class ChracterController : MonoBehaviour
   
   
     public float speed;
-   
+    Vector3 move_dir;
+
+
 
 
 
@@ -130,7 +132,12 @@ public class ChracterController : MonoBehaviour
     void Update()
     {
 
-        //移動方向を初期化
+        //入力を受け取る
+        float h = Input.GetAxis("Horizontal");//横
+        float v = Input.GetAxis("Vertical");//縦
+        move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
+        Debug.Log(move_dir);
+        //アニメージョン移動方向を初期化
         move_x = 0; move_y = 0; animator.SetBool("Action", false);
 
 
@@ -174,35 +181,43 @@ public class ChracterController : MonoBehaviour
 
 
       
+
+
     }
 
     private void FixedUpdate()
     {
+
 
         //各移動方向へアニメーション変化
         float mx = Input.GetAxis("Mouse X");
         Screen_movement(mx);
 
         // Debug.Log(rb.linearVelocity.y);
-        //入力を受け取る
-        float h = Input.GetAxis("Horizontal");//横
-        float v = Input.GetAxis("Vertical");//縦
-        Vector3 move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
-      
+     
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.linearVelocity = move_dir * move_speed*dash_speed;
+            move_dir+= new Vector3(0, jumppower * 4,0);
+            rb.linearVelocity += move_dir;
+            Debug.Log(rb.linearVelocity);
+        }
+
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            rb.linearVelocity = (move_dir * move_speed) * dash_speed;
+            
         }
         else
         {
             rb.linearVelocity = move_dir * move_speed;
-        }
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rb.linearVelocity = new Vector3(0, jumppower * 4, 0);
         }
+        
+      
+
+
 
 
         if (Collision_Hit)
