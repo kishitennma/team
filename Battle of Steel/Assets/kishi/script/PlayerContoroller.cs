@@ -127,6 +127,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //各移動方向へアニメーション変化
+        float mx = Input.GetAxis("Mouse X");
+        Screen_movement(mx);
 
         //移動方向を初期化
         move_x = 0; move_y = 0; animator.SetBool("Action", false);
@@ -258,9 +261,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //各移動方向へアニメーション変化
-        float mx = Input.GetAxis("Mouse X");
-        Screen_movement(mx);
+    
        // Debug.Log(rb.linearVelocity.y);
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横

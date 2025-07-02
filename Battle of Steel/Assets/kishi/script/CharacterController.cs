@@ -46,6 +46,11 @@ public class ChracterController : MonoBehaviour
   
     public float speed;
     Vector3 move_dir;
+    float walk_x;
+    float walk_z;
+    float dash_x;
+    float dash_z;
+    private float jump;
 
 
 
@@ -132,10 +137,16 @@ public class ChracterController : MonoBehaviour
     void Update()
     {
 
+        //各移動方向へアニメーション変化
+        float mx = Input.GetAxis("Mouse X");
+        Screen_movement(mx);
+
         //入力を受け取る
         float h = Input.GetAxis("Horizontal");//横
         float v = Input.GetAxis("Vertical");//縦
         move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
+        move_set();
+
         Debug.Log(move_dir);
         //アニメージョン移動方向を初期化
         move_x = 0; move_y = 0; animator.SetBool("Action", false);
@@ -179,9 +190,21 @@ public class ChracterController : MonoBehaviour
         animator.SetFloat("Horizontal", move_x);
         animator.SetFloat("Vertical", move_y);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 100, rb.linearVelocity.z);
+        }
 
-      
 
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    jump = jumppower * 4.0f;
+        //}
+        //else
+        //{
+        //    if (jump > 0.0f)
+        //        jump -= 0.3f;
+        //}
 
     }
 
@@ -189,29 +212,21 @@ public class ChracterController : MonoBehaviour
     {
 
 
-        //各移動方向へアニメーション変化
-        float mx = Input.GetAxis("Mouse X");
-        Screen_movement(mx);
+
 
         // Debug.Log(rb.linearVelocity.y);
-     
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            move_dir+= new Vector3(0, jumppower * 4,0);
-            rb.linearVelocity += move_dir;
-            Debug.Log(rb.linearVelocity);
-        }
+       
 
-        
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            rb.linearVelocity = (move_dir * move_speed) * dash_speed;
-            
+            rb.linearVelocity = new Vector3(dash_x, rb.linearVelocity.y, dash_z);
+
         }
         else
         {
-            rb.linearVelocity = move_dir * move_speed;
+            rb.linearVelocity = new Vector3(walk_x, rb.linearVelocity.y, walk_z);
 
         }
         
@@ -254,5 +269,16 @@ public class ChracterController : MonoBehaviour
             maincam.fieldOfView = Mathf.Clamp(maincam.fieldOfView - fov_changeamount * Time.deltaTime, min_fov, max_fov);
 
         }
+    }
+
+    void move_set()
+    {
+        walk_x = move_dir.x * speed;
+        walk_z = move_dir.z * speed;
+        dash_x = (move_dir.x * speed) * dash_x;
+        dash_z = (move_dir.z * speed) * dash_z;
+
+      
+
     }
 }
