@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Time
-{
-    //ŠÔ
-}
+//public class Time
+//{
+//    //ŠÔ
+//}
