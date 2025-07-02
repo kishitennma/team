@@ -7,26 +7,28 @@ public class Rank : MonoBehaviour
 
    //[SerializeField] TextMeshProUGUI countText;     //体力（またはスコア）を表示するUIテキスト(多分いらない)
     [SerializeField] TextMeshProUGUI rankText;      //ランク（A〜Dなど）を表示するUIテキスト
-  
+
+    private int HP = 0;
     void Start()
     {
         //PlayerPrefsから前のシーンで保存された値を取得する
-        //"FinalHP" は保存時に使ったキー。第2引数の0は値が見つからなかったとき
-        int HP = PlayerPrefs.GetInt("FinalHP", 0);
+        HP = Player_Status.Player_HP;
+
+      
 
         //countText.text = HP.ToString();     //現在の体力を表示(リザルトなので多分いらない)
         rankText.text = "";                 //初期は空
 
-        //プレイヤーの体力に応じてランク分け
-        if (HP >= 100)
+        //プレイヤーの残り体力に応じてランク分け
+        if (HP >= 80)
         {
             rankText.text = "Rank:S"; //最高ランク
         }
-        else if (HP >= 70)
+        else if (HP >= 50)
         {
             rankText.text = "Rank:A"; //中ランク
         }
-        else if (HP >= 40)
+        else if (HP >= 30)
         {
             rankText.text = "Rank:B"; //低ランク
         }
