@@ -15,17 +15,17 @@ public class ChracterController : MonoBehaviour
     public Animator animator; // キャラクターオブジェクトのAnimator
     public MotionBlur motionBlur;
 
-    public bool jump_flag = true;//地上でのジャンプフラグ
+   
     public bool jump_second = false;//空中でのジャンンプフラグ
     public bool jump_end = false;//ジャンプ終了フラグ
     public float jumppower;
-    public bool move = false;
+    public bool move_flag = false;
 
     [SerializeField] float move_speed;//キャラクターの移動速度
     [SerializeField] float dash_speed;//ダッシュ補正速度
 
     private float NormalizeTime;
-    private float move_x, move_y;//移動方向
+    private float anim_x, anim_y;//移動方向
     private float target_x, target_y;//線形保管用
     private Vector3 input_direction;//入力方向
 
@@ -46,11 +46,14 @@ public class ChracterController : MonoBehaviour
   
     public float speed;
     Vector3 move_dir;
+    Vector3 move;//現在の移動速度
     float walk_x;
     float walk_z;
     float dash_x;
     float dash_z;
-    private float jump;
+   
+    public bool IsJump = false;//空中判定
+    public bool IsDash = false;//空中判定
 
 
 
@@ -80,14 +83,12 @@ public class ChracterController : MonoBehaviour
             }
         }
 
-        if (jump_flag == false)
-        {
+       
             if (other.gameObject.CompareTag("Ground"))
             {
-                jump_flag = true;
-                jump_second = false;
+                IsJump = false;
             }
-        }
+        
     }
     private void OnCollisionStay(Collision collision)
     {
@@ -146,10 +147,11 @@ public class ChracterController : MonoBehaviour
         float v = Input.GetAxis("Vertical");//縦
         move_dir = (transform.right * h + transform.forward * v).normalized;   //方向設定
         move_set();
+        move = rb.linearVelocity;
 
-        Debug.Log(move_dir);
+        Debug.Log(move);
         //アニメージョン移動方向を初期化
-        move_x = 0; move_y = 0; animator.SetBool("Action", false);
+        anim_x = 0; anim_y = 0; animator.SetBool("Action", false);
 
 
         if (Input.GetKey(KeyCode.W))//方向キーだけが押されていた場合
@@ -184,27 +186,34 @@ public class ChracterController : MonoBehaviour
 
 
         //ここで数値を線形補間して、なめらかにする
-        move_x = Mathf.Lerp(animator.GetFloat("Horizontal"), target_x, Time.deltaTime * 10f);
-        move_y = Mathf.Lerp(animator.GetFloat("Vertical"), target_y, Time.deltaTime * 10f);
+        anim_x = Mathf.Lerp(animator.GetFloat("Horizontal"), target_x, Time.deltaTime * 10f);
+        anim_y = Mathf.Lerp(animator.GetFloat("Vertical"), target_y, Time.deltaTime * 10f);
         //アニメーターのパラメータに値を代入
-        animator.SetFloat("Horizontal", move_x);
-        animator.SetFloat("Vertical", move_y);
+        animator.SetFloat("Horizontal", anim_x);
+        animator.SetFloat("Vertical", anim_y);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(!IsJump && !IsDash && boost < boost_max)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 100, rb.linearVelocity.z);
+            boost += 0.4f;
         }
 
-
-        //if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && boost_empty == false
+            && boost >= 20 && IsJump == false)//地上からのジャンプ
+        {
+            rb.linearVelocity = new Vector3(move.x, jumppower*4.0f, move.z);
+            IsJump = true;
+            boost -= 20.0f;
+        }
+        //if(rb.linearVelocity != new Vector3(0,move.y, 0) && IsJump == true)
         //{
-        //    jump = jumppower * 4.0f;
+        //    rb.linearVelocity = new Vector3(move.x, 0, move.z);
+        //    rb.useGravity = false;
         //}
         //else
         //{
-        //    if (jump > 0.0f)
-        //        jump -= 0.3f;
+        //    rb.useGravity = true; ;
         //}
+
 
     }
 
@@ -221,13 +230,13 @@ public class ChracterController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            rb.linearVelocity = new Vector3(dash_x, rb.linearVelocity.y, dash_z);
-
+            rb.linearVelocity = new Vector3(dash_x, move.y, dash_z);
+            IsDash = true;
         }
         else
         {
-            rb.linearVelocity = new Vector3(walk_x, rb.linearVelocity.y, walk_z);
-
+            rb.linearVelocity = new Vector3(walk_x, move.y, walk_z);
+            IsDash = false;
         }
         
       
@@ -275,8 +284,8 @@ public class ChracterController : MonoBehaviour
     {
         walk_x = move_dir.x * speed;
         walk_z = move_dir.z * speed;
-        dash_x = (move_dir.x * speed) * dash_x;
-        dash_z = (move_dir.z * speed) * dash_z;
+        dash_x = (move_dir.x * speed) * dash_speed;
+        dash_z = (move_dir.z * speed) * dash_speed;
 
       
 

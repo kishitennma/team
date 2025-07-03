@@ -18,15 +18,19 @@ public class Rank : MonoBehaviour
         rankText.text = "";                 //初期は空
 
         //プレイヤーの残り体力に応じてランク分け
-        if (HP >= 80)
+        if (HP == 100)
+        {
+            rankText.text = "Perfect!"; //EXランク
+        }
+        else if (HP >= 80)
         {
             rankText.text = "Rank:S"; //最高ランク
         }
-        else if (HP >= 50)
+        else if (HP >= 60)
         {
             rankText.text = "Rank:A"; //中ランク
         }
-        else if (HP >= 30)
+        else if (HP >= 40)
         {
             rankText.text = "Rank:B"; //低ランク
         }
