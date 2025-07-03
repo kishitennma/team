@@ -373,6 +373,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 912638829200040760, guid: 7b8e63b067565834ca0226331c2b2ba7, type: 3}
   m_PrefabInstance: {fileID: 905852909}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &269945075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
+  m_PrefabInstance: {fileID: 1951816963}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &295892405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -383,7 +388,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_Name
-      value: Broken_Wall_01 (1)
+      value: End_WAll
       objectReference: {fileID: 0}
     - target: {fileID: 9064565440576439434, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_LocalPosition.x
@@ -520,7 +525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorial_text: {fileID: 1907952704}
-  break_wall: {fileID: 2131111872}
+  break_wall: {fileID: 269945075}
+  break_wall_second: {fileID: 2131111872}
 --- !u!1 &367648120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3996034863226304462, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
@@ -1436,7 +1442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_Name
-      value: Broken_Wall_01
+      value: Broken_Wall_Second
       objectReference: {fileID: 0}
     - target: {fileID: 9064565440576439434, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1920,7 +1926,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_Name
-      value: Broken_Wall_01 (2)
+      value: Broken_Wall_First
       objectReference: {fileID: 0}
     - target: {fileID: 9064565440576439434, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2024,9 +2030,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3158888336042082950, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -16.099976
+      objectReference: {fileID: 0}
     - target: {fileID: 5238840312746784220, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -205.35995
+      objectReference: {fileID: 0}
+    - target: {fileID: 5402645781308810900, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6961276183545917433, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2047,6 +2061,10 @@ PrefabInstance:
     - target: {fileID: 8139620677364970954, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -230
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397907528847077823, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
