@@ -48,19 +48,13 @@ public class GageGagerB : MonoBehaviour
             PassedTimes = 0;
             _target.enabled = true;//表示
         }
+        //リカバリー
+        if (max < player.boost)
+        {
+            max = player.boost;
+        }
 
         //ゲージ管理
         image.fillAmount = player.boost / max;
-        //超過防止
-        if (player.boost / max < 0)
-        {
-            image.fillAmount = 0.0f;
-            player.boost = 0.0f;
-        }
-        else if (player.boost / max > 1.0f)
-        {
-            image.fillAmount = 1.0f;
-            player.boost = max;
-        }
     }
 }

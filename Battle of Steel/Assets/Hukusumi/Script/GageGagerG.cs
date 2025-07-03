@@ -34,7 +34,7 @@ public class GageGagerG : MonoBehaviour
         {
             gun_bullet = w_index2.bullets_left;
         }
-        //ロード遅れ時などのリカバリー
+        //リカバリー
         if(max< gun_bullet)
         {
             max = gun_bullet;
@@ -42,16 +42,5 @@ public class GageGagerG : MonoBehaviour
 
         //ゲージ管理
         image.fillAmount = gun_bullet / max;
-        //超過防止
-        if (gun_bullet / max < 0)
-        {
-            image.fillAmount = 0.0f;
-            gun_bullet = 0.0f;
-        }
-        else if (gun_bullet / max > 1.0f)
-        {
-            image.fillAmount = 1.0f;
-            gun_bullet = max;
-        }
     }
 }

@@ -17,28 +17,23 @@ public class GageGagerHP : MonoBehaviour
 
     private void Update()
     {
-        //修正
         
+
         //現在値
         myhp = Player_Status.Player_HP;
         if(max<myhp)
         {
             max = myhp;
         }
+        //リカバリー
+        if (max < myhp)
+        {
+            max = myhp;
+        }
 
         //ゲージ管理
         image.fillAmount = (float)myhp / (float)max;
-        //超過防止
-        //if((myhp / max) <0)
-        //{
-        //    image.fillAmount = 0.0f;
-        //    myhp = 0;
-        //}
-        //else if(myhp / max >1.0f)
-        //{
-        //    image.fillAmount = 1.0f;
-        //    myhp = max;
-        //}
+
 
         //色管理
         if (image.fillAmount <= 0)
