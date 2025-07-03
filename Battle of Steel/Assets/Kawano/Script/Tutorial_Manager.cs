@@ -4,6 +4,7 @@ public class Tutorial_Manager : MonoBehaviour
 {
     public Text tutorial_text;
     public GameObject break_wall;//壊れる壁
+    public GameObject break_wall_second;//壊れる壁
     private int timer = 0;
     private int tutorial_number;//チュートリアルナンバー
     private bool tutorial_flag = true;
@@ -13,6 +14,7 @@ public class Tutorial_Manager : MonoBehaviour
         tutorial_text.text = " ";
         tutorial_number = 0;
         break_wall.SetActive(true);
+        break_wall_second.SetActive(true);
     }
 
     private void Update()
@@ -32,6 +34,7 @@ public class Tutorial_Manager : MonoBehaviour
             }
             if (tutorial_number == 2 && Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
             {
+                break_wall.SetActive(false);
                 tutorial_number = 3;//弾丸発射
             }
             if (tutorial_number == 3 && Input.GetMouseButtonDown(0))
@@ -40,7 +43,7 @@ public class Tutorial_Manager : MonoBehaviour
             }
             if (tutorial_number == 4 && Input.GetMouseButtonDown(1))
             {
-                break_wall.SetActive(false);
+                break_wall_second.SetActive(false);
                 tutorial_number = 5;//武器切り替え
             }
             if (tutorial_number == 5 && Input.GetKeyDown(KeyCode.Q))

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class Enemy_Manager : MonoBehaviour
 {
     public static Enemy_Manager enemy_count;
-    public bool tutorial_flag;
+    public bool tutorial_flag;//チュートリアルフラグ
     public List<GameObject> boss;//ボスの出現フラグリスト
     private bool boss_spawned = false;//ボスの出現フラグ
     public GameObject boss_flag_text;//ボス出現テキスト
@@ -32,68 +32,90 @@ public class Enemy_Manager : MonoBehaviour
     private void FixedUpdate()
     {
         int remaining = enemy_count.GetAliveEnemyCount();
-        if(!boss_spawned && remaining == 0)
-        {
-            boss_set_time++;
-            boss_flag_text.SetActive(true);
-            StageChange.first_boss_spawned = true;
-            if (boss_set_time > 250)
-            {
 
-                //ボスを出現
-                for (int i = 0; i < boss.Count - 1; i++)
-                {
-                    boss[i].SetActive(true);
-                    remaining++;
-                }
-                boss_spawned = true;
-                boss_set_time = 0;
-                boss_flag_text.SetActive(false);
-            }
-            
-            Debug.Log("ボス出現");
-        }
-        //ボスが全て倒されたら最終ボスを出現させる
-        if (!last_boss_spawnwd && boss_spawned && remaining == 0)
+        //通常のワールド
+        if (!tutorial_flag)
         {
-            boss_set_time++;
-            if (tutorial_flag == true)
+            if (!boss_spawned && remaining == 0)
             {
-                if(boss_set_time > 60)
-                {
-                    boss_flag_text.SetActive(false);
-                    SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-
-                }
-            }
-            else
-            {
+                boss_set_time++;
                 boss_flag_text.SetActive(true);
-            }
+                StageChange.first_boss_spawned = true;
+                if (boss_set_time > 250)
+                {
 
-            if (boss_set_time > 300)
+                    //ボスを出現
+                    for (int i = 0; i < boss.Count - 1; i++)
+                    {
+                        boss[i].SetActive(true);
+                        remaining++;
+                    }
+                    boss_spawned = true;
+                    boss_set_time = 0;
+                    boss_flag_text.SetActive(false);
+                }
+
+                Debug.Log("ボス出現");
+            }
+            //ボスが全て倒されたら最終ボスを出現させる
+            if (!last_boss_spawnwd && boss_spawned && remaining == 0)
             {
-                remaining++;
-                boss[boss.Count - 1].SetActive(true);
-                
-                boss_set_time = 0;
-                boss_flag_text.SetActive(false);
+                boss_set_time++;
+                boss_flag_text.SetActive(true);
+                if (boss_set_time > 300)
+                {
+                    remaining++;
+                    boss[boss.Count - 1].SetActive(true);
+
+                    boss_set_time = 0;
+                    boss_flag_text.SetActive(false);
+                }
+            }
+            //ボスも全て倒されたらリザルトを表示
+            if (boss_spawned && last_boss_spawnwd && remaining == 0)
+            {
+                SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+                                                 //カーソルを元に戻す
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Enemy_Controller.count_game_state+=1;//クリア回数に応じて敵ステータス強化
             }
         }
-        //ボスも全て倒されたらリザルトを表示
-        if(boss_spawned && last_boss_spawnwd && remaining == 0)
+        else
         {
-            SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
-            //カーソルを元に戻す
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            //Enemy_Controller.count_game_state+=1;//クリア回数に応じて敵ステータス強化
+            //チュートリアル専用
+            if (!boss_spawned && remaining == 0)
+            {
+                Debug.Log("チュートリアルのボスを出現");
+                boss_set_time++;
+                boss_flag_text.SetActive(true);
+                StageChange.first_boss_spawned = true;
+                if (boss_set_time > 100)
+                {
+                    //ボスを出現
+                    for (int i = 0; i < boss.Count; i++)
+                    {
+                        boss[i].SetActive(true);
+                        remaining++;
+                    }
+                    boss_spawned = true;
+                    boss_set_time = 0;
+                    boss_flag_text.SetActive(false);
+                }
+                Debug.Log("ボス出現");
+            }
+            if(boss_spawned && remaining == 0)
+            {
+                SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+                //カーソルを元に戻す
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+            }
+
         }
 
     }
-    
     public void RegisterEnemy(GameObject enemy)
     {
         if(!enemys.Contains(enemy))
