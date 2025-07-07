@@ -38,24 +38,41 @@ public class Enemy_Manager : MonoBehaviour
         {
             if (!boss_spawned && remaining == 0)
             {
-                boss_set_time++;
-                boss_flag_text.SetActive(true);
-                StageChange.first_boss_spawned = true;
-                if (boss_set_time > 250)
+                if (boss.Count == 0)
                 {
+                    invoke_time++;
 
-                    //ボスを出現
-                    for (int i = 0; i < boss.Count - 1; i++)
+                    if (invoke_time > 50)
                     {
-                        boss[i].SetActive(true);
-                        remaining++;
-                    }
-                    boss_spawned = true;
-                    boss_set_time = 0;
-                    boss_flag_text.SetActive(false);
-                }
+                        Cursor.visible = true;
+                        Cursor.lockState = CursorLockMode.None;
 
-                Debug.Log("ボス出現");
+                        SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+                        invoke_time = 0;
+                    }
+                }
+                else
+                {
+                    boss_set_time++;
+                    boss_flag_text.SetActive(true);
+                    StageChange.first_boss_spawned = true;
+                    if (boss_set_time > 250)
+                    {
+
+                        //ボスを出現
+                        for (int i = 0; i < boss.Count - 1; i++)
+                        {
+                            boss[i].SetActive(true);
+                            remaining++;
+                        }
+                        boss_spawned = true;
+                        boss_set_time = 0;
+                        boss_flag_text.SetActive(false);
+                    }
+
+                    Debug.Log("ボス出現");
+
+                }
             }
             //ボスが全て倒されたら最終ボスを出現させる
             if (!last_boss_spawnwd && boss_spawned && remaining == 0)
@@ -86,41 +103,18 @@ public class Enemy_Manager : MonoBehaviour
             //チュートリアル専用
             if (!boss_spawned && remaining == 0)
             {
-                Debug.Log("チュートリアルのボスを出現");
-                boss_set_time++;
-                boss_flag_text.SetActive(true);
-                StageChange.first_boss_spawned = true;
-                if (boss_set_time > 100)
-                {
-                    //ボスを出現
-                    for (int i = 0; i < boss.Count; i++)
-                    {
-                        boss[i].SetActive(true);
-                        remaining++;
-                    }
-                    boss_spawned = true;
-                    boss_set_time = 0;
-                    boss_flag_text.SetActive(false);
-                }
-                Debug.Log("ボス出現");
-            }
-            if(boss_spawned && remaining == 0)
-            {
                 invoke_time++;
 
-                if(invoke_time > 30)
+                if (invoke_time > 50)
                 {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+
                     SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
                     invoke_time = 0;
                 }
-                //カーソルを元に戻す
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-
             }
-
         }
-
     }
     public void RegisterEnemy(GameObject enemy)
     {
