@@ -30,27 +30,31 @@ public class Tutorial_Manager : MonoBehaviour
             }
             if (tutorial_number == 1 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)))
             {
-                tutorial_number = 2;//ジャンプ
+                tutorial_number = 2;//ダッシュ
             }
-            if (tutorial_number == 2 && Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space))
+            if (tutorial_number == 2 && Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                tutorial_number = 3;//ジャンプ
+            }
+            if (tutorial_number == 3 && Input.GetKeyDown(KeyCode.Space))
+            {
+                tutorial_number = 4;//弾丸発射
+            }
+            if (tutorial_number == 4 && Input.GetMouseButtonDown(0))
             {
                 break_wall.SetActive(false);
-                tutorial_number = 3;//弾丸発射
+                tutorial_number = 5;//ロックオン
             }
-            if (tutorial_number == 3 && Input.GetMouseButtonDown(0))
+            if (tutorial_number == 5 && Input.GetMouseButtonDown(1) )
             {
-                tutorial_number = 4;//ロックオン
+                tutorial_number = 6;//武器切り替え
             }
-            if (tutorial_number == 4 && Input.GetMouseButtonDown(1))
+            if(tutorial_number == 6 && Input.GetKeyDown(KeyCode.Q))
             {
                 break_wall_second.SetActive(false);
-                tutorial_number = 5;//武器切り替え
+                tutorial_number = 7;
             }
-            if (tutorial_number == 5 && Input.GetKeyDown(KeyCode.Q))
-            {
-                tutorial_number = 6;
-            }
-            if(tutorial_number == 6)
+            if(tutorial_number == 7)
             {
                 tutorial_flag = false;
             }
@@ -64,17 +68,19 @@ public class Tutorial_Manager : MonoBehaviour
         {
 
             case 1:
-                tutorial_text.text = "WASDで前後左右に移動できる";break;
+                tutorial_text.text = "WASDで前後左右に移動";break;
             case 2:
-                tutorial_text.text = "Shiftでダッシュ、Spaceでジャンプ";break;
+                tutorial_text.text = "Shiftを押しながらWASDでその方向にダッシュ";break;
             case 3:
-                tutorial_text.text = "左クリックで弾丸を発射";break;
+                tutorial_text.text = "Spaceでジャンプ"; break;
             case 4:
-                tutorial_text.text = "右クリックで敵をロックオン";break;
+                tutorial_text.text = "左クリックで弾丸を発射";break;
             case 5:
-                tutorial_text.text = "Qキーで武器を切り替える";break;
+                tutorial_text.text = "右クリックで敵をロックオン";break;
             case 6:
-                tutorial_text.text = "全ての敵を倒せ";break;
+                tutorial_text.text = "Qキーで武器を切り替える";break;
+            case 7:
+                tutorial_text.text = "全ての敵を倒せ!!";break;
         }
     }
 }
