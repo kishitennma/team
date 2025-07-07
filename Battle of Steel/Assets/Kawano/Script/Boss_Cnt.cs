@@ -89,7 +89,7 @@ public class Boss_Cnt : Damage_Calclate
                 case 1:
                     {
                         bullet_force = 40.0f;
-                        Way_Shot(12, 12, false);
+                        Way_Shot(12, 4, false);
                         b_time = 0;
                     }
                     break;
@@ -102,7 +102,7 @@ public class Boss_Cnt : Damage_Calclate
                     break;
                 case 3:
                     {
-                        bullet_force = 200f;
+                        bullet_force = 180f;
                         Mul_Shot(10, 7);
                         b_time = 0;
                     }
@@ -125,7 +125,8 @@ void OnTriggerStay(Collider collider)
     private void OnTriggerExit(Collider other)
     {
         act_shot = false;//弾丸を発射しなくする
-        shot_count = 0;shot_count_second = 0;//数値初期化
+        shot_count = 0;
+        shot_count_second = 0;//数値初期化
         Debug.Log("対象を見失った");
     }
     //Bulletタグに当たったら体力を減らす
@@ -136,7 +137,6 @@ void OnTriggerStay(Collider collider)
         {
             hp = Damage_Cal(Player_Status.Player_Attack_Damage, hp);
             collision.gameObject.IsDestroyed();
-            Debug.Log("当たった  体力" + hp);//デバッグ用
         }
     }
     //アニメーション中でこの関数を呼んでオブジェクトを消す
@@ -251,7 +251,6 @@ void OnTriggerStay(Collider collider)
 
             //RigidBodyにbullet_force分の力を加える
             bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
-
 
             shot_count_second++;
             act_time = 0;
