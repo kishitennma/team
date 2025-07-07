@@ -1,3 +1,4 @@
+
 using UnityEditor;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -28,7 +29,7 @@ public class ChracterController : MonoBehaviour
     private float anim_x, anim_y;//移動方向
     private float target_x, target_y;//線形保管用
     private Vector3 input_direction;//入力方向
-
+    
     public int attack_power;
     public float boost = 100.0f;//ブースト残量
     private float boost_max;//ブーストの上限
@@ -47,10 +48,12 @@ public class ChracterController : MonoBehaviour
     public float speed;
     Vector3 move_dir;
     Vector3 move;//現在の移動速度
+    Vector3 pos;
     float walk_x;
     float walk_z;
     float dash_x;
     float dash_z;
+    
    
     public bool IsJump = false;//空中判定
     public bool IsDash = false;//空中判定
@@ -83,20 +86,26 @@ public class ChracterController : MonoBehaviour
             }
         }
 
-       
-            if (other.gameObject.CompareTag("Ground"))
-            {
-                IsJump = false;
-            }
-        
+        Collision_Hit = true;
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            IsJump = false;
+        }
+
+
     }
+
     private void OnCollisionStay(Collision collision)
     {
+        Collision_Hit = true;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            IsJump = false;
+        }
+
         //地面に埋まっていたら位置を上げる
         if (collision.gameObject.CompareTag("Ground"))
-            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.03f, rb.transform.position.z));
-
-        Collision_Hit = true;
+            rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
     }
     private void OnCollisionExit(Collision collision)
     {
@@ -197,22 +206,48 @@ public class ChracterController : MonoBehaviour
             boost += 0.4f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && boost_empty == false
-            && boost >= 20 && IsJump == false)//地上からのジャンプ
+        if (move.x != 0 && move.z != 0 && Input.GetKey(KeyCode.LeftShift)&&boost_empty)
         {
-            rb.linearVelocity = new Vector3(move.x, jumppower*4.0f, move.z);
+            boost -= 0.5f;
+            Dash_Trail();
+            camera_Fovaway();
+            IsDash = true;
+        }
+        else if(move.x != 0 && move.z != 0)
+        {
+            Walk_Trail();
+            IsDash = false;
+        }
+
+            if (Input.GetKeyDown(KeyCode.Space) && !boost_empty
+            && boost >= 20 && !IsJump)//ジャンプ
+        {
+            pos = transform.position;
+            rb.linearVelocity = new Vector3(move.x, jumppower * 4.0f, move.z);
             IsJump = true;
             boost -= 20.0f;
         }
-        //if(rb.linearVelocity != new Vector3(0,move.y, 0) && IsJump == true)
-        //{
-        //    rb.linearVelocity = new Vector3(move.x, 0, move.z);
-        //    rb.useGravity = false;
-        //}
-        //else
-        //{
-        //    rb.useGravity = true; ;
-        //}
+
+
+        if (transform.position.y - pos.y >= 5f)
+        {
+            IsJump = true;
+            if(move.x != 0 && move.z != 0 && 
+             Input.GetKey(KeyCode.LeftShift) && !boost_empty)
+            {
+                rb.linearVelocity = new Vector3(move.x, 0, move.z);
+                rb.useGravity = false;
+            }
+            else
+            {
+                rb.useGravity = true;
+            }
+        }
+
+        if (boost <= 0.0f)
+            boost_empty = true;
+        if (boost >= boost_max)
+            boost_empty = false;
 
 
     }
@@ -228,7 +263,7 @@ public class ChracterController : MonoBehaviour
        
 
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift)&&!boost_empty)
         {
             rb.linearVelocity = new Vector3(dash_x, move.y, dash_z);
             IsDash = true;
@@ -236,6 +271,7 @@ public class ChracterController : MonoBehaviour
         else
         {
             rb.linearVelocity = new Vector3(walk_x, move.y, walk_z);
+            camera_Fovreturn();
             IsDash = false;
         }
         
@@ -286,8 +322,20 @@ public class ChracterController : MonoBehaviour
         walk_z = move_dir.z * speed;
         dash_x = (move_dir.x * speed) * dash_speed;
         dash_z = (move_dir.z * speed) * dash_speed;
+    }
 
-      
-
+    void Dash_Trail()
+    {
+        TrailLeft.time = 0.5f;
+        TrailRight.time = 0.5f;
+        TrailLeft.material.color = Color.red;
+        TrailRight.material.color = Color.red;
+    }
+    void Walk_Trail()
+    {
+          TrailLeft.time = 0.1f;
+            TrailRight.time = 0.1f;
+            TrailLeft.material.color = Color.white;
+            TrailRight.material.color = Color.white;
     }
 }
