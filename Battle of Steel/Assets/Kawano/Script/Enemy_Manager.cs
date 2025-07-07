@@ -12,7 +12,7 @@ public class Enemy_Manager : MonoBehaviour
     public static bool last_boss_spawnwd = false;//最終ボス出現フラグ
     private List<GameObject> enemys = new();//エネミーのリスト
     private int boss_set_time = 0;
-
+    private int invoke_time = 0;//遅延時間
     private void Awake()
     {
         //フラグ初期化
@@ -106,7 +106,13 @@ public class Enemy_Manager : MonoBehaviour
             }
             if(boss_spawned && remaining == 0)
             {
-                SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+                invoke_time++;
+
+                if(invoke_time > 30)
+                {
+                    SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+                    invoke_time = 0;
+                }
                 //カーソルを元に戻す
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
