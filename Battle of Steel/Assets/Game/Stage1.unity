@@ -390,11 +390,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2436771221282431930, guid: b7d0ad7d304734747b6813c2d4e09c67, type: 3}
   m_PrefabInstance: {fileID: 261787236}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &351359080 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3748822311238620856, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
-  m_PrefabInstance: {fileID: 746381535}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &448387929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -532,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1340119498626087461, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -120.86567
+      value: -108.93
       objectReference: {fileID: 0}
     - target: {fileID: 1340119498626087461, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_LocalRotation.w
@@ -844,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: weapon_image
       value: 
-      objectReference: {fileID: 351359080}
+      objectReference: {fileID: 1164142401}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -911,6 +906,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8943486637870671564, guid: 5e63e2fa66a522045a2497c6be88324b, type: 3}
   m_PrefabInstance: {fileID: 1152119862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1164142401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3996034863226304462, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 746381535}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1510837116 stripped
 GameObject:

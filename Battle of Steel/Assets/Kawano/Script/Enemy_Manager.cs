@@ -6,9 +6,11 @@ public class Enemy_Manager : MonoBehaviour
 {
     public static Enemy_Manager enemy_count;
     public bool tutorial_flag;//チュートリアルフラグ
+    public bool last_stage;//最終ステージフラグ
     public List<GameObject> boss;//ボスの出現フラグリスト
     private bool boss_spawned = false;//ボスの出現フラグ
     public GameObject boss_flag_text;//ボス出現テキスト
+    public GameObject clear_text;//クリアテキスト
     public static bool last_boss_spawnwd = false;//最終ボス出現フラグ
     private List<GameObject> enemys = new();//エネミーのリスト
     private int boss_set_time = 0;
@@ -18,6 +20,7 @@ public class Enemy_Manager : MonoBehaviour
         //フラグ初期化
         last_boss_spawnwd = false;
         boss_spawned = false;
+        clear_text.SetActive(false);
 
         boss_flag_text.SetActive(false);
         if(enemy_count == null)
@@ -41,7 +44,7 @@ public class Enemy_Manager : MonoBehaviour
                 if (boss.Count == 0)
                 {
                     invoke_time++;
-
+                    clear_text.SetActive(true);
                     if (invoke_time > 50)
                     {
                         Cursor.visible = true;
@@ -77,25 +80,47 @@ public class Enemy_Manager : MonoBehaviour
             //ボスが全て倒されたら最終ボスを出現させる
             if (!last_boss_spawnwd && boss_spawned && remaining == 0)
             {
-                boss_set_time++;
-                boss_flag_text.SetActive(true);
-                if (boss_set_time > 300)
+                //ラストステージの場合最終ボスを出現
+                if(last_stage)
                 {
-                    remaining++;
-                    boss[boss.Count - 1].SetActive(true);
+                    boss_set_time++;
+                    boss_flag_text.SetActive(true);
+                    if (boss_set_time > 300)
+                    {
+                        remaining++;
+                        boss[boss.Count - 1].SetActive(true);
 
-                    boss_set_time = 0;
-                    boss_flag_text.SetActive(false);
+                        boss_set_time = 0;
+                        boss_flag_text.SetActive(false);
+                    }
+                }
+                else
+                {
+                    invoke_time++;
+                    clear_text.SetActive(true);
+                    if (invoke_time > 50)
+                    {
+                        SceneManager.LoadScene("Result");//リザルト画面
+                        //カーソルを元に戻す
+                        Cursor.visible = true;
+                        Cursor.lockState = CursorLockMode.None;
+                    }
                 }
             }
             //ボスも全て倒されたらリザルトを表示
-            if (boss_spawned && last_boss_spawnwd && remaining == 0)
+            if (boss_spawned && last_boss_spawnwd && remaining == 0 && last_stage)
             {
-                SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
-                                                 //カーソルを元に戻す
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                Enemy_Controller.count_game_state+=1;//クリア回数に応じて敵ステータス強化
+                invoke_time++;
+                clear_text.SetActive(true);
+                if(invoke_time > 50)
+                {
+                    SceneManager.LoadScene("Result");//リザルト画面
+                    //カーソルを元に戻す
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    Enemy_Controller.count_game_state += 1;//クリア回数に応じて敵ステータス強化
+
+                }
             }
         }
         else
@@ -104,7 +129,7 @@ public class Enemy_Manager : MonoBehaviour
             if (!boss_spawned && remaining == 0)
             {
                 invoke_time++;
-
+                clear_text.SetActive(true);
                 if (invoke_time > 50)
                 {
                     Cursor.visible = true;

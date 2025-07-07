@@ -9,8 +9,8 @@ public class Player_Status : MonoBehaviour
     public static int Player_Attack_Damage;//プレイヤーの攻撃力を保持(変動あり)
     public static int Player_Put_Attack_Damage;//プレイヤーの攻撃力を保持(変動無し)
     public static int Player_HP=100;//プレイヤーの体力
-    public GameObject weapon_image;
-    public GameObject guide_image;
+    public GameObject weapon_image;//攻撃力増加イメージ
+    public GameObject guide_image;//操作方法画像
 
     private bool guide_flag;//ガイド表示フラグ
     private void Start()
