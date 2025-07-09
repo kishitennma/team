@@ -297,8 +297,8 @@ RectTransform:
   - {fileID: 3053137507838587962}
   - {fileID: 8933401660290051266}
   - {fileID: 6801369695577402717}
-  - {fileID: 1827489062305725567}
   - {fileID: 2715930645200309721}
+  - {fileID: 7094645225623650556}
   m_Father: {fileID: 2548716147186129111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -999,17 +999,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2378699851353537466}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -51.3}
-  m_LocalScale: {x: 0.813411, y: 1.3510444, z: 6.383691}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -49.032352}
+  m_LocalScale: {x: 0.8027668, y: 1.3333647, z: 6.3001547}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4379194472982320862}
+  m_Father: {fileID: 7094645225623650556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 19, y: 34}
-  m_SizeDelta: {x: 960.3154, y: 14.844513}
+  m_AnchoredPosition: {x: 488.6786, y: 285.46655}
+  m_SizeDelta: {x: 1879.3418, y: 531.6068}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1307947956101862441
 CanvasRenderer:
@@ -1418,6 +1418,38 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "WASD \u3000 \u79FB\u52D5\nSpace\u3000\u30B8\u30E3\u30F3\u30D7\n\u5DE6Shift  
     \u30C0\u30C3\u30B7\u30E5 \u30FB \u30D6\u30FC\u30B9\u30C8\nQ \u3000\u3000\u3000\u3000\u6B66\u5668\u5207\u308A\u66FF\u3048\u30FB\u30EA\u30ED\u30FC\u30C9\n\u5DE6\u30AF\u30EA\u30C3\u30AF\u3000\u5F3E\u4E38\u767A\u5C04\n\u53F3\u30AF\u30EA\u30C3\u30AF\u3000\u6575\u30ED\u30C3\u30AF\u30AA\u30F3\u3000/\u3000\u89E3\u9664"
+--- !u!1 &4760602842107460398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7094645225623650556}
+  m_Layer: 0
+  m_Name: Poze_Core
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7094645225623650556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4760602842107460398}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -476.15823, y: -255.2517, z: -1.6175028}
+  m_LocalScale: {x: 1.0132594, y: 1.0132594, z: 1.0132594}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1827489062305725567}
+  m_Father: {fileID: 4379194472982320862}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4882411845152798815
 GameObject:
   m_ObjectHideFlags: 0
