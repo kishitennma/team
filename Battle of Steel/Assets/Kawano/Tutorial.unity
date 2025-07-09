@@ -1429,6 +1429,11 @@ Transform:
   - {fileID: 1239395878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1725316363 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4528192988427522911, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 1980418433}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1788074971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2027,13 +2032,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1606614295994982429, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: not_equip_weapon_point
+      value: 
+      objectReference: {fileID: 1725316363}
     - target: {fileID: 1860795035899846815, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3158888336042082950, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -439.1001
+      value: -439.10007
       objectReference: {fileID: 0}
     - target: {fileID: 3158888336042082950, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2069,7 +2078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640845481220299531, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -411.1001
+      value: -411.10007
       objectReference: {fileID: 0}
     - target: {fileID: 7640845481220299531, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y

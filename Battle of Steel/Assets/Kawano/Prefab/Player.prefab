@@ -1303,23 +1303,16 @@ MonoBehaviour:
   cam: {fileID: 2808614653279575925}
   maincam: {fileID: 7302249633969971890}
   animator: {fileID: 4934013632956817503}
-  motionBlur: {fileID: 0}
-  jump_second: 0
   jump_end: 0
   jumppower: 10
-  move_flag: 0
-  move_speed: 20
-  dash_speed: 1.5
-  attack_power: 0
   boost: 100
   boost_empty: 0
-  target_fov: 0
   fov_changeamount: 10
   min_fov: 60
   max_fov: 90
-  TrailLeft: {fileID: 249132514582864428}
-  TrailRight: {fileID: 3198582724830191459}
-  speed: 90
+  Trail: []
+  move_speed: 20
+  dash_speed: 1.5
   IsJump: 0
   IsDash: 0
 --- !u!114 &1606614295994982429
@@ -1335,7 +1328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   set_weapon_point: {fileID: 5011279198015843292}
-  not_equip_weapon_point: {fileID: 0}
+  not_equip_weapon_point: {fileID: 4528192988427522911}
   hand_point: {fileID: 1984111741212922280}
   main_weapon: {fileID: 7203360229909509145}
   sub_weapon: {fileID: 7007414583512999777}
@@ -1391,7 +1384,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -439.10013
+      value: -439.10016
       objectReference: {fileID: 0}
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1503,7 +1496,7 @@ PrefabInstance:
       objectReference: {fileID: 8329112328946954173}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -411.10013
+      value: -411.10016
       objectReference: {fileID: 0}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -52,9 +52,9 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      20, 20f, 0.1f,  12, 0.005f,  false,22)},//ピストル
-        {1,new Weapon_Date(WeaponType.AssaultRifle,20, 35f, 0.15f, 48,  0.01f,  true,  6)},//アサルト
-        {2,new Weapon_Date(WeaponType.ShotGun,     20, 45f, 0.7f,  6,  0.06f,  false, 9)},//ショットガン
+        {0,new Weapon_Date(WeaponType.Pistol,      20, 2f, 0.1f,  12, 0.005f,  false,22)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,20, 24f, 0.15f, 48,  0.01f,  true,  6)},//アサルト
+        {2,new Weapon_Date(WeaponType.ShotGun,     20, 2.5f, 0.7f,  6,  0.06f,  false, 9)},//ショットガン
     };
 
     private List<Material> loadedMaterials = new();//マテリアルリスト
@@ -74,12 +74,9 @@ public class WeaponSystem : MonoBehaviour
 
     public bool isEquiped;//現在所持している武器
 
-    public static bool on_reload;//リロード中
+    public  bool on_reload;//リロード中
     private float set_rel_time;
     private float set_timer;
-    private static WeaponSystem reloading_object;
-    int not_used_ammo = 0;
-
     void Start()
     {
         Application.targetFrameRate = 120;//60FPS（仮）
@@ -121,10 +118,11 @@ public class WeaponSystem : MonoBehaviour
         //qが押されたら、テキストを終了
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            reloading = true;
             not_ammo_text.SetActive(false);
+            on_reload = true;
+
         }
-            
+
 
         //常にこの武器のSetActiveがtrueの時、攻撃力を更新させる
         setting_attack_dmg = weapon.attack_damage;
@@ -140,35 +138,32 @@ public class WeaponSystem : MonoBehaviour
         //この武器を所持していた時
         if (isEquiped)
         {
-            if (reloading)
-                reloading = false;
+            //if (on_reload)
+            //    on_reload = false;
             HandleInput();
-            //弾丸未所持かつ、Qキーが押されたら弾丸補充
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                //Invoke(nameof(Reload), 5f);
-            }
             //弾丸の残段数/最大数を表示
             if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
         }
         else
         {
-            if (reloading)
+            if (on_reload)
             {
                 Debug.Log("リロード中");
                 set_timer++;
-                set_rel_time = Reload_Set_Time(magazine_size,reload_time);
+                set_rel_time = Reload_Set_Time(magazine_size, reload_time);
                 //所持弾数が最大弾数より小さく、リロード時間を超えたら弾丸を１増加
-                if (bullets_left >= magazine_size && Input.GetKey(KeyCode.Q))
-                {
-                    reloading = false;
-                }
-                if (bullets_left <= magazine_size && set_timer > set_rel_time)
+                if (bullets_left < magazine_size && set_timer > set_rel_time*12)
                 {
                     bullets_left++;
                     set_timer = 0;
+                    if (bullets_left > magazine_size)
+                    {
+                        on_reload = false;
+                    }
+
                 }
             }
+
         }
         if (useEmissionBlink)
         {
@@ -248,16 +243,8 @@ public class WeaponSystem : MonoBehaviour
     //リロード開始関数
     public void Reload()
     {
-        reloading = true;
-        //Invoke(nameof(ReloadFinished),reload_time);
+        on_reload = true;
     }
-    //リロード完了関数
-    //void ReloadFinished()
-    //{
-    //    reloading = false;
-    //    Player_Weapon_Manager.on_reload = false;
-    //}
-
     public void BuildWeapon(WeaponType weapon_type)
     {
         //武器を組み立てる
