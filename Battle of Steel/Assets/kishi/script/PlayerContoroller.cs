@@ -341,14 +341,6 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + move_offset);//RigidBody©‘Ì‚ÌˆÊ’u‚ğˆÚ“®
 
 
-        if (Collision_Hit)
-        {            
-        }
-        //Õ“Ë‚µ‚Ä‚¢‚È‚¢‚Æ‚«ˆÚ“®‘¬“x‚ğİ’è
-        else if (!Collision_Hit)
-        {
-        }
-
     }
     /// <summary>
     /// Addforce‚Ì—Í‚ğ0‚É‚·‚é

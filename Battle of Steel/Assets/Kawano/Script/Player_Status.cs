@@ -35,6 +35,7 @@ public class Player_Status : MonoBehaviour
         else
             guide_image.SetActive(false);
 
+        //ƒŠƒ[ƒh’†
     }
 
     private void FixedUpdate()

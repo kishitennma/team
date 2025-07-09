@@ -365,6 +365,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1340119498626087461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5837000472852323441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4528192988427522911}
+  m_Layer: 0
+  m_Name: Not_Eq_wepon_point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4528192988427522911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837000472852323441}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.16711013, y: -0.68707657, z: 0.16711013, w: 0.68707657}
+  m_LocalPosition: {x: 0.249, y: 4.821, z: -1.069}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1340119498626087461}
+  m_LocalEulerAnglesHint: {x: 27.34, y: -90, z: 0}
 --- !u!1 &7257280054380512034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1118,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4839579761074692499}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4528192988427522911}
     - targetCorrespondingSourceObject: {fileID: 1139325989675019811, guid: b885c3513ae934d4dbc9604b218c697f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2091782704068621186}
@@ -1270,11 +1304,10 @@ MonoBehaviour:
   maincam: {fileID: 7302249633969971890}
   animator: {fileID: 4934013632956817503}
   motionBlur: {fileID: 0}
-  jump_flag: 1
   jump_second: 0
   jump_end: 0
   jumppower: 10
-  move: 0
+  move_flag: 0
   move_speed: 20
   dash_speed: 1.5
   attack_power: 0
@@ -1287,6 +1320,8 @@ MonoBehaviour:
   TrailLeft: {fileID: 249132514582864428}
   TrailRight: {fileID: 3198582724830191459}
   speed: 90
+  IsJump: 0
+  IsDash: 0
 --- !u!114 &1606614295994982429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1300,6 +1335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   set_weapon_point: {fileID: 5011279198015843292}
+  not_equip_weapon_point: {fileID: 0}
   hand_point: {fileID: 1984111741212922280}
   main_weapon: {fileID: 7203360229909509145}
   sub_weapon: {fileID: 7007414583512999777}
@@ -1355,11 +1391,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -439.1001
+      value: -439.10013
       objectReference: {fileID: 0}
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -16.09999
+      value: -16.100006
       objectReference: {fileID: 0}
     - target: {fileID: 544116574024904499, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: w_index
@@ -1467,11 +1503,11 @@ PrefabInstance:
       objectReference: {fileID: 8329112328946954173}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -411.1001
+      value: -411.10013
       objectReference: {fileID: 0}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -219.09993
+      value: -219.09995
       objectReference: {fileID: 0}
     - target: {fileID: 4910480069966234438, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_Name
@@ -1479,7 +1515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5286440066837073858, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -114.09834
+      value: -114.09836
       objectReference: {fileID: 0}
     - target: {fileID: 6121435266054123477, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -1487,7 +1523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6427730770261972465, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -229.99995
+      value: -229.99997
       objectReference: {fileID: 0}
     - target: {fileID: 6533953129289392116, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: w_index
@@ -1503,11 +1539,15 @@ PrefabInstance:
       objectReference: {fileID: 7302249633969971890}
     - target: {fileID: 7021753345817171431, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -205.35994
+      value: -205.35995
       objectReference: {fileID: 0}
     - target: {fileID: 7718071590877740981, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166699161125442204, guid: daec22eeaa94aec44921da59d6691098, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8711464512251144834, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: w_index
