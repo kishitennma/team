@@ -39,8 +39,18 @@ public class Player_Weapon_Manager : MonoBehaviour
     private void FixedUpdate()
     {
         set_weapon_point.position = hand_point.position;
-        main_weapon.transform.position = set_weapon_point.position;
-        sub_weapon.transform.position = set_weapon_point.position;
+        if(hold_secondry_weapon)
+        {
+            main_weapon.transform.position = not_equip_weapon_point.position;
+            sub_weapon.transform.position = set_weapon_point.position;
+        }
+        else
+        {
+            main_weapon.transform.position = set_weapon_point.position;
+            sub_weapon.transform.position = not_equip_weapon_point.position;
+
+        }
+
         Player_Status.Player_Put_Attack_Damage = weapon_system.setting_attack_dmg;//攻撃力を入力
         if (sub_weapon!= null)
         {
@@ -77,17 +87,31 @@ public class Player_Weapon_Manager : MonoBehaviour
         not_equiped_weap_s.isEquiped = false;//使用しない武器から弾丸を発射しないようにする
         weapon_system.ammo_text = ammo_texts;
         Player_Status.Player_Attack_Damage = weapon_system.setting_attack_dmg;//攻撃力を入力
+        Player_Status.Player_Put_Attack_Damage = weapon_system.setting_attack_dmg;//保持用の攻撃力を設定
         change_weapon.transform.position = set_weapon_point.transform.position;//位置を武器を持たせる位置に合わせる
-        set_weapon.transform.position = not_equip_weapon_point.transform.forward;//使わない武器の使用位置を背中に設定
+        change_weapon.transform.rotation = set_weapon_point.transform.rotation;//位置を武器を持たせる位置に合わせる
+        set_weapon.transform.position = not_equip_weapon_point.transform.position;//使わない武器の使用位置を背中に設定
+        set_weapon.transform.rotation = not_equip_weapon_point.rotation;
         Change_Image.color = Color.red;
+        Invoke(nameof(Set_End_Change_Anim), 0.4f);
 
-        Invoke(nameof(Set_End_Change_Anim),weapon_system.reload_time);
     }
     //武器変更用アニメーションストップ
     public void Set_End_Change_Anim()
     {
         weapon_system = main_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
         not_equiped_weap_s = sub_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
+
+        if (!hold_secondry_weapon)
+        {
+            weapon_system.isEquiped = true;
+            not_equiped_weap_s.isEquiped = false;
+        }
+        else
+        {
+            weapon_system.isEquiped = false;
+            not_equiped_weap_s.isEquiped = true;
+        }
         //変更後の武器出現
         Change_Image.color = Color.white;
         player_animator.SetBool("Change_Weapon", false);
