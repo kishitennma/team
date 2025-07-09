@@ -89,7 +89,9 @@ public class Player_Weapon_Manager : MonoBehaviour
         Player_Status.Player_Attack_Damage = weapon_system.setting_attack_dmg;//攻撃力を入力
         Player_Status.Player_Put_Attack_Damage = weapon_system.setting_attack_dmg;//保持用の攻撃力を設定
         change_weapon.transform.position = set_weapon_point.transform.position;//位置を武器を持たせる位置に合わせる
-        set_weapon.transform.position = not_equip_weapon_point.transform.forward;//使わない武器の使用位置を背中に設定
+        change_weapon.transform.rotation = set_weapon_point.transform.rotation;//位置を武器を持たせる位置に合わせる
+        set_weapon.transform.position = not_equip_weapon_point.transform.position;//使わない武器の使用位置を背中に設定
+        set_weapon.transform.rotation = not_equip_weapon_point.rotation;
         Change_Image.color = Color.red;
         Invoke(nameof(Set_End_Change_Anim), 0.4f);
 
