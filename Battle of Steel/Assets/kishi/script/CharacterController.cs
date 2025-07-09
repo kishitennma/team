@@ -10,47 +10,45 @@ public class ChracterController : MonoBehaviour
 {
     [SerializeField] GameObject player;//キャラクターオブジェクト
     public Rigidbody rb;//キャラクターオブジェクトのRigidBody
-    public GameObject cam;
- 
-    public Camera maincam;
+    public GameObject cam;//カメラ追従用
+    public Camera maincam;//メインカメラ
     public Animator animator; // キャラクターオブジェクトのAnimator
-    public MotionBlur motionBlur;
+  
 
-   
-    public bool jump_second = false;//空中でのジャンンプフラグ
     public bool jump_end = false;//ジャンプ終了フラグ
     public float jumppower;
-    public bool move_flag = false;
 
-    [SerializeField] float move_speed;//キャラクターの移動速度
-    [SerializeField] float dash_speed;//ダッシュ補正速度
+   
 
-    private float NormalizeTime;
-    private float anim_x, anim_y;//移動方向
+   
+    private float anim_x, anim_y;//アニメーション切り替え用
     private float target_x, target_y;//線形保管用
-    private Vector3 input_direction;//入力方向
-    
-    public int attack_power;
+  
+   
     public float boost = 100.0f;//ブースト残量
     private float boost_max;//ブーストの上限
     public bool boost_empty = false;
 
-    public float target_fov;
     public float fov_changeamount = 10.0f;
-    public float min_fov = 60.0f;
-    public float max_fov = 90.0f;
-    public TrailRenderer TrailLeft;
-    public TrailRenderer TrailRight;
+    public float min_fov = 60.0f;//fov最小値
+    public float max_fov = 90.0f;//fov最大値
+    public TrailRenderer[] Trail;//トレイル
+
 
     //テスト/////////////////////////////////////////////
-  
-  
-    public float speed;
-    Vector3 move_dir;
+
+
+    [SerializeField] float move_speed;//キャラクターの移動速度
+    [SerializeField] float dash_speed;//ダッシュ補正速度
+
+    Vector3 move_dir;//移動方向設定用
     Vector3 move;//現在の移動速度
-    Vector3 pos;
+    Vector3 pos;//プレイヤーの座標保存用
+
+    //プレイヤーの通常移動時の移動速度保存用
     float walk_x;
     float walk_z;
+    //プレイヤーのダッシュ時の移動速度保存用
     float dash_x;
     float dash_z;
     
@@ -63,15 +61,11 @@ public class ChracterController : MonoBehaviour
 
 
 
-    private bool Collision_Hit = false;
+  
 
 
 
-
-    /// <summary>
-    /// ジャンプのフラグ制御
-    /// </summary>
-    /// <param name="other"></param>
+   
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
@@ -85,8 +79,6 @@ public class ChracterController : MonoBehaviour
                 jump_end = false;
             }
         }
-
-        Collision_Hit = true;
         if (other.gameObject.CompareTag("Ground"))
         {
             IsJump = false;
@@ -97,7 +89,7 @@ public class ChracterController : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        Collision_Hit = true;
+      
         if (collision.gameObject.CompareTag("Ground"))
         {
             IsJump = false;
@@ -107,11 +99,8 @@ public class ChracterController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
             rb.MovePosition(new Vector3(rb.transform.position.x, rb.transform.position.y + 0.1f, rb.transform.position.z));
     }
-    private void OnCollisionExit(Collision collision)
-    {
-        //物体の衝突が解消されたら移動を再開
-        Collision_Hit = false;
-    }
+
+       
 
 
     private void Start()
@@ -201,11 +190,13 @@ public class ChracterController : MonoBehaviour
         animator.SetFloat("Horizontal", anim_x);
         animator.SetFloat("Vertical", anim_y);
 
+        //接地した状態で通常移動している場合boostを回復する
         if(!IsJump && !IsDash && boost < boost_max)
         {
             boost += 0.4f;
         }
 
+        //ダッシュ移動
         if (move.x != 0 && move.z != 0 && Input.GetKey(KeyCode.LeftShift)&&boost_empty)
         {
             boost -= 0.5f;
@@ -213,34 +204,35 @@ public class ChracterController : MonoBehaviour
             camera_Fovaway();
             IsDash = true;
         }
-        else if(move.x != 0 && move.z != 0)
+        else if(move.x != 0 && move.z != 0)//通常移動
         {
             Walk_Trail();
             IsDash = false;
         }
 
-            if (Input.GetKeyDown(KeyCode.Space) && !boost_empty
+        //地上でジャンプを押した場合
+        if (Input.GetKeyDown(KeyCode.Space) && !boost_empty
             && boost >= 20 && !IsJump)//ジャンプ
         {
-            pos = transform.position;
-            rb.linearVelocity = new Vector3(move.x, jumppower * 4.0f, move.z);
-            IsJump = true;
-            boost -= 20.0f;
+            pos = transform.position;//ジャンプする前のプレイヤーの座標を保存
+            rb.linearVelocity = new Vector3(move.x, jumppower * 4.0f, move.z);//上方向に移動する
+            IsJump = true;//空中判定
+            boost -= 20.0f; //ブーストを減らす
         }
 
-
+          //プレイヤーの高さが一定以上の場合
         if (transform.position.y - pos.y >= 5f)
         {
-            IsJump = true;
-            if(move.x != 0 && move.z != 0 && 
+            IsJump = true;//空中判定
+            if(move.x != 0 && move.z != 0 && //空中でダッシュ移動をした場合
              Input.GetKey(KeyCode.LeftShift) && !boost_empty)
             {
-                rb.linearVelocity = new Vector3(move.x, 0, move.z);
-                rb.useGravity = false;
+                rb.linearVelocity = new Vector3(move.x, 0, move.z);//上方向のベクトルを0にする
+                rb.useGravity = false;//落下しないようにする
             }
             else
             {
-                rb.useGravity = true;
+                rb.useGravity = true;//重力を元に戻す
             }
         }
 
@@ -254,51 +246,25 @@ public class ChracterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-
-
-
-        // Debug.Log(rb.linearVelocity.y);
-
-       
-
-
+        //ダッシュ時に移動速度を変更
         if (Input.GetKey(KeyCode.LeftShift)&&!boost_empty)
         {
             rb.linearVelocity = new Vector3(dash_x, move.y, dash_z);
-            IsDash = true;
+          
         }
-        else
+        else//通常移動時の移動速度にする
         {
             rb.linearVelocity = new Vector3(walk_x, move.y, walk_z);
             camera_Fovreturn();
-            IsDash = false;
+          
         }
         
-      
-
-
-
-
-        if (Collision_Hit)
-        {
-        }
-        //衝突していないとき移動速度を設定
-        else if (!Collision_Hit)
-        {
-        }
 
     }
+    
     /// <summary>
-    /// Addforceの力を0にする
+    /// カメラのFOVを90に上げる
     /// </summary>
-    void AddForce_reset()
-    {
-
-        rb.linearVelocity = Vector3.zero;
-
-    }
-
     void camera_Fovaway()
     {
         if (maincam != null)
@@ -307,6 +273,9 @@ public class ChracterController : MonoBehaviour
             //maincam.fieldOfView = max_fov;
         }
     }
+    /// <summary>
+    /// カメラのFOVを60にする
+    /// </summary>
     void camera_Fovreturn()
     {
         if (maincam != null)
@@ -315,27 +284,34 @@ public class ChracterController : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// 移動速度設定
+    /// </summary>
     void move_set()
     {
-        walk_x = move_dir.x * speed;
-        walk_z = move_dir.z * speed;
-        dash_x = (move_dir.x * speed) * dash_speed;
-        dash_z = (move_dir.z * speed) * dash_speed;
+        walk_x = move_dir.x * move_speed;
+        walk_z = move_dir.z * move_speed;
+        dash_x = (move_dir.x * move_speed) * dash_speed;
+        dash_z = (move_dir.z * move_speed) * dash_speed;
     }
-
+    /// <summary>
+    /// ダッシュ時のTrailの設定を変える
+    /// </summary>
     void Dash_Trail()
     {
-        TrailLeft.time = 0.5f;
-        TrailRight.time = 0.5f;
-        TrailLeft.material.color = Color.red;
-        TrailRight.material.color = Color.red;
+        Trail[0].time = 0.5f;
+        Trail[1].time = 0.5f;
+        Trail[0].material.color = Color.red;
+        Trail[1].material.color = Color.red;
     }
+    /// <summary>
+    /// 通常時のTrailを設定する
+    /// </summary>
     void Walk_Trail()
     {
-          TrailLeft.time = 0.1f;
-            TrailRight.time = 0.1f;
-            TrailLeft.material.color = Color.white;
-            TrailRight.material.color = Color.white;
+        Trail[0].time = 0.1f;
+        Trail[1].time = 0.1f;
+        Trail[0].material.color = Color.white;
+        Trail[1].material.color = Color.white;
     }
 }
