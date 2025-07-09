@@ -38,6 +38,8 @@ public class Player_Weapon_Manager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Player_Status.Player_Attack_Damage = weapon_system.setting_attack_dmg;//UŒ‚—Í‚ğ“ü—Í
+        Player_Status.Player_Put_Attack_Damage = weapon_system.setting_attack_dmg;//•Û—p‚ÌUŒ‚—Í‚ğİ’è
         set_weapon_point.position = hand_point.position;
         if(hold_secondry_weapon)
         {

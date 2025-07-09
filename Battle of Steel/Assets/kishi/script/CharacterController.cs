@@ -1,10 +1,4 @@
-
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
 
 public class ChracterController : MonoBehaviour
 {

@@ -1202,7 +1202,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860795035899846815}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6725ab6ac848d94caa9a5f4e33542e8, type: 3}
   m_Name: 
@@ -1293,7 +1293,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860795035899846815}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614ae1ac068385f459bf364d12f0ccc7, type: 3}
   m_Name: 
@@ -1310,7 +1310,9 @@ MonoBehaviour:
   fov_changeamount: 10
   min_fov: 60
   max_fov: 90
-  Trail: []
+  Trail:
+  - {fileID: 249132514582864428}
+  - {fileID: 3198582724830191459}
   move_speed: 20
   dash_speed: 1.5
   IsJump: 0
