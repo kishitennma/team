@@ -119,10 +119,10 @@ public class WeaponSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             not_ammo_text.SetActive(false);
-            on_reload = true;
 
         }
-
+        if (bullets_left <= 0)
+            on_reload = true;
 
         //í‚É‚±‚Ì•Ší‚ÌSetActive‚ªtrue‚ÌŽžAUŒ‚—Í‚ðXV‚³‚¹‚é
         setting_attack_dmg = weapon.attack_damage;
@@ -140,9 +140,29 @@ public class WeaponSystem : MonoBehaviour
         {
             //if (on_reload)
             //    on_reload = false;
+            if(!on_reload)
             HandleInput();
             //’eŠÛ‚ÌŽc’i”/Å‘å”‚ð•\Ž¦
             if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
+            if (on_reload)
+            {
+                Debug.Log("ƒŠƒ[ƒh’†");
+                set_timer++;
+                set_rel_time = Reload_Set_Time(magazine_size, reload_time);
+                //ŠŽ’e”‚ªÅ‘å’e”‚æ‚è¬‚³‚­AƒŠƒ[ƒhŽžŠÔ‚ð’´‚¦‚½‚ç’eŠÛ‚ð‚P‘‰Á
+                if (bullets_left < magazine_size && set_timer > set_rel_time * 12)
+                {
+                    bullets_left++;
+                    set_timer = 0;
+                    if (bullets_left >= magazine_size)
+                    {
+                        not_ammo_text.SetActive(false);
+                        on_reload = false;
+                    }
+
+                }
+            }
+
         }
         else
         {
