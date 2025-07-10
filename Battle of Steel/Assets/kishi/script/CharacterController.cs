@@ -23,9 +23,9 @@ public class ChracterController : MonoBehaviour
     private float boost_max;//ブーストの上限
     public bool boost_empty = false;
 
-    public float fov_changeamount = 10.0f;
-    public float min_fov = 60.0f;//fov最小値
-    public float max_fov = 90.0f;//fov最大値
+    private float fov_changeamount = 10.0f;
+    private float min_fov = 60.0f;//fov最小値
+    private float max_fov = 90.0f;//fov最大値
     public TrailRenderer[] Trail;//トレイル
 
 
