@@ -187,13 +187,13 @@ public class ChracterController : MonoBehaviour
         //接地した状態で通常移動している場合boostを回復する
         if(!IsJump && !IsDash && boost < boost_max)
         {
-            boost += 0.4f;
+            boost += 0.6f;
         }
 
         //ダッシュ移動
-        if (move.x != 0 && move.z != 0 && Input.GetKey(KeyCode.LeftShift)&&boost_empty)
+        if (move.x != 0.0f && move.z != 0.0f && Input.GetKey(KeyCode.LeftShift)&&!boost_empty)
         {
-            boost -= 0.5f;
+            boost -= 0.2f;
             Dash_Trail();
             camera_Fovaway();
             IsDash = true;
@@ -208,6 +208,7 @@ public class ChracterController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !boost_empty
             && boost >= 20 && !IsJump)//ジャンプ
         {
+           
             pos = transform.position;//ジャンプする前のプレイヤーの座標を保存
             rb.linearVelocity = new Vector3(move.x, jumppower * 4.0f, move.z);//上方向に移動する
             IsJump = true;//空中判定
@@ -218,11 +219,12 @@ public class ChracterController : MonoBehaviour
         if (transform.position.y - pos.y >= 5f)
         {
             IsJump = true;//空中判定
-            if(move.x != 0 && move.z != 0 && //空中でダッシュ移動をした場合
+            if(move.x != 0.0f && move.z != 0.0f && //空中でダッシュ移動をした場合
              Input.GetKey(KeyCode.LeftShift) && !boost_empty)
             {
-                rb.linearVelocity = new Vector3(move.x, 0, move.z);//上方向のベクトルを0にする
-                rb.useGravity = false;//落下しないようにする
+              rb.linearVelocity = new Vector3(move.x, 0, move.z);//上方向のベクトルを0にする
+              boost -= 0.2f;
+              rb.useGravity = false;//落下しないようにする
             }
             else
             {
