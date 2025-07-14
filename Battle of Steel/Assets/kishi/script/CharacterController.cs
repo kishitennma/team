@@ -141,7 +141,7 @@ public class ChracterController : MonoBehaviour
         move_set();
         move = rb.linearVelocity;
 
-        Debug.Log(move);
+        //Debug.Log(move);
         //アニメージョン移動方向を初期化
         anim_x = 0; anim_y = 0; animator.SetBool("Action", false);
 

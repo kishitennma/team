@@ -77,7 +77,7 @@ public class Enemy_Controller : Damage_Calclate
     private int act_time = 0;//Boss＿Second用時間計測
     private int shot_count = 0;//Boss_Second用発射カウント
     private int shot_count_s = 0;//Boss_Second用発射カウント
-    private int shot_count_t = 0;//way_shot用
+    private int shot_count_vertex = 0;//way_shot用縦軸カウント
     void Start()
     {
         //エネミーのインデックスを取得
@@ -141,15 +141,9 @@ public class Enemy_Controller : Damage_Calclate
             {
                 switch (boss_act_count)
                 {
-                    case 0: Way_Shot(2,2, false,1,(int)bullet_per_shot);boss_act_count++; break;
-                    case 1: Way_Shot(7, 10, false,1, (int)bullet_per_shot);boss_act_count++; break;
-                    case 2: Way_Shot(7,10,false,2,1);boss_act_count = 0; break;
-                }
-                switch(boss_act_count)
-                {
-                    case 0:boss_act_count++;break;
-                    case 1:boss_act_count++;break;
-                    case 2:boss_act_count=0;break;
+                    case 0: Way_Shot(2,2, false,1,bullet_per_shot); break;
+                    case 1: Way_Shot(7, 10, false,1, bullet_per_shot); break;
+                    case 2: Way_Shot(7,10,false,3,30f); break;
                 }
 
                 //発射カウントで放つ弾の数を変更する
@@ -214,22 +208,24 @@ public class Enemy_Controller : Damage_Calclate
         bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
     }
     //弾丸を扇状に決められた回数分左右2方向に発射
-    private void Way_Shot(int counts,int radius,bool derct,int r_count,int time)
+    private void Way_Shot(int counts,int radius,bool derct,int r_count,float time)
     {
-        if(shot_count_t < r_count && act_time > time)
+        if(shot_count_vertex <= r_count)
         {
+            shot_count_vertex++;//行動回数を増加
+            Debug.Log("発射回数" + shot_count_vertex);
             bullet_per_shot = time;
+            a_source.Play();//効果音をつける
             for (int i = 0; i <= counts; i++)
             {
-                //効果音をつける
-                a_source.Play();
+                //初回発射を基準として左右に扇状に展開
                 if (i == 0)
                 {
                     //弾のプレハブを生成
                     GameObject bullet = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
                     bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
                     bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
-                                                                               //弾丸に攻撃力の情報を渡しておく
+                    //弾丸に攻撃力の情報を渡しておく
                     EnemyBulletAction e_bulet_act = bullet.GetComponent<EnemyBulletAction>();
                     e_bulet_act.attack_damage = damage;//攻撃力を渡す
 
@@ -301,11 +297,21 @@ public class Enemy_Controller : Damage_Calclate
                     }
                 }
             }
-        }
-        if (shot_count_s >= r_count)
-        {
-            bullet_per_shot = e_status.bullet_per_shot;
-            shot_count_t = 0;
+            if (shot_count_vertex >= r_count)
+            {
+                bullet_per_shot = e_status.bullet_per_shot;
+                shot_count_vertex = 0;
+
+                switch (boss_act_count)
+                {
+                    case 0:   
+                    case 1:boss_act_count++;break;
+                    case 2:boss_act_count = 0;break;
+                }
+                Debug.Log("行動を初期化" + shot_count_vertex+"ステート"+ boss_act_count);
+
+            }
+
         }
 
     }
