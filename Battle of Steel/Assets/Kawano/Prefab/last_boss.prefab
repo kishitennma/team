@@ -98,7 +98,7 @@ PrefabInstance:
     - target: {fileID: 805098333363774982, guid: 9c588aeaba968b54783b7c85423661a8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 623476d1fbf139349942a7c5e154b527, type: 2}
+      objectReference: {fileID: 2100000, guid: c0843b037f0b95a428f31e2753825c60, type: 2}
     - target: {fileID: 919132149155446097, guid: 9c588aeaba968b54783b7c85423661a8, type: 3}
       propertyPath: m_Name
       value: last_boss
@@ -114,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 1513135162353538347, guid: 9c588aeaba968b54783b7c85423661a8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 623476d1fbf139349942a7c5e154b527, type: 2}
+      objectReference: {fileID: 2100000, guid: c0843b037f0b95a428f31e2753825c60, type: 2}
     - target: {fileID: 3654934372253022927, guid: 9c588aeaba968b54783b7c85423661a8, type: 3}
       propertyPath: m_Layer
       value: 3

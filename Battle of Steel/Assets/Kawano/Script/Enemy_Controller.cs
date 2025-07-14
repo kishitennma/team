@@ -124,7 +124,7 @@ public class Enemy_Controller : Damage_Calclate
                 b_time = 0;//時間初期化
             }
         }
-        //ボス（停止するボス）
+        //高速でまとまった弾を撃つボス
         if(style == Enemy_Ai_Style.Boss_Fast)
         {
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
@@ -150,6 +150,7 @@ public class Enemy_Controller : Damage_Calclate
                 b_time = 0;
             }
         }
+        //ホーミング弾を撃つボス
         if(style == Enemy_Ai_Style.Boss_Second)
         {
             act_time++;
@@ -167,6 +168,7 @@ public class Enemy_Controller : Damage_Calclate
         {
             //敵からプレイヤーまでのベクトル作成
             e_vec = gameObject.transform.position - collider.gameObject.transform.position;
+            e_vec.y = 0;//上下には回転しない
             transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
             act_shot = true;//弾丸発射
         }
@@ -213,7 +215,6 @@ public class Enemy_Controller : Damage_Calclate
         if(shot_count_vertex <= r_count)
         {
             shot_count_vertex++;//行動回数を増加
-            Debug.Log("発射回数" + shot_count_vertex);
             bullet_per_shot = time;
             a_source.Play();//効果音をつける
             for (int i = 0; i <= counts; i++)
@@ -308,14 +309,12 @@ public class Enemy_Controller : Damage_Calclate
                     case 1:boss_act_count++;break;
                     case 2:boss_act_count = 0;break;
                 }
-                Debug.Log("行動を初期化" + shot_count_vertex+"ステート"+ boss_act_count);
-
             }
 
         }
 
     }
-    //弾丸を指定回数分指定時間間隔で発射
+    //弾丸を指定回数分指定時間間隔で発射する関数
     private void Mul_Shot(int counts,int time)
     {
         if (shot_count_s <= counts && act_time > time)
@@ -335,14 +334,13 @@ public class Enemy_Controller : Damage_Calclate
                 e_vec += new Vector3(10f, 0, 0);
             else if (Input.GetKey(KeyCode.A))
                 e_vec += new Vector3(-10f, 0, 0);
-
-
                 //RigidBodyにbullet_force分の力を加える
                 bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
 
             shot_count_s++;
             act_time = 0;
         }
+        //一定回数撃ち終わったら初期化して終了
         if (shot_count_s >= counts)
         {
             bullet_per_shot = e_status.bullet_per_shot;
@@ -350,6 +348,7 @@ public class Enemy_Controller : Damage_Calclate
             boss_act_count++;
         }
     }
+    //ホーミング弾の関数
     private void Homing_Shot(int counts,int time)
     {
         if (shot_count <= counts && act_time > time)
