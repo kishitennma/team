@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class GageGagerB : MonoBehaviour
 {
     private Image image;//image取得
-    public PlayerController player;//プレイヤー取得
+    public ChracterController player;//プレイヤー取得
     public bool Zero = false;//ヒート確認
     float PassedTimes = 0;//点滅用秒数
     //player.boost=ブーストゲージ現在値取得
