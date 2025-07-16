@@ -562,6 +562,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8943486637870671564, guid: 5e63e2fa66a522045a2497c6be88324b, type: 3}
   m_PrefabInstance: {fileID: 459203626}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &462289821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8397907528847077823, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 746381535}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614ae1ac068385f459bf364d12f0ccc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &746381535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -588,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 538754223017384508, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 538754223017384508, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.size
@@ -706,6 +717,10 @@ PrefabInstance:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
+    - target: {fileID: 904403150831882146, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 462289821}
     - target: {fileID: 1340119498626087461, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_LocalPosition.x
       value: 106.350655

@@ -186,7 +186,6 @@ public class Enemy_Controller : Damage_Calclate
         {
             hp = Damage_Cal(Player_Status.Player_Attack_Damage, hp);
             collision.gameObject.IsDestroyed();
-            Debug.Log("当たった  体力" + hp);//デバッグ用
         }
     }
     //アニメーション中でこの関数を呼んでオブジェクトを消す
