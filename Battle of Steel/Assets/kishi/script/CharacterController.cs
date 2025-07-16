@@ -199,7 +199,7 @@ public class ChracterController : MonoBehaviour
         //ダッシュ移動
         if (move.x != 0 && move.z != 0 && Input.GetKey(KeyCode.LeftShift)&&boost_empty)
         {
-            boost -= 0.5f;
+            boost -= 0.3f;
             Dash_Trail();
             camera_Fovaway();
             IsDash = true;
@@ -227,6 +227,7 @@ public class ChracterController : MonoBehaviour
             if(move.x != 0 && move.z != 0 && //空中でダッシュ移動をした場合
              Input.GetKey(KeyCode.LeftShift) && !boost_empty)
             {
+                boost -= 0.2f;
                 rb.linearVelocity = new Vector3(move.x, 0, move.z);//上方向のベクトルを0にする
                 rb.useGravity = false;//落下しないようにする
             }
