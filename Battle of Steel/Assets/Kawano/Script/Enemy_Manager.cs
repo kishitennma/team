@@ -15,6 +15,10 @@ public class Enemy_Manager : MonoBehaviour
     private List<GameObject> enemys = new();//エネミーのリスト
     private int boss_set_time = 0;
     private int invoke_time = 0;//遅延時間
+
+    private float step_time;    //経過時間カウント用
+    private bool time_end = false;
+
     private void Awake()
     {
         //フラグ初期化
@@ -32,6 +36,25 @@ public class Enemy_Manager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        if (time_end == true)
+        {
+            //経過時間をカウント
+            step_time += Time.deltaTime;
+            Debug.Log("計測時間" + step_time);
+            //3秒後に画面遷移（リザルトへ移動）
+            if (step_time >= 1.0f)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+                invoke_time = 0;
+                step_time = 0.0f;
+            }
+        }
+    }
     private void FixedUpdate()
     {
         int remaining = enemy_count.GetAliveEnemyCount();
@@ -47,11 +70,7 @@ public class Enemy_Manager : MonoBehaviour
                     clear_text.SetActive(true);
                     if (invoke_time > 50)
                     {
-                        Cursor.visible = true;
-                        Cursor.lockState = CursorLockMode.None;
-
-                        SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
-                        invoke_time = 0;
+                       time_end = true;
                     }
                 }
                 else
@@ -100,10 +119,20 @@ public class Enemy_Manager : MonoBehaviour
                     clear_text.SetActive(true);
                     if (invoke_time > 50)
                     {
-                        SceneManager.LoadScene("Result");//リザルト画面
-                        //カーソルを元に戻す
-                        Cursor.visible = true;
-                        Cursor.lockState = CursorLockMode.None;
+
+                        //経過時間をカウント
+                        step_time += Time.deltaTime;
+
+                        //3秒後に画面遷移（リザルトへ移動）
+                        if (step_time >= 30.0f)
+                        {
+
+                            SceneManager.LoadScene("Result");//リザルト画面
+                                                             //カーソルを元に戻す
+                            Cursor.visible = true;
+                            Cursor.lockState = CursorLockMode.None;
+                            step_time = 0.0f;       //経過時間初期化
+                        }
                     }
                 }
             }

@@ -13,13 +13,16 @@ public class Player_Status : MonoBehaviour
     public GameObject guide_image;//操作方法画像
     public static int heal_count = 3;//回復できる
     //public Text not_heal_count;//回復できない時表示するテキスト
-
+    public GameObject Heal_Effect;//回復エフェクト
     const int heal_value = 30;//回復力
+    private int heal_timer = 0;//回復エフェクト発生時間
+    private bool heal_f = false;
 
     private bool guide_flag;//ガイド表示フラグ
     private void Start()
     {
         heal_count = 3;
+        Heal_Effect.SetActive(false);
         Player_HP = Player_Max_HP;//体力を最大体力と同じにする
         weapon_image.SetActive(false);//攻撃力が上昇中に表示させる画像
         guide_image.SetActive(false);//操作方法のオブジェクト
@@ -38,10 +41,25 @@ public class Player_Status : MonoBehaviour
             else if(Player_HP < Player_Max_HP)
             {
                 heal_count--;//使用回数を減らす
+                Heal_Effect.SetActive(true);
+                heal_f = true;
                 Heal();
+
             }
                 
         }
+        if(heal_f)
+        {
+            heal_timer++;
+
+            if(heal_timer >= 300)
+            {
+                Heal_Effect.SetActive(false);
+                heal_timer = 0;
+                heal_f = false;
+            }
+        }
+
 
         //操作ガイド表示
         if(Input.GetKeyDown(KeyCode.Tab))
@@ -89,13 +107,15 @@ public class Player_Status : MonoBehaviour
         //回復を実行
         if(heal_count > 0)
         {
+            heal_timer++;
             Player_HP += heal_value;//体力を数値分回復
 
             //最大体力をはみ出さないようにする
-            if(Player_HP >= Player_Max_HP)
+            if (Player_HP >= Player_Max_HP)
             {
                 Player_HP = Player_Max_HP;
             }
+
         }
         else
         {
