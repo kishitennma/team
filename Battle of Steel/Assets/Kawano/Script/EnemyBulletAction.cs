@@ -63,7 +63,7 @@ public class EnemyBulletAction : MonoBehaviour
         {
             b_vec = gameObject.transform.position - other.gameObject.transform.position;
             transform.rotation = Quaternion.LookRotation(b_vec);//äpìxÇdirectionÇ‹Ç≈ïœçX
-            rb.AddForce(-b_vec.normalized*2f,ForceMode.Impulse);
+            rb.AddForce(-b_vec.normalized*2.5f,ForceMode.Impulse);
         }
     }
 }
