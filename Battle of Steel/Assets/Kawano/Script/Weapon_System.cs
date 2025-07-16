@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
 
 public enum WeaponType 
 { 
@@ -52,9 +51,9 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      20, 20f, 0.1f,  12, 0.005f,  false,22)},//ピストル
-        {1,new Weapon_Date(WeaponType.AssaultRifle,20, 35f, 0.15f, 48,  0.01f,  true,  6)},//アサルト
-        {2,new Weapon_Date(WeaponType.ShotGun,     20, 45f, 0.7f,  6,  0.06f,  false, 9)},//ショットガン
+        {0,new Weapon_Date(WeaponType.Pistol,      20, 2f, 0.1f,  12, 0.005f,  false,22)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,20, 24f, 0.15f, 48,  0.01f,  true,  6)},//アサルト
+        {2,new Weapon_Date(WeaponType.ShotGun,     20, 2.5f, 0.7f,  6,  0.06f,  false, 9)},//ショットガン
     };
 
     private List<Material> loadedMaterials = new();//マテリアルリスト
@@ -74,12 +73,9 @@ public class WeaponSystem : MonoBehaviour
 
     public bool isEquiped;//現在所持している武器
 
-    public static bool on_reload;//リロード中
+    public  bool on_reload;//リロード中
     private float set_rel_time;
     private float set_timer;
-    private static WeaponSystem reloading_object;
-    int not_used_ammo = 0;
-
     void Start()
     {
         Application.targetFrameRate = 120;//60FPS（仮）
@@ -92,19 +88,14 @@ public class WeaponSystem : MonoBehaviour
             Debug.LogError($"武器インデックス {index} が見つかりません");
             return;
         }
-        else
-        {
-            Debug.Log("武器インデックス" + index + "を装備");
-        }
 
         weapon = weapon_index[index];//武器情報を持たせる
-        Debug.Log(index);//インデックス番号を取得
         BuildWeapon(weapon.type); // 見た目生成
 
         // 武器ステータス適用
-        shoot_force = weapon.shot_force * 10;
-        reload_time = weapon.relode_time;
-        time_between_shooting = weapon.time_between_shooting;
+        shoot_force = weapon.shot_force * 10;//弾丸の発射速度
+        reload_time = weapon.relode_time;//リロード時間
+        time_between_shooting = weapon.time_between_shooting;//
         magazine_size = weapon.magazine_size;
         bullets_left = magazine_size;
         spread = weapon.spread_amount;
@@ -115,16 +106,17 @@ public class WeaponSystem : MonoBehaviour
             isEquiped = true;
     }
 
-
+    //ここで、武器のステータス、情報を設定
     void Update()
     {
         //qが押されたら、テキストを終了
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            reloading = true;
             not_ammo_text.SetActive(false);
+
         }
-            
+        if (bullets_left <= 0)
+            on_reload = true;
 
         //常にこの武器のSetActiveがtrueの時、攻撃力を更新させる
         setting_attack_dmg = weapon.attack_damage;
@@ -140,35 +132,50 @@ public class WeaponSystem : MonoBehaviour
         //この武器を所持していた時
         if (isEquiped)
         {
-            if (reloading)
-                reloading = false;
+            //if (on_reload)
+            //    on_reload = false;
+            if(!on_reload)
             HandleInput();
-            //弾丸未所持かつ、Qキーが押されたら弾丸補充
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                //Invoke(nameof(Reload), 5f);
-            }
             //弾丸の残段数/最大数を表示
             if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
-        }
-        else
-        {
-            if (reloading)
+            if (on_reload)
             {
-                Debug.Log("リロード中");
                 set_timer++;
-                set_rel_time = Reload_Set_Time(magazine_size,reload_time);
+                set_rel_time = Reload_Set_Time(magazine_size, reload_time);
                 //所持弾数が最大弾数より小さく、リロード時間を超えたら弾丸を１増加
-                if (bullets_left >= magazine_size && Input.GetKey(KeyCode.Q))
-                {
-                    reloading = false;
-                }
-                if (bullets_left <= magazine_size && set_timer > set_rel_time)
+                if (bullets_left < magazine_size && set_timer > set_rel_time * 12)
                 {
                     bullets_left++;
                     set_timer = 0;
+                    if (bullets_left >= magazine_size)
+                    {
+                        not_ammo_text.SetActive(false);
+                        on_reload = false;
+                    }
+
                 }
             }
+
+        }
+        else
+        {
+            if (on_reload)
+            {
+                set_timer++;
+                set_rel_time = Reload_Set_Time(magazine_size, reload_time);
+                //所持弾数が最大弾数より小さく、リロード時間を超えたら弾丸を１増加
+                if (bullets_left < magazine_size && set_timer > set_rel_time*12)
+                {
+                    bullets_left++;
+                    set_timer = 0;
+                    if (bullets_left > magazine_size)
+                    {
+                        on_reload = false;
+                    }
+
+                }
+            }
+
         }
         if (useEmissionBlink)
         {
@@ -178,7 +185,7 @@ public class WeaponSystem : MonoBehaviour
         }
 
     }
-
+    //武器情報設定、最終組み立て関数
     void HandleInput()
     {
         //武器の基礎を作成
@@ -213,7 +220,7 @@ public class WeaponSystem : MonoBehaviour
             flash_light.SetActive(true);
         }
     }
-
+    //弾丸発射関数
     void Shoot()
     {
         //弾丸を発射する
@@ -243,21 +250,13 @@ public class WeaponSystem : MonoBehaviour
         }
         
     }
-
     void ResetShot() { ready_to_shoot = true; allow_invoke = true; }
     //リロード開始関数
     public void Reload()
     {
-        reloading = true;
-        //Invoke(nameof(ReloadFinished),reload_time);
+        on_reload = true;
     }
-    //リロード完了関数
-    //void ReloadFinished()
-    //{
-    //    reloading = false;
-    //    Player_Weapon_Manager.on_reload = false;
-    //}
-
+    //武器組み立て関数
     public void BuildWeapon(WeaponType weapon_type)
     {
         //武器を組み立てる
@@ -278,7 +277,7 @@ public class WeaponSystem : MonoBehaviour
         //発射可能にする
         ready_to_shoot = true;
     }
-
+    //パーツ接続関数
     void ConnectParts(Transform base_point, Transform attach_point)
     {
         //武器のパーツどうしをくっつける
@@ -292,7 +291,7 @@ public class WeaponSystem : MonoBehaviour
         part.position = base_point.position;
         part.rotation = base_point.rotation;
     }
-
+    //パーツ読み込み関数
     void LoadParts(WeaponType type)
     {
         //武器のパーツをロード
@@ -302,14 +301,14 @@ public class WeaponSystem : MonoBehaviour
         bodies.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Bodies"));
         nozzles.AddRange(Resources.LoadAll<GameObject>($"{basePath}/Nozzles"));
     }
-
+    //武器消去関数
     void ClearWeapon()
     {
         foreach (Transform child in weaponParent) Destroy(child.gameObject);
     }
-
+    //パーツランダム取得関数
     GameObject GetRandomPart(List<GameObject> parts) => parts.Count > 0 ? parts[Random.Range(0, parts.Count)] : null;
-
+    //マテリアル適用関数
     void ApplyMaterial(Renderer renderer)
     {
         if (renderer == null) return;

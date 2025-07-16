@@ -38,6 +38,7 @@ public class Boss_Cnt : Damage_Calclate
     private int act_time;//BossQSecond—pŠÔŒv‘ª
     private int shot_count;//Boss_Second—p”­ËƒJƒEƒ“ƒg
     private int shot_count_second;//Boss_Second—p”­ËƒJƒEƒ“ƒg
+    private int shot_count_vertex;
     private bool stop_rand = false;
     void Start()
     {
@@ -88,14 +89,14 @@ public class Boss_Cnt : Damage_Calclate
             {
                 case 1:
                     {
-                        bullet_force = 40.0f;
-                        Way_Shot(12, 4, false);
+                        bullet_force = 60.0f;
+                        Way_Shot(18, 10, false,3,40f);
                         b_time = 0;
                     }
                     break;
                 case 2:
                     {
-                        bullet_force = 12.0f;
+                        bullet_force = 20.0f;
                         Homing_Shot(5, 5);
                         b_time = 0;
                     }
@@ -145,91 +146,109 @@ void OnTriggerStay(Collider collider)
         Destroy(gameObject);
     }
     //’eŠÛ‚ğîó‚ÉŒˆ‚ß‚ç‚ê‚½‰ñ”•ª¶‰E2•ûŒü‚É”­Ë
-    private void Way_Shot(int counts, int radius, bool derct)
+    private void Way_Shot(int counts, int radius, bool derct, int r_count, float time)
     {
-
-        for (int i = 0; i <= counts; i++)
+        if (shot_count_vertex <= r_count)
         {
-            //Œø‰Ê‰¹‚ğ‚Â‚¯‚é
-            a_source.Play();
-            if (i == 0)
+            shot_count_vertex++;//s“®‰ñ”‚ğ‘‰Á
+            bullet_per_shot = time;
+            a_source.Play();//Œø‰Ê‰¹‚ğ‚Â‚¯‚é
+            for (int i = 0; i <= counts; i++)
             {
-                //’e‚ÌƒvƒŒƒnƒu‚ğ¶¬
-                GameObject bullet = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
-                bullet.transform.position = bullet_point.transform.position;//ƒ|ƒWƒVƒ‡ƒ“‚ğƒ|ƒCƒ“ƒg‚ÖˆÚ“®
-                bullet.transform.rotation = Quaternion.LookRotation(e_vec);//Šp“x‚ğdirection‚Ü‚Å•ÏX
-                //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
-                EnemyBulletAction e_bulet_act = bullet.GetComponent<EnemyBulletAction>();
-                e_bulet_act.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
+                //‰‰ñ”­Ë‚ğŠî€‚Æ‚µ‚Ä¶‰E‚Éîó‚É“WŠJ
+                if (i == 0)
+                {
+                    //’e‚ÌƒvƒŒƒnƒu‚ğ¶¬
+                    GameObject bullet = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                    bullet.transform.position = bullet_point.transform.position;//ƒ|ƒWƒVƒ‡ƒ“‚ğƒ|ƒCƒ“ƒg‚ÖˆÚ“®
+                    bullet.transform.rotation = Quaternion.LookRotation(e_vec);//Šp“x‚ğdirection‚Ü‚Å•ÏX
+                    //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
+                    EnemyBulletAction e_bulet_act = bullet.GetComponent<EnemyBulletAction>();
+                    e_bulet_act.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
 
-                bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
-                tpr_rotate_bullets = bullet.transform.rotation;
+                    bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
+                    tpr_rotate_bullets = bullet.transform.rotation;
+                }
+                if (i > 0)
+                {
+                    //‰¡²
+                    if (!derct)
+                    {
+                        GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_r.transform.position = bullet_point.transform.position;
+                        //’eŠÛ‚Ì‰ŠúŠp“x‚ğ“ü‚ê‚é
+                        Quaternion qua_r = tpr_rotate_bullets;
+                        //Šp“x‚ği*rad•ª•ÏX
+                        qua_r.y = tpr_rotate_bullets.y - (i * radius);
+                        //’eŠÛ‚ÌŠp“x‚ğ•ÏX
+                        bullet_r.transform.rotation = qua_r;
+                        //Šp“x‚ğŒvZ
+                        Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.up) * e_vec;
+                        //’eŠÛ‚Ì”­ËŠp“x‚ğ•ÏX
+                        bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
+                        //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
+                        EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_r.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
+                                                             //‰E‘¤
+                        GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_l.transform.position = bullet_point.transform.position;
+                        Quaternion qua_l = tpr_rotate_bullets;
+                        qua_l.y = tpr_rotate_bullets.y + (i * radius);
+                        bullet_l.transform.rotation = qua_l;
+                        Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.up) * e_vec;
+                        bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
+                        //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
+                        EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_l.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
+
+                    }
+                    else
+                    {
+                        GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_r.transform.position = bullet_point.transform.position;
+                        //’eŠÛ‚Ì‰ŠúŠp“x‚ğ“ü‚ê‚é
+                        Quaternion qua_r = tpr_rotate_bullets;
+                        //Šp“x‚ği*rad•ª•ÏX
+                        qua_r.y = tpr_rotate_bullets.x - (i * radius);
+                        //’eŠÛ‚ÌŠp“x‚ğ•ÏX
+                        bullet_r.transform.rotation = qua_r;
+                        //Šp“x‚ğŒvZ
+                        Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.left) * e_vec;
+                        //’eŠÛ‚Ì”­ËŠp“x‚ğ•ÏX
+                        bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
+                        //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
+                        EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_r.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
+                                                             //‰E‘¤
+                        GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_l.transform.position = bullet_point.transform.position;
+                        Quaternion qua_l = tpr_rotate_bullets;
+                        qua_l.y = tpr_rotate_bullets.x + (i * radius);
+                        bullet_l.transform.rotation = qua_l;
+                        Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.left) * e_vec;
+                        bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
+                        //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
+                        EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_l.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
+
+                    }
+                }
             }
-            if (i > 0)
+            if (shot_count_vertex >= r_count)
             {
-                //‰¡²
-                if (!derct)
-                {
-                    GameObject bullet_r = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
-                    bullet_r.transform.position = bullet_point.transform.position;
-                    //’eŠÛ‚Ì‰ŠúŠp“x‚ğ“ü‚ê‚é
-                    Quaternion qua_r = tpr_rotate_bullets;
-                    //Šp“x‚ği*rad•ª•ÏX
-                    qua_r.y = tpr_rotate_bullets.y - (i * radius);
-                    //’eŠÛ‚ÌŠp“x‚ğ•ÏX
-                    bullet_r.transform.rotation = qua_r;
-                    //Šp“x‚ğŒvZ
-                    Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.up) * e_vec;
-                    //’eŠÛ‚Ì”­ËŠp“x‚ğ•ÏX
-                    bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
-                    //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
-                    EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_r.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
-                    //‰E‘¤
-                    GameObject bullet_l = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
-                    bullet_l.transform.position = bullet_point.transform.position;
-                    Quaternion qua_l = tpr_rotate_bullets;
-                    qua_l.y = tpr_rotate_bullets.y + (i * radius);
-                    bullet_l.transform.rotation = qua_l;
-                    Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.up) * e_vec;
-                    bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
-                    //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
-                    EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_l.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
+                bullet_per_shot = e_status.bullet_per_shot;
+                shot_count_vertex = 0;
 
-                }
-                else
+                switch (boss_act_count)
                 {
-                    GameObject bullet_r = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
-                    bullet_r.transform.position = bullet_point.transform.position;
-                    //’eŠÛ‚Ì‰ŠúŠp“x‚ğ“ü‚ê‚é
-                    Quaternion qua_r = tpr_rotate_bullets;
-                    //Šp“x‚ği*rad•ª•ÏX
-                    qua_r.y = tpr_rotate_bullets.x - (i * radius);
-                    //’eŠÛ‚ÌŠp“x‚ğ•ÏX
-                    bullet_r.transform.rotation = qua_r;
-                    //Šp“x‚ğŒvZ
-                    Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.left) * e_vec;
-                    //’eŠÛ‚Ì”­ËŠp“x‚ğ•ÏX
-                    bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
-                    //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
-                    EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_r.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
-                    //‰E‘¤
-                    GameObject bullet_l = Instantiate(bullet_prefab[0], bullet_point.transform.position, Quaternion.identity);
-                    bullet_l.transform.position = bullet_point.transform.position;
-                    Quaternion qua_l = tpr_rotate_bullets;
-                    qua_l.y = tpr_rotate_bullets.x + (i * radius);
-                    bullet_l.transform.rotation = qua_l;
-                    Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.left) * e_vec;
-                    bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
-                    //’eŠÛ‚ÉUŒ‚—Í‚Ìî•ñ‚ğ“n‚µ‚Ä‚¨‚­
-                    EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_l.attack_damage = damage;//UŒ‚—Í‚ğ“n‚·
-
+                    case 0:
+                    case 1: boss_act_count++; break;
+                    case 2: boss_act_count = 0; break;
                 }
             }
+
         }
+
     }
     //’eŠÛ‚ğw’è‰ñ”•ªw’èŠÔŠÔŠu‚Å”­Ë
     private void Mul_Shot(int counts, int time)

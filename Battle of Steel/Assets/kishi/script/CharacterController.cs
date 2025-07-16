@@ -1,10 +1,4 @@
-
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
 
 public class ChracterController : MonoBehaviour
 {
@@ -29,9 +23,9 @@ public class ChracterController : MonoBehaviour
     private float boost_max;//ブーストの上限
     public bool boost_empty = false;
 
-    public float fov_changeamount = 10.0f;
-    public float min_fov = 60.0f;//fov最小値
-    public float max_fov = 90.0f;//fov最大値
+    private float fov_changeamount = 10.0f;
+    private float min_fov = 60.0f;//fov最小値
+    private float max_fov = 90.0f;//fov最大値
     public TrailRenderer[] Trail;//トレイル
 
 
@@ -147,7 +141,7 @@ public class ChracterController : MonoBehaviour
         move_set();
         move = rb.linearVelocity;
 
-        Debug.Log(move);
+        //Debug.Log(move);
         //アニメージョン移動方向を初期化
         anim_x = 0; anim_y = 0; animator.SetBool("Action", false);
 
@@ -193,13 +187,13 @@ public class ChracterController : MonoBehaviour
         //接地した状態で通常移動している場合boostを回復する
         if(!IsJump && !IsDash && boost < boost_max)
         {
-            boost += 0.4f;
+            boost += 0.6f;
         }
 
         //ダッシュ移動
-        if (move.x != 0 && move.z != 0 && Input.GetKey(KeyCode.LeftShift)&&boost_empty)
+        if (move.x != 0.0f && move.z != 0.0f && Input.GetKey(KeyCode.LeftShift)&&!boost_empty)
         {
-            boost -= 0.3f;
+            boost -= 0.2f;
             Dash_Trail();
             camera_Fovaway();
             IsDash = true;
@@ -214,6 +208,7 @@ public class ChracterController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !boost_empty
             && boost >= 20 && !IsJump)//ジャンプ
         {
+           
             pos = transform.position;//ジャンプする前のプレイヤーの座標を保存
             rb.linearVelocity = new Vector3(move.x, jumppower * 4.0f, move.z);//上方向に移動する
             IsJump = true;//空中判定
@@ -224,12 +219,12 @@ public class ChracterController : MonoBehaviour
         if (transform.position.y - pos.y >= 5f)
         {
             IsJump = true;//空中判定
-            if(move.x != 0 && move.z != 0 && //空中でダッシュ移動をした場合
+            if(move.x != 0.0f && move.z != 0.0f && //空中でダッシュ移動をした場合
              Input.GetKey(KeyCode.LeftShift) && !boost_empty)
             {
-                boost -= 0.2f;
-                rb.linearVelocity = new Vector3(move.x, 0, move.z);//上方向のベクトルを0にする
-                rb.useGravity = false;//落下しないようにする
+              rb.linearVelocity = new Vector3(move.x, 0, move.z);//上方向のベクトルを0にする
+              boost -= 0.2f;
+              rb.useGravity = false;//落下しないようにする
             }
             else
             {

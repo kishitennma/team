@@ -77,6 +77,7 @@ public class Enemy_Controller : Damage_Calclate
     private int act_time = 0;//Boss＿Second用時間計測
     private int shot_count = 0;//Boss_Second用発射カウント
     private int shot_count_s = 0;//Boss_Second用発射カウント
+    private int shot_count_vertex = 0;//way_shot用縦軸カウント
     void Start()
     {
         //エネミーのインデックスを取得
@@ -123,7 +124,7 @@ public class Enemy_Controller : Damage_Calclate
                 b_time = 0;//時間初期化
             }
         }
-        //ボス（停止するボス）
+        //高速でまとまった弾を撃つボス
         if(style == Enemy_Ai_Style.Boss_Fast)
         {
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
@@ -140,21 +141,16 @@ public class Enemy_Controller : Damage_Calclate
             {
                 switch (boss_act_count)
                 {
-                    case 0: Way_Shot(2,2, false); break;
-                    case 1: Way_Shot(3, 9,true); break;
-                    case 2: Way_Shot(5, 14, false); break;
-                }
-                switch(boss_act_count)
-                {
-                    case 0:boss_act_count++;break;
-                    case 1:boss_act_count++;break;
-                    case 2:boss_act_count=0;break;
+                    case 0: Way_Shot(2,2, false,1,bullet_per_shot); break;
+                    case 1: Way_Shot(7, 10, false,1, bullet_per_shot); break;
+                    case 2: Way_Shot(7,10,false,3,30f); break;
                 }
 
                 //発射カウントで放つ弾の数を変更する
                 b_time = 0;
             }
         }
+        //ホーミング弾を撃つボス
         if(style == Enemy_Ai_Style.Boss_Second)
         {
             act_time++;
@@ -172,6 +168,7 @@ public class Enemy_Controller : Damage_Calclate
         {
             //敵からプレイヤーまでのベクトル作成
             e_vec = gameObject.transform.position - collider.gameObject.transform.position;
+            e_vec.y = 0;//上下には回転しない
             transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
             act_shot = true;//弾丸発射
         }
@@ -213,93 +210,111 @@ public class Enemy_Controller : Damage_Calclate
         bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
     }
     //弾丸を扇状に決められた回数分左右2方向に発射
-    private void Way_Shot(int counts,int radius,bool derct)
+    private void Way_Shot(int counts,int radius,bool derct,int r_count,float time)
     {
-
-        for(int i = 0; i <= counts; i++)
+        if(shot_count_vertex <= r_count)
         {
-            //効果音をつける
-            a_source.Play();
-            if(i== 0)
+            shot_count_vertex++;//行動回数を増加
+            bullet_per_shot = time;
+            a_source.Play();//効果音をつける
+            for (int i = 0; i <= counts; i++)
             {
-                //弾のプレハブを生成
-                GameObject bullet = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-                bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
-                bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
-                //弾丸に攻撃力の情報を渡しておく
-                EnemyBulletAction e_bulet_act = bullet.GetComponent<EnemyBulletAction>();
-                e_bulet_act.attack_damage = damage;//攻撃力を渡す
+                //初回発射を基準として左右に扇状に展開
+                if (i == 0)
+                {
+                    //弾のプレハブを生成
+                    GameObject bullet = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                    bullet.transform.position = bullet_point.transform.position;//ポジションをポイントへ移動
+                    bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
+                    //弾丸に攻撃力の情報を渡しておく
+                    EnemyBulletAction e_bulet_act = bullet.GetComponent<EnemyBulletAction>();
+                    e_bulet_act.attack_damage = damage;//攻撃力を渡す
 
-                bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
-                tpr_rotate_bullets = bullet.transform.rotation;
+                    bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
+                    tpr_rotate_bullets = bullet.transform.rotation;
+                }
+                if (i > 0)
+                {
+                    //横軸
+                    if (!derct)
+                    {
+                        GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_r.transform.position = bullet_point.transform.position;
+                        //弾丸の初期角度を入れる
+                        Quaternion qua_r = tpr_rotate_bullets;
+                        //角度をi*rad分変更
+                        qua_r.y = tpr_rotate_bullets.y - (i * radius);
+                        //弾丸の角度を変更
+                        bullet_r.transform.rotation = qua_r;
+                        //角度を計算
+                        Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.up) * e_vec;
+                        //弾丸の発射角度を変更
+                        bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
+                        //弾丸に攻撃力の情報を渡しておく
+                        EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_r.attack_damage = damage;//攻撃力を渡す
+                                                             //右側
+                        GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_l.transform.position = bullet_point.transform.position;
+                        Quaternion qua_l = tpr_rotate_bullets;
+                        qua_l.y = tpr_rotate_bullets.y + (i * radius);
+                        bullet_l.transform.rotation = qua_l;
+                        Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.up) * e_vec;
+                        bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
+                        //弾丸に攻撃力の情報を渡しておく
+                        EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_l.attack_damage = damage;//攻撃力を渡す
+
+                    }
+                    else
+                    {
+                        GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_r.transform.position = bullet_point.transform.position;
+                        //弾丸の初期角度を入れる
+                        Quaternion qua_r = tpr_rotate_bullets;
+                        //角度をi*rad分変更
+                        qua_r.y = tpr_rotate_bullets.x - (i * radius);
+                        //弾丸の角度を変更
+                        bullet_r.transform.rotation = qua_r;
+                        //角度を計算
+                        Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.left) * e_vec;
+                        //弾丸の発射角度を変更
+                        bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
+                        //弾丸に攻撃力の情報を渡しておく
+                        EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_r.attack_damage = damage;//攻撃力を渡す
+                                                             //右側
+                        GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
+                        bullet_l.transform.position = bullet_point.transform.position;
+                        Quaternion qua_l = tpr_rotate_bullets;
+                        qua_l.y = tpr_rotate_bullets.x + (i * radius);
+                        bullet_l.transform.rotation = qua_l;
+                        Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.left) * e_vec;
+                        bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
+                        //弾丸に攻撃力の情報を渡しておく
+                        EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
+                        e_bulet_act_l.attack_damage = damage;//攻撃力を渡す
+
+                    }
+                }
             }
-            if(i>0)
+            if (shot_count_vertex >= r_count)
             {
-                //横軸
-                if(!derct)
-                {
-                    GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-                    bullet_r.transform.position = bullet_point.transform.position;
-                    //弾丸の初期角度を入れる
-                    Quaternion qua_r = tpr_rotate_bullets;
-                    //角度をi*rad分変更
-                    qua_r.y = tpr_rotate_bullets.y - (i * radius);
-                    //弾丸の角度を変更
-                    bullet_r.transform.rotation = qua_r;
-                    //角度を計算
-                    Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.up) * e_vec;
-                    //弾丸の発射角度を変更
-                    bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
-                    //弾丸に攻撃力の情報を渡しておく
-                    EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_r.attack_damage = damage;//攻撃力を渡す
-                    //右側
-                    GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-                    bullet_l.transform.position = bullet_point.transform.position;
-                    Quaternion qua_l = tpr_rotate_bullets;
-                    qua_l.y = tpr_rotate_bullets.y + (i * radius);
-                    bullet_l.transform.rotation = qua_l;
-                    Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.up) * e_vec;
-                    bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
-                    //弾丸に攻撃力の情報を渡しておく
-                    EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_l.attack_damage = damage;//攻撃力を渡す
+                bullet_per_shot = e_status.bullet_per_shot;
+                shot_count_vertex = 0;
 
-                }
-                else
+                switch (boss_act_count)
                 {
-                    GameObject bullet_r = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-                    bullet_r.transform.position = bullet_point.transform.position;
-                    //弾丸の初期角度を入れる
-                    Quaternion qua_r = tpr_rotate_bullets;
-                    //角度をi*rad分変更
-                    qua_r.y = tpr_rotate_bullets.x - (i * radius);
-                    //弾丸の角度を変更
-                    bullet_r.transform.rotation = qua_r;
-                    //角度を計算
-                    Vector3 e_vec_r = Quaternion.AngleAxis(-radius * i, Vector3.left) * e_vec;
-                    //弾丸の発射角度を変更
-                    bullet_r.GetComponent<Rigidbody>().AddForce(-e_vec_r.normalized * bullet_force, ForceMode.Impulse);
-                    //弾丸に攻撃力の情報を渡しておく
-                    EnemyBulletAction e_bulet_act_r = bullet_r.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_r.attack_damage = damage;//攻撃力を渡す
-                    //右側
-                    GameObject bullet_l = Instantiate(bullet_prefab[0], gameObject.transform.position, Quaternion.identity);
-                    bullet_l.transform.position = bullet_point.transform.position;
-                    Quaternion qua_l = tpr_rotate_bullets;
-                    qua_l.y = tpr_rotate_bullets.x + (i * radius);
-                    bullet_l.transform.rotation = qua_l;
-                    Vector3 e_vec_l = Quaternion.AngleAxis(radius * i, Vector3.left) * e_vec;
-                    bullet_l.GetComponent<Rigidbody>().AddForce(-e_vec_l.normalized * bullet_force, ForceMode.Impulse);
-                    //弾丸に攻撃力の情報を渡しておく
-                    EnemyBulletAction e_bulet_act_l = bullet_l.GetComponent<EnemyBulletAction>();
-                    e_bulet_act_l.attack_damage = damage;//攻撃力を渡す
-
+                    case 0:   
+                    case 1:boss_act_count++;break;
+                    case 2:boss_act_count = 0;break;
                 }
             }
+
         }
+
     }
-    //弾丸を指定回数分指定時間間隔で発射
+    //弾丸を指定回数分指定時間間隔で発射する関数
     private void Mul_Shot(int counts,int time)
     {
         if (shot_count_s <= counts && act_time > time)
@@ -319,14 +334,13 @@ public class Enemy_Controller : Damage_Calclate
                 e_vec += new Vector3(10f, 0, 0);
             else if (Input.GetKey(KeyCode.A))
                 e_vec += new Vector3(-10f, 0, 0);
-
-
                 //RigidBodyにbullet_force分の力を加える
                 bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
 
             shot_count_s++;
             act_time = 0;
         }
+        //一定回数撃ち終わったら初期化して終了
         if (shot_count_s >= counts)
         {
             bullet_per_shot = e_status.bullet_per_shot;
@@ -334,6 +348,7 @@ public class Enemy_Controller : Damage_Calclate
             boss_act_count++;
         }
     }
+    //ホーミング弾の関数
     private void Homing_Shot(int counts,int time)
     {
         if (shot_count <= counts && act_time > time)
