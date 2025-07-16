@@ -232,6 +232,16 @@ public class ChracterController : MonoBehaviour
             }
         }
 
+        //ブースト超過対策H
+        if (boost / boost_max < 0)
+        {
+            boost = 0.0f;
+        }
+        else if (boost / boost_max > 1.0f)
+        {
+            boost = boost_max;
+        }
+
         if (boost <= 0.0f)
             boost_empty = true;
         if (boost >= boost_max)
