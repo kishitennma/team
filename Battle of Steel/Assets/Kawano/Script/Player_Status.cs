@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,19 +8,42 @@ public class Player_Status : MonoBehaviour
     public static int Player_Attack_Damage;//プレイヤーの攻撃力を保持(変動あり)
     public static int Player_Put_Attack_Damage;//プレイヤーの攻撃力を保持(変動無し)
     public static int Player_HP=100;//プレイヤーの体力
+    public static int Player_Max_HP = 100;
     public GameObject weapon_image;//攻撃力増加イメージ
     public GameObject guide_image;//操作方法画像
+    public static int heal_count = 3;//回復できる
+    //public Text not_heal_count;//回復できない時表示するテキスト
+
+    const int heal_value = 30;//回復力
 
     private bool guide_flag;//ガイド表示フラグ
     private void Start()
     {
-        Player_HP = 100;
+        heal_count = 3;
+        Player_HP = Player_Max_HP;//体力を最大体力と同じにする
         weapon_image.SetActive(false);//攻撃力が上昇中に表示させる画像
         guide_image.SetActive(false);//操作方法のオブジェクト
     }
 
     private void Update()
     {
+        //回復ボタン  ３回まで使用可能
+        if(Input.GetKeyDown(KeyCode.R) && heal_count > 0)
+        {
+            //体力が最大値と同等の時
+            if(Player_HP >= Player_Max_HP)
+            {
+                Debug.Log("体力はマックスです");
+            }
+            else if(Player_HP < Player_Max_HP)
+            {
+                heal_count--;//使用回数を減らす
+                Heal();
+            }
+                
+        }
+
+        //操作ガイド表示
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             if(guide_flag)
@@ -60,5 +82,25 @@ public class Player_Status : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+    //体力回復関数
+    private void Heal()
+    {
+        //回復を実行
+        if(heal_count > 0)
+        {
+            Player_HP += heal_value;//体力を数値分回復
+
+            //最大体力をはみ出さないようにする
+            if(Player_HP >= Player_Max_HP)
+            {
+                Player_HP = Player_Max_HP;
+            }
+        }
+        else
+        {
+            Debug.Log("回復を使い切りました");
+        }
+
     }
 }
