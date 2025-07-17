@@ -47,9 +47,9 @@ public class Tutorial_Manager : MonoBehaviour
             }
             if (tutorial_number == 5 && Input.GetMouseButtonDown(1) )
             {
-                tutorial_number = 6;//武器切り替え
+                tutorial_number = 6;//武器切り替え,回復
             }
-            if(tutorial_number == 6 && Input.GetKeyDown(KeyCode.Q))
+            if(tutorial_number == 6 && Input.GetKeyDown(KeyCode.Q)|| Input.GetKeyDown(KeyCode.R))
             {
                 break_wall_second.SetActive(false);
                 tutorial_number = 7;
@@ -78,7 +78,7 @@ public class Tutorial_Manager : MonoBehaviour
             case 5:
                 tutorial_text.text = "右クリックで敵をロックオン";break;
             case 6:
-                tutorial_text.text = "Qキーで武器を切り替える";break;
+                tutorial_text.text = "Qキーで武器切り替え\nRキーで体力を回復";break;
             case 7:
                 tutorial_text.text = "全ての敵を倒せ!!";break;
         }

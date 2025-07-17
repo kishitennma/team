@@ -526,6 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon_image: {fileID: 367648120}
   guide_image: {fileID: 382317171}
+  heal_count: 3
   Heal_Effect: {fileID: 1702671131}
 --- !u!114 &318744323
 MonoBehaviour:
@@ -2060,7 +2061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3158888336042082950, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -439.10007
+      value: -439.10004
       objectReference: {fileID: 0}
     - target: {fileID: 3158888336042082950, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2096,7 +2097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640845481220299531, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -411.10007
+      value: -411.10004
       objectReference: {fileID: 0}
     - target: {fileID: 7640845481220299531, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2107,8 +2108,12 @@ PrefabInstance:
       value: -230
       objectReference: {fileID: 0}
     - target: {fileID: 8397907528847077823, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: jumppower
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397907528847077823, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2124,7 +2129,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1980418433}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614ae1ac068385f459bf364d12f0ccc7, type: 3}
   m_Name: 
