@@ -49,11 +49,11 @@ public class Enemy_Controller : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Idle_Robot,      new Enemy_Status( 15, 5,Enemy_Ai_Style.Idle,        100f) },
-        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 25, 5,Enemy_Ai_Style.Idle,        150f) },
-        {Enemy_ID.Boss_01,         new Enemy_Status(190,4,Enemy_Ai_Style.Boss_Idle,   150f) },
-        {Enemy_ID.Boss_02,         new Enemy_Status(230, 5,Enemy_Ai_Style.Boss_Fast,   90f) },
-        {Enemy_ID.Boss_03,         new Enemy_Status(230, 3,Enemy_Ai_Style.Boss_Second, 200f) },
+        {Enemy_ID.Idle_Robot,      new Enemy_Status( 15, 5, Enemy_Ai_Style.Idle,        100f) },
+        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 25, 5, Enemy_Ai_Style.Idle,        150f) },
+        {Enemy_ID.Boss_01,         new Enemy_Status(190, 4, Enemy_Ai_Style.Boss_Idle,   150f) },//緑のボス
+        {Enemy_ID.Boss_02,         new Enemy_Status(230, 3, Enemy_Ai_Style.Boss_Fast,   90f) },//青のボス
+        {Enemy_ID.Boss_03,         new Enemy_Status(230, 3, Enemy_Ai_Style.Boss_Second, 200f) },//黄色のボス
     };
 
     //変数
@@ -98,7 +98,7 @@ public class Enemy_Controller : Damage_Calclate
         if (hp < 1)
         {
             act_shot = false;
-            GameObject explosive = Instantiate(Explosive_unit, gameObject.transform.position, Quaternion.identity);
+            GameObject explosive = Instantiate(Explosive_unit, gameObject.transform.position, Quaternion.identity);//爆発エフェクト発生
             if (animator != null)
             {
                 animator.SetBool("Death", true);//アニメーションを設定
@@ -129,7 +129,7 @@ public class Enemy_Controller : Damage_Calclate
         {
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                Mul_Shot(5, 4);
+                Mul_Shot(5, 4);//5発の弾丸
 
                 b_time = 0;
             }
@@ -156,7 +156,7 @@ public class Enemy_Controller : Damage_Calclate
             act_time++;
             if (act_shot == true && bullet_per_shot < b_time && hp > 0)
             {
-                Homing_Shot(5, 25);
+                Homing_Shot(5, 25);//５発の弾丸
                 b_time = 0;
             }
         }
@@ -363,7 +363,7 @@ public class Enemy_Controller : Damage_Calclate
             bullet.transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
 
             //RigidBodyにbullet_force分の力を加える
-            bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force/2, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce(-e_vec.normalized * bullet_force, ForceMode.Impulse);
             shot_count++;
             act_time = 0;
             if (shot_count >= counts)

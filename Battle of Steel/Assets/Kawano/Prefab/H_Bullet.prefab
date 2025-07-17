@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca167fe55182d3e4f8f24243bfc48f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life_time: 3
+  life_time: 10
   act: 1
   explosive_effect: {fileID: 1281529153650206152, guid: 06c097f4911c6e94b8422363cfe590c2, type: 3}
   rb: {fileID: 5152781163883876349}
@@ -151,7 +151,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5469406016197046517}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -189,7 +189,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 3
   m_Center: {x: -0.000000003259629, y: 0.0000000032596283, z: 0}
 --- !u!96 &2118915859720493415
 TrailRenderer:
