@@ -82,6 +82,7 @@ public class WeaponSystem : MonoBehaviour
         not_ammo_text.SetActive(false);
         //PlayerPrefs‚ÉƒZ[ƒu‚³‚ê‚½“ñ‚Â‚Ì”š‚ğ“Ç‚İ‚Ş
         index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
+        
         //null‚È‚ç-1
         if (!weapon_index.ContainsKey(index))
         {

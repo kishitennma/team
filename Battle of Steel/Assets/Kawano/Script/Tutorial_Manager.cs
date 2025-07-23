@@ -47,14 +47,19 @@ public class Tutorial_Manager : MonoBehaviour
             }
             if (tutorial_number == 5 && Input.GetMouseButtonDown(1) )
             {
-                tutorial_number = 6;//武器切り替え,回復
+                tutorial_number = 6;//武器切り替え
             }
-            if(tutorial_number == 6 && Input.GetKeyDown(KeyCode.Q)|| Input.GetKeyDown(KeyCode.R))
+            if(tutorial_number == 6 && Input.GetKeyDown(KeyCode.Q))
+            {
+                tutorial_number = 7;//回復
+                Player_Status.Player_HP = 70;
+            }
+            if(tutorial_number == 7 && Input.GetKeyDown(KeyCode.R))
             {
                 break_wall_second.SetActive(false);
-                tutorial_number = 7;
+                tutorial_number = 8;
             }
-            if(tutorial_number == 7)
+            if(tutorial_number == 8)
             {
                 tutorial_flag = false;
             }
@@ -78,9 +83,11 @@ public class Tutorial_Manager : MonoBehaviour
             case 5:
                 tutorial_text.text = "右クリックで敵をロックオン";break;
             case 6:
-                tutorial_text.text = "Qキーで武器切り替え\nRキーで体力を回復";break;
+                tutorial_text.text = "Qキーで武器切り替え";break;
             case 7:
-                tutorial_text.text = "全ての敵を倒せ!!";break;
+                tutorial_text.text = "Rキーで回復(三回まで)";break;
+            case 8:
+                tutorial_text.text = "チュートリアル終了\n全ての敵を倒せ！！！";break;
         }
     }
 }

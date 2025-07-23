@@ -34,7 +34,8 @@ public class ChracterController : MonoBehaviour
 
     [SerializeField] float move_speed;//キャラクターの移動速度
     [SerializeField] float dash_speed;//ダッシュ補正速度
-
+    private float add_speed;//move_speedの値に加算
+    public float max_speed = 75.0f;//最大速度
     Vector3 move_dir;//移動方向設定用
     Vector3 move;//現在の移動速度
     Vector3 pos;//プレイヤーの座標保存用
@@ -49,7 +50,6 @@ public class ChracterController : MonoBehaviour
    
     public bool IsJump = false;//空中判定
     public bool IsDash = false;//空中判定
-
 
 
 
@@ -102,7 +102,7 @@ public class ChracterController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         rb = GetComponent<Rigidbody>();
-
+        add_speed = move_speed;//初期化
   
 
         //ブースト初期値反映H
@@ -252,17 +252,37 @@ public class ChracterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(move.x != 0.0f && move.z != 0.0f)
+        {
+            add_speed += 0.1f;//加速
+
+            //最大速度を超えないようにする
+            if(add_speed >= max_speed)
+            {
+                add_speed = max_speed;
+            }
+        }
+        else
+        {
+            //止まっている場合は減速
+            if(add_speed > move_speed)
+            {
+                add_speed -= 0.1f;
+            }
+        }
+
+
         //ダッシュ時に移動速度を変更
-        if (Input.GetKey(KeyCode.LeftShift)&&!boost_empty)
+        if (Input.GetKey(KeyCode.LeftShift) && !boost_empty)
         {
             rb.linearVelocity = new Vector3(dash_x, move.y, dash_z);
-          
+
         }
         else//通常移動時の移動速度にする
         {
             rb.linearVelocity = new Vector3(walk_x, move.y, walk_z);
             camera_Fovreturn();
-          
+
         }
         
 
@@ -295,10 +315,10 @@ public class ChracterController : MonoBehaviour
     /// </summary>
     void move_set()
     {
-        walk_x = move_dir.x * move_speed;
-        walk_z = move_dir.z * move_speed;
-        dash_x = (move_dir.x * move_speed) * dash_speed;
-        dash_z = (move_dir.z * move_speed) * dash_speed;
+        walk_x = move_dir.x * add_speed;
+        walk_z = move_dir.z * add_speed;
+        dash_x = (move_dir.x * add_speed) * dash_speed;
+        dash_z = (move_dir.z * add_speed) * dash_speed;
     }
     /// <summary>
     /// ダッシュ時のTrailの設定を変える

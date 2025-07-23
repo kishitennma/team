@@ -34,6 +34,8 @@ public class Set_Weapon_Data : MonoBehaviour
             PlayerPrefs.SetInt("Select_f", selectWeapons[0]);
             PlayerPrefs.SetInt("Select_s", selectWeapons[1]);
             PlayerPrefs.Save();
+            SavingWeapons.save_weapons[0] = selectWeapons[0];
+            SavingWeapons.save_weapons[1] = selectWeapons[1];
         }
     }
 }
