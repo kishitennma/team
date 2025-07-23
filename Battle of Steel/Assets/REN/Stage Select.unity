@@ -1909,6 +1909,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: robot_metallic
       objectReference: {fileID: 0}
+    - target: {fileID: 8155533566875335504, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8155533566875756208, guid: 7db4fdf40e93e1f46bfd95dd54089326, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.8712705

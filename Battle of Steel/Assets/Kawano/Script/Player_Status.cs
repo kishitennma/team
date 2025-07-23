@@ -12,7 +12,8 @@ public class Player_Status : MonoBehaviour
     public GameObject weapon_image;//攻撃力増加イメージ
     public GameObject guide_image;//操作方法画像
     private bool guide_flag;//ガイド表示フラグ
-    public static int[] weapons;
+    public static int weapons_f;
+    public static int weapons_s;
 
     //回復用変数
     public int heal_count = 3;//回復できる回数

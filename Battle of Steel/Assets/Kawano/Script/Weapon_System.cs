@@ -81,8 +81,9 @@ public class WeaponSystem : MonoBehaviour
         Application.targetFrameRate = 120;//60FPS（仮）
         not_ammo_text.SetActive(false);
         //PlayerPrefsにセーブされた二つの数字を読み込む
-        index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
-        
+        //index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
+        index = isMainWeapon ? Player_Status.weapons_f : Player_Status.weapons_s;
+        Debug.Log(index + "= 読み込まれた武器");
         //nullなら-1
         if (!weapon_index.ContainsKey(index))
         {
