@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class weapon_selection : MonoBehaviour
 {
@@ -66,4 +67,12 @@ public class weapon_selection : MonoBehaviour
             number_ui.text = text;
         }
     }
+    //メニューなどで初期化するための関数
+    public void Delete_Set_Weapons()
+    {
+        selected_weapon.Clear();//リストないのデータ削除
+        click_count = 0;//クリックカウント初期化
+
+    }
+
 }

@@ -78,7 +78,6 @@ public class WeaponSystem : MonoBehaviour
     private float set_timer;
     void Start()
     {
-        Application.targetFrameRate = 120;//60FPS（仮）
         not_ammo_text.SetActive(false);
         //PlayerPrefsにセーブされた二つの数字を読み込む
         //index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);

@@ -18,8 +18,31 @@ public class SEandSceneChange : MonoBehaviour
         audioSource.PlayOneShot(soundClip); //効果音を鳴らす
         StartCoroutine(ChangeSceneAfterDelay()); //指定時間待ってシーン遷移
     }
+    public void Change_Scene_Name()
+    {
+        if(Scene_Save.Scene_Value != -1)
+        {
+            switch (Scene_Save.Scene_Value)
+            {
+                case 0:
+                    sceneName = "Tutorial";//チュートリアル
+                    break;
+                case 1:
+                    sceneName = "Stage1";//ステージ１
+                    break;
+                case 2:
+                    sceneName = "Test_Game_01";//ラストステージ
+                    break;
+            }
+        }
+        
+    }
+
     IEnumerator ChangeSceneAfterDelay()
     {
+        
+
+
         yield return new WaitForSeconds(delayBeforeSceneChange); //効果音を鳴らした後に待機
         SceneManager.LoadScene(sceneName); //シーン遷移
     }
