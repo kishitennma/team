@@ -211,6 +211,7 @@ public class ChracterController : MonoBehaviour
            
             pos = transform.position;//ジャンプする前のプレイヤーの座標を保存
             rb.linearVelocity = new Vector3(move.x, jumppower * 4.0f, move.z);//上方向に移動する
+            move = rb.linearVelocity;
             IsJump = true;//空中判定
             boost -= 20.0f; //ブーストを減らす
         }
