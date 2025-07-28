@@ -1686,7 +1686,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "[\u30D4\u30B9\u30C8\u30EB]\u6700\u3082\u57FA\u672C\u7684\u306A\u88C5\u5099\u3000\u30EA\u30ED\u30FC\u30C9\u304C\u65E9\u3044"
+  m_Text: "[\u30D4\u30B9\u30C8\u30EB\u57FA\u672C\u7684\u306A\u88C5\u5099\u3000\u30EA\u30ED\u30FC\u30C9\u304C\u65E9\u3044"
 --- !u!222 &688227020
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2820,8 +2820,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "[\u30E9\u30A4\u30D5\u30EB]\u9023\u5C04\u3067\u304D\u308B\u304C\u706B\u529B\u306F\u63A7\u3048\u3081 
-    \u5F3E\u306E\u30D0\u30E9\u3064\u304D\u304C\u591A\u3044"
+  m_Text: "[\u30E9\u30A4\u30D5\u30EB]\u9023\u5C04\u3067\u304D\u308B\u304C\u706B\u529B\u306F\u63A7\u3048\u3081 "
 --- !u!222 &1198614489
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4138,7 +4137,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "[\u30B7\u30E7\u30C3\u30C8\u30AC\u30F3]\u8FD1\u8DDD\u96E2\u7279\u5316\u306E\u6B66\u5668 
-    \u9023\u5C04\u306F\u3067\u304D\u306A\u3044\u304C\u706B\u529B\u306F\u9AD8\u3044"
+    \u706B\u529B\u304C\u9AD8\u3044"
 --- !u!222 &1917870927
 CanvasRenderer:
   m_ObjectHideFlags: 0
