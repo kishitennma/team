@@ -49,11 +49,11 @@ public class Enemy_Controller : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Idle_Robot,      new Enemy_Status( 15, 5, Enemy_Ai_Style.Idle,        100f) },
-        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 25, 5, Enemy_Ai_Style.Idle,        150f) },
-        {Enemy_ID.Boss_01,         new Enemy_Status(190, 4, Enemy_Ai_Style.Boss_Idle,   150f) },//緑のボス
-        {Enemy_ID.Boss_02,         new Enemy_Status(230, 3, Enemy_Ai_Style.Boss_Fast,   90f) },//青のボス
-        {Enemy_ID.Boss_03,         new Enemy_Status(230, 3, Enemy_Ai_Style.Boss_Second, 200f) },//黄色のボス
+        {Enemy_ID.Idle_Robot,      new Enemy_Status( 15, 5, Enemy_Ai_Style.Idle,        350f) },//雑魚敵１
+        {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 25, 5, Enemy_Ai_Style.Idle,        400f) },//雑魚的２
+        {Enemy_ID.Boss_01,         new Enemy_Status(200, 4, Enemy_Ai_Style.Boss_Idle,   150f) },//緑のボス
+        {Enemy_ID.Boss_02,         new Enemy_Status(250, 3, Enemy_Ai_Style.Boss_Fast,   100f) },//青のボス
+        {Enemy_ID.Boss_03,         new Enemy_Status(300, 3, Enemy_Ai_Style.Boss_Second, 200f) },//黄色のボス
     };
 
     //変数

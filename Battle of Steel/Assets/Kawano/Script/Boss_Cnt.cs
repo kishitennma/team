@@ -13,7 +13,7 @@ public class Boss_Cnt : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Last_Boss,new Enemy_Status(1000, 3,Enemy_Ai_Style.Last_Boss,230f) },
+        {Enemy_ID.Last_Boss,new Enemy_Status(800, 3,Enemy_Ai_Style.Last_Boss,210f) },//ラストボス
     };
 
     //変数
