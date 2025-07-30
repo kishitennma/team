@@ -4071,6 +4071,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1775271076}
     - target: {fileID: 5212784493504563836, guid: 1e4c4841f4fcc354985a004b21d95f40, type: 3}
+      propertyPath: last_stage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212784493504563836, guid: 1e4c4841f4fcc354985a004b21d95f40, type: 3}
       propertyPath: boss_flag_text
       value: 
       objectReference: {fileID: 2107591601}

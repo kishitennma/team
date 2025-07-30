@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +5,7 @@ public class HPText : MonoBehaviour
 {
     //public float myhp = 500.0f;//初期値デバック
     private Text text;//text取得
-    public PlayerController Game_Manager;//プレイヤー取得
+    public CharacterController Game_Manager;//プレイヤー取得
     public int hp;//hp
     private float get_hp;//現在の体力の比率
 
