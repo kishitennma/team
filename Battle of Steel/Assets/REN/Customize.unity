@@ -1428,6 +1428,10 @@ PrefabInstance:
       propertyPath: m_Color.g
       value: 0.80392164
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Text
       value: ' Shot'
@@ -1727,7 +1731,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "[\u30D4\u30B9\u30C8\u30EB\u57FA\u672C\u7684\u306A\u88C5\u5099\u3000\u30EA\u30ED\u30FC\u30C9\u304C\u65E9\u3044"
+  m_Text: "[\u30D4\u30B9\u30C8\u30EB]\u57FA\u672C\u7684\u306A\u88C5\u5099\u3000\u30EA\u30ED\u30FC\u30C9\u304C\u65E9\u3044"
 --- !u!222 &688227020
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3483,6 +3487,10 @@ PrefabInstance:
       propertyPath: m_Color.g
       value: 0.80392164
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Text
       value: Pistol
@@ -4827,6 +4835,10 @@ PrefabInstance:
     - target: {fileID: 11400000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Color.g
       value: 0.80392164
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 05a81c3d5091440058129444d28322f3, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Text
