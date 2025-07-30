@@ -43,7 +43,6 @@ public class WeaponSystem : MonoBehaviour
     public float shoot_force, reload_time, time_between_shooting, spread;
     public int magazine_size, bullets_left, bullets_shot;
     public int setting_attack_dmg = 0;//他のスクリプトに渡すようの変数
-    public PlayerController player;
     //武器情報リスト
     public Dictionary<int, Weapon_Date> weapon_index = new()
     {
@@ -74,8 +73,9 @@ public class WeaponSystem : MonoBehaviour
     public bool isEquiped;//現在所持している武器
 
     public  bool on_reload;//リロード中
-    private float set_rel_time;
-    private float set_timer;
+    private float set_rel_time;//リロード設定時間
+    private float set_timer;//タイマー
+
     void Start()
     {
         not_ammo_text.SetActive(false);
@@ -197,7 +197,7 @@ public class WeaponSystem : MonoBehaviour
             //ショットガンの場合、複数の弾を同時に出す
             if(weapon.type == WeaponType.ShotGun)
             {
-                Bullet_Action.life_time = 0.25f;
+                Bullet_Action.life_time = 0.25f;//弾丸の生存時間を調整;
                 int bullet_per_tap = allow_per_shots;//５発
                 for (int i = 0; i < bullet_per_tap;i++)
                 {
@@ -206,7 +206,8 @@ public class WeaponSystem : MonoBehaviour
             }
             else
             {
-                Bullet_Action.life_time = 0.6f;
+                //ピストル、アサルト
+                Bullet_Action.life_time = 0.6f;//弾丸の生存時間を調整
                 Shoot();
             }
                 bullets_left--;
