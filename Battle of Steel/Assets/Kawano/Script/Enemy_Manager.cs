@@ -82,7 +82,7 @@ public class Enemy_Manager : MonoBehaviour
                     {
 
                         //ƒ{ƒX‚ğoŒ»
-                        for (int i = 0; i < boss.Count - 1; i++)
+                        for (int i = 0; i <= boss.Count - 1; i++)
                         {
                             boss[i].SetActive(true);
                             remaining++;
