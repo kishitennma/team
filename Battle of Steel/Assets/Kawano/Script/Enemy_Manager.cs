@@ -115,24 +115,15 @@ public class Enemy_Manager : MonoBehaviour
                 }
                 else
                 {
-                    invoke_time++;
                     clear_text.SetActive(true);
-                    if (invoke_time > 50)
+                    //経過時間をカウント
+                    step_time += Time.deltaTime;
+
+                    //3秒後に画面遷移（リザルトへ移動）
+                    if (step_time >= 30.0f)
                     {
-
-                        //経過時間をカウント
-                        step_time += Time.deltaTime;
-
-                        //3秒後に画面遷移（リザルトへ移動）
-                        if (step_time >= 30.0f)
-                        {
-
-                            SceneManager.LoadScene("Result");//リザルト画面
-                                                             //カーソルを元に戻す
-                            Cursor.visible = true;
-                            Cursor.lockState = CursorLockMode.None;
-                            step_time = 0.0f;       //経過時間初期化
-                        }
+                        //カーソルを元に戻す
+                        time_end = true;
                     }
                 }
             }
@@ -143,11 +134,8 @@ public class Enemy_Manager : MonoBehaviour
                 clear_text.SetActive(true);
                 if(invoke_time > 50)
                 {
-                    SceneManager.LoadScene("Result");//リザルト画面
                     //カーソルを元に戻す
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                    Enemy_Controller.count_game_state += 1;//クリア回数に応じて敵ステータス強化
+                    time_end = true;
 
                 }
             }
