@@ -35,7 +35,7 @@ public class StageButton : MonoBehaviour
 
         
         //è„å¿ÉyÅ[ÉW
-        if (STnum != 2)
+        if (STnum != 3)
         {
             STnum++;
         }
@@ -63,7 +63,7 @@ public class StageButton : MonoBehaviour
     }
     void Stage_set()
     {
-        for(int i=0;i<3;i++)
+        for(int i=0;i<4;i++)
         {
             if(i != STnum)
             {
