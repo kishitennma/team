@@ -1351,6 +1351,7 @@ MonoBehaviour:
   - {fileID: 806997789}
   move_speed: 50
   dash_speed: 3
+  max_speed: 75
   IsJump: 0
   IsDash: 0
 --- !u!1 &1467417832
