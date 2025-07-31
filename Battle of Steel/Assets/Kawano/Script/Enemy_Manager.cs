@@ -41,7 +41,7 @@ public class Enemy_Manager : MonoBehaviour
         if (time_end == true)
         {
             //経過時間をカウント
-            step_time += Time.deltaTime;
+            step_time += 0.1f;
             Debug.Log("計測時間" + step_time);
             //3秒後に画面遷移（リザルトへ移動）
             if (step_time >= 1.0f)
@@ -71,6 +71,8 @@ public class Enemy_Manager : MonoBehaviour
                     if (invoke_time > 50)
                     {
                        time_end = true;
+                        SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+
                     }
                 }
                 else
@@ -117,13 +119,15 @@ public class Enemy_Manager : MonoBehaviour
                 {
                     clear_text.SetActive(true);
                     //経過時間をカウント
-                    step_time += Time.deltaTime;
+                    step_time+= 0.1f;
 
                     //3秒後に画面遷移（リザルトへ移動）
                     if (step_time >= 30.0f)
                     {
                         //カーソルを元に戻す
                         time_end = true;
+                        SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
+
                     }
                 }
             }
@@ -136,6 +140,7 @@ public class Enemy_Manager : MonoBehaviour
                 {
                     //カーソルを元に戻す
                     time_end = true;
+                    SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
 
                 }
             }
