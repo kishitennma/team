@@ -22213,11 +22213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6961276183545917433, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
-<<<<<<< HEAD
-      value: -114.09836
-=======
       value: -114.09833
->>>>>>> 54273dae3ccf7207c3d02ae69cb7a03dbfb596a9
       objectReference: {fileID: 0}
     - target: {fileID: 7301719238365370503, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: RockOnImage
