@@ -51,7 +51,7 @@ public class Enemy_Controller : Damage_Calclate
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
         {Enemy_ID.Idle_Robot,      new Enemy_Status( 15, 5, Enemy_Ai_Style.Idle,        350f) },//雑魚敵１
         {Enemy_ID.Idle_Fast_Robot ,new Enemy_Status( 25, 5, Enemy_Ai_Style.Idle,        400f) },//雑魚的２
-        {Enemy_ID.Boss_01,         new Enemy_Status(200, 4, Enemy_Ai_Style.Boss_Idle,   150f) },//緑のボス
+        {Enemy_ID.Boss_01,         new Enemy_Status(200, 4, Enemy_Ai_Style.Boss_Idle,   450f) },//緑のボス
         {Enemy_ID.Boss_02,         new Enemy_Status(250, 3, Enemy_Ai_Style.Boss_Fast,   100f) },//青のボス
         {Enemy_ID.Boss_03,         new Enemy_Status(300, 3, Enemy_Ai_Style.Boss_Second, 200f) },//黄色のボス
     };
@@ -168,7 +168,7 @@ public class Enemy_Controller : Damage_Calclate
         {
             //敵からプレイヤーまでのベクトル作成
             e_vec = gameObject.transform.position - collider.gameObject.transform.position;
-            e_vec.y = 0;//上下には回転しない
+            //e_vec.y = 0;//上下には回転しない
             transform.rotation = Quaternion.LookRotation(e_vec);//角度をdirectionまで変更
             act_shot = true;//弾丸発射
         }
