@@ -124,6 +124,85 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
   m_PrefabInstance: {fileID: 1041430706}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &106873733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 106873734}
+  - component: {fileID: 106873736}
+  - component: {fileID: 106873735}
+  m_Layer: 5
+  m_Name: Select Weapon Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &106873734
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106873733}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 491186971}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 354.19867, y: -111}
+  m_SizeDelta: {x: 642.1238, y: 248.9593}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &106873735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106873733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 2c82ed6bbfe25d045a9e9cd779c9b83f, type: 3}
+    m_FontSize: 60
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 60
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Select \n2 Weapons"
+--- !u!222 &106873736
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106873733}
+  m_CullTransparentMesh: 1
 --- !u!1 &194881323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1180,7 @@ RectTransform:
   m_Children:
   - {fileID: 1905696654}
   - {fileID: 1132019595}
+  - {fileID: 106873734}
   - {fileID: 343215241}
   - {fileID: 938429340}
   - {fileID: 1031654308}
@@ -2483,11 +2563,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 376
+      value: 514
       objectReference: {fileID: 0}
     - target: {fileID: 22400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -205
+      value: -307.5558
       objectReference: {fileID: 0}
     - target: {fileID: 22400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4677,8 +4757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53772b6957a7c2f4f80d6e58b24a99c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipText: "[\u30B7\u30E7\u30C3\u30C8\u30AC\u30F3]\u8FD1\u8DDD\u96E2\u7279\u5316\u306E\u6B66\u5668 
-    \u9023\u5C04\u306F\u3067\u304D\u306A\u3044\u304C\u706B\u529B\u306F\u9AD8\u3044"
+  tooltipText: "[\u30B7\u30E7\u30C3\u30C8\u30AC\u30F3]\u8FD1\u8DDD\u96E2\u7279\u5316\u3000\u3082\u3061\u308D\u3093\u706B\u529B\u306F\u9AD8\u3044"
   customFont: {fileID: 12800000, guid: 2c82ed6bbfe25d045a9e9cd779c9b83f, type: 3}
   glitchDuration: 0.01
   revealDuration: 1
@@ -4715,8 +4794,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "[\u30B7\u30E7\u30C3\u30C8\u30AC\u30F3]\u8FD1\u8DDD\u96E2\u7279\u5316\u306E\u6B66\u5668 
-    \u706B\u529B\u304C\u9AD8\u3044"
+  m_Text: "[\u30B7\u30E7\u30C3\u30C8\u30AC\u30F3]\u8FD1\u8DDD\u96E2\u7279\u5316 
+    \u3082\u3061\u308D\u3093\u706B\u529B\u304C\u9AD8\u3044"
 --- !u!222 &1917870927
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4760,7 +4839,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 366, y: -202}
+  m_AnchoredPosition: {x: 504, y: -298.2}
   m_SizeDelta: {x: 142.4839, y: 121.1615}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957757173
