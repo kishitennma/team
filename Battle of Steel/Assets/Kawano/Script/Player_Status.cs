@@ -12,10 +12,13 @@ public class Player_Status : MonoBehaviour
     [Header("イメージ")]
     public GameObject weapon_image;//攻撃力増加イメージ
     public GameObject guide_image;//操作方法画像
-    private bool guide_flag;//ガイド表示フラグ
+    public GameObject Player_Exp;//プレイヤーの死亡時の爆発エフェクト
+    private bool guide_flag = true;//ガイド表示フラグ
     public static int weapons_f;
     public static int weapons_s;
     public static bool damaged;
+    private float death_timer = 0;
+    private GameObject Player;
 
     [SerializeField] Image OnDamaged;
     //回復用変数
@@ -29,12 +32,12 @@ public class Player_Status : MonoBehaviour
 
     private void Start()
     {
+        Player = GameObject.Find("Player");
         Heal_Effect.SetActive(false);
         Player_HP = Player_Max_HP;//体力を最大体力と同じにする
         weapon_image.SetActive(false);//攻撃力が上昇中に表示させる画像
-        guide_image.SetActive(false);//操作方法のオブジェクト
-
         OnDamaged.color = Color.clear;
+        death_timer = 0;
     }
 
     private void Update()
@@ -75,7 +78,7 @@ public class Player_Status : MonoBehaviour
         //操作ガイド表示
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            if(guide_flag)
+            if(guide_flag == true)
                 guide_flag = false;
             else
                 guide_flag = true;
@@ -101,15 +104,21 @@ public class Player_Status : MonoBehaviour
         }
         if (Player_HP < 1)
         {
-            SceneManager.LoadScene("GameOver");//仮でいったんタイトルに戻る//ゲームオーバー画面
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            //爆発エフェクト発生
+            GameObject explosive = Instantiate(Player_Exp, Player.transform.position, Quaternion.identity);
+            death_timer += 0.1f;
+
+            if(death_timer > 5f)
+            {
+                SceneManager.LoadScene("GameOver");//仮でいったんタイトルに戻る//ゲームオーバー画面
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
+        //自害デバッグ用
         if (Input.GetKeyDown(KeyCode.L))
         {
             Player_HP = 0;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
         }
     }
     //体力回復関数

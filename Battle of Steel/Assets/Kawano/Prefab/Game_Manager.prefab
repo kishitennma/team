@@ -59,5 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon_image: {fileID: 0}
   guide_image: {fileID: 0}
+  Player_Exp: {fileID: 1281529153650206152, guid: dcbccb16b5e1e514996b055fb1162ffd, type: 3}
+  OnDamaged: {fileID: 0}
   heal_count: 3
   Heal_Effect: {fileID: 0}

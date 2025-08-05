@@ -7,7 +7,7 @@ public class weapon_selection : MonoBehaviour
 {
     public static int click_count = 0;
     private const int MAX_WEAPONS = 2;
-    private static List<string> selected_weapon = new List<string>();
+    public static List<string> selected_weapon = new List<string>();
 
     public Text number_ui; //ボタンの上に表示する数字
 
@@ -22,7 +22,6 @@ public class weapon_selection : MonoBehaviour
 
         weapon_instances[gameObject.name] = this; //武器ごとにインスタンスを保存
     }
-
     public void select_weapon()
     {
         string weapon_name = gameObject.name;
@@ -67,12 +66,6 @@ public class weapon_selection : MonoBehaviour
             number_ui.text = text;
         }
     }
-    //メニューなどで初期化するための関数
-    public void Delete_Set_Weapons()
-    {
-        selected_weapon.Clear();//リストないのデータ削除
-        click_count = 0;//クリックカウント初期化
 
-    }
 
 }

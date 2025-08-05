@@ -31,18 +31,16 @@ public class SEandSceneChange : MonoBehaviour
                     sceneName = "Stage1";//ステージ１
                     break;
                 case 2:
-                    sceneName = "Test_Game_01";//ラストステージ
+                    sceneName = "Test_Game_02";//ステージ2
+                    break;
+                case 3:
+                    sceneName = "Test_Game_01";//ステージ３
                     break;
             }
         }
-        
     }
-
     IEnumerator ChangeSceneAfterDelay()
     {
-        
-
-
         yield return new WaitForSeconds(delayBeforeSceneChange); //効果音を鳴らした後に待機
         SceneManager.LoadScene(sceneName); //シーン遷移
     }

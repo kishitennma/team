@@ -796,6 +796,22 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 462289821}
+    - target: {fileID: 1171997730361959553, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 225.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171997730361959553, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 93.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171997730361959553, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171997730361959553, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.76
+      objectReference: {fileID: 0}
     - target: {fileID: 1340119498626087461, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_LocalPosition.x
       value: 106.350655
@@ -868,6 +884,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4817241698643894158, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_Text
+      value: "WASD \u3000 \u79FB\u52D5\nSpace\u3000\u30B8\u30E3\u30F3\u30D7\n\u5DE6Shift  
+        \u30C0\u30C3\u30B7\u30E5 \u30FB \u30D6\u30FC\u30B9\u30C8\nQ \u3000\u3000\u3000\u3000\u6B66\u5668\u5207\u308A\u66FF\u3048\u30FB\u30EA\u30ED\u30FC\u30C9\nR        
+        \u56DE\u5FA9\uFF083\u56DE\u307E\u3067\uFF09\n\u5DE6\u30AF\u30EA\u30C3\u30AF\u3000\u5F3E\u4E38\u767A\u5C04\n\u53F3\u30AF\u30EA\u30C3\u30AF\u3000\u6575\u30ED\u30C3\u30AF\u30AA\u30F3\u3000/\u3000\u89E3\u9664"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4817241698643894158, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5011279198015843292, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
@@ -884,9 +910,41 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5060749273129116777, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_Color.a
+      value: 0.6666667
+      objectReference: {fileID: 0}
     - target: {fileID: 5238840312746784220, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -205.35999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926613481215905017, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926613481215905017, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926613481215905017, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926613481215905017, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -671.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926613481215905017, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 101.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926613481215905017, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 332.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926613481215905017, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50.91
       objectReference: {fileID: 0}
     - target: {fileID: 6961276183545917433, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
