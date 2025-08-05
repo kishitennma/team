@@ -72,15 +72,13 @@ public class WeaponSystem : MonoBehaviour
 
     public bool isEquiped;//現在所持している武器
 
-    public static bool on_reload;//リロード中
+    public bool on_reload;//リロード中
     private float set_rel_time;//リロード設定時間
     private float set_timer;//タイマー
 
     void Start()
     {
         not_ammo_text.SetActive(false);
-        //PlayerPrefsにセーブされた二つの数字を読み込む
-        //index = PlayerPrefs.GetInt(isMainWeapon ? "Select_f" : "Select_s", -1);
         index = isMainWeapon ? Player_Status.weapons_f : Player_Status.weapons_s;
         Debug.Log(index + "= 読み込まれた武器");
         //nullなら-1
@@ -133,10 +131,7 @@ public class WeaponSystem : MonoBehaviour
         //この武器を所持していた時
         if (isEquiped)
         {
-            //if (on_reload)
-            //    on_reload = false;
-            if(!on_reload)
-            HandleInput();
+            if (!on_reload) HandleInput();
             //弾丸の残段数/最大数を表示
             if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
             if (on_reload)
@@ -173,7 +168,6 @@ public class WeaponSystem : MonoBehaviour
                     {
                         on_reload = false;
                     }
-
                 }
             }
 
