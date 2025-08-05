@@ -29,6 +29,7 @@ public class EnemyBulletAction : MonoBehaviour
             GameObject explosive = Instantiate(explosive_effect, gameObject.transform.position, Quaternion.identity);
             Debug.Log("åªç›ÇÃëÃóÕ" +Player_Status.Player_HP );
             Player_Status.Player_HP = cal.Damage_Cal(attack_damage,Player_Status.Player_HP);
+            Player_Status.damaged = true;
             Destroy(gameObject);
         }
 

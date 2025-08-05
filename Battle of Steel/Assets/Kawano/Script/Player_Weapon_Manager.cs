@@ -58,19 +58,18 @@ public class Player_Weapon_Manager : MonoBehaviour
         {
             if(anim_end_flag == false)
             {
-                if (!hold_secondry_weapon && Input.GetKey(set_key))
+                if (!hold_secondry_weapon && WeaponSystem.on_reload == false && Input.GetKey(set_key))
                 {
                     Set_Weapon_hand(sub_weapon, main_weapon);
 
                     hold_secondry_weapon = true;
                 }
-                else if (hold_secondry_weapon && Input.GetKey(set_key))
+                else if (hold_secondry_weapon && WeaponSystem.on_reload == false && Input.GetKey(set_key))
                 {
                     Set_Weapon_hand(main_weapon, sub_weapon);
                     hold_secondry_weapon = false;
                 }
             }
-            
         }
         else
         {

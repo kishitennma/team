@@ -72,7 +72,7 @@ public class WeaponSystem : MonoBehaviour
 
     public bool isEquiped;//現在所持している武器
 
-    public  bool on_reload;//リロード中
+    public static bool on_reload;//リロード中
     private float set_rel_time;//リロード設定時間
     private float set_timer;//タイマー
 

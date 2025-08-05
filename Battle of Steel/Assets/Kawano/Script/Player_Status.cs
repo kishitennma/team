@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player_Status : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class Player_Status : MonoBehaviour
     private bool guide_flag;//ガイド表示フラグ
     public static int weapons_f;
     public static int weapons_s;
+    public static bool damaged;
 
+    [SerializeField] Image OnDamaged;
     //回復用変数
     public int heal_count = 3;//回復できる回数
     public GameObject Heal_Effect;//回復エフェクト
@@ -30,10 +33,16 @@ public class Player_Status : MonoBehaviour
         Player_HP = Player_Max_HP;//体力を最大体力と同じにする
         weapon_image.SetActive(false);//攻撃力が上昇中に表示させる画像
         guide_image.SetActive(false);//操作方法のオブジェクト
+
+        OnDamaged.color = Color.clear;
     }
 
     private void Update()
     {
+        OnDamaged.color = Color.Lerp(OnDamaged.color,Color.clear,Time.deltaTime);
+        if (damaged == true)
+            Damage_Reaction();
+
         //回復ボタン 
         if(Input.GetKeyDown(KeyCode.R) && heal_count > 0)
         {
@@ -115,5 +124,11 @@ public class Player_Status : MonoBehaviour
         {
             Player_HP = Player_Max_HP;
         }
+    }
+
+    void Damage_Reaction()
+    {
+        OnDamaged.color = new Color(0.7f, 0, 0, 0.7f);
+        damaged = false;
     }
 }
