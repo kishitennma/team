@@ -39,9 +39,6 @@ public class Set_Weapon_Data : MonoBehaviour
             {
                 Debug.LogError("’l‚ª‚ ‚è‚Ü‚¹‚ñ");
             }
-            //PlayerPrefs.SetInt("Select_f", selectWeapons[0]);
-            //PlayerPrefs.SetInt("Select_s", selectWeapons[1]);
-            //PlayerPrefs.Save();
             Player_Status.weapons_f = selectWeapons[0];
             Player_Status.weapons_s = selectWeapons[1];
             max_click_flag = false;

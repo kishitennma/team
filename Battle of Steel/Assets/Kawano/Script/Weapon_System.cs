@@ -72,10 +72,10 @@ public class WeaponSystem : MonoBehaviour
 
     public bool isEquiped;//現在所持している武器
 
-    public bool on_reload;//リロード中
+    public bool on_reload = false;//リロード中
     private float set_rel_time;//リロード設定時間
     private float set_timer;//タイマー
-
+    public static bool Not_Changed_Weap = false;
     void Start()
     {
         not_ammo_text.SetActive(false);
@@ -94,26 +94,27 @@ public class WeaponSystem : MonoBehaviour
         // 武器ステータス適用
         shoot_force = weapon.shot_force * 10;//弾丸の発射速度
         reload_time = weapon.relode_time;//リロード時間
-        time_between_shooting = weapon.time_between_shooting;//
-        magazine_size = weapon.magazine_size;
-        bullets_left = magazine_size;
-        spread = weapon.spread_amount;
-        allow_bullet_hold = weapon.allow_bullet_hold;
+        time_between_shooting = weapon.time_between_shooting;//発射レート
+        magazine_size = weapon.magazine_size;//マガジン容量
+        bullets_left = magazine_size;//弾丸数を保存
+        spread = weapon.spread_amount;//発散
+        allow_bullet_hold = weapon.allow_bullet_hold;//オート、セミオート
         flash_light.SetActive(false);
 
+        //メイン武器なら最初に所持する
         if (isMainWeapon)
             isEquiped = true;
     }
 
-    //ここで、武器のステータス、情報を設定
+    //ここで武器のステータス、情報を設定
     void Update()
     {
         //qが押されたら、テキストを終了
         if (Input.GetKeyDown(KeyCode.Q))
         {
             not_ammo_text.SetActive(false);
-
         }
+        //弾丸がすべてなくなったらリロード開始
         if (bullets_left <= 0)
             on_reload = true;
 
@@ -129,21 +130,27 @@ public class WeaponSystem : MonoBehaviour
         }
 
         //この武器を所持していた時
-        if (isEquiped)
+        if (isEquiped == true)
         {
-            if (!on_reload) HandleInput();
             //弾丸の残段数/最大数を表示
             if (ammo_text) ammo_text.text = $"{bullets_left} / {magazine_size}";
-            if (on_reload)
+
+            //リロードしていない時
+            if (!on_reload)
+            {
+                HandleInput();
+                Not_Changed_Weap = false;
+            }
+            else
             {
                 set_timer++;
                 set_rel_time = Reload_Set_Time(magazine_size, reload_time);
                 //所持弾数が最大弾数より小さく、リロード時間を超えたら弾丸を１増加
-                if (bullets_left < magazine_size && set_timer > set_rel_time * 12)
+                if (bullets_left < magazine_size && set_timer > set_rel_time * 10)
                 {
                     bullets_left++;
                     set_timer = 0;
-                    if (bullets_left >= magazine_size)
+                    if (bullets_left == magazine_size)
                     {
                         not_ammo_text.SetActive(false);
                         on_reload = false;
@@ -151,27 +158,32 @@ public class WeaponSystem : MonoBehaviour
 
                 }
             }
-
         }
         else
         {
+            //この武器を所持していない時
             if (on_reload)
             {
+                //リロードしていたら
                 set_timer++;
-                set_rel_time = Reload_Set_Time(magazine_size, reload_time);
-                //所持弾数が最大弾数より小さく、リロード時間を超えたら弾丸を１増加
+                set_rel_time = Reload_Set_Time(magazine_size, reload_time);//リロードにかかる時間を算出
+                Not_Changed_Weap = true;
                 if (bullets_left < magazine_size && set_timer > set_rel_time*12)
                 {
+                    //所持弾数が最大弾数より小さく、リロード時間を超えたら弾丸を１増加
                     bullets_left++;
                     set_timer = 0;
-                    if (bullets_left > magazine_size)
+                    //最大段数まで回復したら終了
+                    if (bullets_left == magazine_size)
                     {
+                        Not_Changed_Weap = true;
                         on_reload = false;
                     }
                 }
             }
 
         }
+        //明滅が有効な場合
         if (useEmissionBlink)
         {
             float intensity = Mathf.PingPong(Time.time * blinkSpeed, emissionIntensity);
@@ -247,11 +259,6 @@ public class WeaponSystem : MonoBehaviour
         
     }
     void ResetShot() { ready_to_shoot = true; allow_invoke = true; }
-    //リロード開始関数
-    public void Reload()
-    {
-        on_reload = true;
-    }
     //武器組み立て関数
     public void BuildWeapon(WeaponType weapon_type)
     {

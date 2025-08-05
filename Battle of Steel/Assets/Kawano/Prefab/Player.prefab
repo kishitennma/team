@@ -1263,6 +1263,7 @@ MonoBehaviour:
   - {fileID: 3198582724830191459}
   move_speed: 50
   dash_speed: 1.5
+  max_speed: 75
   IsJump: 0
   IsDash: 0
 --- !u!114 &7301719238365370503
@@ -1302,6 +1303,8 @@ MonoBehaviour:
   set_key: 113
   Change_Image: {fileID: 803880520192088349}
   hold_secondry_weapon: 0
+  weapon_system: {fileID: 8169208741916589253}
+  not_equiped_weap_s: {fileID: 8329112328946954173}
 --- !u!114 &7807451698648124575
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,6 @@ public class Player_Weapon_Manager : MonoBehaviour
     public static bool anim_end_flag=false;//アニメション終了フラグ
     private WeaponSystem weapon_system;//weapon_system ammo_text変更用
     private WeaponSystem not_equiped_weap_s;//使用しない武器
-    private bool[] weapon_reloaded;
 
     private void Start()
     {
@@ -35,13 +34,6 @@ public class Player_Weapon_Manager : MonoBehaviour
             Debug.LogError("メイン武器がよみこまれませんでした");
         }
     }
-    private void Update()
-    {
-        //常にリロード状態か確認
-        weapon_reloaded[0] = weapon_system.on_reload;
-        weapon_reloaded[1] = not_equiped_weap_s.on_reload;
-    }
-
     private void FixedUpdate()
     {
         Player_Status.Player_Attack_Damage = weapon_system.setting_attack_dmg;//攻撃力を入力
@@ -64,13 +56,12 @@ public class Player_Weapon_Manager : MonoBehaviour
         {
             if(anim_end_flag == false)
             {
-                if (!hold_secondry_weapon &&Input.GetKey(set_key))
+                if (!hold_secondry_weapon && !WeaponSystem.Not_Changed_Weap &&Input.GetKey(set_key))
                 {
                     Set_Weapon_hand(sub_weapon, main_weapon);
-
                     hold_secondry_weapon = true;
                 }
-                else if (hold_secondry_weapon && Input.GetKey(set_key))
+                else if (hold_secondry_weapon && !WeaponSystem.Not_Changed_Weap && Input.GetKey(set_key))
                 {
                     Set_Weapon_hand(main_weapon, sub_weapon);
                     hold_secondry_weapon = false;
@@ -108,19 +99,6 @@ public class Player_Weapon_Manager : MonoBehaviour
     //武器変更用アニメーションストップ
     public void Set_End_Change_Anim()
     {
-        weapon_system = main_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
-        not_equiped_weap_s = sub_weapon.GetComponent<WeaponSystem>();//WeaponSystemコンポーネント取得
-
-        if (!hold_secondry_weapon)
-        {
-            weapon_system.isEquiped = true;
-            not_equiped_weap_s.isEquiped = false;
-        }
-        else
-        {
-            weapon_system.isEquiped = false;
-            not_equiped_weap_s.isEquiped = true;
-        }
         //変更後の武器出現
         Change_Image.color = Color.white;
         player_animator.SetBool("Change_Weapon", false);
