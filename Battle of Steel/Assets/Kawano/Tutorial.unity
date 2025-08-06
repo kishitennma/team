@@ -390,6 +390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: End_WAll
       objectReference: {fileID: 0}
+    - target: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 9064565440576439434, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_LocalPosition.x
       value: 56.922745
@@ -1455,6 +1459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Broken_Wall_Second
       objectReference: {fileID: 0}
+    - target: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 9064565440576439434, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57.992744
@@ -1941,6 +1949,10 @@ PrefabInstance:
     - target: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_Name
       value: Broken_Wall_First
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361178526072934071, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 9064565440576439434, guid: 8132ed9b6b108174c8cbf79b173cf069, type: 3}
       propertyPath: m_LocalPosition.x
