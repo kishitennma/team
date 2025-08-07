@@ -268,12 +268,12 @@ public class ChracterController : MonoBehaviour
         //ダッシュ時に移動速度を変更
         if (Input.GetKey(KeyCode.LeftShift) && !boost_empty)
         {
-            rb.linearVelocity = new Vector3(dash_x, move.y, dash_z);
+            rb.linearVelocity = new Vector3(dash_x * Player_Status.hitstop, move.y, dash_z *Player_Status.hitstop);
 
         }
         else//通常移動時の移動速度にする
         {
-            rb.linearVelocity = new Vector3(walk_x, move.y, walk_z);
+            rb.linearVelocity = new Vector3(walk_x * Player_Status.hitstop, move.y, walk_z * Player_Status.hitstop);
             camera_Fovreturn();
 
         }

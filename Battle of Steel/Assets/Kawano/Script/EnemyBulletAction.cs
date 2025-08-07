@@ -27,8 +27,15 @@ public class EnemyBulletAction : MonoBehaviour
         {
             //’eŠÛ‚ªƒvƒŒƒCƒ„[‚É“–‚½‚Á‚½‚ç‘Ì—Í‚ğŒ¸‚ç‚·
             GameObject explosive = Instantiate(explosive_effect, gameObject.transform.position, Quaternion.identity);
-            Debug.Log("Œ»İ‚Ì‘Ì—Í" +Player_Status.Player_HP );
-            Player_Status.Player_HP = cal.Damage_Cal(attack_damage,Player_Status.Player_HP);
+            if(!Player_Status.damaged)
+            {
+                Player_Status.Player_HP = cal.Damage_Cal(attack_damage, Player_Status.Player_HP);
+            }
+            else
+            {
+                //‚·‚Å‚Éƒ_ƒ[ƒW‚ğó‚¯‚Ä‚¢‚é‚É‚à‚¤ˆê“xUŒ‚‚ğ—^‚¦‚½‚çUŒ‚—ÍŒ¸Z
+                Player_Status.Player_HP = cal.Damage_Cal(attack_damage / 2, Player_Status.Player_HP);
+            }
             Player_Status.damaged = true;
             Destroy(gameObject);
         }

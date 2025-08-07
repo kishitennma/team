@@ -12,13 +12,18 @@ public class Player_Status : MonoBehaviour
     [Header("イメージ")]
     public GameObject weapon_image;//攻撃力増加イメージ
     public GameObject guide_image;//操作方法画像
+    [Header("エフェクト")]
     public GameObject Player_Exp;//プレイヤーの死亡時の爆発エフェクト
     private bool guide_flag = true;//ガイド表示フラグ
-    public static int weapons_f;
-    public static int weapons_s;
-    public static bool damaged;
-    private float death_timer = 0;
-    private GameObject Player;
+    public static int weapons_f;//メイン武器
+    public static int weapons_s;//サブ武器
+    public static bool damaged;//ダメージフラグ
+    private float death_timer = 0;//死ぬまでの時間
+    public static float hitstop = 1.0f;//ヒットストップ
+    private float hitstop_timer = 0f;//ヒットストップタイマー
+    const float MAX_HIT_TIMER = 5f;//ヒットストップの最大時間
+    private bool hitstop_flag = false;//ヒットストップフラグ
+    private GameObject Player;//プレイヤーオブジェクト
 
     [SerializeField] Image OnDamaged;
     //回復用変数
@@ -28,7 +33,6 @@ public class Player_Status : MonoBehaviour
     private bool heal_f = false;//回復エフェクト表示フラグ
     //回復定数
     const int HEAL_VALUE = 50;//回復力
-
 
     private void Start()
     {
@@ -44,10 +48,31 @@ public class Player_Status : MonoBehaviour
     {
         OnDamaged.color = Color.Lerp(OnDamaged.color,Color.clear,Time.deltaTime);
         if (damaged == true)
+        {
+            //ヒットストップを有効にする
+            hitstop_flag = true;
             Damage_Reaction();
+        }
+        //ヒットストップ
+        if(hitstop_flag == true)
+        {
+            hitstop_timer += 0.1f;
+            //設定した時間中は移動できなくする
+            if(hitstop_timer < MAX_HIT_TIMER)
+            {
+                hitstop = 0f;//移動速度に0を掛けて強制的に移動しなくする
+            }
+            else
+            {
+                //値の初期化
+                hitstop = 1f;
+                hitstop_timer = 0f;
+                hitstop_flag = false;
+            }
+        }
 
         //回復ボタン 
-        if(Input.GetKeyDown(KeyCode.R) && heal_count > 0)
+        if (Input.GetKeyDown(KeyCode.R) && heal_count > 0)
         {
             //体力が最大値と同等の時
             if(Player_HP >= Player_Max_HP)
