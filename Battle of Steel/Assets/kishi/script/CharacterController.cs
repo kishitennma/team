@@ -47,19 +47,12 @@ public class ChracterController : MonoBehaviour
     float dash_x;
     float dash_z;
     
-   
+    
     public bool IsJump = false;//空中判定
     public bool IsDash = false;//空中判定
 
 
 
-
-
-  
-
-
-
-   
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
@@ -268,10 +261,9 @@ public class ChracterController : MonoBehaviour
             //止まっている場合は減速
             if(add_speed > move_speed)
             {
-                add_speed -= 0.1f;
+                add_speed -= 2f;
             }
         }
-
 
         //ダッシュ時に移動速度を変更
         if (Input.GetKey(KeyCode.LeftShift) && !boost_empty)

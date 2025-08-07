@@ -137,7 +137,10 @@ public class Player_Status : MonoBehaviour
 
     void Damage_Reaction()
     {
-        OnDamaged.color = new Color(0.7f, 0, 0, 0.7f);
+        //ダメージを受けたら画面を赤くする
+        OnDamaged.color = new Color(0.7f, 0, 0, 0.65f);
+        //速度を減速させる
+
         damaged = false;
     }
 }

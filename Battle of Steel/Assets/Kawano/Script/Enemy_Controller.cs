@@ -5,17 +5,17 @@ using UnityEngine;
 public enum Enemy_Ai_Style
 {
     //敵のAIリスト
-    Idle,//停止
-    Boss_Idle,//ボス（停止）
-    Boss_Fast,//(散弾弾発射ボス)
+    Idle,
+    Boss_Idle,
+    Boss_Fast,
     Boss_Second,
-    Last_Boss
+    Last_Boss,
 }
 public enum Enemy_ID
 {
     //敵のIDリスト
-    Idle_Robot,//ロボット(停止)
-    Idle_Fast_Robot,//ロボット(弾丸高速発射)
+    Idle_Robot,
+    Idle_Fast_Robot,
     Boss_01,
     Boss_02,
     Boss_03,
