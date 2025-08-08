@@ -13,7 +13,7 @@ public class Boss_Cnt : Damage_Calclate
     public Dictionary<Enemy_ID, Enemy_Status> enemy_index = new()
     {
         //ここに敵のステータスを入力(体力、攻撃力、AI,発射レート)
-        {Enemy_ID.Last_Boss,new Enemy_Status(800, 3,Enemy_Ai_Style.Last_Boss,210f) },//ラストボス
+        {Enemy_ID.Last_Boss,new Enemy_Status(950, 3,Enemy_Ai_Style.Last_Boss,310f) },//ラストボス
     };
 
     //変数
@@ -42,8 +42,11 @@ public class Boss_Cnt : Damage_Calclate
     private bool stop_rand = false;
     void Start()
     {
+        //ボスのマテリアルを設定
         if (boss_mat == null)
+        {
             boss_mat = gameObject.GetComponent<Material>();
+        }
         boss_mat.color = Color.black;
         //エネミーのインデックスを取得
         e_status = enemy_index[id];
@@ -328,5 +331,4 @@ void OnTriggerStay(Collider collider)
                 break;
         }
     }
-
 }
