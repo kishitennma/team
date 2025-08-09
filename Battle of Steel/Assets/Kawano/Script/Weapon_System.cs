@@ -50,9 +50,9 @@ public class WeaponSystem : MonoBehaviour
         {-1,new Weapon_Date(WeaponType.Pistol,0,   0f,           0f,        0,            0f,    false,           0)},
 
         //武器データ(ステータスのみ)
-        {0,new Weapon_Date(WeaponType.Pistol,      20, 2f, 0.1f,  12, 0.005f,  false,22)},//ピストル
-        {1,new Weapon_Date(WeaponType.AssaultRifle,20, 24f, 0.15f, 48,  0.01f,  true,  6)},//アサルト
-        {2,new Weapon_Date(WeaponType.ShotGun,     20, 2.5f, 0.7f,  6,  0.06f,  false, 9)},//ショットガン
+        {0,new Weapon_Date(WeaponType.Pistol,      20, 2f ,  0.1f,  12, 0.005f,  false,22)},//ピストル
+        {1,new Weapon_Date(WeaponType.AssaultRifle,20, 24f,  0.15f, 48,  0.01f,  true,  6)},//アサルト
+        {2,new Weapon_Date(WeaponType.ShotGun,     20, 2.5f, 0.7f,   6,  0.06f,  false, 9)},//ショットガン
     };
 
     private List<Material> loadedMaterials = new();//マテリアルリスト
