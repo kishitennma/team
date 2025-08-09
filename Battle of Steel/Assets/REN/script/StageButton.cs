@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class StageButton : MonoBehaviour
 {
     //ここに増やしたい分コピーする
@@ -10,6 +9,8 @@ public class StageButton : MonoBehaviour
     public GameObject[]Text;
     //この下はステージ用
     public GameObject[]Stage;
+    //最大ステージ数
+    const int MAX_STAGE = 4;
 
     int STnum = 0;
 
@@ -63,7 +64,7 @@ public class StageButton : MonoBehaviour
     }
     void Stage_set()
     {
-        for(int i=0;i<4;i++)
+        for(int i=0;i<MAX_STAGE;i++)
         {
             if(i != STnum)
             {
