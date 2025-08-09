@@ -13,6 +13,7 @@ public class EnemyBulletAction : MonoBehaviour
     public int attack_damage = 0;//弾丸のダメージ
     private Damage_Calclate cal;//ダメージ計算
     private Vector3 b_vec;//弾丸の向いている方向
+    private static int hit_interval = 1;//ヒットストップ時に当たった回数
 
     private void Start()
     {
@@ -29,12 +30,15 @@ public class EnemyBulletAction : MonoBehaviour
             GameObject explosive = Instantiate(explosive_effect, gameObject.transform.position, Quaternion.identity);
             if(!Player_Status.damaged)
             {
+                hit_interval = 1;
                 Player_Status.Player_HP = cal.Damage_Cal(attack_damage, Player_Status.Player_HP);
             }
             else
             {
                 //すでにダメージを受けている時にもう一度攻撃を与えたら攻撃力減算
-                Player_Status.Player_HP = cal.Damage_Cal(attack_damage / 2, Player_Status.Player_HP);
+                hit_interval++;
+                //当たった回数から最終的なダメージを設定
+                Player_Status.Player_HP = cal.Damage_Cal(attack_damage / hit_interval , Player_Status.Player_HP);
             }
             Player_Status.damaged = true;
             Destroy(gameObject);
@@ -52,17 +56,27 @@ public class EnemyBulletAction : MonoBehaviour
         {
             //弾丸がプレイヤーに当たったら体力を減らす
             GameObject explosive = Instantiate(explosive_effect, gameObject.transform.position, Quaternion.identity);
-            Debug.Log("現在の体力" + Player_Status.Player_HP);
-            Player_Status.Player_HP = cal.Damage_Cal(attack_damage, Player_Status.Player_HP);
+            if (!Player_Status.damaged)
+            {
+                hit_interval = 1;
+                Player_Status.Player_HP = cal.Damage_Cal(attack_damage, Player_Status.Player_HP);
+            }
+            else
+            {
+                //すでにダメージを受けている時にもう一度攻撃を与えたら攻撃力減算
+                hit_interval++;
+                //当たった回数から最終的なダメージを設定
+                Player_Status.Player_HP = cal.Damage_Cal(attack_damage / hit_interval, Player_Status.Player_HP);
+            }
+            Player_Status.damaged = true;
             Destroy(gameObject);
-        }
 
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            //壁に当たったら消す
-            Destroy(gameObject);
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                //壁に当たったら消す
+                Destroy(gameObject);
+            }
         }
-
     }
     private void OnTriggerStay(Collider other)
     {
