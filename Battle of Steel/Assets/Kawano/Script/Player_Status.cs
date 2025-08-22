@@ -42,6 +42,7 @@ public class Player_Status : MonoBehaviour
         weapon_image.SetActive(false);//UŒ‚—Í‚ªã¸’†‚É•\¦‚³‚¹‚é‰æ‘œ
         OnDamaged.color = Color.clear;
         death_timer = 0;
+        guide_flag = false;
     }
 
     private void Update()
