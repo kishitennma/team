@@ -6,6 +6,7 @@ public class RockOn : MonoBehaviour
     [Header("ロックオンコンポーネント")]
     [Header("オブジェクト")]
     [SerializeField] GameObject player;//プレイヤーオブジェクト
+    [SerializeField] GameObject cam;//カメラ
     [Header("ロックオン設定")]
     [SerializeField] float lockon_range = 0.0f;//ロックオンの距離
     [SerializeField] GameObject RockOnImage;//ロックオンイメージ画像
@@ -13,11 +14,12 @@ public class RockOn : MonoBehaviour
     private Transform lockon_target;
     private bool is_lock_on;
     private float rotate_speed = 90;
-    private bool lockon_flag = false;
+    public static bool lockon_flag = false;
     private Vector3 add_vec;
 
     private void Start()
     {
+        lockon_flag = false;
         RockOnImage.SetActive(false);
     }
 
@@ -109,7 +111,9 @@ public class RockOn : MonoBehaviour
                 RockOnImage.transform.position = lockon_target.position - (direction/3);
                 RockOnImage.transform.position += add_vec;
                 RockOnImage.transform.rotation = Quaternion.LookRotation(direction);
-               
+                cam.transform.rotation = RockOnImage.transform.rotation;
+                player.transform.rotation = Quaternion.LookRotation(direction);
+
 
                 RockOnImage.SetActive(true);
 

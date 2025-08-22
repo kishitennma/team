@@ -4053,6 +4053,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 878867883}
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: Camera_obj
+      value: 
+      objectReference: {fileID: 705146462}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: Heal_Effect
       value: 
       objectReference: {fileID: 885871162}
@@ -4068,6 +4072,10 @@ PrefabInstance:
       propertyPath: weapon_image
       value: 
       objectReference: {fileID: 1071749383}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: "Player\uFF3FCamera"
+      value: 
+      objectReference: {fileID: 705146462}
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: Weapon_image.Array.size
       value: 2
@@ -7970,6 +7978,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eda6842fdaa54348846dd6f673bf305, type: 3}
+--- !u!1 &705146462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1860795035899846815, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 8986814247446446973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705560323
 GameObject:
   m_ObjectHideFlags: 0
@@ -11329,7 +11342,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8397907528847077823, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
   m_PrefabInstance: {fileID: 8986814247446446973}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 705146462}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614ae1ac068385f459bf364d12f0ccc7, type: 3}
@@ -23117,7 +23130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640845481220299531, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -219.09991
+      value: -219.09988
       objectReference: {fileID: 0}
     - target: {fileID: 7770769820413647637, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_IsActive

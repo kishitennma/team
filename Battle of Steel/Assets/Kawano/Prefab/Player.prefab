@@ -1279,6 +1279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5518620847178015423}
+  cam: {fileID: 2808614653279575925}
   lockon_range: 25
   RockOnImage: {fileID: 0}
 --- !u!114 &1606614295994982429
@@ -1303,8 +1304,6 @@ MonoBehaviour:
   set_key: 113
   Change_Image: {fileID: 803880520192088349}
   hold_secondry_weapon: 0
-  weapon_system: {fileID: 8169208741916589253}
-  not_equiped_weap_s: {fileID: 8329112328946954173}
 --- !u!114 &7807451698648124575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,7 +1446,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -439.10016
+      value: -439.10013
       objectReference: {fileID: 0}
     - target: {fileID: 148898895059657405, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1563,7 +1562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -411.10016
+      value: -411.10013
       objectReference: {fileID: 0}
     - target: {fileID: 4886373221883689776, guid: daec22eeaa94aec44921da59d6691098, type: 3}
       propertyPath: m_AnchoredPosition.y

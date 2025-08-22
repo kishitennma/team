@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 6a009067338b9df4684d97696db67b84, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -2507,7 +2507,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8397907528847077823, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
   m_PrefabInstance: {fileID: 8986814247446446973}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8986814247446446974}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614ae1ac068385f459bf364d12f0ccc7, type: 3}
@@ -2942,6 +2942,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 904608394}
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: Camera_obj
+      value: 
+      objectReference: {fileID: 393299108}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: Heal_Effect
       value: 
       objectReference: {fileID: 954760987}
@@ -2957,6 +2961,10 @@ PrefabInstance:
       propertyPath: weapon_image
       value: 
       objectReference: {fileID: 1071749383}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: "Player\uFF3FCamera"
+      value: 
+      objectReference: {fileID: 8986814247446446974}
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: Weapon_image.Array.size
       value: 2
@@ -3134,6 +3142,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2562101251801976702, guid: 5584b606ff5fd854a9a5846d073d2fc3, type: 3}
   m_PrefabInstance: {fileID: 388699018}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &393299108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2808614653279575925, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 8986814247446446973}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &399240135
 PrefabInstance:
@@ -16090,6 +16103,11 @@ PrefabInstance:
       addedObject: {fileID: 904608393}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+--- !u!1 &8986814247446446974 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1860795035899846815, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 8986814247446446973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9088605554154184141
 PrefabInstance:
   m_ObjectHideFlags: 0

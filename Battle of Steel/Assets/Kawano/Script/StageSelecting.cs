@@ -7,6 +7,7 @@ public class StageSelecting : MonoBehaviour
     public Text stage_text;//ステージの説明、難易度表示
     public Image stage_image;//ステージの画像
     public SEandSceneChange scene;//シーン切り替えスクリプト
+    public GameObject Star;//クリア時の★
 
     [Header("ステージ画像,ステージ名")]
     public Sprite[] S_Images;
@@ -14,12 +15,16 @@ public class StageSelecting : MonoBehaviour
     public string[] S_Texts;
     [Header("ステージのシーン名")]
     public string[] scene_setname;//シーンの名前
-
-    int now_stage = 0;//現在選択しているステージ
+    //各ステージのクリア状況
+    public static bool[] clear_flags = 
+    { 
+    false, false, false, false, false,
+    };    int now_stage = 0;//現在選択しているステージ
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         now_stage = 0;//初期化
+        Star.SetActive(false);//初期は非表示
     }
     // Update is called once per frame
     void Update()
@@ -34,11 +39,21 @@ public class StageSelecting : MonoBehaviour
         {
             if(i == now_stage)
             {
-                stage_image.sprite     = S_Images[i];
+                stage_image.sprite = S_Images[i];
                 stage_text.text = S_Texts[i];
                 stage_name.text = S_Names[i];
                 scene.sceneName = scene_setname[i];
                 Scene_Save.Scene_Value = now_stage;//リトライ用の値設定
+
+                //クリア状況から★を表示
+                if (clear_flags[now_stage])
+                {
+                    Star.SetActive(true);
+                }
+                else
+                {
+                    Star.SetActive(false);   
+                }
             }
         }
     }

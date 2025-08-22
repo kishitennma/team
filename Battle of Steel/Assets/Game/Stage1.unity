@@ -642,7 +642,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8397907528847077823, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
   m_PrefabInstance: {fileID: 746381535}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 746381538}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614ae1ac068385f459bf364d12f0ccc7, type: 3}
@@ -999,6 +999,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2956436193905015037, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
   m_PrefabInstance: {fileID: 746381535}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &746381537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2808614653279575925, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 746381535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &746381538 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1860795035899846815, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 746381535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &826392008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1242,6 +1252,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 29032783}
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: Camera_obj
+      value: 
+      objectReference: {fileID: 746381537}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: Heal_Effect
       value: 
       objectReference: {fileID: 2069352339}
@@ -1253,6 +1267,10 @@ PrefabInstance:
       propertyPath: weapon_image
       value: 
       objectReference: {fileID: 1164142401}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: "Player\uFF3FCamera"
+      value: 
+      objectReference: {fileID: 746381538}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1574,7 +1574,7 @@ MonoBehaviour:
   persistentScenes:
   - Menu
   - Gametitle
-  - Customize
+  - 
   - Guide
   - credit
   - 

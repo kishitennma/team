@@ -66,6 +66,8 @@ public class Enemy_Manager : MonoBehaviour
                 else
                 {
                     clear_text.SetActive(true);
+                    //クリアフラグの保持したステージ番目をクリア扱いにする
+                    StageSelecting.clear_flags[Scene_Save.Scene_Value] = true;
                     //経過時間をカウント
                     step_time += 0.1f;
 
@@ -86,6 +88,9 @@ public class Enemy_Manager : MonoBehaviour
                 {
                     invoke_time++;
                     clear_text.SetActive(true);//クリアのテキスト表示
+                   　//クリアフラグの保持したステージ番目をクリア扱いにする
+                    StageSelecting.clear_flags[Scene_Save.Scene_Value] = true;
+
                     if (invoke_time > MAX_INVOKE)
                     {
                         SceneManager.LoadScene("Result");
@@ -130,7 +135,10 @@ public class Enemy_Manager : MonoBehaviour
             {
                 invoke_time++;
                 clear_text.SetActive(true);
-                if(invoke_time > MAX_INVOKE)
+                //クリアフラグの保持したステージ番目をクリア扱いにする
+                StageSelecting.clear_flags[Scene_Save.Scene_Value] = true;
+
+                if (invoke_time > MAX_INVOKE)
                 {
                     SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
 
@@ -148,6 +156,8 @@ public class Enemy_Manager : MonoBehaviour
                 {
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
+                    //クリアフラグの保持したステージ番目をクリア扱いにする
+                    StageSelecting.clear_flags[Scene_Save.Scene_Value] = true;
 
                     SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
                     invoke_time = 0;
