@@ -15,7 +15,6 @@ public class Enemy_Manager : MonoBehaviour
     private List<GameObject> enemys = new();//エネミーのリスト
     private int boss_set_time = 0;
     private int invoke_time = 0;//遅延時間
-    private float step_time;    //経過時間カウント用
 
     //定数
     const int MAX_INVOKE = 50;
@@ -69,10 +68,10 @@ public class Enemy_Manager : MonoBehaviour
                     //クリアフラグの保持したステージ番目をクリア扱いにする
                     StageSelecting.clear_flags[Scene_Save.Scene_Value] = true;
                     //経過時間をカウント
-                    step_time += 0.1f;
+                    invoke_time++;
 
                     //3秒後に画面遷移（リザルトへ移動）
-                    if (step_time >= 30.0f)
+                    if (invoke_time >= MAX_INVOKE)
                     {
                         //カーソルを元に戻す
                         SceneManager.LoadScene("Result");//いったんタイトルに戻る//リザルト画面
