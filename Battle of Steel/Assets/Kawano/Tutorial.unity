@@ -1647,7 +1647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 277.3, y: 118.07999}
+  m_AnchoredPosition: {x: 277.3, y: 206.6}
   m_SizeDelta: {x: -554.7, y: -417.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1820283073
@@ -2194,6 +2194,10 @@ PrefabInstance:
       propertyPath: not_equip_weapon_point
       value: 
       objectReference: {fileID: 1725316363}
+    - target: {fileID: 1762347514497000546, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 29d9bc1bb5710754a949befa3a8d2f89, type: 2}
     - target: {fileID: 1860795035899846815, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2273,7 +2277,7 @@ PrefabInstance:
       insertIndex: 0
       addedObject: {fileID: 2086680064}
     - targetCorrespondingSourceObject: {fileID: 1513307188622554853, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 1820283072}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
