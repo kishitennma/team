@@ -766,12 +766,12 @@ MonoBehaviour:
     Samples\nUnity Technologies\nhttps://assetstore.unity.com/packages/essentials/ui-samples-25468?locale=ja-JP&srsltid=AfmBOoqTHVVJUE7lfFqSKQZur2AU4ZDbVWAqShpC2-ihrYvY2b4i0Wp-\n\nUrban
     Sky scrapers\ndactilardesign\nhttps://assetstore.unity.com/packages/3d/environments/urban/skyscrapers-2061?locale=ja-JP&srsltid=AfmBOooLO4QlUGuqN6yolCc9d_SDZZuEwzwAT3FIQNU8rO52Qi9r9YIE\n\nWhite
     City\nALlyerEdon\nhttps://assetstore.unity.com/packages/3d/environments/urban/white-city-76766?locale=ja-JP&srsltid=AfmBOoo87c5TzH4SH7tvZUot30N_lDGyXpSn-DIb99Pqg2S3pgHXpss9\n\nuse
-    BGM\u3000\n\u9B54\u738B\u9B42\n\u30B5\u30A4\u30D0\u30FC43 -Crossing-\n\nDova-Syndrome\n\u30A8\u30C7\u30A3\u30C3\u30C8\u30E2\u30FC\u30C902 
-    \u98A8\u4EBA\nFighting spirits   Causality Sound\n\n\u4F7F\u7528 SE\n\u52B9\u679C\u97F3\u30E9\u30DC\nhttps://soundeffect-lab.info/sound/battle/battle2.html
+    BGM\n\u9B54\u738B\u9B42\n\u30B5\u30A4\u30D0\u30FC43 -Crossing-\n\nDova-Syndrome\n\u30A8\u30C7\u30A3\u30C3\u30C8\u30E2\u30FC\u30C902 
+    \u98A8\u4EBA\nFighting spirits   Causality Sound\n\nuse SE\n\u52B9\u679C\u97F3\u30E9\u30DC\nhttps://soundeffect-lab.info/sound/battle/battle2.html
     \n\u7206\u767A(3)\nhttps://teams.microsoft.com/l/message/19:992876c423ba407eb5e448b3c16a6e95@thread.v2/1750294650868?context=%7B%22contextType%22%3A%22chat%22%7D\n\n\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 700a37550b8575f45a0c290ead65190b, type: 2}
+  m_sharedMaterial: {fileID: 2653158534525291399, guid: 700a37550b8575f45a0c290ead65190b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -855,7 +855,7 @@ MeshRenderer:
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
@@ -865,7 +865,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2653158534525291399, guid: 700a37550b8575f45a0c290ead65190b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1246,8 +1246,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1528024969}
   m_HandleRect: {fileID: 1528024968}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.26823685
+  m_Value: 1.0000001
+  m_Size: 0.21423174
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
