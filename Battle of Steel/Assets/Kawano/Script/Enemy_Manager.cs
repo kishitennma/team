@@ -17,7 +17,7 @@ public class Enemy_Manager : MonoBehaviour
     private int invoke_time = 0;//’x‰„ŠÔ
 
     //’è”
-    const int MAX_INVOKE = 50;
+    const int MAX_INVOKE = 100;
 
 
     private void Awake()

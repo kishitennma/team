@@ -249,7 +249,7 @@ MonoBehaviour:
   - {fileID: 5469406016197046517, guid: 3ae377ee95d2c924aa2cd51cba0175c0, type: 3}
   - {fileID: 4954745963997508492, guid: c5d0c7b8659e0ae409e10ec891a2a0c9, type: 3}
   bullet_point: {fileID: 6917285836103759035}
-  Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
+  Explosive_unit: {fileID: 1281529153650206152, guid: dcbccb16b5e1e514996b055fb1162ffd, type: 3}
   a_source: {fileID: 4976767362290315386}
   boss_mat: {fileID: 2100000, guid: c0843b037f0b95a428f31e2753825c60, type: 2}
   count_game_state: 0

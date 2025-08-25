@@ -153,7 +153,7 @@ MonoBehaviour:
   - {fileID: 4954745963997508492, guid: c5d0c7b8659e0ae409e10ec891a2a0c9, type: 3}
   bullet_point: {fileID: 1017766466973452803}
   bullet_force: 220
-  Explosive_unit: {fileID: 1281529153650206152, guid: 62a122af6e08b0c4f9d06c231a2b6b12, type: 3}
+  Explosive_unit: {fileID: 1281529153650206152, guid: dcbccb16b5e1e514996b055fb1162ffd, type: 3}
   a_source: {fileID: 8528550338523707408}
   Enemy_Die: {fileID: 8898038457827238276, guid: 8f53feb770b6e19438d920712759cb99, type: 3}
 --- !u!135 &2104476185054321052
