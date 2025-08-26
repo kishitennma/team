@@ -371,8 +371,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 545, y: -710}
-  m_SizeDelta: {x: 505.7153, y: 118.128}
+  m_AnchoredPosition: {x: 352.6693, y: -560}
+  m_SizeDelta: {x: 897.761, y: 195.926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &318065416
 MonoBehaviour:
@@ -396,12 +396,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2c82ed6bbfe25d045a9e9cd779c9b83f, type: 3}
-    m_FontSize: 80
+    m_FontSize: 150
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 80
-    m_Alignment: 0
+    m_MaxSize: 160
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -429,8 +429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiElement: {fileID: 318065415}
-  startPos: {x: -900, y: -710}
-  endPos: {x: 545, y: -710}
+  startPos: {x: -1200, y: -550}
+  endPos: {x: 300, y: -550}
   slideDuration: 2
   waitTime: 1
 --- !u!1 &491186967
@@ -1239,8 +1239,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.6586, y: 169.8749}
-  m_SizeDelta: {x: 1249.6724, y: 740.6245}
+  m_AnchoredPosition: {x: 9, y: 256}
+  m_SizeDelta: {x: 751.5368, y: 297.3005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1700492071
 MonoBehaviour:

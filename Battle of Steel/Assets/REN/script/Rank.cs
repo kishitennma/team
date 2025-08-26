@@ -12,7 +12,11 @@ public class Rank : MonoBehaviour
         //PlayerPrefsから前のシーンで保存された値を取得する
         HP = Player_Status.Player_HP;
 
-      
+        //デバッグ
+        //HP = 90;
+        //HP = 70;
+        //HP = 50;
+        //HP = 30;
 
         //countText.text = HP.ToString();   //現在の体力を表示(リザルトなので多分いらない)
         rankText.text = "";                 //初期は空
@@ -21,22 +25,27 @@ public class Rank : MonoBehaviour
         if (HP == 100)
         {
             rankText.text = "Perfect!"; //EXランク
+            rankText.color = Color.cyan;
         }
         else if (HP >= 80)
         {
             rankText.text = "Rank:S"; //最高ランク
+            rankText.color = Color.yellow;
         }
         else if (HP >= 60)
         {
             rankText.text = "Rank:A"; //中ランク
+            rankText.color = Color.green;
         }
         else if (HP >= 40)
         {
             rankText.text = "Rank:B"; //低ランク
+            rankText.color = Color.red;
         }
         else
         {
             rankText.text = "Rank:C"; //最低ランク
+            rankText.color = Color.gray;
         }
     }
 }
