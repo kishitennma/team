@@ -150,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 68020148}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1418, y: 707.54126, z: 2562.1646}
+  m_LocalPosition: {x: -1817, y: 707.54126, z: 2562.1646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -371,7 +371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1778, y: -560}
+  m_AnchoredPosition: {x: 134, y: -560}
   m_SizeDelta: {x: 897.761, y: 195.926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &318065416
@@ -429,8 +429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiElement: {fileID: 318065415}
-  startPos: {x: -1700, y: -500}
-  endPos: {x: 120, y: -500}
+  startPos: {x: 200, y: -500}
+  endPos: {x: 1877, y: -500}
   slideDuration: 2
   waitTime: 1
 --- !u!1 &491186967
