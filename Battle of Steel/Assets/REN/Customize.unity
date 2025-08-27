@@ -3527,8 +3527,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_click_flag: 0
-  SButton: {fileID: 479521457}
-  Ready: {fileID: 106873735}
 --- !u!4 &1276846771
 Transform:
   m_ObjectHideFlags: 0
@@ -5057,6 +5055,7 @@ GameObject:
   - component: {fileID: 1905696654}
   - component: {fileID: 1905696656}
   - component: {fileID: 1905696655}
+  - component: {fileID: 1905696657}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -5121,6 +5120,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905696653}
   m_CullTransparentMesh: 1
+--- !u!114 &1905696657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905696653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5a0cb5ae61a8a42b1351c2fbe71373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  now_weap_count: 0
+  SButton: {fileID: 479521457}
+  Ready: {fileID: 106873735}
 --- !u!224 &1909753353 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
