@@ -1,14 +1,22 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Set_Weapon_Data : MonoBehaviour
 {
     List<int> selectWeapons = new();
     public bool max_click_flag;
+    public Button SButton;
+    public Text Ready;
     private int index_num = 0;
-
+    private Color nowColor;
+    private float timer;
+    private float dur = 1f;
     private void Start()
     {
+        Ready.text = "Select 2 Weapons";
+        Ready.color = Color.white;
         Delete_Weapon_Index();
     }
     private void Update()
@@ -18,11 +26,24 @@ public class Set_Weapon_Data : MonoBehaviour
 
         //•Ší‚ğ“ñ‚Â‘I‘ğ‚µ‚½‚çŸ‚Éi‚ß‚é‚æ‚¤‚É‚·‚é
         if (index_num == 2)
-            max_click_flag = true;
-        if (index_num < 2)
-            max_click_flag = false;
+        {
+            timer += Time.deltaTime;
+            float t = Mathf.PingPong(timer / dur,1f);
+            nowColor = Color.Lerp(Color.cyan, Color.yellow,t);
+            var cb = SButton.colors;
+            cb.normalColor = nowColor;
+            SButton.colors = cb;
+            Ready.text = "Ready?";
+            Ready.color = Color.cyan;
 
-        Debug.Log(index_num);
+            max_click_flag = true;
+        }
+        if (index_num < 2)
+        {
+            Ready.text = "Select 2 Weapon";
+            Ready.color = Color.white;
+            max_click_flag = false;
+        }
     }
 
     public void Set_Weapons_Index(int set_number)
