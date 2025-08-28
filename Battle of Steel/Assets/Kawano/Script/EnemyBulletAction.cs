@@ -14,6 +14,7 @@ public class EnemyBulletAction : MonoBehaviour
     private Damage_Calclate cal;//ダメージ計算
     private Vector3 b_vec;//弾丸の向いている方向
     private static int hit_interval = 1;//ヒットストップ時に当たった回数
+    public static int hit_counts = 0;//当たった回数
 
     private void Start()
     {
@@ -28,7 +29,8 @@ public class EnemyBulletAction : MonoBehaviour
         {
             //弾丸がプレイヤーに当たったら体力を減らす
             GameObject explosive = Instantiate(explosive_effect, gameObject.transform.position, Quaternion.identity);
-            if(!Player_Status.damaged)
+            hit_counts++;//被弾回数増加
+            if (!Player_Status.damaged)
             {
                 hit_interval = 1;
                 Player_Status.Player_HP = cal.Damage_Cal(attack_damage, Player_Status.Player_HP);
@@ -56,6 +58,7 @@ public class EnemyBulletAction : MonoBehaviour
         {
             //弾丸がプレイヤーに当たったら体力を減らす
             GameObject explosive = Instantiate(explosive_effect, gameObject.transform.position, Quaternion.identity);
+            hit_counts++;//被弾回数増加
             if (!Player_Status.damaged)
             {
                 hit_interval = 1;

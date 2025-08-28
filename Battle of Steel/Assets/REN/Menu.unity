@@ -1574,11 +1574,8 @@ MonoBehaviour:
   persistentScenes:
   - Menu
   - Gametitle
-  - 
   - Guide
   - credit
-  - 
-  - 
 --- !u!114 &1021282069 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1404711997279810526, guid: 12910b88ba9127543b9aef5eeab024b8, type: 3}

@@ -28,7 +28,6 @@ public class Player_Status : MonoBehaviour
 
     [SerializeField] Image OnDamaged;
     //回復用変数
-    public int heal_count = 3;//回復できる回数
     public GameObject Heal_Effect;//回復エフェクト
     private int heal_timer = 0;//回復エフェクト発生時間
     private bool heal_f = false;//回復エフェクト表示フラグ
@@ -37,6 +36,8 @@ public class Player_Status : MonoBehaviour
     //定数
     const int HEAL_VALUE = 50;//回復力
     const float MAX_SHAKE = 0.7f;//最大振動幅
+    public static int MAX_HEAL_COUNTS = 3;
+    public static int heal_count = MAX_HEAL_COUNTS;//回復できる回数
 
 
     private void Start()
@@ -47,6 +48,8 @@ public class Player_Status : MonoBehaviour
         weapon_image.SetActive(false);//攻撃力が上昇中に表示させる画像
         OnDamaged.color = Color.clear;
         death_timer = 0;
+        heal_count = MAX_HEAL_COUNTS;
+        EnemyBulletAction.hit_counts = 0;//被弾回数を初期化
         guide_flag = false;
     }
 

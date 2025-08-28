@@ -8,7 +8,6 @@ public class StageSelecting : MonoBehaviour
     public Image stage_image;//ステージの画像
     public SEandSceneChange scene;//シーン切り替えスクリプト
     public GameObject Star;//クリア時の★
-
     [Header("ステージ画像,ステージ名")]
     public Sprite[] S_Images;
     public string[] S_Names;
@@ -18,7 +17,7 @@ public class StageSelecting : MonoBehaviour
     //各ステージのクリア状況
     public static bool[] clear_flags = 
     { 
-    false, false, false, false, false,
+    false, false, false, false, false, false,
     };    int now_stage = 0;//現在選択しているステージ
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
