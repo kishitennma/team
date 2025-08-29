@@ -534,7 +534,6 @@ MonoBehaviour:
   Player_Exp: {fileID: 1281529153650206152, guid: dcbccb16b5e1e514996b055fb1162ffd, type: 3}
   "Player\uFF3FCamera": {fileID: 1473632274}
   OnDamaged: {fileID: 2086680065}
-  heal_count: 3
   Heal_Effect: {fileID: 1702671131}
 --- !u!114 &318744323
 MonoBehaviour:
@@ -1647,8 +1646,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 277.3, y: 206.6}
-  m_SizeDelta: {x: -554.7, y: -417.37}
+  m_AnchoredPosition: {x: 4, y: -124}
+  m_SizeDelta: {x: -462.6, y: -451.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1820283073
 MonoBehaviour:
@@ -2008,7 +2007,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2039,8 +2038,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00058937, y: -3.1081}
-  m_SizeDelta: {x: 341.7, y: 93.068}
+  m_AnchoredPosition: {x: -0.0022392, y: -0.000046253}
+  m_SizeDelta: {x: 456.4, y: 65.414}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1951816963
 PrefabInstance:
@@ -2270,7 +2269,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2575321570600901489, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1513307188622554853, guid: ecd9602eab41fba4b92000b051b35607, type: 3}

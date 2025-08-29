@@ -73,21 +73,21 @@ public class Tutorial_Manager : MonoBehaviour
         {
 
             case 1:
-                tutorial_text.text = "WASDで前後左右に移動";break;
+                tutorial_text.text = "WASD : 移動";break;
             case 2:
-                tutorial_text.text = "Shiftを押しながらWASDでその方向にダッシュ";break;
+                tutorial_text.text = "左Shift + WASD : ダッシュ";break;
             case 3:
-                tutorial_text.text = "Spaceでジャンプ"; break;
+                tutorial_text.text = "Space : ジャンプ"; break;
             case 4:
-                tutorial_text.text = "左クリックで弾丸を発射";break;
+                tutorial_text.text = "左クリック : 弾丸発射";break;
             case 5:
-                tutorial_text.text = "右クリックで敵をロックオン";break;
+                tutorial_text.text = "右クリック : ロックオン";break;
             case 6:
-                tutorial_text.text = "Qキーで武器切り替え";break;
+                tutorial_text.text = "Qキー : 武器切り替え";break;
             case 7:
-                tutorial_text.text = "Rキーで回復(三回まで)";break;
+                tutorial_text.text = "Rキー : 回復(三回まで)";break;
             case 8:
-                tutorial_text.text = "チュートリアル終了\n全ての敵を倒せ！！！";break;
+                tutorial_text.text = "全ての敵を倒せ！";break;
         }
     }
 }
