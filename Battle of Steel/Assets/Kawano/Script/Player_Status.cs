@@ -12,6 +12,7 @@ public class Player_Status : MonoBehaviour
     [Header("イメージ")]
     public GameObject weapon_image;//攻撃力増加イメージ
     public GameObject guide_image;//操作方法画像
+    public Text heal_text;
     [Header("エフェクト")]
     public GameObject Player_Exp;//プレイヤーの死亡時の爆発エフェクト
     private bool guide_flag = true;//ガイド表示フラグ
@@ -55,7 +56,17 @@ public class Player_Status : MonoBehaviour
 
     private void Update()
     {
-        OnDamaged.color = Color.Lerp(OnDamaged.color,Color.clear,Time.deltaTime);
+        heal_text.text = "回復 :" + heal_count + "/" + MAX_HEAL_COUNTS;
+        if(heal_count == 0)
+        {
+            heal_text.color = Color.red;
+        }
+        else
+        {
+            heal_text.color = Color.green;
+        }
+
+            OnDamaged.color = Color.Lerp(OnDamaged.color, Color.clear, Time.deltaTime);
         if (damaged == true && hitstop_flag == false)
         {
             //ヒットストップを有効にする
