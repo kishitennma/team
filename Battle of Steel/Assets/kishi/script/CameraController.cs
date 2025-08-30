@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControllert : MonoBehaviour
@@ -9,7 +7,7 @@ public class CameraControllert : MonoBehaviour
     public float height; // カメラの高さ
     public float smoothSpeed; // カメラの回転速度
 
-    void Update()
+    void FixedUpdate()
     {
         // マウスの移動量を取得
         float my = Input.GetAxis("Mouse Y");

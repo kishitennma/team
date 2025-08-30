@@ -16,6 +16,7 @@ public class RockOn : MonoBehaviour
     private float rotate_speed = 90;
     public static bool lockon_flag = false;
     private Vector3 add_vec;
+    private Quaternion Get_Rotate;
 
     private void Start()
     {
@@ -23,10 +24,11 @@ public class RockOn : MonoBehaviour
         RockOnImage.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(Input.GetMouseButtonDown(1))
         {
+            Get_Rotate.x = cam.transform.rotation.x;
             if (!lockon_flag)
                 lockon_flag = true;
             else

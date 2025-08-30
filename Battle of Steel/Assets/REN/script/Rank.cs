@@ -15,9 +15,9 @@ public class Rank : MonoBehaviour
         HP = Player_Status.Player_HP;
         heal_cnt = (sub_heal_cnt - Player_Status.heal_count);
         rankText.text = "";                                          //初期は空
-        hp_text.text =   "体力      : " + HP;                        //体力の表示
+        hp_text.text =   "体力　　　: " + HP;                        //体力の表示
         heal_text.text = "回復回数  : " + heal_cnt;                  //最大数からの差分を表示
-        hit_text.text = "被弾回数  : " + EnemyBulletAction.hit_counts;//被弾回数表示
+        hit_text.text =  "被弾回数  : " + EnemyBulletAction.hit_counts;//被弾回数表示
 
         //プレイヤーの残り体力、回復数に応じてランク分け
         if (HP == 100 && heal_cnt == 0)
