@@ -139,7 +139,6 @@ public class WeaponSystem : MonoBehaviour
             if (!on_reload)
             {
                 HandleInput();
-                Not_Changed_Weap = false;
             }
             else
             {
@@ -167,8 +166,8 @@ public class WeaponSystem : MonoBehaviour
                 //リロードしていたら
                 set_timer++;
                 set_rel_time = Reload_Set_Time(magazine_size, reload_time);//リロードにかかる時間を算出
-                Not_Changed_Weap = true;
-                if (bullets_left < magazine_size && set_timer > set_rel_time*12)
+                //Not_Changed_Weap = true;
+                if (bullets_left < magazine_size && set_timer > set_rel_time * 20)
                 {
                     //所持弾数が最大弾数より小さく、リロード時間を超えたら弾丸を１増加
                     bullets_left++;
@@ -176,7 +175,7 @@ public class WeaponSystem : MonoBehaviour
                     //最大段数まで回復したら終了
                     if (bullets_left == magazine_size)
                     {
-                        Not_Changed_Weap = true;
+                        Not_Changed_Weap = false;
                         on_reload = false;
                     }
                 }

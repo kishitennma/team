@@ -4061,6 +4061,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 705146462}
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: heal_sound
+      value: 
+      objectReference: {fileID: 8986814247446446975}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: Heal_Effect
       value: 
       objectReference: {fileID: 885871162}
@@ -23177,6 +23181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &8986814247446446975 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1625670971618291351, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 8986814247446446973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9088605554154184141
 PrefabInstance:
   m_ObjectHideFlags: 0

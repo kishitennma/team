@@ -93,7 +93,7 @@ public class Player_Weapon_Manager : MonoBehaviour
         set_weapon.transform.rotation = not_equip_weapon_point.rotation;
         set_weapon.transform.localScale = not_equip_weapon_point.localScale;
         Change_Image.color = Color.red;
-        Invoke(nameof(Set_End_Change_Anim), 0.4f);
+        Invoke(nameof(Set_End_Change_Anim), 0.2f);
 
     }
     //武器変更用アニメーションストップ

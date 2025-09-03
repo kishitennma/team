@@ -1020,6 +1020,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &746381540 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1625670971618291351, guid: ecd9602eab41fba4b92000b051b35607, type: 3}
+  m_PrefabInstance: {fileID: 746381535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &826392008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1270,6 +1275,10 @@ PrefabInstance:
       propertyPath: Camera_obj
       value: 
       objectReference: {fileID: 746381537}
+    - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
+      propertyPath: heal_sound
+      value: 
+      objectReference: {fileID: 746381540}
     - target: {fileID: 2102451750669489712, guid: 130330f7ee0da8242a3a5c588a62b42b, type: 3}
       propertyPath: Heal_Effect
       value: 

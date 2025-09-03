@@ -33,7 +33,7 @@ public class Player_Status : MonoBehaviour
     private int heal_timer = 0;//回復エフェクト発生時間
     private bool heal_f = false;//回復エフェクト表示フラグ
     private Vector3 C_Start_Pos;
-    private Vector3 C_Pos;
+    public AudioSource heal_sound;
     //定数
     const int HEAL_VALUE = 50;//回復力
     const float MAX_SHAKE = 0.7f;//最大振動幅
@@ -114,6 +114,7 @@ public class Player_Status : MonoBehaviour
             {
                 heal_count--;//使用回数を減らす
                 Heal_Effect.SetActive(true);
+                heal_sound.Play();
                 heal_f = true;
                 Heal();
             }

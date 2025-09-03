@@ -19,23 +19,23 @@ public class Rank : MonoBehaviour
         heal_text.text = "回復回数  : " + heal_cnt;                  //最大数からの差分を表示
         hit_text.text =  "被弾回数  : " + EnemyBulletAction.hit_counts;//被弾回数表示
 
-        //プレイヤーの残り体力、回復数に応じてランク分け
+        //プレイヤーの残り体力、回復回数に応じてランク分け
         if (HP == 100 && heal_cnt == 0)
         {
             rankText.text = "Perfect!"; //EXランク
             rankText.color = Color.cyan;
         }
-        else if (HP >= 80 || heal_cnt > 0)
+        else if (HP >= 80 && heal_cnt <= 1)
         {
             rankText.text = "Rank:S"; //最高ランク
             rankText.color = Color.yellow;
         }
-        else if (HP >= 60 || heal_cnt > 1)
+        else if (HP >= 60 && heal_cnt <= 2)
         {
             rankText.text = "Rank:A"; //中ランク
             rankText.color = Color.green;
         }
-        else if (HP >= 40 || heal_cnt > 2)
+        else if (HP >= 50 && heal_cnt <= 3)
         {
             rankText.text = "Rank:B"; //低ランク
             rankText.color = Color.red;

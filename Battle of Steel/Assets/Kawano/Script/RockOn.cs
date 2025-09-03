@@ -24,7 +24,7 @@ public class RockOn : MonoBehaviour
         RockOnImage.SetActive(false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if(Input.GetMouseButtonDown(1))
         {
